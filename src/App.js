@@ -1,23 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import Login from './pages/Login.js';
+import CreateProfile from './pages/CreateProfile.js';
+import Profile from './pages/Profile.js';
+import EditProfile from './pages/EditProfile.js';
+
+import Cat from './images/cat.jpg';
+  function App(){
+    const user = {
+      src:Cat,
+      displayName:"carrot",
+      followerCount: 0,
+      followingCount: 0,
+      bio: "bio goes here"
+    }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <EditProfile user={user}/>
     </div>
   );
 }
