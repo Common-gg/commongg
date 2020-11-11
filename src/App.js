@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
 import Profile from './pages/Profile.js';
@@ -18,9 +17,17 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Categories/>
-    </div>
+    <Router>
+      <div>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/categories/" component={Categories} />
+        <Route exact path="/CreateProfile/" component={CreateProfile} />
+        <Route exact path="/EditProfile" render={
+          (props) => (
+            <EditProfile user={user} />
+          )} />
+      </div>
+    </Router>
   );
 }
 
