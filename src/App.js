@@ -69,19 +69,21 @@ function App() {
     }
   }, [currentUser]);
 
-  auth.onAuthStateChanged(function (user) {
-    console.log(user);
-    if (startup === true && user === auth.currentUser) return;
-    setStartup(true);
-    if (user) {
-      setCurrentUser(user);
-    } else {
-      // No user is signed in.
-      if (window.location.href !== origin && window.location.href !== origin + "/SignUp") {
-        window.location.href = origin;
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      console.log(user);
+      if (startup === true && user === auth.currentUser) return;
+      setStartup(true);
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        // No user is signed in.
+        if (window.location.href !== origin && window.location.href !== origin + "/SignUp") {
+          window.location.href = origin;
+        }
       }
-    }
-  });
+    });
+  }, []);
 
   const signUpUser = (email, password) => {
     auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
@@ -133,10 +135,10 @@ function App() {
           (props) => (
             <EditProfile user={currentUserInfo} />
           )} />
-         <Route exact path="/SignUp" render={
-                    (props) => (
-                        <SignUp signUpUser={signUpUser} />
-                    )} />
+        <Route exact path="/SignUp" render={
+          (props) => (
+            <SignUp signUpUser={signUpUser} />
+          )} />
       </div>
     </Router>
   );
