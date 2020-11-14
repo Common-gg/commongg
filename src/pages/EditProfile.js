@@ -13,10 +13,10 @@ function EditProfile(props) {
         <ImageInput type="src"/>
         <br/>
         <Text text={"Display Name: " + props.user.displayName}/>
-        <Input type="displayName"/>
+        <Input type="displayName" placeholder="Display Name"/>
         <br/>
         <Text text={"Personal Bio: " + props.user.bio}/>
-        <Input type="bio"/>
+        <Input type="bio" placeholder="bio"/>
         <br/>
         <br/>
         <Button text="Save"/>
