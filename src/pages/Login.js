@@ -10,8 +10,8 @@ function Login(props) {
 
   return (
     <div className="Login">
-      <Input type="username" track={setEmail}/>
-      <Input type="password" track={setPassword}/>
+      <Input type="username" placeholder="Username" track={setEmail}/>
+      <Input type="password" placeholder="Password" track={setPassword}/>
       <Link to="/Categories/" >
         <button type="submit" className="btn btn-outline-dark"
           onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>

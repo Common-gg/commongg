@@ -78,7 +78,7 @@ function App() {
         setCurrentUser(user);
       } else {
         // No user is signed in.
-        if (window.location.href !== origin && window.location.href !== origin + "/SignUp") {
+        if (window.location.href !== origin + "/" && window.location.href.toLowerCase() !== origin + "/signup" && window.location.href !== origin && window.location.href.toLowerCase() !== origin + "/signup/") {
           window.location.href = origin;
         }
       }

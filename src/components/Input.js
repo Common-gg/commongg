@@ -6,8 +6,8 @@ function Input(props) {
 
   return (
     <div className="Input">
-      <input type={props.type} id={props.type+"Input"} placeholder={props.type} ref={value}
-      onChange= {() => (props.track(value)) }/>
+      <input type={props.type} id={props.type} placeholder={props.placeholder} ref={value}
+      onChange= {() => (props.track(value)) } required/>
     </div>
   );
 }
