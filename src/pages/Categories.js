@@ -12,6 +12,22 @@ function Categories() {
         {
           name: "TFT",
           img: "https://pht.qoo-static.com/eC2NNaMnMfoKtojWbX4xVVOXg4bNuHzmMQyZ5cw139GGWPM7-t1ZfYKp79tckYhBsw=w300"
+        },
+        {
+          name: "Genshin2",
+          img: "https://lh3.googleusercontent.com/So91qs_eRRralMxUzt_tkj4aBXvVSYqWiEJrzrk_LBd5071mSMv_gBKslyulIOrPsiQ"
+        },
+        {
+          name: "TFT2",
+          img: "https://pht.qoo-static.com/eC2NNaMnMfoKtojWbX4xVVOXg4bNuHzmMQyZ5cw139GGWPM7-t1ZfYKp79tckYhBsw=w300"
+        },
+        {
+          name: "Genshin3",
+          img: "https://lh3.googleusercontent.com/So91qs_eRRralMxUzt_tkj4aBXvVSYqWiEJrzrk_LBd5071mSMv_gBKslyulIOrPsiQ"
+        },
+        {
+          name: "TFT3",
+          img: "https://pht.qoo-static.com/eC2NNaMnMfoKtojWbX4xVVOXg4bNuHzmMQyZ5cw139GGWPM7-t1ZfYKp79tckYhBsw=w300"
         }
       ]
   return (
