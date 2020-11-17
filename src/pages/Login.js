@@ -10,14 +10,45 @@ function Login(props) {
 
   return (
     <div className="Login">
-      <Input type="username" placeholder="Username" track={setEmail}/>
-      <Input type="password" placeholder="Password" track={setPassword}/>
-      <Link to="/Categories/" >
-        <button type="submit" className="btn btn-outline-dark"
-          onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>
-          Login
-        </button>
-      </Link>
+      <div className="mx-auto card" style={{ margin: "40px", maxWidth: "230px", backgroundColor: "#71cae3", borderRadius: "10px" }}>
+
+        <div style={{ margin: "20px 20px 0px 20px" }}>
+
+          <h2 style={{ color: "white" }}>Common.GG</h2>
+          <div className="form-group" >
+            <Input type="email"
+              placeholder="Email"
+              track={setEmail} />
+          </div>
+
+          <div className="form-group">
+
+            <Input type="password"
+              placeholder="Password"
+              track={setPassword} />
+
+          </div>
+          <div className="row">
+            <a href="" style={{ color: "white" }}>
+              <p className="col">
+                Forgot Password?</p>
+            </a>
+            <a href="/SignUp" style={{ color: "white" }}>
+              <p className="col">
+                New User? Sign Up Here!</p>
+            </a>
+          </div>
+          <Link to="/Categories/" >
+            <button type="submit" className="btn btn-outline-light"
+              onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>
+              Login
+                </button>
+          </Link>
+
+
+        </div>
+
+      </div>
     </div>
   );
 }

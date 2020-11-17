@@ -38,8 +38,8 @@ function App() {
   const storage = firebase.default.storage();
 
   const [currentUser, setCurrentUser] = useState();
-  const [currentUserInfo, setCurrentUserInfo] = useState({ first_name: null });
-
+  const [currentUserInfo, setCurrentUserInfo] = useState({ username: null });
+  const [tempInfo, setTempInfo] = useState();
   const [loginState, setLoginState] = useState("Welcome, please sign in.");
 
   const [startup, setStartup] = useState(false);
@@ -50,28 +50,30 @@ function App() {
     if (userId) {
       database.ref('/users/' + userId).once('value').then(function (snapshot) {
         const userData = snapshot.val();
-        if (userData === null) {
+        if (userData === null || Object.keys(userData).length <= 1) {
           // New user redirect
-          initializeUser(currentUser.email)
-          window.location.href = origin + "/CreateProfile/";
+          if (userData === null) {
+            initializeUser(currentUser.email);
+          }
+          if (window.location.href.toLowerCase() !== origin + "/createprofile/" && window.location.href.toLowerCase() !== origin + "/createprofile") {
+            window.location.href = origin + "/CreateProfile/";
+          }
         } else {
           // Existing user redirect
-          if (userData.personal) {
-            if (JSON.stringify(currentUserInfo) !== JSON.stringify(userData)) {
-              setCurrentUserInfo(userData);
-              setLoginState("Signed in as " + userData.personal.first_name + " " + userData.personal.last_name);
-            };
-          } else {
-            setLoginState("needs more info");
+          if (JSON.stringify(currentUserInfo) !== JSON.stringify(userData)) {
+            setCurrentUserInfo(userData);
           }
-        }
+          setLoginState("Signed in as " + userData.username);
+          if (window.location.href === origin + "/" || window.location.href.toLowerCase() === origin + "/signup" || window.location.href === origin || window.location.href.toLowerCase() === origin + "/signup/" || window.location.href.toLowerCase() === origin + "/createprofile/" || window.location.href.toLowerCase() === origin + "/createprofile") {
+            window.location.href = origin + "/categories/";
+          }
+        };
       });
     }
   }, [currentUser]);
 
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
-      console.log(user);
       if (startup === true && user === auth.currentUser) return;
       setStartup(true);
       if (user) {
@@ -84,6 +86,14 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (currentUser === undefined) return;
+    database.ref('users/' + currentUser.uid + "/profile/").set({
+      username: tempInfo.username,
+      profile_picture: tempInfo.url
+    });
+  }, [tempInfo])
 
   const signUpUser = (email, password) => {
     auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
@@ -100,7 +110,20 @@ function App() {
       database.ref('users/' + currentUser.uid).set({
         email: email
       });
+      setCurrentUserInfo({ email: email });
     }
+  }
+
+  const storeBlob = (username, blob) => {
+    const storageRef = storage.ref();
+    const ref = storageRef.child("users/" + currentUser.uid);
+    ref.put(blob).then(function () {
+      ref.getDownloadURL().then(function (url) {
+        setTempInfo({ username: username, url: url });
+        window.location.href = origin + "/categories/";
+      });
+    });
+
   }
 
   const signInUser = (email, password) => {
@@ -130,7 +153,10 @@ function App() {
             <Login signInUser={signInUser} />
           )} />
         <Route exact path="/categories/" component={Categories} />
-        <Route exact path="/CreateProfile/" component={CreateProfile} />
+        <Route exact path="/CreateProfile/" render={
+          (props) => (
+            <CreateProfile storeBlob={storeBlob} />
+          )} />
         <Route exact path="/EditProfile" render={
           (props) => (
             <EditProfile user={currentUserInfo} />
