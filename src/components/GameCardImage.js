@@ -19,7 +19,7 @@ function GameCardImage(props) {
                 <img src={props.currentImg}
                     alt={props.alt}
                     className={border}
-
+                    style={{borderWidth: "3px !important"}}
                 />
             </label>
             <button style={{ display: "none" }} id={props.id} onClick={select} />
