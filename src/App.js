@@ -6,13 +6,14 @@ import CreateProfile from './pages/CreateProfile.js';
 import Profile from './pages/Profile.js';
 import EditProfile from './pages/EditProfile.js';
 import Categories from './pages/Categories.js';
-import SignUp from "./pages/SignUp"
+import SignUp from "./pages/SignUp";
+
+const Twitch = require("./api/Twitch.js");
 
 const firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
-require("firebase/storage")
-
+require("firebase/storage");
 
 function App() {
 
@@ -152,7 +153,10 @@ function App() {
           (props) => (
             <Login signInUser={signInUser} />
           )} />
-        <Route exact path="/categories/" component={Categories} />
+        <Route exact path="/categories/" render={
+          (props) => (
+            <Categories Twitch={Twitch} />
+          )}/>
         <Route exact path="/CreateProfile/" render={
           (props) => (
             <CreateProfile storeBlob={storeBlob} />
