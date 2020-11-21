@@ -7,6 +7,7 @@ import Profile from './pages/Profile.js';
 import EditProfile from './pages/EditProfile.js';
 import Categories from './pages/Categories.js';
 import SignUp from "./pages/SignUp";
+import Feed from './pages/Feed.js';
 
 const Twitch = require("./api/Twitch.js");
 
@@ -156,7 +157,7 @@ function App() {
         <Route exact path="/categories/" render={
           (props) => (
             <Categories Twitch={Twitch} />
-          )}/>
+          )} />
         <Route exact path="/CreateProfile/" render={
           (props) => (
             <CreateProfile storeBlob={storeBlob} />
@@ -168,6 +169,10 @@ function App() {
         <Route exact path="/SignUp" render={
           (props) => (
             <SignUp signUpUser={signUpUser} />
+          )} />
+        <Route exact path="/Feed" render={
+          (props) => (
+            <Feed user={currentUserInfo} />
           )} />
       </div>
     </Router>
