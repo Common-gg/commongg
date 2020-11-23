@@ -3,8 +3,8 @@ import React from 'react';
 function Video(props) {
   return (
     <div className="Video">
-          <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src={props.src} allowfullscreen></iframe>
+          <div className="embed-responsive embed-responsive-16by9">
+              <iframe className="embed-responsive-item" src={props.src} allowFullScreen></iframe>
           </div>
     </div>
   );
