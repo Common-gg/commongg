@@ -17,13 +17,10 @@ const API = {
       if (err) {
         return console.log(err);
       }
-      console.log('Status: ' + res.statusCode);
-      console.log(body);
       callback(res);
     });
   },
   getTopGames: (url, token, callback) => {
-    console.log(token);
     const options = {
       url: "https://api.twitch.tv/helix/games/top",
       method: 'GET',
@@ -39,6 +36,23 @@ const API = {
         return console.log(err);
       }
       
+      callback(res);
+    });
+  },
+  validate: (url, token, callback) => {
+    if(token === undefined) return "no token"
+    const options = {
+      url: "https://id.twitch.tv/oauth2/validate",
+      json: true,
+      headers: {
+        "Authorization": "OAuth " + token
+      }
+    };
+
+    request.get(options, (err, res, body) => {
+      if (err) {
+        return console.log(err);
+      }
       callback(res);
     });
   }

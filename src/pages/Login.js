@@ -38,14 +38,10 @@ function Login(props) {
                 New User? Sign Up Here!</p>
             </a>
           </div>
-          <Link to="/Categories/" >
-            <button type="submit" className="btn btn-outline-light"
-              onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>
-              Login
-                </button>
-          </Link>
-
-
+          <button type="submit" className="btn btn-outline-light"
+            onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>
+            Login
+          </button>
         </div>
 
       </div>

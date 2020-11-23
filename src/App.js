@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
 import Profile from './pages/Profile.js';
@@ -40,14 +40,16 @@ function App() {
   const storage = firebase.default.storage();
 
   const [currentUser, setCurrentUser] = useState();
-  const [currentUserInfo, setCurrentUserInfo] = useState({ username: null });
+  const [currentUserInfo, setCurrentUserInfo] = useState();
   const [tempInfo, setTempInfo] = useState();
-  const [loginState, setLoginState] = useState("Welcome, please sign in.");
+  const [tempGames, setTempGames] = useState();
 
   const [startup, setStartup] = useState(false);
 
+  const [twitchToken, setTwitchToken] = useState();
+
   useEffect(() => {
-    if (currentUser === undefined) return;
+    if (currentUser === undefined || currentUser === null) return;
     const userId = currentUser.uid;
     if (userId) {
       database.ref('/users/' + userId).once('value').then(function (snapshot) {
@@ -57,17 +59,11 @@ function App() {
           if (userData === null) {
             initializeUser(currentUser.email);
           }
-          if (window.location.href.toLowerCase() !== origin + "/createprofile/" && window.location.href.toLowerCase() !== origin + "/createprofile") {
-            window.location.href = origin + "/CreateProfile/";
-          }
         } else {
           // Existing user redirect
           if (JSON.stringify(currentUserInfo) !== JSON.stringify(userData)) {
+            console.log("SETTING INFO")
             setCurrentUserInfo(userData);
-          }
-          setLoginState("Signed in as " + userData.username);
-          if (window.location.href === origin + "/" || window.location.href.toLowerCase() === origin + "/signup" || window.location.href === origin || window.location.href.toLowerCase() === origin + "/signup/" || window.location.href.toLowerCase() === origin + "/createprofile/" || window.location.href.toLowerCase() === origin + "/createprofile") {
-            window.location.href = origin + "/categories/";
           }
         };
       });
@@ -75,17 +71,22 @@ function App() {
   }, [currentUser]);
 
   useEffect(() => {
+    Twitch.getToken(process.env.GET_TOKEN, (res, err) => {
+      if (err) console.log(err);
+      setTwitchToken(res.body.access_token);
+    });
+    setInterval(() => {
+      Twitch.validate(process.env.TWITCH_VALIDATE_URL, twitchToken, (res, err) => {
+        if (err) console.log(err);
+      })
+    }, 590000);
+  }, []);
+
+  useEffect(() => {
     auth.onAuthStateChanged(function (user) {
       if (startup === true && user === auth.currentUser) return;
       setStartup(true);
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        // No user is signed in.
-        if (window.location.href !== origin + "/" && window.location.href.toLowerCase() !== origin + "/signup" && window.location.href !== origin && window.location.href.toLowerCase() !== origin + "/signup/") {
-          window.location.href = origin;
-        }
-      }
+      setCurrentUser(user);
     });
   }, []);
 
@@ -95,7 +96,20 @@ function App() {
       username: tempInfo.username,
       profile_picture: tempInfo.url
     });
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      profile: tempInfo
+    })
   }, [tempInfo])
+
+  useEffect(() => {
+    if (currentUser === undefined) return;
+    database.ref('users/' + currentUser.uid + "/games/").set(tempGames);
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      games: tempGames
+    })
+  }, [tempGames])
 
   const signUpUser = (email, password) => {
     auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
@@ -122,10 +136,8 @@ function App() {
     ref.put(blob).then(function () {
       ref.getDownloadURL().then(function (url) {
         setTempInfo({ username: username, url: url });
-        window.location.href = origin + "/categories/";
       });
     });
-
   }
 
   const signInUser = (email, password) => {
@@ -139,44 +151,68 @@ function App() {
   const signOut = () => {
     auth.signOut().then(function () {
       // Sign-out successful.
-      setLoginState("Welcome, please sign in");
-      window.location.href = window.location.origin;
     }).catch(function (error) {
       // An error happened.
       console.log(error);
     });
   }
-
-  return (
-    <Router>
-      <div>
-        <Route exact path="/" render={
-          (props) => (
-            <Login signInUser={signInUser} />
-          )} />
-        <Route exact path="/categories/" render={
-          (props) => (
-            <Categories Twitch={Twitch} />
-          )} />
-        <Route exact path="/CreateProfile/" render={
-          (props) => (
-            <CreateProfile storeBlob={storeBlob} />
-          )} />
-        <Route exact path="/EditProfile" render={
-          (props) => (
-            <EditProfile user={currentUserInfo} />
-          )} />
-        <Route exact path="/SignUp" render={
-          (props) => (
-            <SignUp signUpUser={signUpUser} />
-          )} />
-        <Route exact path="/Feed" render={
-          (props) => (
-            <Feed user={currentUserInfo} />
-          )} />
-      </div>
-    </Router>
-  );
+  if(currentUserInfo === undefined) {
+    return(<div></div>)
+  } else if (currentUser === null) {
+    return (
+      <Router>
+        <Switch>
+          <div>
+            <Route exact path="/" render={
+              (props) => (
+                <Login signInUser={signInUser} />
+              )} />
+            <Route exact path="/SignUp" render={
+              (props) => (
+                <SignUp signUpUser={signUpUser} />
+              )} />
+          </div>
+        </Switch>
+      </Router>
+    )
+  } else if (currentUserInfo.profile === undefined) {
+    return (
+      <Router>
+          <div>
+            <Route path="/" render={
+              (props) => (
+                <CreateProfile storeBlob={storeBlob} />
+              )} />
+          </div>
+      </Router>
+    )
+  } else if (currentUserInfo.games === undefined) {
+    return (
+      <Router>
+          <div>
+            <Route path="/" render={
+              (props) => (
+                <Categories Twitch={Twitch} twitchToken={twitchToken} storeUserGames={setTempGames} />
+              )} />
+          </div>
+      </Router>
+    )
+  } else {
+    return (
+      <Router>
+          <div>
+            <Route exact path="/EditProfile" render={
+              (props) => (
+                <EditProfile user={currentUserInfo} />
+              )} />
+            <Route exact path="/" render={
+              (props) => (
+                <Feed user={currentUserInfo} currentUserInfo={currentUserInfo} />
+              )} />
+          </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

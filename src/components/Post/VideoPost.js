@@ -24,8 +24,8 @@ function VideoPost(props) {
           <Text text={props.post.title} />
         </div>
         <div className="row">
-          <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src={props.post.link} allowfullscreen></iframe>
+          <div className="embed-responsive embed-responsive-16by9">
+              <iframe className="embed-responsive-item" src={props.post.link} allowFullScreen></iframe>
           </div>
         </div>
         <div className="row">

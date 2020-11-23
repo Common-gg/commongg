@@ -52,8 +52,9 @@ function Feed(props) {
                         <Text text="home" />
                         <Text text="following" />
                         <Text text="trending" />
-                        <Text text="game1" />
-                        <Text text="game2" />
+                        {props.currentUserInfo.games.map(game=>{
+                            return <Text text={game} key={game} />
+                        })}
                     </div>
                     <div className="col-lg-7">
                         <Input type="search" placeholder="search" />

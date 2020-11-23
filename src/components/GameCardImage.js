@@ -4,12 +4,12 @@ function GameCardImage(props) {
     const select = () => {
         if (border === "card-img-top") {
             setBorder("card-img-top" + " border border-success");
-            props.setSelectedGames([...props.selectedGames, props.gameName]);
+            props.setSelectedGames([...props.selectedGames, props.id]);
         } else {
             setBorder("card-img-top");
 
             let temp = props.selectedGames;
-            temp = temp.filter(game=>game!==props.gameName);
+            temp = temp.filter(game=>game!==props.id);
             props.setSelectedGames(temp);
         }
     }
