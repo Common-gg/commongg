@@ -156,8 +156,8 @@ function App() {
       console.log(error);
     });
   }
-  if(currentUserInfo === undefined) {
-    return(<div></div>)
+  if(currentUser === undefined) {
+  return(<div></div>)
   } else if (currentUser === null) {
     return (
       <Router>
