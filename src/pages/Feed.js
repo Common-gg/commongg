@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import Text from '../components/Text.js'
 import Input from '../components/Input.js';
 import TextPost from '../components/Post/TextPost.js';
@@ -52,6 +53,9 @@ function Feed(props) {
                         {props.currentUserInfo.games.map(game => {
                             return <Text text={game} key={game} />
                         })}
+                        <Link to="/">
+                            <p onClick={()=>props.signOut()}>Logout</p>
+                        </Link>
                     </div>
                     <div className="col-lg-7">
                         <Input type="search" placeholder="search" />
