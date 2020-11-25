@@ -62,3 +62,11 @@ background-color:#f5f3f3;
   cursor: pointer;
 }
 
+.testimonial-group > .row {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.testimonial-group > .row > .col-2 {
+  display: inline-block;
+}
