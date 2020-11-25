@@ -1,12 +1,34 @@
-import React from 'react';
-import Image from '../components/Image.js';
-import Text from '../components/Text.js'
-import Button from '../components/Button.js'
+import React, { useState, useEffect } from "react";
+import Text from '../components/Text.js';
+import Post from '../components/Post/Post.js';
 
 function Profile(props) {
 
-  let userPosts = {
-    textPost1:{
+  const [user, setUser] = useState({ profile: [], games: [] });
+
+  useEffect(() => {
+    props.getUser(setUser);
+  }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  const isUser = () => { //TODO - hide follow button if checked
+    if (props.currentUserInfo.email === props.user.email) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const isFollowing = () => { //TODO - change button text to follow/following
+
+  }
+
+  let userPosts = [
+    {
+      type: "text",
       user: "carrot",
       time: "3h ago",
       title: "THIS GAME IS TOO FUN",
@@ -15,7 +37,8 @@ function Profile(props) {
       dislikes: 1109,
       numComments: 1098
     },
-    videoPost1:{
+    {
+      type: "video",
       user: "carrot",
       time: "3h ago",
       title: "epic gamer moment",
@@ -25,7 +48,8 @@ function Profile(props) {
       dislikes: 350,
       numComments: 1400
     },
-    imagePost1:{
+    {
+      type: "image",
       user: "carrot",
       time: "4h ago",
       title: "im beautiful",
@@ -35,7 +59,7 @@ function Profile(props) {
       dislikes: 350,
       numComments: 1400
     }
-  }
+  ]
 
   return (
     <div className="Profile">
@@ -47,37 +71,40 @@ function Profile(props) {
             <Text text="home" />
             <Text text="following" />
             <Text text="trending" />
-            {props.currentUserInfo.games.map(game => {
+            {user.games.map(game => {
               return <Text text={game} key={game} />
             })}
           </div>
           <div className="col-lg-7">
             <div className="row">
               <div className="col-lg-4">
-                <img src={props.currentUserInfo.profile.profile_picture} alt="Avatar" width="150px" />
+                <img src={user.profile.profile_picture} alt="Avatar" width="150px" />
               </div>
-              <div className="col-lg-8">
-                <Text text="put name here" />
+              <div className="col-lg-6">
+                <Text text={user.profile.username} />
+                <Text text="About Me: put bio here" />
                 <Text text="Following: put follower num here" />
                 <Text text="Followers: put follower num here" />
+              </div>
+              <div className="col-lg-2">
+                <button type="button" className="btn btn-primary">
+                  Follow
+                </button>
               </div>
             </div>
             <div className="row">
               <Text text="Games: (figure out how to replace the numbers with games)" />
-              <div class="container testimonial-group">
-                <div class="row text-center">
-                  <div class="col-2">1</div>
-                  <div class="col-2">2</div>
-                  <div class="col-2">3</div>
-                  <div class="col-2">4</div>
-                  <div class="col-2">5</div>
-                  <div class="col-2">6</div>
-                  <div class="col-2">7</div>
-                  <div class="col-2">8</div>
-                  <div class="col-2">9</div>
+              <div className="container testimonial-group">
+                <div className="row text-center">
+                  {user.games.map(game => {
+                    return <div className="col-2">{game}</div>
+                  })}
                 </div>
               </div>
             </div>
+            {userPosts.map(post => {
+              return <Post post={post} />
+            })}
           </div>
           <div className="col-lg-3">
             column 3
