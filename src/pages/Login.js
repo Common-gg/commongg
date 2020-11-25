@@ -33,10 +33,11 @@ function Login(props) {
               <p className="col">
                 Forgot Password?</p>
             </a>
-            <a href="/SignUp" style={{ color: "white" }}>
-              <p className="col">
-                New User? Sign Up Here!</p>
-            </a>
+            <Link to="/signup">
+              <p className="col" style={{ color: "white" }}>
+                New User? Sign Up Here!
+              </p>
+            </Link>
           </div>
           <button type="submit" className="btn btn-outline-light"
             onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>
