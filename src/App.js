@@ -153,6 +153,26 @@ function App() {
       console.log(error);
     });
   }
+
+  const getUser = () => {
+
+    // Gets user ID from address bar
+    let url = window.location.href;
+    url = url.split('/');
+    const userId = url[url.length - 1];
+
+    // Gets user from DB
+    database.ref('/users/' + userId).once('value').then(function (snapshot) {
+      const userData = snapshot.val();
+      return userData
+    })
+  }
+
+  // const [user, setUser] = useState()
+  // useEffect(() => {
+  //   setUser(getUser());
+  // }, []);
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -200,13 +220,13 @@ function App() {
             (props) => (
               <EditProfile user={currentUserInfo} />
             )} />
-            <Route exact path="/Profile" render={
+          <Route path="/Profile" render={
             (props) => (
-              <Profile user={currentUser} currentUserInfo={currentUserInfo}/>
+              <Profile user={currentUser} currentUserInfo={currentUserInfo} />
             )} />
           <Route path="/" render={
             (props) => (
-              <Feed user={currentUserInfo} currentUserInfo={currentUserInfo} />
+              <Feed user={currentUserInfo} signOut={signOut} currentUserInfo={currentUserInfo} />
             )} />
         </Switch>
       </Router>
