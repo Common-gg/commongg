@@ -13,7 +13,6 @@ function Feed(props) {
         time: "3h ago",
         title: "THIS GAME IS TOO FUN",
         text: "please help me\nI AM ADDICTED TO GENSHIN. It's taking over my life XD\n\nwatch me struggle ON STREAM and also help me learn how to get better.",
-        /*figure out new line in text*/
         likes: 125765,
         dislikes: 1109,
         numComments: 1098
@@ -43,7 +42,7 @@ function Feed(props) {
 
     return (
         <div className="Feed">
-            <div className="container"> {/* use "container-fluid" to make it fill entire screen*/}
+            <div className="container">
                 <div className="row">
                     <div className="col-lg-2">
                         <Text text="profile" />
