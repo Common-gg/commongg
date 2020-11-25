@@ -1,12 +1,10 @@
 import React from 'react';
-import Image from '../components/Image.js';
 import Text from '../components/Text.js'
-import Button from '../components/Button.js'
 import Input from '../components/Input.js';
-import ImageInput from '../components/ImageInput.js';
 import TextPost from '../components/Post/TextPost.js';
 import VideoPost from '../components/Post/VideoPost.js';
 import ImagePost from '../components/Post/ImagePost.js';
+import CreatePostModal from '../components/Post/CreatePostModal.js';
 
 function Feed(props) {
 
@@ -16,9 +14,9 @@ function Feed(props) {
         title: "THIS GAME IS TOO FUN",
         text: "please help me\nI AM ADDICTED TO GENSHIN. It's taking over my life XD\n\nwatch me struggle ON STREAM and also help me learn how to get better.",
         /*figure out new line in text*/
-        likes: 765,
-        dislikes: 109,
-        numComments: 98
+        likes: 125765,
+        dislikes: 1109,
+        numComments: 1098
     }
 
     const videoPost1 = {
@@ -52,17 +50,14 @@ function Feed(props) {
                         <Text text="home" />
                         <Text text="following" />
                         <Text text="trending" />
-                        {props.currentUserInfo.games.map(game=>{
+                        {props.currentUserInfo.games.map(game => {
                             return <Text text={game} key={game} />
                         })}
                     </div>
                     <div className="col-lg-7">
                         <Input type="search" placeholder="search" />
                         <br />
-                        <button className="btn btn-info" onClick={props.click} >
-                            make a post
-                        </button>
-                        <br />
+                        <CreatePostModal/>
                         <br />
                         <TextPost post={textPost1} />
                         <br />
