@@ -3,6 +3,20 @@ import Text from '../Text.js';
 import IconButton from '../IconButton.js';
 
 function TextPost(props) {
+
+  const convertNum = (val) => {
+    let editedVal = val;
+    if(editedVal > 1000000){
+      editedVal = Math.round(val/100000)/10;
+      return (editedVal + "mil");
+    }
+    if (editedVal > 1000) {
+      editedVal = Math.round(val/100)/10;
+      return (editedVal + "k");
+    } else {
+      return editedVal;
+    }
+  }
   return (
     <div className="TextPost">
       <div className="container">
@@ -20,19 +34,19 @@ function TextPost(props) {
         </div>
         <div className="row">
           <div className="col-2">
-            <IconButton class="fa fa-smile-o" text={props.post.likes} />
+            <IconButton class="fa fa-smile-o" text={convertNum(props.post.likes)} />
           </div>
           <div className="col-2">
-            <IconButton class="fa fa-frown-o" text={props.post.dislikes} />
+            <IconButton class="fa fa-frown-o" text={convertNum(props.post.dislikes)} />
           </div>
           <div className="col-4">
 
           </div>
           <div className="col-2">
-            <IconButton class="fa fa-comment-o" text={props.post.numComments}/>
+            <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
           </div>
           <div className="col-2">
-            <IconButton class="fa fa-share-alt" text=""/>
+            <IconButton class="fa fa-share-alt" text="" />
           </div>
         </div>
       </div>
