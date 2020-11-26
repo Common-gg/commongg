@@ -154,7 +154,7 @@ function App() {
     });
   }
 
-  const getUser = () => {
+  const getUser = (callback) => {
 
     // Gets user ID from address bar
     let url = window.location.href;
@@ -164,7 +164,7 @@ function App() {
     // Gets user from DB
     database.ref('/users/' + userId).once('value').then(function (snapshot) {
       const userData = snapshot.val();
-      return userData
+      return callback(userData);
     })
   }
 
@@ -220,13 +220,13 @@ function App() {
             (props) => (
               <EditProfile user={currentUserInfo} />
             )} />
-          <Route path="/Profile" render={
+            <Route path="/Profile" render={
             (props) => (
-              <Profile user={currentUser} currentUserInfo={currentUserInfo} />
+              <Profile getUser={getUser} />
             )} />
           <Route path="/" render={
             (props) => (
-              <Feed user={currentUserInfo} signOut={signOut} currentUserInfo={currentUserInfo} />
+              <Feed user={currentUserInfo} currentUserInfo={currentUserInfo} />
             )} />
         </Switch>
       </Router>
