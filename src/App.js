@@ -226,7 +226,7 @@ function App() {
             )} />
           <Route path="/" render={
             (props) => (
-              <Feed user={currentUserInfo} currentUserInfo={currentUserInfo} />
+              <Feed user={currentUserInfo} currentUserInfo={currentUserInfo} signOut={signOut} />
             )} />
         </Switch>
       </Router>
