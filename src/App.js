@@ -8,6 +8,8 @@ import EditProfile from './pages/EditProfile.js';
 import Categories from './pages/Categories.js';
 import SignUp from "./pages/SignUp";
 import Feed from './pages/Feed.js';
+import Followers from './pages/Followers.js';
+import Following from './pages/Following.js';
 
 const Twitch = require("./api/Twitch.js");
 
@@ -220,7 +222,15 @@ function App() {
             (props) => (
               <EditProfile user={currentUserInfo} />
             )} />
-            <Route path="/Profile" render={
+          <Route path="/Followers" render={
+            (props) => (
+              <Followers getUser={getUser} currentUser={currentUserInfo} />
+            )} />
+          <Route path="/Following" render={
+            (props) => (
+              <Following getUser={getUser} currentUser={currentUserInfo}/>
+            )} />
+          <Route path="/Profile" render={
             (props) => (
               <Profile getUser={getUser} />
             )} />
