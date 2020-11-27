@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import Image from '../components/Image.js';
 import Text from '../components/Text.js'
-import Button from '../components/Button.js'
-import Input from '../components/Input.js';
-import ImageInput from '../components/ImageInput.js';
 
 function EditProfile(props) {
 

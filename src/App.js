@@ -241,7 +241,15 @@ function App() {
             (props) => (
               <Followers getUser={getUser} setCurrentUserInfo={setCurrentUserInfo} signOut={signOut} />
             )} />
+          <Route path="/Followers" render={
+            (props) => (
+              <Followers getUser={getUser} currentUser={currentUserInfo} />
+            )} />
           <Route path="/Following" render={
+            (props) => (
+              <Following getUser={getUser} currentUser={currentUserInfo}/>
+            )} />
+          <Route path="/Profile" render={
             (props) => (
               <Followers getUser={getUser} setCurrentUserInfo={setCurrentUserInfo} signOut={signOut} />
             )} />
