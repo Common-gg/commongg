@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Text from '../components/Text.js';
 import Post from '../components/Post/Post.js';
 
 function Profile(props) {
 
-  const [user, setUser] = useState({ profile: [], games: [] });
+  const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
+
+  let url = window.location.href;
+  url = url.split('/');
+  const userId = url[url.length - 1];
 
   useEffect(() => {
     props.getUser(setUser);
@@ -13,6 +18,10 @@ function Profile(props) {
   useEffect(() => {
     console.log(user);
   }, [user]);
+
+  /*const followUser = () => {
+    
+  }*/
 
   const isUser = () => { //TODO - hide follow button if checked
     if (props.currentUserInfo.email === props.user.email) {
@@ -74,6 +83,9 @@ function Profile(props) {
             {user.games.map(game => {
               return <Text text={game} key={game} />
             })}
+            <Link to="/">
+              <p onClick={() => props.signOut()}>Logout</p>
+            </Link>
           </div>
           <div className="col-lg-7">
             <div className="row">
@@ -82,9 +94,9 @@ function Profile(props) {
               </div>
               <div className="col-lg-6">
                 <Text text={user.profile.username} />
-                <Text text="About Me: put bio here" />
-                <Text text="Following: put follower num here" />
-                <Text text="Followers: put follower num here" />
+                <Text text={"About Me: " + user.profile.bio} />
+                <Text text={"Following: " + user.followCounts.following} />
+                <Text text={"Followers: " + user.followCounts.follower} />
               </div>
               <div className="col-lg-2">
                 <button type="button" className="btn btn-primary">
