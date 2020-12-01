@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import Feed from './pages/Feed.js';
 import Followers from './pages/Followers.js';
 import Following from './pages/Following.js';
+import ViewPost from './pages/ViewPost.js';
 
 const Twitch = require("./api/Twitch.js");
 
@@ -237,6 +238,10 @@ function App() {
           <Route exact path="/EditProfile" render={
             (props) => (
               <EditProfile user={currentUserInfo} signOut={signOut} />
+            )} />
+          <Route exact path="/Post" render={
+            (props) => (
+              <ViewPost />
             )} />
           <Route path="/Followers" render={
             (props) => (
