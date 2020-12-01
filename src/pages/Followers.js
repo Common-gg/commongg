@@ -98,8 +98,4 @@ function Followers(props) {
     );
 }
 
-<<<<<<< HEAD
 export default Followers;
-=======
-export default Followers;
->>>>>>> 0deac368ec11eccf8387a07bcd7a246fd1f2c40f

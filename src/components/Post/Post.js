@@ -1,7 +1,4 @@
 import React from 'react';
-import Text from '../Text.js';
-import Image from '../Image.js';
-import IconButton from '../IconButton.js';
 import TextPost from './TextPost.js';
 import VideoPost from './VideoPost.js';
 import ImagePost from './ImagePost.js';
