@@ -6,33 +6,38 @@ import Post from '../components/Post/Post.js';
 function Profile(props) {
 
   const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
+  const [userId, setUserId] = useState(0);
 
-  let url = window.location.href;
-  url = url.split('/');
-  const userId = url[url.length - 1];
+  const [followBtnState, setFollowBtnState] = useState({ 
+    onClick: () => props.followUser(props.currentUser, userId),
+    text: "Follow"    
+  })
+  const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible" });
 
   useEffect(() => {
-    props.getUser(setUser);
+    let url = window.location.href;
+    url = url.split('/');
+    setUserId(url[url.length - 1]);
   }, []);
+
+  useEffect(() => {
+    props.getUser(userId, setUser);
+  }, [userId]);
 
   useEffect(() => {
     console.log(user);
   }, [user]);
 
-  /*const followUser = () => {
-    
-  }*/
-
-  const isUser = () => { //TODO - hide follow button if checked
-    if (props.currentUserInfo.email === props.user.email) {
-      return true;
-    } else {
-      return false;
+  useEffect(() => { //TODO - hide follow button if checked
+    if (props.currentUser) {
+      if (props.currentUser === userId) {
+        setFollowBtnStyle({ visibility: "hidden" });
+      }
     }
-  }
+  }, []);
 
   const isFollowing = () => { //TODO - change button text to follow/following
-
+    
   }
 
   let userPosts = [
@@ -99,8 +104,8 @@ function Profile(props) {
                 <Text text={"Followers: " + user.followCounts.follower} />
               </div>
               <div className="col-lg-2">
-                <button type="button" className="btn btn-primary">
-                  Follow
+                <button onClick={followBtnState.onClick} type="button" className="btn btn-primary" style={followBtnStyle}>
+                  {followBtnState.text}
                 </button>
               </div>
             </div>
@@ -109,13 +114,13 @@ function Profile(props) {
               <div className="container testimonial-group">
                 <div className="row text-center">
                   {user.games.map(game => {
-                    return <div className="col-2">{game}</div>
+                    return <div className="col-2" key={game}>{game}</div>
                   })}
                 </div>
               </div>
             </div>
             {userPosts.map(post => {
-              return <Post post={post} />
+              return <Post post={post} key={Math.random()}/>
             })}
           </div>
           <div className="col-lg-3">

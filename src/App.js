@@ -135,7 +135,15 @@ function App() {
   const initializeUser = (email) => {
     if (currentUser.uid) {
       database.ref('users/' + currentUser.uid).set({
-        email: email
+        email: email,
+        profile: {},
+        games: {},
+        followers: [],
+        following: [],
+        followCounts: {
+          follower: 0,
+          following: 0
+        }
       });
       setCurrentUserInfo({ email: email });
     }
@@ -168,24 +176,21 @@ function App() {
     });
   }
 
-  const getUser = (callback) => {
-
-    // Gets user ID from address bar
-    let url = window.location.href;
-    url = url.split('/');
-    const userId = url[url.length - 1];
-
+  const getUser = (userId, callback) => {
     // Gets user from DB
     database.ref('/users/' + userId).once('value').then(function (snapshot) {
       const userData = snapshot.val();
-      return callback(userData);
+      if(userData !== null) return callback(userData);
     })
   }
 
-  // const [user, setUser] = useState()
-  // useEffect(() => {
-  //   setUser(getUser());
-  // }, []);
+  const followUser = (follower, followed) => {
+    const followerRef = database.ref('/users/' + follower + '/following/').push();
+    const followedRef = database.ref('/users/' + followed + '/followers/').push();
+    
+    followerRef.set(followed);
+    followedRef.set(follower);
+  }
 
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
@@ -238,10 +243,6 @@ function App() {
             (props) => (
               <ViewPost />
             )} />
-          <Route path="/Profile" render={
-            (props) => (
-              <Profile getUser={getUser} setCurrentUserInfo={setCurrentUserInfo} signOut={signOut} />
-            )} />
           <Route path="/Followers" render={
             (props) => (
               <Followers getUser={getUser} setCurrentUserInfo={setCurrentUserInfo} signOut={signOut} />
@@ -249,6 +250,10 @@ function App() {
           <Route path="/Following" render={
             (props) => (
               <Following getUser={getUser} currentUser={currentUserInfo} />
+            )} />
+          <Route path="/Profile" render={
+            (props) => (
+              <Profile getUser={getUser} currentUser={currentUser.uid} signOut={signOut} followUser={followUser} />
             )} />
           <Route path="/" render={
             (props) => (
