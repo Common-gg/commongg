@@ -6,26 +6,37 @@ import Post from '../components/Post/Post.js';
 function Profile(props) {
 
   const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState();
+  const [thisUser, setThisUser] = useState({ profile: [], games: [], followCounts: {} });
 
-  const [followBtnState, setFollowBtnState] = useState({ 
-    onClick: () => props.followUser(props.currentUser, userId),
-    text: "Follow"    
+  const [followBtnState, setFollowBtnState] = useState({
+    text: "Follow"
   })
-  const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible" });
+  const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible"});
+
+  function followHandler() {
+    if (followBtnState.text === "Follow"){
+      props.followUser(props.currentUser, userId);
+      setFollowBtnState({...followBtnState, text:"Following"});
+    } else {
+
+    }
+  }
 
   useEffect(() => {
     let url = window.location.href;
     url = url.split('/');
     setUserId(url[url.length - 1]);
+    props.getUser(props.currentUser, setThisUser);
   }, []);
 
   useEffect(() => {
+    console.log(userId);
     props.getUser(userId, setUser);
   }, [userId]);
 
   useEffect(() => {
-    console.log(user);
+    //console.log(user);
   }, [user]);
 
   useEffect(() => { //TODO - hide follow button if checked
@@ -36,9 +47,14 @@ function Profile(props) {
     }
   }, []);
 
-  const isFollowing = () => { //TODO - change button text to follow/following
-    
-  }
+  useEffect(() => {
+    if (thisUser.following) {
+      let temp = Object.values(thisUser.following);
+      if (temp.includes(userId)) {
+        setFollowBtnState({...followBtnState, text:"Following"});
+      }
+    }
+  }, [thisUser])
 
   let userPosts = [
     {
@@ -104,7 +120,7 @@ function Profile(props) {
                 <Text text={"Followers: " + user.followCounts.follower} />
               </div>
               <div className="col-lg-2">
-                <button onClick={followBtnState.onClick} type="button" className="btn btn-primary" style={followBtnStyle}>
+                <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
                   {followBtnState.text}
                 </button>
               </div>
@@ -120,7 +136,7 @@ function Profile(props) {
               </div>
             </div>
             {userPosts.map(post => {
-              return <Post post={post} key={Math.random()}/>
+              return <Post post={post} key={Math.random()} />
             })}
           </div>
           <div className="col-lg-3">
