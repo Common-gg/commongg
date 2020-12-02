@@ -19,7 +19,8 @@ function Profile(props) {
       props.followUser(props.currentUser, userId);
       setFollowBtnState({...followBtnState, text:"Following"});
     } else {
-
+      props.unFollowUser(props.currentUser, userId);
+      setFollowBtnState({...followBtnState, text:"Follow"});
     }
   }
 
