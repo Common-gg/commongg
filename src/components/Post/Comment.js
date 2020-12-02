@@ -49,8 +49,15 @@ function Comment(props) {
                 </div>
                 <div className="row">
                     <div className="col-10">
+                        {console.log(props.comment)}
                         {/*put nested comments here*/}
-                        
+                        {props.comment.comments.map(comment => {
+                            return (
+                                <div className="commentBorder">
+                                    <Comment comment={comment} />
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

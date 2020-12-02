@@ -6,18 +6,25 @@ import Comment from '../components/Post/Comment.js';
 
 function ViewPost(props) {
 
-    let nestedComment1 = {
-        level: 0,
+    let nestedComment3 = {
         user: "carrot",
         time: "3h ago",
-        text: "example text for nestedComment1",
+        text: "example text for nestedComment3",
         likes: 0,
         dislikes: 0,
         numComments: 0,
         comments: []
     }
+    let nestedComment1 = {
+        user: "carrot",
+        time: "3h ago",
+        text: "example text for nestedComment1",
+        likes: 0,
+        dislikes: 0,
+        numComments: 1,
+        comments: [nestedComment3]
+    }
     let nestedComment2 = {
-        level: 0,
         user: "carrot",
         time: "3h ago",
         text: "example text for nestedComment2",
@@ -27,7 +34,6 @@ function ViewPost(props) {
         comments: []
     }
     let comment1 = {
-        level: 0,
         user: "carrot", //input a user here rather than just a string
         time: "3h ago", //input a time here and then convert
         text: "example text for comment1",
@@ -37,13 +43,13 @@ function ViewPost(props) {
         comments: [nestedComment1, nestedComment2]
     }
     let comment2 = {
-        level: 0,
         user: "darkorin",
         time: "4h ago",
         text: "example text for comment2",
         likes: 10,
         dislikes: 2,
-        numComments: 0
+        numComments: 0,
+        comments: []
     }
     let userPost =
     {
