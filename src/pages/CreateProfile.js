@@ -40,7 +40,7 @@ function CreateProfile(props) {
         <Input type="displayName" placeholder="username" track={setDisplayName} />
         < br />
         add a profile picture
-        <img src={add} type="profileImage" id="createAvatar" setImg={add} />
+         <DisplayImage type="profileImage" id="createAvatar" setImg={add} />
         <button type="submit" className="btn btn-outline-dark"
           style={{ marginBottom: "20px" }}
           onClick={handleSubmit}>
