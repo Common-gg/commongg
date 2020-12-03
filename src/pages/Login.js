@@ -63,12 +63,12 @@ function Login(props) {
         <div className="col-4"></div>
         <div className="text-center col-4">
           <Link to="/signup">
-            <p className="col" style={{ color: "white" }}>
+            <p className="col" style={{ color: "#BF9AFC" }}>
               New? Sign up
               </p>
           </Link>
           <br />
-          <a href="" style={{ color: "white" }}>
+          <a href="" style={{ color: "#BF9AFC" }}>
             <p className="col">
               Forgot Password?</p>
           </a>
