@@ -22,43 +22,63 @@ function Login(props) {
     <div className="Login">
       <div className="mx-auto card" style={{
         margin: "40px",
-        maxWidth: "230px",
+        maxWidth: "500px",
         backgroundColor: "#292823",
         borderRadius: "10px",
         boxShadow: "-1px 10px 250px 1px #171421"
       }}>
 
-        <div style={{ margin: "20px 20px 0px 20px" }} className="row">
+        <div style={{ margin: "20px 20px 0px 20px" }} >
           <div className="row">
             <div className="col-4"></div>
-            <img src={logo} style={logoCSS} />
-            <div className="col-4"></div>
-            <br />
-          </div>
+            <div className="row">
+              <div className="col-3"></div>
+              <img src={logo} style={logoCSS} />
+              <div className="col-4"></div>
+              <br />
+            </div></div>
+
           <div className="form-group" >
-            <Input type="email"
-              bootstrap="border border-secondary"
-              placeholder="Email"
-              track={setEmail} />
-          </div>
+            <div className="row">
+              <div className="col-4"></div>
+              <div className="row">
+                <Input type="email"
+                  style= {{
+                    backgroundColor: "#292823",
+                  }}
+                  bootstrap="border border-secondary"
+                  placeholder="Email"
+                  track={setEmail} />
+                <div className="col-4"></div>
+              </div></div></div>
 
           <div className="form-group">
+            <div className="row">
+              <div className="col-4"></div>
+              <div className="row">
+                <Input type="password"
+                  style={{
+                    backgroundColor: "#292823",
+                  }}
+                  bootstrap="border border-secondary"
+                  placeholder="Password"
+                  track={setPassword} />
+                <div className="col-4"></div>
+              </div></div></div>
 
-            <Input type="password"
-              bootstrap="border border-secondary"
-              placeholder="Password"
-              track={setPassword} />
+          <div className="row">
+            <div className="col-4"></div>
+            <div className="row">
+              <div className="col-6"></div>
+              <button type="submit" className="btn btn-outline-light" onClick={() => props.signInUser(email.current.value, password.current.value)}
+                style={{
+                  marginBottom: "10px",
+                }}>
+                <img src={arrow} />
+              </button>
+              <div className="col-4"></div>
+            </div></div></div></div>
 
-          </div>
-
-          <div className="col-4"></div>
-          <button type="submit" className="btn btn-outline-light"
-            onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>
-            <img src={arrow} />
-          </button>
-          <div className="col-4"></div>
-        </div>
-      </div>
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
@@ -67,7 +87,7 @@ function Login(props) {
               New? Sign up
               </p>
           </Link>
-          <br />
+
           <a href="" style={{ color: "#BF9AFC" }}>
             <p className="col">
               Forgot Password?</p>

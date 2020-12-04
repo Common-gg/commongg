@@ -13,10 +13,19 @@ function SignUp(props) {
   }
 
   return (
-    <div className="mx-auto card" style={{ margin: "40px", maxWidth: "500px" }}>
-      <div style={{ margin: "20px" }}>
-        <SignUpColumn setEmail={setEmail} setPassword={setPassword}/>
-        <SignUpButton click={signUp}/>
+    <div className="mx-auto card"
+      style={{
+        margin: "40px",
+        maxWidth: "500px",
+        backgroundColor: "#292823",
+        borderRadius: "10px",
+        boxShadow: "-1px 10px 250px 1px #171421"
+      }}>
+      <div style={{
+        margin: "20px",
+      }}>
+        <SignUpColumn setEmail={setEmail} setPassword={setPassword} />
+        <SignUpButton click={signUp} />
       </div>
     </div>
   )
