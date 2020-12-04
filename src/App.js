@@ -185,12 +185,27 @@ function App() {
   }
 
   const followUser = (follower, followed) => {
-    console.log(follower, followed);
     const followerRef = database.ref('/users/' + follower + '/following/').push();
     const followedRef = database.ref('/users/' + followed + '/followers/').push();
     
     followerRef.set(followed);
     followedRef.set(follower);
+  }
+
+  const unFollowUser = (follower, followed) => {
+    const followerRef = database.ref('/users/' + follower + '/following/');
+    const followedRef = database.ref('/users/' + followed + '/followers/');
+
+    followerRef.once('value').then(function (snapshot) {
+      let followingList = snapshot.val();
+      const followStamp = Object.keys(followingList)[Object.values(followingList).indexOf(followed)];
+      followerRef.set({ ...followingList, [followStamp]: null});
+    });
+    followedRef.once('value').then(function (snapshot) {
+      let followerList = snapshot.val();
+      const followStamp = Object.keys(followerList)[Object.values(followerList).indexOf(follower)];
+      followedRef.set({ ...followerList, [followStamp]: null});
+    });
   }
 
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
@@ -254,7 +269,7 @@ function App() {
             )} />
           <Route path="/Profile" render={
             (props) => (
-              <Profile getUser={getUser} currentUser={currentUser.uid} signOut={signOut} followUser={followUser}/>
+              <Profile getUser={getUser} currentUser={currentUser.uid} signOut={signOut} followUser={followUser} unFollowUser={unFollowUser} />
             )} />
           <Route path="/" render={
             (props) => (
