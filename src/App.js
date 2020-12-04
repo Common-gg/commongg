@@ -44,6 +44,7 @@ function App() {
   const [currentUserInfo, setCurrentUserInfo] = useState();
   const [tempInfo, setTempInfo] = useState();
   const [tempGames, setTempGames] = useState();
+  const [createPost, setCreatePost] = useState();
 
   const [startup, setStartup] = useState(false);
 
@@ -122,6 +123,12 @@ function App() {
     })
   }, [tempGames])
 
+  useEffect(() => {
+    if (currentUser === undefined) return;
+    const postRef = database.ref('/content/posts/').push();
+    postRef.set(createPost);
+  }, [createPost]);
+
   const signUpUser = (email, password) => {
     window.history.pushState(null, null, "/");
     auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
@@ -180,14 +187,14 @@ function App() {
     // Gets user from DB
     database.ref('/users/' + userId).once('value').then(function (snapshot) {
       const userData = snapshot.val();
-      if(userData !== null) return callback(userData);
+      if (userData !== null) return callback(userData);
     })
   }
 
   const followUser = (follower, followed) => {
     const followerRef = database.ref('/users/' + follower + '/following/').push();
     const followedRef = database.ref('/users/' + followed + '/followers/').push();
-    
+
     followerRef.set(followed);
     followedRef.set(follower);
   }
@@ -209,7 +216,7 @@ function App() {
   }
 
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
-    return (<div></div>)
+    return (<div>{console.log(currentUser, currentUserInfo)}</div>)
   } else if (currentUser === null) {
     return (
       <Router>
@@ -273,7 +280,7 @@ function App() {
             )} />
           <Route path="/" render={
             (props) => (
-              <Feed user={currentUserInfo} currentUserInfo={currentUserInfo} signOut={signOut} />
+              <Feed currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} />
             )} />
         </Switch>
       </Router>
