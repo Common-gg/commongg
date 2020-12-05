@@ -166,6 +166,16 @@ function App() {
     });
   }
 
+  const storeImage = (username, image) => {
+    const storageRef = storage.ref();
+    const ref = storageRef.child(`postImage/${currentUser.uid}`);
+    ref.put(image).then(() => {
+      ref.getDownloadURL().then((url) => {
+        setTempInfo({ username: username, url: url });
+      });
+    });
+  }
+
   const signInUser = (email, password) => {
     auth.signInWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
@@ -206,12 +216,12 @@ function App() {
     followerRef.once('value').then(function (snapshot) {
       let followingList = snapshot.val();
       const followStamp = Object.keys(followingList)[Object.values(followingList).indexOf(followed)];
-      followerRef.set({ ...followingList, [followStamp]: null});
+      followerRef.set({ ...followingList, [followStamp]: null });
     });
     followedRef.once('value').then(function (snapshot) {
       let followerList = snapshot.val();
       const followStamp = Object.keys(followerList)[Object.values(followerList).indexOf(follower)];
-      followedRef.set({ ...followerList, [followStamp]: null});
+      followedRef.set({ ...followerList, [followStamp]: null });
     });
   }
 
@@ -280,7 +290,7 @@ function App() {
             )} />
           <Route path="/" render={
             (props) => (
-              <Feed currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} />
+              <Feed currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} storeImage={storeImage} />
             )} />
         </Switch>
       </Router>
