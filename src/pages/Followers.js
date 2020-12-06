@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Text from '../components/Text.js'
+import Text from '../components/Text.js';
+import NavigationBar from '../components/NavigationBar.js';
 
 function Followers(props) {
 
     const [user, setUser] = useState({ profile: [], games: [] });
+    const [userId, setUserId] = useState();
 
     useEffect(() => {
-        props.getUser(setUser);
+        let url = window.location.href;
+        url = url.split('/');
+        setUserId(url[url.length - 1]);
+        props.getUser(props.currentUser, setUser);
     }, []);
+
+    useEffect(() => {
+        console.log(userId);
+        props.getUser(userId, setUser);
+    }, [userId]);
 
     useEffect(() => {
         console.log(user);
@@ -44,29 +54,20 @@ function Followers(props) {
                 <div className="row">
                     <div className="col-2">
                         <div className="col-lg-2">
-                            <Text text="profile" />
-                            <Text text="home" />
-                            <Text text="following" />
-                            <Text text="trending" />
-                            {user.games.map(game => {
-                                return <Text text={game} key={game} />
-                            })}
-                            <Link to="/">
-                                <p onClick={() => props.signOut()}>Logout</p>
-                            </Link>
+                            <NavigationBar currentUserId={props.currentUser} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
                         </div>
                     </div>
                     <div className="col-7 text-center">
                         <br />
-                        <Text text="Mutual Followers" />
+                        <Text text="Mutual Followers (remove this if you are the user)" />
                         <div className="row">
-                            {followers.map(follower => { // replacewith user.followers.map later
+                            {followers.map(follower => { // replacewith user.following.map later
                                 return <div className="col-3">
                                     <img src={user.profile.profile_picture} alt="Avatar" width="100%" />
                                     <br />
                                     {follower.username}
                                     <button type="button" className="btn btn-primary">
-                                        Following
+                                        Followers
                                     </button>
                                 </div>
                             })}
@@ -77,15 +78,15 @@ function Followers(props) {
                         <div className="row">
                             {followers.map(follower => { // replacewith user.followers.map later
                                 return (
-                                <div className="col-3">
-                                    <img src={user.profile.profile_picture} alt="Avatar" width="100%" />
-                                    <br />
-                                    {follower.username}
-                                    <br />
-                                    <button type="button" className="btn btn-primary">
-                                        Follow
+                                    <div className="col-3">
+                                        <img src={user.profile.profile_picture} alt="Avatar" width="100%" />
+                                        <br />
+                                        {follower.username}
+                                        <br />
+                                        <button type="button" className="btn btn-primary">
+                                            Follow
                                     </button>
-                                </div>)
+                                    </div>)
                             })}
                         </div>
                     </div>

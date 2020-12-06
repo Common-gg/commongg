@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import Text from '../components/Text.js'
+import Text from '../components/Text.js';
+import NavigationBar from '../components/NavigationBar.js';
 
 function EditProfile(props) {
 
@@ -9,16 +10,7 @@ function EditProfile(props) {
       <div className="container">
         <div className="row">
           <div className="col-lg-2">
-            <Text text="profile" />
-            <Text text="home" />
-            <Text text="following" />
-            <Text text="trending" />
-            {props.user.games.map(game => {
-              return <Text text={game} key={game} />
-            })}
-            <Link to="/">
-              <p onClick={() => props.signOut()}>Logout</p>
-            </Link>
+            <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.user} signOut={props.signOut}/>
           </div>
           <div className="col-lg-7 text-center">
             <div className="row">

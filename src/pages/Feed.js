@@ -4,6 +4,7 @@ import Text from '../components/Text.js'
 import Input from '../components/Input.js';
 import Post from '../components/Post/Post.js';
 import CreatePostModal from '../components/Post/CreatePostModal.js';
+import NavigationBar from '../components/NavigationBar.js';
 
 function Feed(props) {
 
@@ -47,16 +48,7 @@ function Feed(props) {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-2">
-                        <Text text="profile" />
-                        <Text text="home" />
-                        <Text text="following" />
-                        <Text text="trending" />
-                        {props.currentUserInfo.games.map(game => {
-                            return <Text text={game} key={game} />
-                        })}
-                        <Link to="/">
-                            <p onClick={() => props.signOut()}>Logout</p>
-                        </Link>
+                        <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut}/>
                     </div>
                     <div className="col-lg-7">
                         <Input type="search" placeholder="search" />

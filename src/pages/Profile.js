@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Text from '../components/Text.js';
 import Post from '../components/Post/Post.js';
+import NavigationBar from '../components/NavigationBar.js';
 
 function Profile(props) {
 
@@ -12,15 +13,15 @@ function Profile(props) {
   const [followBtnState, setFollowBtnState] = useState({
     text: "Follow"
   })
-  const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible"});
+  const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible" });
 
   function followHandler() {
-    if (followBtnState.text === "Follow"){
+    if (followBtnState.text === "Follow") {
       props.followUser(props.currentUser, userId);
-      setFollowBtnState({...followBtnState, text:"Following"});
+      setFollowBtnState({ ...followBtnState, text: "Following" });
     } else {
       props.unFollowUser(props.currentUser, userId);
-      setFollowBtnState({...followBtnState, text:"Follow"});
+      setFollowBtnState({ ...followBtnState, text: "Follow" });
     }
   }
 
@@ -37,7 +38,7 @@ function Profile(props) {
   }, [userId]);
 
   useEffect(() => {
-    //console.log(user);
+    console.log(user, props.currentUser);
   }, [user]);
 
   useEffect(() => { //TODO - hide follow button if checked
@@ -52,7 +53,7 @@ function Profile(props) {
     if (thisUser.following) {
       let temp = Object.values(thisUser.following);
       if (temp.includes(userId)) {
-        setFollowBtnState({...followBtnState, text:"Following"});
+        setFollowBtnState({ ...followBtnState, text: "Following" });
       }
     }
   }, [thisUser])
@@ -98,16 +99,7 @@ function Profile(props) {
       <div className="container">
         <div className="row">
           <div className="col-lg-2">
-            <Text text="profile" />
-            <Text text="home" />
-            <Text text="following" />
-            <Text text="trending" />
-            {user.games.map(game => {
-              return <Text text={game} key={game} />
-            })}
-            <Link to="/">
-              <p onClick={() => props.signOut()}>Logout</p>
-            </Link>
+            <NavigationBar currentUserId={props.currentUser} currentUserInfo={thisUser} signOut={props.signOut}/>
           </div>
           <div className="col-lg-7">
             <div className="row">
