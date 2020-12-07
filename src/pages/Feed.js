@@ -53,7 +53,7 @@ function Feed(props) {
                     <div className="col-lg-7">
                         <Input type="search" placeholder="search" />
                         <br />
-                        <CreatePostModal currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} />
+                        <CreatePostModal currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} />
                         <br />
                         {userPosts.map(post => {
                             return <Post post={post} />

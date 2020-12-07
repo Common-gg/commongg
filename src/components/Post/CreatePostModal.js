@@ -1,11 +1,7 @@
 import React, { useRef, useState } from 'react';
-import Text from '../Text.js';
-import Image from '../Image.js';
-import IconButton from '../IconButton.js';
-import { render } from '@testing-library/react';
-
 
 function CreatePostModal(props) {
+    const [selectedFile, setSelectedFile] = useState(null);
     const [postText, setPostText] = useState("");
     const postTextRef = useRef();
 
@@ -18,15 +14,21 @@ function CreatePostModal(props) {
             link: "link",
             timestamp: Date.now(),
             title: "TITLE_OF_POST",
-            type: "text/image/video"
-        })
+            type: "text/image/video",
+        });
+        props.storeImage(props.currentUserId, selectedFile);
+    }
+
+    function fileSelectedHandler(e) {
+        let selectedFile = e.target.files[0];
+        setSelectedFile(selectedFile);
     }
 
     return (
         <div className="CreatePostModal">
             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
                 Create a Post
-                        </button>
+            </button>
 
             <div className="modal fade" id="createPostModal" tabIndex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
@@ -42,8 +44,11 @@ function CreatePostModal(props) {
                             onChange={() => setPostText(postTextRef)}
                             ref={postTextRef}
                             rows="5"
+                            style={{ resize: "none" }}
                         />
                         <div style={{ display: "flex" }}>
+                            <input id="fileInput" type="file" onClick={() => fileSelectedHandler} />
+                            {/* {<input type="button" className="btn btn-primary" value="Select Image or Video" />} */}
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ marginLeft: "auto" }}>Post</button>
                         </div>
                     </div>
