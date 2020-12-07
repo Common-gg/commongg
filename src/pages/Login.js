@@ -73,6 +73,7 @@ function Login(props) {
               <button type="submit" className="btn btn-outline-light" onClick={() => props.signInUser(email.current.value, password.current.value)}
                 style={{
                   marginBottom: "10px",
+                  backgroundColor: "transparent"
                 }}>
                 <img src={arrow} />
               </button>
