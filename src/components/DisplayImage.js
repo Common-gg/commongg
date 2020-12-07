@@ -7,7 +7,7 @@ function DisplayImage(props) {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       setImage(URL.createObjectURL(img));
-      props.setImg(img);
+      props.setImage(image);
     }
   };
 

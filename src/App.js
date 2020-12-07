@@ -260,7 +260,7 @@ function App() {
         <Switch>
           <Route exact path="/EditProfile" render={
             (props) => (
-              <EditProfile user={currentUserInfo} signOut={signOut} />
+              <EditProfile user={currentUserInfo} currentUserId={currentUser.uid} signOut={signOut} />
             )} />
           <Route exact path="/Post" render={
             (props) => (
@@ -268,11 +268,11 @@ function App() {
             )} />
           <Route path="/Followers" render={
             (props) => (
-              <Followers getUser={getUser} setCurrentUserInfo={setCurrentUserInfo} signOut={signOut} />
+              <Followers getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut}/>
             )} />
           <Route path="/Following" render={
             (props) => (
-              <Following getUser={getUser} currentUser={currentUserInfo} />
+              <Following getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut}/>
             )} />
           <Route path="/Profile" render={
             (props) => (
