@@ -2,26 +2,46 @@ import React, { useRef, useState } from 'react';
 
 function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [postText, setPostText] = useState("");
+    const [postText, setPostText] = useState({
+        current: {
+            value: ""
+        }
+    });
     const postTextRef = useRef();
 
     function handlePostClick() {
+        if (selectedFile !== null) {
+            props.storeImage(selectedFile, createPost);
+        } else {
+            createPost("");
+        }
+    }
+
+    function createPost(url) {
         props.setCreatePost({
             text: postText.current.value,
             author: props.currentUserId,
             caption: "CAPTION_TEXT",
             game: "GAME_ID",
-            link: "link",
+            link: url,
             timestamp: Date.now(),
             title: "TITLE_OF_POST",
             type: "text/image/video",
         });
-        props.storeImage(props.currentUserId, selectedFile);
+        setPostText({
+            current: {
+                value: ""
+            }
+        });
+        setSelectedFile(null);
     }
 
     function fileSelectedHandler(e) {
-        let selectedFile = e.target.files[0];
-        setSelectedFile(selectedFile);
+        if (e.target.files && e.target.files[0]) {
+            let file = e.target.files[0];
+            console.log(file);
+            setSelectedFile(file);
+        }
     }
 
     return (
@@ -47,7 +67,7 @@ function CreatePostModal(props) {
                             style={{ resize: "none" }}
                         />
                         <div style={{ display: "flex" }}>
-                            <input id="fileInput" type="file" onClick={() => fileSelectedHandler} />
+                            <input id="fileInput" type="file" onChange={fileSelectedHandler} />
                             {/* {<input type="button" className="btn btn-primary" value="Select Image or Video" />} */}
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ marginLeft: "auto" }}>Post</button>
                         </div>

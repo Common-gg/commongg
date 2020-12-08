@@ -41,13 +41,15 @@ function Profile(props) {
     console.log(user, props.currentUser);
   }, [user]);
 
-  useEffect(() => { //TODO - hide follow button if checked
+  useEffect(() => { 
+    //TODO - hide follow button if checked
     if (props.currentUser) {
+      console.log(props.currentUser, userId);
       if (props.currentUser === userId) {
         setFollowBtnStyle({ visibility: "hidden" });
       }
     }
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (thisUser.following) {
