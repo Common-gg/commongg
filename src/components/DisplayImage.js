@@ -17,7 +17,7 @@ function DisplayImage(props) {
         <div className="mx-auto">
           <label htmlFor={props.id} >
             <img src={image || props.currentImg || "https://assets.dryicons.com/uploads/icon/svg/9920/974969e2-49be-4625-99be-25daca02778c.svg"}
-              style={{ width: "150px", height: "150px", borderRadius: "50%", margin: "20px" }}
+              style={{ width: "150px", height: "150px", borderRadius: "50%", margin: "20px", cursor: "pointer" }}
               alt="profile picture" />
           </label>
           <input
