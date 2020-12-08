@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+
 function DisplayImage(props) {
   const [image, setImage] = useState(props.currentImg);
 
   const onImageChange = event => {
-    console.log(image);
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       setImage(URL.createObjectURL(img));
-      props.setImage(image);
+      props.setImg(img);
     }
   };
 

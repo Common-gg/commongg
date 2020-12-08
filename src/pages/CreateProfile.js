@@ -12,6 +12,7 @@ function CreateProfile(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    console.log(img);
     props.storeBlob(displayName.current.value, img);
   }
 

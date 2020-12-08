@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import Text from '../components/Text.js'
 import Input from '../components/Input.js';
@@ -7,6 +7,8 @@ import CreatePostModal from '../components/Post/CreatePostModal.js';
 import NavigationBar from '../components/NavigationBar.js';
 
 function Feed(props) {
+
+    const [search, setSearch] = useState();
 
     let userPosts = [
         {
@@ -51,12 +53,12 @@ function Feed(props) {
                         <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut}/>
                     </div>
                     <div className="col-lg-7">
-                        <Input type="search" placeholder="search" />
+                        <Input type="search" placeholder="search" track={setSearch} />
                         <br />
                         <CreatePostModal currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} />
                         <br />
                         {userPosts.map(post => {
-                            return <Post post={post} />
+                            return <Post post={post} key={Math.random()} />
                         })}
                     </div>
                     <div className="col-lg-3">

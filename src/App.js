@@ -166,12 +166,14 @@ function App() {
     });
   }
 
-  const storeImage = (username, image) => {
+  const storeImage = (image, callback) => {
     const storageRef = storage.ref();
-    const ref = storageRef.child(`postImage/${currentUser.uid}`);
-    ref.put(image).then(() => {
-      ref.getDownloadURL().then((url) => {
-        setTempInfo({ username: username, url: url });
+    let imgId = URL.createObjectURL(image).split('/');
+    imgId = imgId[imgId.length-1];
+    const ref = storageRef.child(`postImage/${imgId}`);
+    ref.put(image).then(function () {
+      ref.getDownloadURL().then(function (url) {
+        return callback(url);
       });
     });
   }
@@ -226,7 +228,7 @@ function App() {
   }
 
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
-    return (<div>{console.log(currentUser, currentUserInfo)}</div>)
+    return (<div></div>)
   } else if (currentUser === null) {
     return (
       <Router>
