@@ -5,16 +5,8 @@ function CreatePostModal(props) {
     const postTitleRef = useRef();
     const fileInputRef = useRef();
     const [selectedFile, setSelectedFile] = useState(null);
-    const [postTitle, setPostTitle] = useState({
-        current: {
-            value: ""
-        }
-    });
-    const [postText, setPostText] = useState({
-        current: {
-            value: ""
-        }
-    });
+    const [postTitle, setPostTitle] = useState({ current: { value: "" } });
+    const [postText, setPostText] = useState({ current: { value: "" } });
 
     function clearFields() {
         postTitleRef.current.value = "";
@@ -82,9 +74,9 @@ function CreatePostModal(props) {
                             style={{ resize: "none" }}
                         />
                         <div style={{ display: "flex" }}>
-                            <input id="fileInput" type="file" ref={fileInputRef} onChange={fileSelectedHandler} />
-                            {/* {<input type="button" className="btn btn-primary" value="Select Image or Video" />} */}
-                            <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ marginLeft: "auto" }}>Post</button>
+                            <input id="fileInput" type="file" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
+                            <label for="fileInput" className="btn btn-primary">Attach Photo or Video</label>
+                            <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ height: 48, marginLeft: "auto" }}>Post</button>
                         </div>
                     </div>
                 </div>
