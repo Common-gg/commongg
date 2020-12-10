@@ -7,8 +7,8 @@ import arrow from "../images/arrow-right.png";
 
 function Login(props) {
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState({ current: { value: "" } });
+  const [password, setPassword] = useState({ current: { value: "" } });
 
   const logoCSS = {
     /* logo1light 1 */
@@ -43,12 +43,13 @@ function Login(props) {
               <div className="col-4"></div>
               <div className="row">
                 <Input type="email"
-                  style= {{
+                  style={{
                     backgroundColor: "#292823",
                   }}
                   bootstrap="border border-secondary"
                   placeholder="Email"
-                  track={setEmail} />
+                  track={setEmail}
+                />
                 <div className="col-4"></div>
               </div></div></div>
 
@@ -62,9 +63,13 @@ function Login(props) {
                   }}
                   bootstrap="border border-secondary"
                   placeholder="Password"
-                  track={setPassword} />
+                  track={setPassword}
+                  email={email.current.value}
+                  password={password}
+                  signInUser={props.signInUser} />
                 <div className="col-4"></div>
-              </div></div></div>
+              </div>
+            </div></div>
 
           <div className="row">
             <div className="col-4"></div>
