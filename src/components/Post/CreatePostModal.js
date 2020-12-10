@@ -1,13 +1,18 @@
 import React, { useRef, useState } from 'react';
 
 function CreatePostModal(props) {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [postText, setPostText] = useState({
-        current: {
-            value: ""
-        }
-    });
     const postTextRef = useRef();
+    const postTitleRef = useRef();
+    const fileInputRef = useRef();
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [postTitle, setPostTitle] = useState({ current: { value: "" } });
+    const [postText, setPostText] = useState({ current: { value: "" } });
+
+    function clearFields() {
+        postTitleRef.current.value = "";
+        postTextRef.current.value = "";
+        fileInputRef.current.value = "";
+    }
 
     function handlePostClick() {
         if (selectedFile !== null) {
@@ -25,14 +30,10 @@ function CreatePostModal(props) {
             game: "GAME_ID",
             link: url,
             timestamp: Date.now(),
-            title: "TITLE_OF_POST",
+            title: postTitle.current.value,
             type: "text/image/video",
         });
-        setPostText({
-            current: {
-                value: ""
-            }
-        });
+        clearFields();
         setSelectedFile(null);
     }
 
@@ -55,10 +56,16 @@ function CreatePostModal(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="createPostModalLabel">Create a Post</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        <input
+                            type="text"
+                            className="form-control"
+                            onChange={() => setPostTitle(postTitleRef)}
+                            ref={postTitleRef}
+                        />
                         <textarea
                             className="form-control"
                             onChange={() => setPostText(postTextRef)}
@@ -67,9 +74,9 @@ function CreatePostModal(props) {
                             style={{ resize: "none" }}
                         />
                         <div style={{ display: "flex" }}>
-                            <input id="fileInput" type="file" onChange={fileSelectedHandler} />
-                            {/* {<input type="button" className="btn btn-primary" value="Select Image or Video" />} */}
-                            <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ marginLeft: "auto" }}>Post</button>
+                            <input id="fileInput" type="file" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
+                            <label for="fileInput" className="btn btn-primary">Attach Photo or Video</label>
+                            <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ height: 48, marginLeft: "auto" }}>Post</button>
                         </div>
                     </div>
                 </div>
