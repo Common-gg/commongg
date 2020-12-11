@@ -4,6 +4,7 @@
 
 body {
   background-color: #292823;
+  color: #f5f1f1,
 }
 
 .App-logo {
@@ -42,7 +43,7 @@ body {
 }
 
 .container{
-background-color:#f5f3f3;
+background-color: #292823;
 }
 
 .TextPost {
