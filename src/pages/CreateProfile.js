@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../components/Input.js';
 // import Button from '../components/Button.js';
 import DisplayImage from '../components/DisplayImage.js'
-import add from "../images/Group 104.png";
+import add from "../images/icons/Group-104.png";
 
 function CreateProfile(props) {
   // add categories later
