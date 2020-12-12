@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import Text from '../components/Text.js';
 import NavigationBar from '../components/NavigationBar.js';
+import ProfilePicture from '../components/ProfilePicture.js';
 
 function EditProfile(props) {
   const fileInputRef = useRef();
@@ -45,7 +46,7 @@ function EditProfile(props) {
               <div className="col-3"></div>
               <div className="col-2">
                 <p><h2 style={{ color: "#ffffff" }}>edit profile</h2></p>
-                <img src={props.user.profile.profile_picture} alt="Avatar" width="190px" />
+                <ProfilePicture user={props.user} width="190px" height="190px"/>
                 <input id="fileInput" accept="image/*" type="file" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
                 <label for="fileInput" className="btn btn-primary">Change Profile Picture</label>
               </div>
