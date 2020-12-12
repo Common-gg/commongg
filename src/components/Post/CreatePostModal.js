@@ -23,6 +23,8 @@ function CreatePostModal(props) {
     }
 
     function createPost(url) {
+        let postType = getPostType();
+
         props.setCreatePost({
             text: postText.current.value,
             author: props.currentUserId,
@@ -31,11 +33,32 @@ function CreatePostModal(props) {
             link: url,
             timestamp: Date.now(),
             title: postTitle.current.value,
-            type: "text/image/video",
+            type: postType,
         });
         clearFields();
         setSelectedFile(null);
     }
+
+    function getPostType() {
+        let postTitleCurrentValue = postTitle.current.value;
+        let postTextCurrentValue = postText.current.value;
+
+        if (selectedFile !== null) {
+            let sf = selectedFile.type.toLowerCase();
+
+            if (sf.startsWith("video/")) {
+                return "video";
+            }
+            else if (sf.startsWith("image/")) {
+                return "image";
+            }
+        }
+        if (postTitleCurrentValue !== "" || postTextCurrentValue !== "") {
+            return "text";
+        }
+        return "";
+    }
+
 
     function fileSelectedHandler(e) {
         if (e.target.files && e.target.files[0]) {
