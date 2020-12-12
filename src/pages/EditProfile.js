@@ -32,7 +32,6 @@ function EditProfile(props) {
 
   function clearFields() {
     fileInputRef.current.value = "";
-    aboutMeRef.current.value = "";
   }
 
   return (
