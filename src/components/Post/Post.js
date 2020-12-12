@@ -4,9 +4,11 @@ import VideoPost from './VideoPost.js';
 import ImagePost from './ImagePost.js';
 
 function Post(props) {
+    console.log(props.post)
     if (props.post.type === "text") {
         return (
             <div className="Post">
+                {console.log("Making text post for: ", props.post)}
                 <TextPost post={props.post} />
                 <br/>
             </div>

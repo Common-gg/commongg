@@ -75,7 +75,7 @@ function CreatePostModal(props) {
                         />
                         <div style={{ display: "flex" }}>
                             <input id="fileInput" type="file" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
-                            <label for="fileInput" className="btn btn-primary">Attach Photo or Video</label>
+                            <label htmlFor="fileInput" className="btn btn-primary">Attach Photo or Video</label>
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ height: 48, marginLeft: "auto" }}>Post</button>
                         </div>
                     </div>
