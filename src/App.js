@@ -228,6 +228,14 @@ function App() {
     });
   }
 
+  const getPosts = (filter, sort, callback) => {
+    const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo("WoW");
+    
+    postRef.once('value', function(snapshot) {
+      callback(snapshot.val());
+    });
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -293,7 +301,7 @@ function App() {
             )} />
           <Route path="/" render={
             (props) => (
-              <Feed currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} storeImage={storeImage} />
+              <Feed getPosts={getPosts} currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} storeImage={storeImage} />
             )} />
         </Switch>
       </Router>
