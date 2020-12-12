@@ -107,6 +107,7 @@ function App() {
     database.ref('users/' + currentUser.uid + "/profile/").set({
       username: tempInfo.username,
       profile_picture: tempInfo.url,
+      about_me: tempInfo.aboutMe,
     });
     setCurrentUserInfo({
       ...currentUserInfo,
@@ -156,12 +157,12 @@ function App() {
     }
   }
 
-  const storeBlob = (username, blob) => {
+  const storeBlob = (username, blob, aboutMe = "") => {
     const storageRef = storage.ref();
     const ref = storageRef.child("users/" + currentUser.uid);
     ref.put(blob).then(function () {
       ref.getDownloadURL().then(function (url) {
-        setTempInfo({ username: username, url: url });
+        setTempInfo({ username: username, url: url, aboutMe: aboutMe });
       });
     });
   }
@@ -169,7 +170,7 @@ function App() {
   const storeImage = (image, callback) => {
     const storageRef = storage.ref();
     let imgId = URL.createObjectURL(image).split('/');
-    imgId = imgId[imgId.length-1];
+    imgId = imgId[imgId.length - 1];
     const ref = storageRef.child(`postImage/${imgId}`);
     ref.put(image).then(function () {
       ref.getDownloadURL().then(function (url) {
@@ -280,7 +281,7 @@ function App() {
         <Switch>
           <Route exact path="/EditProfile" render={
             (props) => (
-              <EditProfile user={currentUserInfo} currentUserId={currentUser.uid} signOut={signOut} />
+              <EditProfile user={currentUserInfo} currentUserId={currentUser.uid} signOut={signOut} storeBlob={storeBlob} />
             )} />
           <Route exact path="/Post" render={
             (props) => (
@@ -288,11 +289,11 @@ function App() {
             )} />
           <Route path="/Followers" render={
             (props) => (
-              <Followers getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut}/>
+              <Followers getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
             )} />
           <Route path="/Following" render={
             (props) => (
-              <Following getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut}/>
+              <Following getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
             )} />
           <Route path="/Profile" render={
             (props) => (
