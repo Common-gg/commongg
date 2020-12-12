@@ -34,6 +34,8 @@ function CreatePostModal(props) {
             timestamp: Date.now(),
             title: postTitle.current.value,
             type: postType,
+            likes: 0,
+            dislikes: 0
         });
         clearFields();
         setSelectedFile(null);
