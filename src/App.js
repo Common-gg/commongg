@@ -45,6 +45,7 @@ function App() {
   const [tempInfo, setTempInfo] = useState();
   const [tempGames, setTempGames] = useState();
   const [createPost, setCreatePost] = useState();
+  const [allGames, setAllGames] = useState();
 
   const [startup, setStartup] = useState(false);
 
@@ -139,6 +140,12 @@ function App() {
     });
 
   }
+
+  useEffect(() => {
+    database.ref("/games/").once("value").then((snapshot) => {
+      setAllGames(snapshot.val());
+    });
+  }, [allGames]);
 
   const initializeUser = (email) => {
     if (currentUser.uid) {
