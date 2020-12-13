@@ -228,10 +228,26 @@ function App() {
     });
   }
 
+  const getTitleOfGameById = (gameId) => {
+    let gameTitle = "";
+
+    database.ref("/games/").once("value").then((snapshot) => {
+      let games = snapshot.val();
+
+      if (games.hasOwnProperty(gameId)) {
+        gameTitle = games[gameId].title;
+      }
+      else {
+        console.log(`Couldnt find game name for user with ID: ${currentUser.uid}`)
+      }
+      return gameTitle;
+    });
+  }
+
   const getPosts = (filter, sort, callback) => {
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo("WoW");
-    
-    postRef.once('value', function(snapshot) {
+
+    postRef.once('value', function (snapshot) {
       callback(snapshot.val());
     });
   }
