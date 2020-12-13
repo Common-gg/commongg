@@ -238,7 +238,7 @@ function App() {
         gameTitle = games[gameId].title;
       }
       else {
-        console.log(`Couldnt find game name for user with ID: ${currentUser.uid}`)
+        console.log(`Couldnt find game name for game with ID: ${gameId}`);
       }
       return gameTitle;
     });
