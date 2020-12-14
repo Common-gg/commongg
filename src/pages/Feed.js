@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
 import Text from '../components/Text.js'
 import NavigationBar from '../components/NavigationBar.js';
-import FeedContainer from '../components/Feed/FeedContainer.js';
+import FeedContainer from '../components/Page Containers/FeedContainer.js';
 
 function Feed(props) {
 
