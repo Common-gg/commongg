@@ -14,7 +14,11 @@ function FeedContainer(props) {
       <CreatePostModal currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} />
       <br />
       {Object.values(props.posts).map((post, i) => {
-        return <Post post={post} key={Object.keys(props.posts)[i]} />
+        return (
+          <div>
+            <Post post={post} key={Object.keys(props.posts)[i]} /><br />
+          </div>
+        )
       })}
     </div>
   );
