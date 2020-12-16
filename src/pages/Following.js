@@ -12,7 +12,7 @@ function Following(props) {
         let url = window.location.href;
         url = url.split('/');
         setUserId(url[url.length - 1]);
-        props.getUser(props.currentUser, setUser);
+        props.getUser(props.currentUserId, setUser);
     }, []);
 
     useEffect(() => {

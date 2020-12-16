@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Text from '../components/Text.js';
 import NavigationBar from '../components/NavigationBar.js';
-import ProfileContainer from '../components/Page Containers/ProfileContainer.js';
+import ProfileContainer from '../components/ContentContainers/ProfileContainer.js';
 
 function Profile(props) {
 

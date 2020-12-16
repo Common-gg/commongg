@@ -1,7 +1,7 @@
 import React from 'react';
 import Text from '../components/Text.js';
 import NavigationBar from '../components/NavigationBar';
-import ViewPostContainer from '../components/Page Containers/ViewPostContainer';
+import ViewPostContainer from '../components/ContentContainers/ViewPostContainer';
 
 function ViewPost(props) {
 
