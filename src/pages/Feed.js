@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Text from '../components/Text.js'
 import NavigationBar from '../components/NavigationBar.js';
-import FeedContainer from '../components/Page Containers/FeedContainer.js';
+import FeedContainer from '../components/PageContainers/FeedContainer.js';
 
 function Feed(props) {
 

@@ -8,7 +8,6 @@ function Post(props) {
     if (props.post.type === "text") {
         return (
             <div className="Post">
-                {console.log("Making text post for: ", props.post)}
                 <TextPost post={props.post} />
                 <br/>
             </div>

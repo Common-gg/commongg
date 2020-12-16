@@ -38,6 +38,7 @@ function TextPost(props) {
           </div>
           <div className="col-2">
             <IconButton class="fa fa-frown-o" text={convertNum(props.post.dislikes)} />
+            <p></p>
           </div>
           <div className="col-4">
 
