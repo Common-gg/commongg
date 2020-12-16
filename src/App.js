@@ -249,7 +249,9 @@ function App() {
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
 
     postRef.once('value', function (snapshot) {
-      callback(snapshot.val());
+      if (snapshot.val() !== null) {
+        callback(snapshot.val());
+      }
     });
   }
 
@@ -318,22 +320,22 @@ function App() {
             )} /> */}
           <Route path="/" render={
             (props) => (
-              <PageContainer 
+              <PageContainer
                 currentUserId={currentUser.uid}
                 currentUserInfo={currentUserInfo}
-                
+
                 signOut={signOut}
-                
+
                 getPosts={getPosts}
-                setCreatePost={setCreatePost} 
-                
+                setCreatePost={setCreatePost}
+
                 storeImage={storeImage}
                 storeBlob={storeBlob}
 
                 getUser={getUser}
                 followUser={followUser}
                 unFollowUser={unFollowUser}
-                />
+              />
             )} />
         </Switch>
       </Router>

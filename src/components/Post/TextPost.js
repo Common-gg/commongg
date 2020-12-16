@@ -31,7 +31,7 @@ function TextPost(props) {
         <br/>
         <div className="row">
           <div className="col-1">
-            <ProfilePicture user={author} width="40px" height="40px" />
+            <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
           </div>
           <div className="col-11">
             <Text text={author.profile.username} />

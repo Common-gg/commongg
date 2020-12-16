@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState , useEffect} from 'react';
 import { Link } from "react-router-dom";
 import Text from '../../components/Text.js';
 import ProfilePicture from '../../components/ProfilePicture.js';
@@ -35,13 +35,17 @@ function SettingsContainer(props) {
       fileInputRef.current.value = "";
     }
 
+    useEffect(()=>{
+      console.log(props);
+    }, [])
+
     return (
         <div className="SettingsContainer">
             <div className="row col-12">
                 <div className="col-3"></div>
                 <div className="col-4">
                     <p><h2 style={{ color: "#BF9AFC" }}>edit profile</h2></p>
-                    <ProfilePicture user={props.user} width="190px" height="190px" />
+                    <ProfilePicture currentUserInfo={props.currentUserInfo} width="190px" height="190px" />
                     <input id="fileInput"
                         accept="image/*"
                         type="file"

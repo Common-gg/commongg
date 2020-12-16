@@ -47,7 +47,7 @@ function EditProfile(props) {
               <div className="col-3"></div>
               <div className="col-4">
                 <p><h2 style={{ color: "#BF9AFC" }}>edit profile</h2></p>
-                <ProfilePicture user={props.user} width="190px" height="190px" />
+                <ProfilePicture currentUserInfo={props.currentUserInfo} width="190px" height="190px" />
                 <input id="fileInput"
                   accept="image/*"
                   type="file"
