@@ -31,9 +31,9 @@ function FeedContainer(props) {
       <br />
       <CreatePostModal currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} />
       <br />
-      {Object.values(posts).map((post, i) => {
+      {Object.values(posts).reverse().map((post, i) => {
         return (
-          <div key={Object.keys(posts)[i]}>
+          <div key={Object.keys(posts).reverse()[i]}>
             <Post post={post} getUser={props.getUser} /><br />
           </div>
         )

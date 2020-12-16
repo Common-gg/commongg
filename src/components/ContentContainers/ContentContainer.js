@@ -16,13 +16,13 @@ function ContentContainer(props) {
   });
 
   switch (pageState) {     
-    case "Profile":
+    case "profile":
       return <ProfileContainer {...props} />;
       break;
-    case "ViewPost":
+    case "post":
       return <ViewPostContainer {...props} />;
       break;
-    case "":
+    case "settings":
       return <SettingsContainer {...props} />;
       break;
     default:
