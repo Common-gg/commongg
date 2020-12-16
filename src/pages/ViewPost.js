@@ -1,8 +1,7 @@
-// TEMPORARY PAGE, REPLACE WITH MODAL LATER
 import React from 'react';
-import Text from '../components/Text.js'
-import Post from '../components/Post/Post.js';
-import Comment from '../components/Post/Comment.js';
+import Text from '../components/Text.js';
+import NavigationBar from '../components/NavigationBar';
+import ViewPostContainer from '../components/Page Containers/ViewPostContainer';
 
 function ViewPost(props) {
 
@@ -67,16 +66,16 @@ function ViewPost(props) {
     return (
         <div className="ViewPost">
             <div className="container">
-                <Post post={userPost} />
-                <div className="col-10">
-                    <Text text="Comments" />
-                    {userPost.comments.map(comment => {
-                        return (
-                            <div className="commentBorder">
-                                <Comment comment={comment} />
-                            </div>
-                        );
-                    })}
+                <div className="row">
+                    <div className="col-lg-2">
+                        <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut}/>
+                    </div>
+                    <div className="col-lg-7">
+                        <ViewPostContainer post={userPost}/>
+                    </div>
+                    <div className="col-lg-3">
+                        <Text text="col 3" />
+                    </div>
                 </div>
             </div>
         </div>

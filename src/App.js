@@ -301,7 +301,7 @@ function App() {
             )} />
           <Route exact path="/Post" render={
             (props) => (
-              <ViewPost />
+              <ViewPost currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut}/>
             )} />
           <Route path="/Followers" render={
             (props) => (
@@ -313,11 +313,11 @@ function App() {
             )} />
           <Route path="/Profile" render={
             (props) => (
-              <Profile getUser={getUser} currentUser={currentUser.uid} signOut={signOut} followUser={followUser} unFollowUser={unFollowUser} />
+              <Profile getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} followUser={followUser} unFollowUser={unFollowUser} />
             )} />
           <Route path="/" render={
             (props) => (
-              <Feed getPosts={getPosts} currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} storeImage={storeImage} />
+              <Feed getPosts={getPosts} currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} storeImage={storeImage} currentUserInfo={currentUserInfo}/>
             )} />
         </Switch>
       </Router>
