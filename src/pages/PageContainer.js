@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import React from 'react';
 import Text from '../components/Text.js'
 import NavigationBar from '../components/NavigationBar.js';
-import FeedContainer from '../components/Feed/FeedContainer.js';
+import ContentContainer from '../components/ContentContainers/ContentContainer.js';
 
 function PageContainer(props) {
-
-  const [pageState, setPageState] = useState("Feed");
 
   return (
     <div className="PageContainer">
@@ -16,7 +13,7 @@ function PageContainer(props) {
             <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
           </div>
           <div className="col-lg-7">
-            <FeedContainer currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} posts={posts} />
+            <ContentContainer {...props} />
           </div>
           <div className="col-lg-3">
             <Text text="PUT ADS HERE TO MAKE $$ YEP" />
