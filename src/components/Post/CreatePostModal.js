@@ -23,6 +23,8 @@ function CreatePostModal(props) {
     }
 
     function createPost(url) {
+        let postType = getPostType();
+
         props.setCreatePost({
             text: postText.current.value,
             author: props.currentUserId,
@@ -31,11 +33,34 @@ function CreatePostModal(props) {
             link: url,
             timestamp: Date.now(),
             title: postTitle.current.value,
-            type: "text/image/video",
+            type: postType,
+            likes: 0,
+            dislikes: 0
         });
         clearFields();
         setSelectedFile(null);
     }
+
+    function getPostType() {
+        let postTitleCurrentValue = postTitle.current.value;
+        let postTextCurrentValue = postText.current.value;
+
+        if (selectedFile !== null) {
+            let sf = selectedFile.type.toLowerCase();
+
+            if (sf.startsWith("video/")) {
+                return "video";
+            }
+            else if (sf.startsWith("image/")) {
+                return "image";
+            }
+        }
+        if (postTitleCurrentValue !== "" || postTextCurrentValue !== "") {
+            return "text";
+        }
+        return "";
+    }
+
 
     function fileSelectedHandler(e) {
         if (e.target.files && e.target.files[0]) {
@@ -75,7 +100,7 @@ function CreatePostModal(props) {
                         />
                         <div style={{ display: "flex" }}>
                             <input id="fileInput" type="file" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
-                            <label for="fileInput" className="btn btn-primary">Attach Photo or Video</label>
+                            <label htmlFor="fileInput" className="btn btn-primary">Attach Photo or Video</label>
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={{ height: 48, marginLeft: "auto" }}>Post</button>
                         </div>
                     </div>

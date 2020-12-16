@@ -8,11 +8,11 @@ function TextPost(props) {
     let editedVal = val;
     if(editedVal > 1000000){
       editedVal = Math.round(val/100000)/10;
-      return (editedVal + "mil");
+      return (editedVal + "M");
     }
     if (editedVal > 1000) {
       editedVal = Math.round(val/100)/10;
-      return (editedVal + "k");
+      return (editedVal + "K");
     } else {
       return editedVal;
     }
@@ -38,6 +38,7 @@ function TextPost(props) {
           </div>
           <div className="col-2">
             <IconButton class="fa fa-frown-o" text={convertNum(props.post.dislikes)} />
+            <p></p>
           </div>
           <div className="col-4">
 
