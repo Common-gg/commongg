@@ -249,7 +249,6 @@ function App() {
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
 
     postRef.once('value', function (snapshot) {
-      console.log(snapshot.val());
       callback(snapshot.val());
     });
   }

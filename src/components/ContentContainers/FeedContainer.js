@@ -25,10 +25,6 @@ function FeedContainer(props) {
     props.getPosts("text", "type", setPosts);
   }, []);
 
-  useEffect(() => {
-    console.log(posts)
-  }, []);
-
   return (
     <div>
       <Input type="search" placeholder="search" track={setSearch} />
@@ -37,8 +33,8 @@ function FeedContainer(props) {
       <br />
       {Object.values(posts).map((post, i) => {
         return (
-          <div>
-            <Post post={post} key={Object.keys(posts)[i]} /><br />
+          <div key={Object.keys(posts)[i]}>
+            <Post post={post} /><br />
           </div>
         )                 
       })}

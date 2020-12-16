@@ -32,7 +32,7 @@ function NavigationBar(props) {
             {props.currentUserInfo.games.map(game => {
                 return <Text text={game} key={game} />
             })}
-            <Link to="/EditProfile" style={{ color: "#BF9AFC" }}>
+            <Link to="/settings" style={{ color: "#BF9AFC" }}>
                 <p><img src={setting} style={iconStyle} alt=""/> Settings</p>
             </Link>
             <Link to="/" style={{ color: "#BF9AFC" }}>
