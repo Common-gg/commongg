@@ -4,7 +4,7 @@ import IconButton from '../IconButton.js';
 
 function TextPost(props) {
 
-  const convertNum = (val) => {
+  function convertNum(val) {
     let editedVal = val;
     if(editedVal > 1000000){
       editedVal = Math.round(val/100000)/10;
@@ -17,14 +17,15 @@ function TextPost(props) {
       return editedVal;
     }
   }
+
   return (
     <div className="TextPost">
       <div className="container">
         <div className="row">
-          <Text text={props.post.user} />
+          <Text text={props.post.author} />
         </div>
         <div className="row">
-          <Text text={props.post.time} />
+          <Text text={new Date(props.post.timestamp).toLocaleDateString("en-US") + " @ " + new Date(props.post.timestamp).toLocaleTimeString("en-US")} />
         </div>
         <div className="row">
           <Text text={props.post.title} />
