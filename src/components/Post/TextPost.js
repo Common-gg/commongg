@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Text from '../Text.js';
 import IconButton from '../IconButton.js';
+import ProfilePicture from '../ProfilePicture.js';
 
 function TextPost(props) {
 
+  const [author, setAuthor] = useState({ profile: "" });
+
+  useEffect(() => {
+    props.getUser(props.post.author, setAuthor)
+  }, [])
+
   function convertNum(val) {
     let editedVal = val;
-    if(editedVal > 1000000){
-      editedVal = Math.round(val/100000)/10;
+    if (editedVal > 1000000) {
+      editedVal = Math.round(val / 100000) / 10;
       return (editedVal + "M");
     }
     if (editedVal > 1000) {
-      editedVal = Math.round(val/100)/10;
+      editedVal = Math.round(val / 100) / 10;
       return (editedVal + "K");
     } else {
       return editedVal;
@@ -21,17 +28,21 @@ function TextPost(props) {
   return (
     <div className="TextPost">
       <div className="container">
+        <br/>
         <div className="row">
-          <Text text={props.post.author} />
+          <div className="col-1">
+            <ProfilePicture user={author} width="40px" height="40px" />
+          </div>
+          <div className="col-11">
+            <Text text={author.profile.username} />
+            <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")} />
+          </div>
         </div>
         <div className="row">
-          <Text text={new Date(props.post.timestamp).toLocaleDateString("en-US") + " @ " + new Date(props.post.timestamp).toLocaleTimeString("en-US")} />
-        </div>
-        <div className="row">
-          <Text text={props.post.title} />
-        </div>
-        <div className="row">
-          <Text text={props.post.text} />
+          <div className="col-12">
+            <Text text={props.post.title} />
+            <Text text={props.post.text} />
+          </div>
         </div>
         <div className="row">
           <div className="col-2">
@@ -52,7 +63,7 @@ function TextPost(props) {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

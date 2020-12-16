@@ -1,26 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Text from '../Text.js';
 import Image from '../Image.js';
 import IconButton from '../IconButton.js';
 
 function ImagePost(props) {
+
+  const [author, setAuthor] = useState({ profile: "" });
+
+  useEffect(() => {
+    props.getUser(props.post.author, setAuthor)
+  }, [])
+
   return (
     <div className="ImagePost">
       <div className="container">
         <div className="row">
-          <Text text={props.post.user} />
-        </div>
-        <div className="row">
-          <Text text={props.post.time} />
-        </div>
-        <div className="row">
-          <Text text={props.post.title} />
-        </div>
-        <div className="row">
-          <Image src={props.post.link} />
-        </div>
-        <div className="row">
-          <Text text={props.post.text} />
+          <div className="col-12">
+            <Text text={author.profile.username} />
+            <Text text={new Date(props.post.timestamp).toLocaleDateString("en-US") + " @ " + new Date(props.post.timestamp).toLocaleTimeString("en-US")} />
+            <Text text={props.post.title} />
+            <Image src={props.post.link} />
+            <Text text={props.post.text} />
+          </div>
         </div>
         <div className="row">
           <div className="col-2">
