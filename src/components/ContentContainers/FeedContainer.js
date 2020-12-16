@@ -34,9 +34,9 @@ function FeedContainer(props) {
       {Object.values(posts).map((post, i) => {
         return (
           <div key={Object.keys(posts)[i]}>
-            <Post post={post} /><br />
+            <Post post={post} getUser={props.getUser} /><br />
           </div>
-        )                 
+        )
       })}
     </div>
   );

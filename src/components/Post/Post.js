@@ -1,13 +1,12 @@
 import React from 'react';
 import TextPost from './TextPost.js';
-import VideoPost from './VideoPost.js';
 import ImagePost from './ImagePost.js';
 
 function Post(props) {
     if (props.post.type === "text") {
         return (
             <div className="Post">
-                <TextPost post={props.post} />
+                <TextPost post={props.post} getUser={props.getUser}/>
                 <br/>
             </div>
         );
