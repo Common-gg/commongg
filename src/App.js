@@ -11,6 +11,7 @@ import Feed from './pages/Feed.js';
 import Followers from './pages/Followers.js';
 import Following from './pages/Following.js';
 import ViewPost from './pages/ViewPost.js';
+import ChooseGames from "./pages/ChooseGames.js"
 
 const Twitch = require("./api/Twitch.js");
 
@@ -244,6 +245,12 @@ function App() {
     });
   }
 
+  const getAllGames = (callback) => {
+    database.ref("/games/").once("value").then((snapshot) => {
+      return callback(snapshot.val());
+    });
+  }
+
   const getPosts = (filter, sort, callback) => {
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo("WoW");
 
@@ -286,7 +293,7 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <Categories Twitch={Twitch} twitchToken={twitchToken} storeUserGames={setTempGames} />
+              <Categories Twitch={Twitch} getAllGames={getAllGames} twitchToken={twitchToken} storeUserGames={setTempGames} />
             )} />
         </Switch>
       </Router>
@@ -298,6 +305,10 @@ function App() {
           <Route exact path="/EditProfile" render={
             (props) => (
               <EditProfile user={currentUserInfo} currentUserId={currentUser.uid} signOut={signOut} storeBlob={storeBlob} />
+            )} />
+          <Route exact path="/ChooseGames" render={
+            (props) => (
+              <ChooseGames currentUserId={currentUser.uid} getAllGames={getAllGames} storeUserGames={setTempGames} signOut={signOut} currentUserInfo={currentUserInfo} />
             )} />
           <Route exact path="/Post" render={
             (props) => (

@@ -6,8 +6,8 @@ import home from "../images/icons/logo1light.png";
 function NavigationBar(props) {
 
     const iconStyle = {
-        width: "10px", 
-        height: "10px" 
+        width: "10px",
+        height: "10px"
     }
 
     return (
@@ -15,14 +15,17 @@ function NavigationBar(props) {
             <Link to={"/profile/" + props.currentUserId} style={{ color: "#BF9AFC" }}>
                 <p>Profile</p>
             </Link>
-            <Link to="/" style={{ color: "#BF9AFC" }}>
-                <p><img src={home} style={iconStyle} />Home</p>
-            </Link>
-            {props.currentUserInfo.games.map(game => {
+            {/* {props.currentUserInfo.games.map(game => {
                 return <Text text={game} key={game} />
-            })}
+            })} */}
             <Link to="/EditProfile" style={{ color: "#BF9AFC" }}>
                 <p>Settings</p>
+            </Link>
+            <Link to="/ChooseGames" style={{ color: "#BF9AFC" }}>
+                <p>Edit Games</p>
+            </Link>
+            <Link to="/" style={{ color: "#BF9AFC" }}>
+                <p><img src={home} style={iconStyle} />Home</p>
             </Link>
             <Link to="/" style={{ color: "#BF9AFC" }}>
                 <p onClick={() => props.signOut()}>Logout</p>
