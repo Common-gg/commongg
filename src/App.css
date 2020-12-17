@@ -46,16 +46,17 @@ body {
 background-color: #292823;
 }
 
-.TextPost {
+.Post {
   border-style: solid;
+  border-radius: 5px;
+  border-color: #5F5177;
+  border-width: 2px;
+  padding-bottom: 0px;
+  padding-left: 20px;
 }
 
-.VideoPost {
-  border-style: solid;
-}
-
-.ImagePost {
-  border-style: solid;
+.IconButton {
+  margin: 0 0 0 0;
 }
 
 .btn {

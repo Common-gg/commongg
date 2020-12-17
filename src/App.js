@@ -3,15 +3,9 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
-import Profile from './pages/Profile.js';
-import EditProfile from './pages/EditProfile.js';
 import Categories from './pages/Categories.js';
 import SignUp from "./pages/SignUp";
-import Feed from './pages/Feed.js';
-import Followers from './pages/Followers.js';
-import Following from './pages/Following.js';
-import ViewPost from './pages/ViewPost.js';
-import ChooseGames from "./pages/ChooseGames.js"
+import PageContainer from './pages/PageContainer';
 
 const Twitch = require("./api/Twitch.js");
 
@@ -252,10 +246,12 @@ function App() {
   }
 
   const getPosts = (filter, sort, callback) => {
-    const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo("WoW");
+    const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
 
     postRef.once('value', function (snapshot) {
-      callback(snapshot.val());
+      if (snapshot.val() !== null) {
+        callback(snapshot.val());
+      }
     });
   }
 
@@ -302,9 +298,9 @@ function App() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/EditProfile" render={
+          {/* <Route exact path="/EditProfile" render={
             (props) => (
-              <EditProfile user={currentUserInfo} currentUserId={currentUser.uid} signOut={signOut} storeBlob={storeBlob} />
+              <EditProfile user={currentUserInfo} currentUser={currentUser.uid} signOut={signOut} storeBlob={storeBlob} />
             )} />
           <Route exact path="/ChooseGames" render={
             (props) => (
@@ -312,23 +308,38 @@ function App() {
             )} />
           <Route exact path="/Post" render={
             (props) => (
-              <ViewPost />
+              <ViewPost currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut}/>
             )} />
           <Route path="/Followers" render={
             (props) => (
-              <Followers getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
+              <Followers getUser={getUser} currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
             )} />
           <Route path="/Following" render={
             (props) => (
-              <Following getUser={getUser} currentUser={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
+              <Following getUser={getUser} currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
             )} />
           <Route path="/Profile" render={
             (props) => (
-              <Profile getUser={getUser} currentUser={currentUser.uid} signOut={signOut} followUser={followUser} unFollowUser={unFollowUser} />
-            )} />
+              <Profile getUser={getUser} currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} followUser={followUser} unFollowUser={unFollowUser} />
+            )} /> */}
           <Route path="/" render={
             (props) => (
-              <Feed getPosts={getPosts} currentUserId={currentUser.uid} signOut={signOut} currentUserInfo={currentUserInfo} setCreatePost={setCreatePost} storeImage={storeImage} />
+              <PageContainer
+                currentUserId={currentUser.uid}
+                currentUserInfo={currentUserInfo}
+
+                signOut={signOut}
+
+                getPosts={getPosts}
+                setCreatePost={setCreatePost}
+
+                storeImage={storeImage}
+                storeBlob={storeBlob}
+
+                getUser={getUser}
+                followUser={followUser}
+                unFollowUser={unFollowUser}
+              />
             )} />
         </Switch>
       </Router>
