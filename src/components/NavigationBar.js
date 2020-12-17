@@ -35,6 +35,9 @@ function NavigationBar(props) {
             <Link to="/settings" style={{ color: "#BF9AFC" }}>
                 <p><img src={setting} style={iconStyle} alt=""/> Settings</p>
             </Link>
+            <Link to="/editgames" style={{ color: "#BF9AFC" }}>
+                <p>Edit Games</p>
+            </Link>
             <Link to="/" style={{ color: "#BF9AFC" }}>
                 <p onClick={() => props.signOut()}>Logout</p>
             </Link>

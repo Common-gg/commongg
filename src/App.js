@@ -3,14 +3,8 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
-import Profile from './pages/Profile.js';
-import EditProfile from './pages/EditProfile.js';
 import Categories from './pages/Categories.js';
 import SignUp from "./pages/SignUp";
-import Feed from './pages/Feed.js';
-import Followers from './pages/Followers.js';
-import Following from './pages/Following.js';
-import ViewPost from './pages/ViewPost.js';
 import PageContainer from './pages/PageContainer';
 
 const Twitch = require("./api/Twitch.js");
@@ -245,6 +239,12 @@ function App() {
     });
   }
 
+  const getAllGames = (callback) => {
+    database.ref("/games/").once("value").then((snapshot) => {
+      return callback(snapshot.val());
+    });
+  }
+
   const getPosts = (filter, sort, callback) => {
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
 
@@ -289,7 +289,7 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <Categories Twitch={Twitch} twitchToken={twitchToken} storeUserGames={setTempGames} />
+              <Categories Twitch={Twitch} getAllGames={getAllGames} twitchToken={twitchToken} storeUserGames={setTempGames} />
             )} />
         </Switch>
       </Router>
@@ -301,6 +301,10 @@ function App() {
           {/* <Route exact path="/EditProfile" render={
             (props) => (
               <EditProfile user={currentUserInfo} currentUser={currentUser.uid} signOut={signOut} storeBlob={storeBlob} />
+            )} />
+          <Route exact path="/ChooseGames" render={
+            (props) => (
+              <ChooseGames currentUserId={currentUser.uid} getAllGames={getAllGames} storeUserGames={setTempGames} signOut={signOut} currentUserInfo={currentUserInfo} />
             )} />
           <Route exact path="/Post" render={
             (props) => (

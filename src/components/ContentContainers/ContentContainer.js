@@ -3,6 +3,7 @@ import FeedContainer from './FeedContainer.js';
 import ProfileContainer from './ProfileContainer.js';
 import ViewPostContainer from './ViewPostContainer.js';
 import SettingsContainer from './SettingsContainer.js';
+import GamesContainer from './GamesContainer.js';
 
 function ContentContainer(props) {
 
@@ -18,16 +19,14 @@ function ContentContainer(props) {
   switch (pageState) {     
     case "profile":
       return <ProfileContainer {...props} />;
-      break;
     case "post":
       return <ViewPostContainer {...props} />;
-      break;
     case "settings":
       return <SettingsContainer {...props} />;
-      break;
+    case "editgames":
+      return <GamesContainer {...props} />;
     default:
       return <FeedContainer {...props} />;
-      break;
   }
 }
 
