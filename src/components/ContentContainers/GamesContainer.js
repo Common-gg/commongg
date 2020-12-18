@@ -20,10 +20,14 @@ function GamesContainer(props) {
 
     useEffect(() => {
         setGamesArr(allGames.map((game, i) => {
-            console.log(game);
             return <GameCard key={i} gameTitle={game.title} gameImageSrc={game.image} index={i} selectedGames={selectedGames} setSelectedGames={setSelectedGames} />;
-        }))
+        }));
     }, [allGames]);
+
+    function handleDoneClick() {
+        setModalState("d-none");
+        props.storeUserGames(selectedGames);
+    }
 
     return (
         <div className="ChooseGames" >
@@ -37,7 +41,7 @@ function GamesContainer(props) {
                                 </div>
                                 <div className="row">{gamesArr}</div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <button type="button" className="btn btn-primary" onClick={() => setModalState("d-none")}>done</button>
+                                    <button type="button" className="btn btn-primary" onClick={handleDoneClick}>done</button>
                                 </div>
                             </div>
                         </div>

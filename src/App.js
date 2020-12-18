@@ -289,7 +289,7 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <Categories Twitch={Twitch} getAllGames={getAllGames} twitchToken={twitchToken} storeUserGames={setTempGames} />
+              <Categories getAllGames={getAllGames} storeUserGames={setTempGames} />
             )} />
         </Switch>
       </Router>
@@ -339,6 +339,7 @@ function App() {
                 getUser={getUser}
                 followUser={followUser}
                 unFollowUser={unFollowUser}
+                storeUserGames={setTempGames}
               />
             )} />
         </Switch>

@@ -16,7 +16,7 @@ function ContentContainer(props) {
     console.log(pageState);
   });
 
-  switch (pageState) {     
+  switch (pageState) {
     case "profile":
       return <ProfileContainer {...props} />;
     case "post":

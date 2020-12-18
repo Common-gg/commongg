@@ -4,7 +4,6 @@ function GameCard(props) {
     const [border, setBorder] = useState("");
 
     const select = () => {
-        console.log("made it");
         if (border === "") {
             setBorder("border border-success");
             props.setSelectedGames([...props.selectedGames, props.index]);
