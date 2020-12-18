@@ -11,8 +11,8 @@ import setting from "../images/icons/settingslight-1.png";
 function NavigationBar(props) {
 
     const iconStyle = {
-        width: "50px", 
-        height: "50px" 
+        width: "50px",
+        height: "50px"
     }
 
     return (
@@ -21,19 +21,16 @@ function NavigationBar(props) {
                 <p>Profile</p>
             </Link>
             <Link to="/" style={{ color: "#BF9AFC" }}>
-                <p><img src={home} style={iconStyle} alt=""/> Home</p>
+                <p><img src={home} style={iconStyle} alt="" /> Home</p>
             </Link>
             <Link to="/following" style={{ color: "#BF9AFC" }}>
                 <p><img src={follow} style={iconStyle} alt="" /> Following</p>
             </Link>
             <Link to="/trending" style={{ color: "#BF9AFC" }}>
-                <p><img src={trend} style={iconStyle} alt=""/> Trending</p>
+                <p><img src={trend} style={iconStyle} alt="" /> Trending</p>
             </Link>
-            {props.currentUserInfo.games.map(game => {
-                return <Text text={game} key={game} />
-            })}
             <Link to="/settings" style={{ color: "#BF9AFC" }}>
-                <p><img src={setting} style={iconStyle} alt=""/> Settings</p>
+                <p><img src={setting} style={iconStyle} alt="" /> Settings</p>
             </Link>
             <Link to="/editgames" style={{ color: "#BF9AFC" }}>
                 <p>Edit Games</p>
