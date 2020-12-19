@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Text from '../Text.js';
 import IconButton from '../IconButton.js';
+import ProfilePicture from '../ProfilePicture.js';
 
 function Comment(props) {
+
+    const [author, setAuthor] = useState({ profile: "" });
+
+    useEffect(() => {
+        console.log(props.comment.author);
+        props.getUser(props.comment.author, setAuthor);
+        console.log(author);
+    }, [props.comment])
 
     const convertNum = (val) => {
         let editedVal = val;
@@ -22,42 +31,29 @@ function Comment(props) {
         <div className="Comment">
             <div className="container">
                 <div className="row">
-                    <Text text={props.comment.user} />
+                    <div className="col-1">
+                        <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
+                    </div>
+                    <div className="col-11">
+                        <Text text={author.profile.username} />
+                        <Text text={new Date(props.comment.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.comment.timestamp).toLocaleDateString("en-US")} />
+                    </div>
                 </div>
                 <div className="row">
-                    <Text text={props.comment.time} />
-                </div>
-                <div className="row">
-                    <Text text={props.comment.text} />
-                </div>
-                <div className="row">
-                    <div className="col-2">
-                        <IconButton class="fa fa-smile-o" text={convertNum(props.comment.likes)} />
-                    </div>
-                    <div className="col-2">
-                        <IconButton class="fa fa-frown-o" text={convertNum(props.comment.dislikes)} />
-                    </div>
-                    <div className="col-4">
-
-                    </div>
-                    <div className="col-2">
-                        <IconButton class="fa fa-comment-o" text={convertNum(props.comment.numComments)} />
-                    </div>
-                    <div className="col-2">
-                        <IconButton class="fa fa-share-alt" text="" />
+                    <div className="col-12">
+                        <Text text={props.comment.commentText} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-10">
-                        {console.log(props.comment)}
                         {/*put nested comments here*/}
-                        {props.comment.comments.map(comment => {
+                        {/*props.comment.comments.map(comment => {
                             return (
                                 <div className="commentBorder">
-                                    <Comment comment={comment} />
+                                    <Comment comment={comment} getUser={props.getUser}/>
                                 </div>
                             );
-                        })}
+                        })*/}
                     </div>
                 </div>
             </div>

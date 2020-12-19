@@ -16,6 +16,14 @@ function ViewPostContainer(props) {
         type: "text"
     });
     const [postId, setPostId] = useState();
+    const [comments, setComments] = useState({
+        "00000000": {
+            author: "404",
+            commentText: "There are no posts to see",
+            timestamp: 0,
+            postId: ""
+        }
+    });
 
     useEffect(() => {
         let url = window.location.href;
@@ -23,27 +31,38 @@ function ViewPostContainer(props) {
         setPostId(url[url.length - 1]);
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         props.getPost(postId, setPost);
     }, [postId])
 
     useEffect(() => {
         console.log(post);
+        if (post.author !== "404") { // rewrite this
+            props.getComments(postId, "postId", setComments);
+        }
     }, [post])
+
+    useEffect(() => {
+        console.log(comments);
+    }, [comments])
 
     return (
         <div className="ViewPostContainer">
-            <br/>
-            <Post post={post} getUser={props.getUser}/>
+            <br />
+            <Post post={post} getUser={props.getUser} />
             <br />
             <Text text="Comments" />
-            {/*props.post.comments.map(comment => {
+            {Object.values(comments).map(comment => {
                 return (
-                    <div className="commentBorder">
-                        <Comment comment={comment} />
+                    <div>
+                        <br />
+                        <div className="commentBorder">
+                            <br />
+                            <Comment comment={comment} getUser={props.getUser} />
+                        </div>
                     </div>
-                );
-            })*/}
+                )
+            })}
         </div>
     );
 }

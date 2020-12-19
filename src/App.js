@@ -263,6 +263,15 @@ function App() {
     })
   }
 
+  const getComments = (filter, sort, callback) => {
+    const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
+    postRef.once('value', function (snapshot) {
+      if (snapshot.val() !== null) {
+        callback(snapshot.val());
+      }
+    });
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -341,6 +350,7 @@ function App() {
                 getPosts={getPosts}
                 getPost={getPost}
                 setCreatePost={setCreatePost}
+                getComments={getComments}
 
                 storeImage={storeImage}
                 storeBlob={storeBlob}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Text from '../Text.js';
 import IconButton from '../IconButton.js';
 import ProfilePicture from '../ProfilePicture.js';
+import { Link } from "react-router-dom";
 
 function TextPost(props) {
 
@@ -28,7 +29,7 @@ function TextPost(props) {
   return (
     <div className="TextPost">
       <div className="container">
-        <br/>
+        <br />
         <div className="row">
           <div className="col-1">
             <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
@@ -56,7 +57,9 @@ function TextPost(props) {
 
           </div>
           <div className="col-2">
-            <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
+            <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
+              <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
+            </Link>
           </div>
           <div className="col-2">
             <IconButton class="fa fa-share-alt" text="" />

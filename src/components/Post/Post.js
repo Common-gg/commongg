@@ -5,28 +5,11 @@ import { Link } from "react-router-dom";
 
 function Post(props) {
 
-    const addLink = () => {
-        if (props.postId !== undefined) {
-            return (
-                <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
-                    <TextPost post={props.post} getUser={props.getUser} />
-                    <br />
-                </Link>
-            )
-        } else {
-            return (
-                <div>
-                    <TextPost post={props.post} getUser={props.getUser} />
-                    <br />
-                </div>
-            )
-        }
-    }
-
     if (props.post.type === "text") {
         return (
             <div className="Post">
-                {addLink()}
+                <TextPost post={props.post} getUser={props.getUser} postId={props.postId}/>
+                <br />
             </div>
         );
     } else if (props.post.type === "image") {
