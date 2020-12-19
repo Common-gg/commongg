@@ -255,6 +255,14 @@ function App() {
     });
   }
 
+  const getPost = (postId, callback) => {
+    // Gets post from DB
+    database.ref('/content/posts/' + postId).once('value').then(function (snapshot) {
+      const postData = snapshot.val();
+      if (postData !== null) return callback(postData);
+    })
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -331,6 +339,7 @@ function App() {
                 signOut={signOut}
 
                 getPosts={getPosts}
+                getPost={getPost}
                 setCreatePost={setCreatePost}
 
                 storeImage={storeImage}

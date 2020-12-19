@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Text from '../Text.js';
 import Post from '../Post/Post';
 import ProfilePicture from '../ProfilePicture.js';
-import FeedContainer from './FeedContainer.js';
+import FeedType from '../FeedType.js';
 
 function ProfileContainer(props) {
 
@@ -61,16 +61,29 @@ function ProfileContainer(props) {
         }
     }, [thisUser])
 
+    const checkId = () => {
+        if(userId !== undefined){
+            return (
+                <FeedType {...props} filter={userId} sort={"author"}/>
+            )
+        }
+    }
+
+    const checkAboutMe = () => {
+        if(user.profile.about_me !== ""){
+            return (<Text text={"About Me: " + user.profile.about_me} />)
+        }
+    }
+
     return (
         <div className="ProfileContainer">
-            {console.log(user)}
             <div className="row">
                 <div className="col-lg-4">
-                    <img src={user.profile.profile_picture} alt="Avatar" width="150px" />
+                    <ProfilePicture currentUserInfo={user} width="150px" height="150px"/>
                 </div>
                 <div className="col-lg-6">
                     <Text text={user.profile.username} />
-                    <Text text={"About Me: " + user.profile.bio} />
+                    {checkAboutMe()}
                     <Text text={"Following: " + user.followCounts.following} />
                     <Text text={"Followers: " + user.followCounts.follower} />
                 </div>
@@ -90,10 +103,7 @@ function ProfileContainer(props) {
                     </div>
                 </div>
             </div>
-            {/*userPosts.map(post => {
-                return <Post post={post} key={Math.random()} />
-            })*/}
-            <FeedContainer {...props}/>
+            {checkId()}
         </div>
     );
 }

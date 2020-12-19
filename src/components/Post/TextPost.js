@@ -9,7 +9,7 @@ function TextPost(props) {
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
-  }, [])
+  }, [props.post])
 
   function convertNum(val) {
     let editedVal = val;
