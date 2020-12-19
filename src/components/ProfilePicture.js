@@ -3,6 +3,7 @@ import React from 'react';
 function ProfilePicture(props) {
   return (
     <div className="ProfilePicture">
+      {console.log(props.currentUserInfo)}
       <img
         src={props.currentUserInfo.profile.profile_picture}
         alt={props.currentUserInfo.profile.username + "picture"}
