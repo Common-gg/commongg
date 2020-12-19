@@ -1,14 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { Link } from "react-router-dom";
-import Input from '../components/Input.js';
-import Button from '../components/Button.js';
 import logo from "../images/icons/logo1light.png";
 import arrow from "../images/icons/arrow-right.png";
 
 function Login(props) {
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const logoCSS = {
     /* logo1light 1 */
@@ -16,6 +14,12 @@ function Login(props) {
     height: "99.01px",
     left: "393px",
     top: "179px"
+  }
+
+  function handleSignIn(e) {
+    if (e.key === "Enter") {
+      props.signInUser(emailRef.current.value, passwordRef.current.value);
+    }
   }
 
   return (
@@ -36,24 +40,23 @@ function Login(props) {
             <br />
           </div>
           <div className="form-group" >
-            <Input type="email"
-              bootstrap="border border-secondary"
-              placeholder="Email"
-              track={setEmail} />
+            <div className="Input" >
+              <input className="border border-secondary" type="email"
+                placeholder="Email" ref={emailRef}
+                onKeyPress={(e) => handleSignIn(e)} />
+            </div>
           </div>
-
-          <div className="form-group">
-
-            <Input type="password"
-              bootstrap="border border-secondary"
-              placeholder="Password"
-              track={setPassword} />
-
+          <div className="form-group" >
+            <div className="Input" >
+              <input className="border border-secondary" type="Password"
+                placeholder="Password" ref={passwordRef}
+                onKeyPress={(e) => handleSignIn(e)} />
+            </div>
           </div>
-
           <div className="col-4"></div>
           <button type="submit" className="btn btn-outline-light"
-            onClick={() => props.signInUser(email.current.value, password.current.value)} style={{ marginBottom: "20px" }}>
+            onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value)}
+            style={{ marginBottom: "20px" }}>
             <img src={arrow} />
           </button>
           <div className="col-4"></div>
