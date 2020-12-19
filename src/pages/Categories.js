@@ -4,6 +4,7 @@ import GamesContainer from "../components/ContentContainers/GamesContainer"
 function Categories(props) {
   return (
     <div className="Categories">
+      {console.log("Hitting this")}
       <GamesContainer {...props} />
     </div>
   );

@@ -283,45 +283,10 @@ function App() {
         </Switch>
       </Router>
     )
-  } else if (currentUserInfo.games === undefined) {
-    return (
-      <Router>
-        <Switch>
-          <Route path="/" render={
-            (props) => (
-              <Categories getAllGames={getAllGames} storeUserGames={setTempGames} />
-            )} />
-        </Switch>
-      </Router>
-    )
   } else {
     return (
       <Router>
         <Switch>
-          {/* <Route exact path="/EditProfile" render={
-            (props) => (
-              <EditProfile user={currentUserInfo} currentUser={currentUser.uid} signOut={signOut} storeBlob={storeBlob} />
-            )} />
-          <Route exact path="/ChooseGames" render={
-            (props) => (
-              <ChooseGames currentUserId={currentUser.uid} getAllGames={getAllGames} storeUserGames={setTempGames} signOut={signOut} currentUserInfo={currentUserInfo} />
-            )} />
-          <Route exact path="/Post" render={
-            (props) => (
-              <ViewPost currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut}/>
-            )} />
-          <Route path="/Followers" render={
-            (props) => (
-              <Followers getUser={getUser} currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
-            )} />
-          <Route path="/Following" render={
-            (props) => (
-              <Following getUser={getUser} currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} />
-            )} />
-          <Route path="/Profile" render={
-            (props) => (
-              <Profile getUser={getUser} currentUserId={currentUser.uid} currentUserInfo={currentUserInfo} signOut={signOut} followUser={followUser} unFollowUser={unFollowUser} />
-            )} /> */}
           <Route path="/" render={
             (props) => (
               <PageContainer

@@ -2,6 +2,7 @@ import React from 'react';
 import Text from '../components/Text.js'
 import NavigationBar from '../components/NavigationBar.js';
 import ContentContainer from '../components/ContentContainers/ContentContainer.js';
+import GamesContainer from '../components/ContentContainers/GamesContainer.js';
 
 function PageContainer(props) {
 
@@ -13,6 +14,7 @@ function PageContainer(props) {
             <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
           </div>
           <div className="col-lg-7">
+            <GamesContainer {...props} />
             <ContentContainer {...props} />
           </div>
           <div className="col-lg-3">

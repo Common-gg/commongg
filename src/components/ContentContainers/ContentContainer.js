@@ -13,7 +13,6 @@ function ContentContainer(props) {
     let url = window.location.href;
     url = url.split('/');
     setPageState(url[3]);
-    console.log(pageState);
   });
 
   switch (pageState) {

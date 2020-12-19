@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import gameSelect from "../images/icons/gameselect.png";
 
 function GameCard(props) {
-    const [border, setBorder] = useState("");
+    const [selected, setSelected] = useState("none");
 
     const select = () => {
-        if (border === "") {
-            setBorder("border border-success");
+        if (selected === "none") {
+            setSelected("block");
             props.setSelectedGames([...props.selectedGames, props.index]);
         } else {
-            setBorder("");
-
+            setSelected("none");
             let temp = props.selectedGames;
             temp = temp.filter(allGames => allGames !== props.index);
             props.setSelectedGames(temp);
@@ -23,9 +23,22 @@ function GameCard(props) {
                     <label htmlFor={"GameCardButton " + props.index}>
                         <div key={props.index}>
                             <img src={props.gameImageSrc}
-                                className={border}
                                 alt={props.gameTitle + " Alt"}
-                                style={{ width: "100", height: "150px", borderWidth: "8px !important" }} />
+                                style={{
+                                    width: "100",
+                                    height: "150px",
+                                    borderWidth: "8px !important"
+                                }} />
+                            <img src={gameSelect}
+                                alt={props.gameTitle + " Alt"}
+                                style={{
+                                    width: "100",
+                                    height: "150px",
+                                    borderWidth: "8px !important",
+                                    display: selected,
+                                    position: "absolute",
+                                    top: "0px"
+                                }} />
                         </div>
                     </label>
                     <button style={{ display: "none" }} id={"GameCardButton " + props.index} onClick={select} />
