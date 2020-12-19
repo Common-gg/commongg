@@ -101,7 +101,7 @@ function App() {
     if (currentUser === undefined) return;
     database.ref('users/' + currentUser.uid + "/profile/").set({
       username: tempInfo.username,
-      profile_picture: tempInfo.url,
+      profile_picture: tempInfo.profile_picture,
       about_me: tempInfo.aboutMe,
     });
     setCurrentUserInfo({
@@ -157,7 +157,7 @@ function App() {
     const ref = storageRef.child("users/" + currentUser.uid);
     ref.put(blob).then(function () {
       ref.getDownloadURL().then(function (url) {
-        setTempInfo({ username: username, url: url, aboutMe: aboutMe });
+        setTempInfo({ username: username, profile_picture : url, aboutMe: aboutMe });
       });
     });
   }
