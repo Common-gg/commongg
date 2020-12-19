@@ -79,4 +79,9 @@ background-color: #292823;
 
 .commentBorder {
   border-style: solid;
+  border-radius: 5px;
+  border-color: #5F5177;
+  border-width: 2px;
+  padding-bottom: 0px;
+  padding-left: 20px;
 }

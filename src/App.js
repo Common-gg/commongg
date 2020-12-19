@@ -255,6 +255,23 @@ function App() {
     });
   }
 
+  const getPost = (postId, callback) => {
+    // Gets post from DB
+    database.ref('/content/posts/' + postId).once('value').then(function (snapshot) {
+      const postData = snapshot.val();
+      if (postData !== null) return callback(postData);
+    })
+  }
+
+  const getComments = (filter, sort, callback) => {
+    const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
+    postRef.once('value', function (snapshot) {
+      if (snapshot.val() !== null) {
+        callback(snapshot.val());
+      }
+    });
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -296,7 +313,9 @@ function App() {
                 signOut={signOut}
 
                 getPosts={getPosts}
+                getPost={getPost}
                 setCreatePost={setCreatePost}
+                getComments={getComments}
 
                 storeImage={storeImage}
                 storeBlob={storeBlob}
