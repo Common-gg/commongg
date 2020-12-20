@@ -24,8 +24,10 @@ function ContentContainer(props) {
       return <SettingsContainer {...props} />;
     case "editgames":
       return <GamesContainer {...props} />;
-    default:
+    case "":
       return <FeedContainer {...props} />;
+    default: 
+      return <div></div>;
   }
 }
 

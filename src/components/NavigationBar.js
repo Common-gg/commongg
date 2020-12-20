@@ -31,7 +31,7 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <ProfilePicture currentUserInfo={props.currentUserInfo} width="190px" height="190px" /> <p>Profile</p>
+                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="50px" height="50px" />  Profile</p>
             </Link>
             <Link to="/" style={linkStyle}>
                 <p><img src={home} style={iconStyle} alt="" /> home</p>

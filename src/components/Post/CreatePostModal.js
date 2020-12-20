@@ -36,7 +36,7 @@ function CreatePostModal(props) {
     function createPost(url) {
         let postType = getPostType();
 
-        props.setCreatePost({
+        props.createPost({
             text: postText.current.value,
             author: props.currentUserId,
             caption: "CAPTION_TEXT",

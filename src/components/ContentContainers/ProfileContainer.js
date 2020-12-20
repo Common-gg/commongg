@@ -9,7 +9,6 @@ function ProfileContainer(props) {
 
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
     const [userId, setUserId] = useState();
-    const [thisUser, setThisUser] = useState({ profile: [], games: [], followCounts: {} });
 
     const [followBtnState, setFollowBtnState] = useState({
         text: "Follow"
@@ -27,39 +26,31 @@ function ProfileContainer(props) {
     }
 
     useEffect(() => {
-        console.log(props);
         let url = window.location.href;
         url = url.split('/');
         setUserId(url[url.length - 1]);
-        props.getUser(props.currentUser, setThisUser);
     }, []);
 
     useEffect(() => {
-        console.log(userId);
         props.getUser(userId, setUser);
     }, [userId]);
 
     useEffect(() => {
-        console.log(user, props.currentUser);
-    }, [user]);
-
-    useEffect(() => {
-        if (props.currentUser) {
-            console.log(props.currentUser, userId);
-            if (props.currentUser === userId) {
+        if (props.currentUserId) {
+            if (props.currentUserId === userId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             }
         }
     }, [userId]);
 
     useEffect(() => {
-        if (thisUser.following) {
-            let temp = Object.values(thisUser.following);
+        if (props.currentUserInfo.following) {
+            let temp = Object.values(props.currentUserInfo.following);
             if (temp.includes(userId)) {
                 setFollowBtnState({ ...followBtnState, text: "Following" });
             }
         }
-    }, [thisUser])
+    }, [])
 
     const checkId = () => {
         if(userId !== undefined){
