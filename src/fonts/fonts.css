@@ -1,0 +1,10 @@
+::-webkit-input-placeholder{
+    color: #5F5177;
+    opacity: 1 !important;
+}
+
+@font-face {
+  font-family: "SansationRegular";
+  src: local("SansationRegular"),
+  url("../fonts/Sansation_Regular.ttf") format("truetype")
+}
