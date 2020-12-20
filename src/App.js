@@ -42,7 +42,6 @@ function App() {
 
   useEffect(() => {
     // User authentication redirect
-    console.log(currentUser)
     if (currentUser === undefined || currentUser === null) return;
     const userId = currentUser.uid;
     if (userId) {
@@ -255,9 +254,7 @@ function App() {
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
 
     postRef.once('value', function (snapshot) {
-      if (snapshot.val() !== null) {
-        callback(snapshot.val());
-      }
+      if (snapshot.val() !== null) return callback(snapshot.val());
     });
   }
 
@@ -273,9 +270,7 @@ function App() {
     // gets comments from db
     const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
     postRef.once('value', function (snapshot) {
-      if (snapshot.val() !== null) {
-        callback(snapshot.val());
-      }
+      if (snapshot.val() !== null) return callback(snapshot.val());
     });
   }
 
