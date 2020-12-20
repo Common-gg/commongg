@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Input from './Input.js';
 import Post from './Post/Post.js';
-import CreatePostModal from './Post/CreatePostModal.js';
+
 
 function FeedType(props) {
-
-  const [search, setSearch] = useState();
 
   const [posts, setPosts] = useState({
     "00000000": {
@@ -26,10 +23,6 @@ function FeedType(props) {
 
   return (
     <div>
-      <Input type="search" placeholder="search" track={setSearch} />
-      <br />
-      <CreatePostModal currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} />
-      <br />
       {Object.values(posts).reverse().map((post, i) => {
         return (
           <div key={Object.keys(posts).reverse()[i]}>
