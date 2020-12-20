@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
-import Categories from './pages/Categories.js';
 import SignUp from "./pages/SignUp";
 import PageContainer from './pages/PageContainer';
 
