@@ -28,7 +28,7 @@ function SignUp(props) {
       style={{
         margin: "40px",
         maxWidth: "230px",
-        backgroundColor: "#292823",
+        backgroundColor: "#292833",
         borderRadius: "10px",
         boxShadow: "-1px 10px 250px 1px #171421"
       }}>

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import Text from './Text.js';
 import ProfilePicture from './ProfilePicture.js';
 
-import home from "../images/icons/logo1light.png";
-import trend from "../images/icons/trendinglight-1.png";
-import follow from "../images/icons/followinglight-1.png";
-import setting from "../images/icons/settingslight-1.png";
+import home from "../images/icons/logo1accent.png";
+import trend from "../images/icons/trendingaccent-1.png";
+import follow from "../images/icons/followingaccent-1.png";
+import setting from "../images/icons/settingsaccent-1.png";
 
 function NavigationBar(props) {
     const iconStyle = {
@@ -28,7 +28,7 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p>Profile</p>
+            <ProfilePicture currentUserInfo={props.currentUserInfo} width="190px" height="190px" /> <p>Profile</p>
             </Link>
             <Link to="/" style={linkStyle}>
                 <p><img src={home} style={iconStyle} alt="" /> Home</p>

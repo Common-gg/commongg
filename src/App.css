@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #292823;
+  background-color: #292833;
   color: #f5f1f1,
 }
 
@@ -19,7 +19,7 @@ body {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #282334;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ body {
 }
 
 .container{
-background-color: #292823;
+background-color: #292833;
 }
 
 .Post {
