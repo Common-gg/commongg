@@ -36,15 +36,11 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState();
   const [currentUserInfo, setCurrentUserInfo] = useState();
-  const [tempInfo, setTempInfo] = useState();
-  const [tempGames, setTempGames] = useState();
-  const [createPost, setCreatePost] = useState();
-
-  const [startup, setStartup] = useState(false);
 
   const [twitchToken, setTwitchToken] = useState();
 
   useEffect(() => {
+    // User authentication redirect
     if (currentUser === undefined || currentUser === null) return;
     const userId = currentUser.uid;
     if (userId) {
@@ -66,6 +62,7 @@ function App() {
   }, [currentUser]);
 
   useEffect(() => {
+    // Access the Twitch API
     Twitch.getToken(process.env.GET_TOKEN, (res, err) => {
       if (err) console.log(err);
       setTwitchToken(res.body.access_token);
@@ -78,53 +75,15 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Sets currentUser to the logged in user
     auth.onAuthStateChanged(function (user) {
-      if (startup === true && user === auth.currentUser) return;
-      setStartup(true);
+      if (user === auth.currentUser) return;
       setCurrentUser(user);
     });
   }, []);
 
-  /*useEffect(() => {
-    if (currentUser === undefined) return;
-    database.ref('users/' + currentUser.uid + "/following/").set({
-      following: tempFollowing
-    });
-    setCurrentUserInfo({
-      ...currentUserInfo,
-      following: tempFollowing
-    })
-  }, [tempFollowing]);*/
-
-  useEffect(() => {
-    if (currentUser === undefined) return;
-    database.ref('users/' + currentUser.uid + "/profile/").set({
-      username: tempInfo.username,
-      profile_picture: tempInfo.profile_picture,
-      about_me: tempInfo.aboutMe,
-    });
-    setCurrentUserInfo({
-      ...currentUserInfo,
-      profile: tempInfo
-    })
-  }, [tempInfo])
-
-  useEffect(() => {
-    if (currentUser === undefined) return;
-    database.ref('users/' + currentUser.uid + "/games/").set(tempGames);
-    setCurrentUserInfo({
-      ...currentUserInfo,
-      games: tempGames
-    })
-  }, [tempGames])
-
-  useEffect(() => {
-    if (currentUser === undefined) return;
-    const postRef = database.ref('/content/posts/').push();
-    postRef.set(createPost);
-  }, [createPost]);
-
   const signUpUser = (email, password) => {
+    // Signs user up
     window.history.pushState(null, null, "/");
     auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
@@ -135,6 +94,7 @@ function App() {
   }
 
   const initializeUser = (email) => {
+    // initializes signed up user in the db
     if (currentUser.uid) {
       database.ref('users/' + currentUser.uid).set({
         email: email,
@@ -151,17 +111,47 @@ function App() {
     }
   }
 
+  const storeUserProfile = (username, url, aboutMe) => {
+    // stores profile data for the user
+    if (currentUser === undefined) return;
+    database.ref('users/' + currentUser.uid + "/profile/").set({
+      username: username,
+      profile_picture: url,
+      about_me: aboutMe,
+    });
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      profile: {
+        username: username,
+        profile_picture: url,
+        about_me: aboutMe,
+      }
+    })
+  }
+
+  const storeUserGames = (games) => {
+    // stores game data for the user
+    if (currentUser === undefined) return;
+    database.ref('users/' + currentUser.uid + "/games/").set(games);
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      games: games
+    })
+  }
+
   const storeBlob = (username, blob, aboutMe = "") => {
+    // Stores the user's profile picture
     const storageRef = storage.ref();
     const ref = storageRef.child("users/" + currentUser.uid);
     ref.put(blob).then(function () {
       ref.getDownloadURL().then(function (url) {
-        setTempInfo({ username: username, profile_picture : url, aboutMe: aboutMe });
+        storeUserProfile(username, url, aboutMe);
       });
     });
   }
 
   const storeImage = (image, callback) => {
+    // stores a non-profile_picture image to the db.
     const storageRef = storage.ref();
     let imgId = URL.createObjectURL(image).split('/');
     imgId = imgId[imgId.length - 1];
@@ -174,6 +164,7 @@ function App() {
   }
 
   const signInUser = (email, password) => {
+    // logs the user in
     auth.signInWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -182,12 +173,20 @@ function App() {
   }
 
   const signOut = () => {
+    // logs the user out
     auth.signOut().then(function () {
       // Sign-out successful.
     }).catch(function (error) {
       // An error happened.
       console.log(error);
     });
+  }
+
+  const createPost = (post) => {
+    // Creates a post in the DB
+    if (currentUser === undefined) return;
+    const postRef = database.ref('/content/posts/').push();
+    postRef.set(post);
   }
 
   const getUser = (userId, callback) => {
@@ -199,6 +198,7 @@ function App() {
   }
 
   const followUser = (follower, followed) => {
+    // follows the desired user
     const followerRef = database.ref('/users/' + follower + '/following/').push();
     const followedRef = database.ref('/users/' + followed + '/followers/').push();
 
@@ -207,6 +207,7 @@ function App() {
   }
 
   const unFollowUser = (follower, followed) => {
+    // unfollows the desired user
     const followerRef = database.ref('/users/' + follower + '/following/');
     const followedRef = database.ref('/users/' + followed + '/followers/');
 
@@ -223,6 +224,7 @@ function App() {
   }
 
   const getTitleOfGameById = (gameId) => {
+    // Gets the title of a game by it's ID
     let gameTitle = "";
 
     database.ref("/games/").once("value").then((snapshot) => {
@@ -239,12 +241,14 @@ function App() {
   }
 
   const getAllGames = (callback) => {
+    // gets all games from the db
     database.ref("/games/").once("value").then((snapshot) => {
       return callback(snapshot.val());
     });
   }
 
   const getPosts = (filter, sort, callback) => {
+    // gets all posts for the DB
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
 
     postRef.once('value', function (snapshot) {
@@ -255,7 +259,7 @@ function App() {
   }
 
   const getPost = (postId, callback) => {
-    // Gets post from DB
+    // Gets a single post from DB
     database.ref('/content/posts/' + postId).once('value').then(function (snapshot) {
       const postData = snapshot.val();
       if (postData !== null) return callback(postData);
@@ -263,6 +267,7 @@ function App() {
   }
 
   const getComments = (filter, sort, callback) => {
+    // gets comments from db
     const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
     postRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) {
@@ -313,7 +318,7 @@ function App() {
 
                 getPosts={getPosts}
                 getPost={getPost}
-                setCreatePost={setCreatePost}
+                createPost={createPost}
                 getComments={getComments}
 
                 storeImage={storeImage}
@@ -322,7 +327,7 @@ function App() {
                 getUser={getUser}
                 followUser={followUser}
                 unFollowUser={unFollowUser}
-                storeUserGames={setTempGames}
+                storeUserGames={storeUserGames}
               />
             )} />
         </Switch>
