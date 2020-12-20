@@ -27,13 +27,14 @@ function GameCard(props) {
                                 style={{
                                     width: "100",
                                     height: "150px",
-                                    borderWidth: "8px !important"
+                                    borderWidth: "8px !important",
+                                    borderRadius: "10px"
                                 }} />
                             <img src={gameSelect}
                                 alt={props.gameTitle + " Alt"}
                                 style={{
-                                    width: "100",
-                                    height: "150px",
+                                    width: "102",
+                                    height: "152px",
                                     borderWidth: "8px !important",
                                     display: selected,
                                     position: "absolute",
