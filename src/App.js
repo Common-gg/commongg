@@ -36,11 +36,13 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState();
   const [currentUserInfo, setCurrentUserInfo] = useState();
+  const [startUp, setStartUp] = useState(false);
 
   const [twitchToken, setTwitchToken] = useState();
 
   useEffect(() => {
     // User authentication redirect
+    console.log(currentUser)
     if (currentUser === undefined || currentUser === null) return;
     const userId = currentUser.uid;
     if (userId) {
@@ -77,7 +79,8 @@ function App() {
   useEffect(() => {
     // Sets currentUser to the logged in user
     auth.onAuthStateChanged(function (user) {
-      if (user === auth.currentUser) return;
+      if (startUp && user === auth.currentUser) return;
+      setStartUp(true);
       setCurrentUser(user);
     });
   }, []);

@@ -35,13 +35,8 @@ function ProfileContainer(props) {
     }, []);
 
     useEffect(() => {
-        console.log(userId);
         props.getUser(userId, setUser);
     }, [userId]);
-
-    useEffect(() => {
-        console.log(user, props.currentUser);
-    }, [user]);
 
     useEffect(() => {
         if (props.currentUser) {
@@ -53,6 +48,7 @@ function ProfileContainer(props) {
     }, [userId]);
 
     useEffect(() => {
+        // console.log(props.currentUserInfo===thisUser)
         if (thisUser.following) {
             let temp = Object.values(thisUser.following);
             if (temp.includes(userId)) {
