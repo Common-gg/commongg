@@ -19,7 +19,7 @@ function SettingsContainer(props) {
   }
 
   function handleUpdateButtonClick(e) {
-    props.storeBlob(props.user.profile.username, selectedFile, aboutMeRef.current.value);
+    props.storeBlob(props.currentUserInfo.profile.username, selectedFile, aboutMeRef.current.value);
     clearFields();
   }
 
