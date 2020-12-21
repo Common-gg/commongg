@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import ProfilePicture from './ProfilePicture.js';
-import "../fonts/fonts.css"
 
 import home from "../images/icons/logo1accent.png";
 import trend from "../images/icons/trendingaccent-1.png";
@@ -18,8 +17,7 @@ function NavigationBar(props) {
 
     const linkStyle = {
         color: "#BF9AFC",
-        textDecoration: 'none',
-        fontFamily: "SansationRegular"
+        textDecoration: 'none'
     };
 
     useEffect(() => {
@@ -31,7 +29,7 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="50px" height="50px" />  Profile</p>
+                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="50px" height="50px" /> profile</p>
             </Link>
             <Link to="/" style={linkStyle}>
                 <p><img src={home} style={iconStyle} alt="" /> home</p>

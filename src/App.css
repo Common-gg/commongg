@@ -1,10 +1,16 @@
+@font-face {
+  font-family: 'SansationRegular';
+  src: url('./fonts/fonts.css')
+}
+
 .App {
   text-align: center;
 }
 
 body {
   background-color: #292833;
-  color: #f5f1f1,
+  color: #f5f1f1;
+  font-family: 'SansationRegular';
 }
 
 .App-logo {
@@ -84,4 +90,12 @@ background-color: #292833;
   border-width: 2px;
   padding-bottom: 0px;
   padding-left: 20px;
+}
+
+*:focus {
+  outline: none;
+}
+
+#searchBar {
+  color: #BF9AFC
 }
