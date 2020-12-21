@@ -21,7 +21,7 @@ function PageContainer(props) {
           <div className="col-6">
             <GamesContainer {...props} />
             <div className="text-center">
-              <SearchBar track={setSearch} />
+              <SearchBar track={setSearch} search={props.search} />
               <br />
             </div>
             <ContentContainer {...props} />

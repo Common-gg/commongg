@@ -16,7 +16,7 @@ function ImagePost(props) {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <Text text={author.profile.username} />
+            <Text text={author.username} />
             <Text text={new Date(props.post.timestamp).toLocaleDateString("en-US") + " @ " + new Date(props.post.timestamp).toLocaleTimeString("en-US")} />
             <Text text={props.post.title} />
             <Image src={props.post.link} />
