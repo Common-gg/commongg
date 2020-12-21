@@ -11,12 +11,14 @@ function PageContainer(props) {
 
   return (
     <div className="PageContainer">
-      <div className="container">
+      <div className="container-fluid">
+        <br /><br />
         <div className="row">
-          <div className="col-lg-2">
+          <div className="col-1"></div>
+          <div className="col-2">
             <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
           </div>
-          <div className="col-lg-7">
+          <div className="col-6">
             <GamesContainer {...props} />
             <div className="text-center">
               <Input type="search" placeholder="search" track={setSearch} />
@@ -24,9 +26,10 @@ function PageContainer(props) {
             </div>
             <ContentContainer {...props} />
           </div>
-          <div className="col-lg-3">
-            <Text text="PUT ADS HERE TO MAKE $$ YEP" />
+          <div className="col-2">
+            <Text text="ADS GO HERE TO MAKE $$ YEP" />
           </div>
+          <div className="col-1"></div>
         </div>
       </div>
     </div>
