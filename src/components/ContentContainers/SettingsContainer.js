@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import Text from '../../components/Text.js';
 import ProfilePicture from '../../components/ProfilePicture.js';
 import edit from "../../images/icons/edit-1.png";
 
@@ -18,8 +17,24 @@ function SettingsContainer(props) {
     top: "179px"
   }
 
+  useEffect(() => {
+    console.log(props);
+  }, [])
+
   function handleUpdateButtonClick(e) {
-    props.storeBlob(props.user.profile.username, selectedFile, aboutMeRef.current.value);
+
+    let currentUserInfo = props.currentUserInfo.profile;
+    let aboutMe = currentUserInfo.about_me;
+    let profilePicture = currentUserInfo.profile_picture;
+
+    if (((currentUserInfo.about_me === "") || (aboutMeRef.current.value !== ""))) {
+      aboutMe = aboutMeRef.current.value;
+    }
+    if ((profilePicture === "") && selectedFile !== null) {
+      profilePicture = selectedFile;
+    }
+    console.log(`${props.currentUserInfo.profile.username}, ${profilePicture}, ${aboutMe}`);
+    props.storeBlob(props.currentUserInfo.profile.username, profilePicture, aboutMe);
     clearFields();
   }
 
@@ -35,17 +50,13 @@ function SettingsContainer(props) {
     fileInputRef.current.value = "";
   }
 
-  useEffect(() => {
-    console.log(props);
-  }, [])
-
   return (
     <div className="SettingsContainer">
       <div className="row col-12">
         <div className="col-3"></div>
         <div className="col-4">
-          <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
-          <ProfilePicture currentUserInfo={props.currentUserInfo} width="190px" height="190px" />
+          <h2 style={{ fontFamily: "SansationRegular", color: "#BF9AFC" }}>edit profile</h2>
+          <ProfilePicture selectedFile={selectedFile} setSelectedFile={setSelectedFile} currentUserInfo={props.currentUserInfo} width="190px" height="190px" />
           <input id="fileInput"
             accept="image/*"
             type="file"
@@ -98,7 +109,8 @@ function SettingsContainer(props) {
               border: "solid",
               borderRadius: "10px",
               borderColor: "#BF9AFC",
-              borderWidth: "2px"
+              borderWidth: "2px",
+              fontFamily: "SansationRegular"
             }}>
             update
                 </button>
@@ -108,9 +120,9 @@ function SettingsContainer(props) {
             <div className="col-6"></div>
             <div className="col-5 text-center">
               <Link to="/" style={{ color: "#BF9AFC" }}>
-                <br /><br /><p onClick={() => props.signOut()}>Sign Out?</p>
+                <br /><br /><p style={{ fontFamily: "SansationRegular" }} onClick={() => props.signOut()}>sign out?</p>
               </Link>
-              <br /><p style={{ color: "#BF9AFC" }}>Suggestions? <br /> Join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC" }}>discord</a></p>
+              <br /><p style={{ color: "#BF9AFC", fontFamily: "SansationRegular" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC" }}>discord</a></p>
             </div></div></div>
         {/* <div className="row" style={{ color: "#FFFFFF" }}>
                   <Text text="Games: (figure out how to replace the numbers with games)" />

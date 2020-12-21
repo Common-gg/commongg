@@ -25,8 +25,7 @@ function Login(props) {
 
   const inputStyle = {
     fontFamily: "SansationRegular",
-    backgroundColor: "#292833",
-    backgroundColor: "transparent",
+    backgroundColor: "transparent #292833",
     color: "#BF9AFC",
     border: "solid",
     borderColor: "#BF9AFC",
