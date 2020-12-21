@@ -35,7 +35,8 @@ function CreatePostModal(props) {
             title: postTitle.current.value,
             type: postType,
             likes: 0,
-            dislikes: 0
+            dislikes: 0,
+            numComments: 0
         });
         clearFields();
         setSelectedFile(null);
@@ -71,7 +72,7 @@ function CreatePostModal(props) {
     }
 
     return (
-        <div className="CreatePostModal">
+        <div className="CreatePostModal text-center">
             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
                 Create a Post
             </button>
