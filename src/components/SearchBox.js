@@ -1,6 +1,7 @@
 import React, { useState, useRef, Fragment } from 'react';
 import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { Link } from "react-router-dom";
 
 const AsyncTypeahead = withAsync(Typeahead);
 
@@ -43,17 +44,19 @@ function SearchBox(props) {
       style={inputStyle}
       renderMenuItemChildren={(option, props) => (
         <Fragment>
-          <img
-            alt={option.login}
-            src={option.avatar_url}
-            style={{
-              borderRadius: '25px',
-              height: '24px',
-              marginRight: '10px',
-              width: '24px',
-            }}
-          />
-          <span style={{color: "white"}}>{option.login}</span>
+          <Link to={"/profile/" + option.id }>
+            <img
+              alt={option.login}
+              src={option.avatar_url}
+              style={{
+                borderRadius: '25px',
+                height: '24px',
+                marginRight: '10px',
+                width: '24px',
+              }}
+            />
+            <span style={{color: "white"}}>{option.login}</span>
+          </Link>
         </Fragment>
       )}
     />
