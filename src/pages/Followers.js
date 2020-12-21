@@ -63,7 +63,7 @@ function Followers(props) {
                         <div className="row">
                             {followers.map(follower => { // replacewith user.following.map later
                                 return <div className="col-3">
-                                    <img src={user.profile.profile_picture} alt="Avatar" width="100%" />
+                                    <img src={user.profile_picture} alt="Avatar" width="100%" />
                                     <br />
                                     {follower.username}
                                     <button type="button" className="btn btn-primary">
@@ -79,7 +79,7 @@ function Followers(props) {
                             {followers.map(follower => { // replacewith user.followers.map later
                                 return (
                                     <div className="col-3">
-                                        <img src={user.profile.profile_picture} alt="Avatar" width="100%" />
+                                        <img src={user.profile_picture} alt="Avatar" width="100%" />
                                         <br />
                                         {follower.username}
                                         <br />

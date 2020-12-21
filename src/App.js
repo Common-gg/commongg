@@ -100,7 +100,9 @@ function App() {
     if (currentUser.uid) {
       database.ref('users/' + currentUser.uid).set({
         email: email,
-        profile: {},
+        username: "",
+        profile_picture: "",
+        about_me: "",
         games: {},
         followers: [],
         following: [],
@@ -116,18 +118,17 @@ function App() {
   const storeUserProfile = (username, url, aboutMe) => {
     // stores profile data for the user
     if (currentUser === undefined) return;
-    database.ref('users/' + currentUser.uid + "/profile/").set({
+    database.ref('users/' + currentUser.uid).set({
+      ...currentUserInfo,
       username: username,
       profile_picture: url,
       about_me: aboutMe,
     });
     setCurrentUserInfo({
       ...currentUserInfo,
-      profile: {
-        username: username,
-        profile_picture: url,
-        about_me: aboutMe,
-      }
+      username: username,
+      profile_picture: url,
+      about_me: aboutMe,
     })
   }
 
@@ -274,6 +275,15 @@ function App() {
     });
   }
 
+  const search = (value, callback) => {
+    // search the db
+    const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
+    usersRef.once('value', function (snapshot) {
+      console.log(snapshot.val());
+      if (snapshot.val() !== null) return callback(snapshot.val());
+    });
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -291,7 +301,7 @@ function App() {
         </Switch>
       </Router>
     )
-  } else if (currentUserInfo.profile === undefined) {
+  } else if (currentUserInfo.username === "") {
     return (
       <Router>
         <Switch>
@@ -318,6 +328,7 @@ function App() {
                 getPost={getPost}
                 createPost={createPost}
                 getComments={getComments}
+                search={search}
 
                 storeImage={storeImage}
                 storeBlob={storeBlob}

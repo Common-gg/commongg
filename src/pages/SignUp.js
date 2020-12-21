@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import SignUpButton from "../components/SignUp/SignUpButton.js";
-import SignUpColumn from "../components/SignUp/SignUpColumn.js";
 import logo from "../images/icons/logo1light.png";
 import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
@@ -28,7 +27,7 @@ function SignUp(props) {
       style={{
         margin: "40px",
         maxWidth: "230px",
-        backgroundColor: "#292833",
+        backgroundColor: "#292823",
         borderRadius: "10px",
         boxShadow: "-1px 10px 250px 1px #171421"
       }}>

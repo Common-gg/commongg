@@ -8,7 +8,7 @@ function FeedContainer(props) {
     <div>
       <CreatePostModal currentUserId={props.currentUserId} createPost={props.createPost} storeImage={props.storeImage} />
       <br />
-      <FeedType {...props} filter={"text"} sort={"type"}/>
+      <FeedType {...props} filter={"CAPTION_TEXT"} sort={"caption"}/>
     </div>
   );
 }

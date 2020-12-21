@@ -35,7 +35,7 @@ function Comment(props) {
                         <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
                     </div>
                     <div className="col-11">
-                        <Text text={author.profile.username} />
+                        <Text text={author.username} />
                         <Text text={new Date(props.comment.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.comment.timestamp).toLocaleDateString("en-US")} />
                     </div>
                 </div>

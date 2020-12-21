@@ -19,7 +19,7 @@ function SettingsContainer(props) {
   }
 
   function handleUpdateButtonClick(e) {
-    props.storeBlob(props.currentUserInfo.profile.username, selectedFile, aboutMeRef.current.value);
+    props.storeBlob(props.currentUserInfo.username, selectedFile, aboutMeRef.current.value);
     clearFields();
   }
 
@@ -62,7 +62,7 @@ function SettingsContainer(props) {
       {/* <div className="row col-1">
             <div className="col-8">
                 <div style={{ color: "#FFFFFF" }}>
-                  <Text text={props.user.profile.username} />
+                  <Text text={props.user.username} />
                   </div>
                 </div>
               </div> */}
