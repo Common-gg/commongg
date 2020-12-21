@@ -60,8 +60,8 @@ function ProfileContainer(props) {
     }
 
     const checkAboutMe = () => {
-        if(user.profile.about_me !== ""){
-            return (<Text text={"About Me: " + user.profile.about_me} />)
+        if(user.about_me !== ""){
+            return (<Text text={"About Me: " + user.about_me} />)
         }
     }
 
@@ -72,7 +72,7 @@ function ProfileContainer(props) {
                     <ProfilePicture currentUserInfo={user} width="150px" height="150px"/>
                 </div>
                 <div className="col-lg-6">
-                    <Text text={user.profile.username} />
+                    <Text text={user.username} />
                     {checkAboutMe()}
                     <Text text={"Following: " + user.followCounts.following} />
                     <Text text={"Followers: " + user.followCounts.follower} />

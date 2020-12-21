@@ -59,6 +59,7 @@ background-color: #292833;
   border-width: 2px;
   padding-bottom: 0px;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .IconButton {
@@ -98,4 +99,24 @@ background-color: #292833;
 
 #searchBar {
   color: #BF9AFC
+}
+
+.rbt-input-main, .rbt-input-main:focus, .rbt-input-hint, .rbt-menu {
+  color: #BF9AFC;
+  background-color: transparent;
+  border: none;
+}
+
+.rbt-input-main:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+.rbt-menu {
+  background-color: #292833;
+  border: solid 2px #BF9AFC;
+}
+
+.dropdown-item:hover {
+ background-color: #BF9AFC; 
 }

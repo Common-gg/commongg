@@ -1,7 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 import searchIcon from '../images/icons/search.png'
+import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
+import SearchBox from './SearchBox';
+
+const AsyncTypeahead = withAsync(Typeahead);
 
 function SearchBar(props) {
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [options, setOptions] = useState([]);
 
   const value = useRef();
 
@@ -14,39 +21,43 @@ function SearchBar(props) {
     alignItems: "center"
   }
 
-  const inputStyle = {
-    backgroundColor: "transparent",
-    border: "none",
-    width: "90%"
-  }
-
   const imgStyle = {
     position: "relative",
-    verticalAlign: "middle",
+    float: "right",
+    top: "-px",
     width: "30px",
     height: "30px",
     cursor: "pointer"
   }
 
+  const afterSearch = (users) => {
+    setOptions(Object.values(users).map((user, i) => ({
+      avatar_url: user.profile_picture,
+      id: Object.keys(users)[i],
+      login: user.username
+    })));
+    setIsLoading(false);
+  }
+
+  const handleSearch = (query) => {
+    setIsLoading(true);
+    props.search(query, afterSearch);
+  };
+
   function handleOnKeyDown(e) {
-    if ((e.key === "Enter") && (props.type === "password")) {
-      props.signInUser(props.email, props.password.current.value);
+    if (e.key === "Enter") {
+      props.search(value.current.value);
     }
   }
 
+  const filterBy = () => true;
+
   return (
-    <div className="Input" style={barStyle} >
-      <input 
-        className={props.bootstrap} 
-        type="search" 
-        placeholder="search" 
-        id="searchBar" 
-        ref={value}
-        style={inputStyle}
-        onChange={() => (props.track(value))}
-        onKeyDown={(e) => handleOnKeyDown(e)}
-      />
-      <img src={searchIcon} alt="search bar" style={imgStyle} />
+    <div>
+      <div className="Input" style={barStyle} >
+        <SearchBox search={props.search} />
+        <img src={searchIcon} alt="search bar" style={imgStyle} />
+      </div>
     </div>
   );
 }
