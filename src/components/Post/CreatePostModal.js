@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import excludeIcon from "../../images/icons/exclude-1.png";
+import "../../fonts/fonts.css";
 
 function CreatePostModal(props) {
     const postTextRef = useRef();
@@ -7,6 +9,15 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
+
+    const buttonStyle = {
+        color: "#BF9AFC",
+        fontFamily: "SansationRegular",
+        backgroundColor: "#292833",
+        border: "2px solid #BF9AFC",
+        width: "635px",
+        textAlign: "left"
+    };
 
     function clearFields() {
         postTitleRef.current.value = "";
@@ -72,11 +83,15 @@ function CreatePostModal(props) {
     }
 
     return (
-        <div className="CreatePostModal text-center">
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
-                Create a Post
-            </button>
-
+        <div className="CreatePostModal">
+            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
+                <img src={excludeIcon} style={{
+                    width: "40px",
+                    height: "40px",
+                    marginRight: ".5rem"
+                }} />
+                    make a post
+                </button>
             <div className="modal fade" id="createPostModal" tabIndex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
