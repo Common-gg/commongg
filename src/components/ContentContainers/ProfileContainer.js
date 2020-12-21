@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Text from '../Text.js';
-import Post from '../Post/Post';
 import ProfilePicture from '../ProfilePicture.js';
 import FeedType from '../FeedType.js';
 

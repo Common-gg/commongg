@@ -15,7 +15,7 @@ function CreatePostModal(props) {
         fontFamily: "SansationRegular",
         backgroundColor: "#292833",
         border: "2px solid #BF9AFC",
-        width: "635px",
+        width: "100%",
         textAlign: "left"
     };
 
@@ -46,7 +46,8 @@ function CreatePostModal(props) {
             title: postTitle.current.value,
             type: postType,
             likes: 0,
-            dislikes: 0
+            dislikes: 0,
+            numComments: 0
         });
         clearFields();
         setSelectedFile(null);
@@ -84,7 +85,10 @@ function CreatePostModal(props) {
     return (
         <div className="CreatePostModal">
             <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
-                <img src={excludeIcon} style={{
+                <img 
+                    src={excludeIcon}
+                    alt="post button"
+                    style={{
                     width: "40px",
                     height: "40px",
                     marginRight: ".5rem"
