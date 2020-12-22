@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
 import FeedType from '../FeedType.js';
+import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
+import CommonChat from "../../images/games/Common Chat.png";
 
 function ProfileContainer(props) {
 
@@ -13,6 +15,16 @@ function ProfileContainer(props) {
         text: "Follow"
     })
     const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible" });
+    const [allGames, setAllGames] = useState([
+        {
+            title: "Common Chat",
+            image: CommonChat
+        },
+        {
+            title: "Teamfight Tactics",
+            image: TeamfightTactics
+        }
+    ]);
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
@@ -83,16 +95,26 @@ function ProfileContainer(props) {
                     </button>
                 </div>
             </div>
-            <div className="row">
-                <Text text="Games: (figure out how to replace the numbers with games)" />
-                <div className="container testimonial-group">
-                    <div className="row text-center">
-                        {user.games.map(game => {
-                            return <div className="col-2" key={game}>{game}</div>
-                        })}
-                    </div>
+            <hr style={{backgroundColor:'#BF9AFC', width: '90%'}}/>
+            <div className="d-flex flex-row justify-content-center">
+                <div className="flex-wrap d-flex flex-row justify-content-center" style={{width:"70%"}}>
+                    {user.games.map(index => {
+                        return <img 
+                        src={allGames[index].image} 
+                        key={"game-image2" + index} 
+                        alt={allGames[index].title}
+                        className="rounded"
+                        style = {
+                            {
+                            width: '22%', 
+                            height: 'auto', 
+                            margin: '3%'
+                        }}
+                        ></img>
+                    })}
                 </div>
             </div>
+            <hr style={{backgroundColor:'#BF9AFC', width: '90%'}}/>
             {checkId()}
         </div>
     );
