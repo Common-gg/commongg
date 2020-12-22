@@ -28,7 +28,8 @@ function GameCard(props) {
                                     width: "100",
                                     height: "150px",
                                     borderWidth: "8px !important",
-                                    borderRadius: "10px"
+                                    borderRadius: "10px",
+                                    cursor: "pointer"
                                 }} />
                             <img src={gameSelect}
                                 alt={props.gameTitle + " Alt"}
