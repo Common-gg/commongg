@@ -13,8 +13,6 @@ function SettingsContainer(props) {
   }, []);
 
   function handleUpdateButtonClick(e) {
-
-    let currentUserInfo = props.currentUserInfo.profile;
     let aboutMe = props.currentUserInfo.about_me;
     let profilePicture = props.currentUserInfo.profile_picture;
 
@@ -44,7 +42,7 @@ function SettingsContainer(props) {
                 background: "transparent",
                 position: 'absolute',
                 bottom: 85,
-                right: 110,
+                right: 130,
                 top: 150
               }}>
               <img src={edit} style={{ width: "60px", height: "60px" }} />

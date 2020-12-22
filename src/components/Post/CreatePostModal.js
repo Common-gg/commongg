@@ -12,7 +12,6 @@ function CreatePostModal(props) {
 
     const buttonStyle = {
         color: "#BF9AFC",
-        fontFamily: "SansationRegular",
         backgroundColor: "#292833",
         border: "2px solid #BF9AFC",
         width: "100%",
@@ -85,14 +84,14 @@ function CreatePostModal(props) {
     return (
         <div className="CreatePostModal">
             <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
-                <img 
+                <img
                     src={excludeIcon}
                     alt="post button"
                     style={{
-                    width: "40px",
-                    height: "40px",
-                    marginRight: ".5rem"
-                }} />
+                        width: "40px",
+                        height: "40px",
+                        marginRight: ".5rem"
+                    }} />
                     make a post
                 </button>
             <div className="modal fade" id="createPostModal" tabIndex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">

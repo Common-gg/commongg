@@ -44,8 +44,7 @@ function NavigationBar(props) {
                 <p><img src={setting} style={iconStyle} alt="" /> settings</p>
             </Link>
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
-                <p style={{ fontFamily: "SansationRegular" }}>
-                    <img src={editGame} style={iconStyle}></img>edit games</p>
+                <p><img src={editGame} style={iconStyle}></img>edit games</p>
             </a>
             <Link to="/" style={linkStyle}>
                 <p onClick={() => props.signOut()}>logout</p>
