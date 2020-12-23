@@ -18,6 +18,16 @@ function GamesContainer(props) {
     ]);
     const [modalDismiss, setModalDismiss] = useState("");
     const [clicked, setClicked] = useState(false);
+
+    //on mount load the games that are already in the user profile
+    useEffect(() => {
+        //if the user's games are not null or undefined preselect it
+        if (props.currentUserInfo.games != null) {
+            setSelectedGames(props.currentUserInfo.games)
+        }
+    }, [props.currentUserInfo.games])
+
+    //this switches the state for whether modal can be closed based on number of games
     useEffect(() => {
         if (selectedGames.length > 0) {
             setModalDismiss("modal");
@@ -53,7 +63,6 @@ function GamesContainer(props) {
     function handleDoneClick() {
         if (selectedGames.length > 0) {
             props.storeUserGames(selectedGames);
-            setSelectedGames([]);
         } else {
             setClicked(true);
         }
