@@ -16,14 +16,21 @@ function GamesContainer(props) {
             image: TeamfightTactics
         }
     ]);
+  
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
-
     }
+    
+    const modalStyle={
+        position: "absolute",
+        top: "170px"
+    };
+
     const modalHeaderStyle = {
         borderBottom: "0 none",
     }
+    
     const buttonStyle = {
         backgroundColor: "transparent",
         color: "#BF9AFC",
@@ -32,6 +39,7 @@ function GamesContainer(props) {
         borderColor: "#BF9AFC",
         borderWidth: "2px",
     }
+    
     function handleDoneClick() {
         props.storeUserGames(selectedGames);
     }
@@ -40,7 +48,9 @@ function GamesContainer(props) {
         <div className="ChooseGames" >
             <div className="container">
                 <div className="row">
-                    <div className="modal fade show" id="chooseGamesModal" tabIndex="-1" role="dialog">
+
+                    <div className="modal fade show" style={modalStyle} id="chooseGamesModal" tabIndex="-1" role="dialog" aria-labelledby="chooseGameModalLabel" aria-hidden="true">
+
                         <div className="modal-dialog" role="document">
                             <div className="modal-content" style={modalContentStyle}>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>

@@ -23,47 +23,51 @@ function SignUp(props) {
   }
 
   return (
-    <div className="mx-auto card"
-      style={{
-        margin: "40px",
-        maxWidth: "230px",
-        backgroundColor: "#292823",
-        borderRadius: "10px",
-        boxShadow: "-1px 10px 250px 1px #171421"
-      }}>
-      <div style={{ margin: "20px 20px 0px 20px" }} className="row">
-       <p> <div className="col-2"></div>
-        <div className="row">
-          <div className="col-1"></div>
-          <div className="col-1"></div>
-          <img src={logo} style={logoCSS} alt="" />
-          <br />
-        </div></p>
-        <div className="form-group" >
-          <Input type="email"
-            bootstrap="border border-secondary"
-            placeholder="Email"
-            track={setEmail} />
-        </div>
-        <div className="form-group">
-          <Input type="password"
-            bootstrap="border border-secondary"
-            placeholder="Password"
-            track={setPassword} />
-        </div>
-        <div className="row col-12">
-          <div className="form-group">
-            <SignUpButton click={signUp} />
-          </div></div></div>
-          <div className="row">
-        <div className="col-4"></div>
-          <Link to="/signup">
-            <p className="col" style={{ color: "#BF9AFC" }}>
-              Login
-              </p>
-          </Link>
-          <br />
+    <div>
+      <div className="mx-auto card"
+        style={{
+          margin: "40px",
+          maxWidth: "230px",
+          backgroundColor: "#292823",
+          borderRadius: "10px",
+          boxShadow: "-1px 10px 250px 1px #171421"
+        }}>
+        <div style={{ margin: "20px 20px 0px 20px" }} className="row">
+          <p> <div className="col-2"></div>
+            <div className="row">
+              <div className="col-1"></div>
+              <div className="col-1"></div>
+              <img src={logo} style={logoCSS} alt="" />
+              <br />
+            </div></p>
+          <div className="form-group" >
+            <Input type="email"
+              bootstrap="border border-secondary"
+              placeholder="Email"
+              track={setEmail} />
           </div>
+          <div className="form-group">
+            <Input type="password"
+              bootstrap="border border-secondary"
+              placeholder="Password"
+              track={setPassword} />
+          </div>
+          <div className="row col-12">
+            <div className="form-group">
+              <SignUpButton click={signUp} />
+            </div></div></div>
+        <div className="row">
+          <div className="col-4"></div>
+
+          <br />
+        </div>
+
+      </div>
+      <Link to="/signup">
+        <p className="col" style={{ color: "#BF9AFC" }}>
+          Login
+      </p>
+      </Link>
     </div>
   )
 }
