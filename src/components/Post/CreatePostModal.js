@@ -19,6 +19,11 @@ function CreatePostModal(props) {
         textAlign: "left"
     };
 
+    const modalStyle={
+        position: "absolute",
+        top: "170px"
+    };
+
     function clearFields() {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";

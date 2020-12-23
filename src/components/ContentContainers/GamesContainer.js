@@ -17,6 +17,11 @@ function GamesContainer(props) {
         }
     ]);
 
+    const modalStyle={
+        position: "absolute",
+        top: "170px"
+    };
+
     function handleDoneClick() {
         props.storeUserGames(selectedGames);
     }
@@ -25,7 +30,7 @@ function GamesContainer(props) {
         <div className="ChooseGames" >
             <div className="container">
                 <div className="row">
-                    <div className="modal fade show" id="chooseGamesModal" tabIndex="-1" role="dialog" aria-labelledby="chooseGameModalLabel" aria-hidden="true">
+                    <div className="modal fade show" style={modalStyle} id="chooseGamesModal" tabIndex="-1" role="dialog" aria-labelledby="chooseGameModalLabel" aria-hidden="true">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
