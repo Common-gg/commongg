@@ -203,7 +203,11 @@ function App() {
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
     console.log(followRef);
-    followRef.set(database.ServerValue.increment(value));
+    //retrieve the current follow counts and set with update
+    followRef.once('value').then(function (snapshot) {
+      let followCount = snapshot.val();
+      followRef.set(followCount + 1)
+    });
   }
 
   const followUser = (follower, followed) => {
