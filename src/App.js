@@ -5,10 +5,9 @@ import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
 import SignUp from "./pages/SignUp";
 import PageContainer from './pages/PageContainer';
+import firebase from "firebase/app";
 
 const Twitch = require("./api/Twitch.js");
-
-const firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
 require("firebase/storage");
@@ -203,11 +202,7 @@ function App() {
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
     console.log(followRef);
-    //retrieve the current follow counts and set with update
-    followRef.once('value').then(function (snapshot) {
-      let followCount = snapshot.val();
-      followRef.set(followCount + 1)
-    });
+    followRef.set(firebase.database.ServerValue.increment(value));
   }
 
   const followUser = (follower, followed) => {
