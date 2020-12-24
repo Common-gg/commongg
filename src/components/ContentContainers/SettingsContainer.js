@@ -26,15 +26,23 @@ function SettingsContainer(props) {
   }
 
   return (
-    <div className="SettingsContainer">
+    <div className="SettingsContainer" style={{
+      border: "solid",
+      borderBottomstyle: "none",
+      borderRadius: "10px",
+      borderColor: "#5F5177",
+      borderWidth: "1px",
+      padding: "0px 0px 50px 0px",
+      overflow: "hidden"
+    }}>
       <div className="row col-12">
-        <div className="col-3"></div>
+        <div className="col-4"></div>
         <div className="col-8">
           <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
         </div>
       </div>
       <div className="row col-12">
-        <div className="col-2"></div>
+        <div className="col-3"></div>
         <div className="col-8">
           <div class="container" style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
@@ -57,7 +65,7 @@ function SettingsContainer(props) {
       </div>
       <div className="row col-12">
         <div className="row col-12">
-          <div className="col-2"></div>
+          <div className="col-3"></div>
           <div className="col-8">
             <form>
               <div className="form-group" style={{ color: "#FFFFFF" }}>
@@ -77,7 +85,7 @@ function SettingsContainer(props) {
             </form>
           </div>
         </div>
-        <div className="col-7"></div>
+        <div className="col-8"></div>
         <div className="row col-2">
           <button type="button"
             className="btn"
@@ -93,11 +101,12 @@ function SettingsContainer(props) {
             update
                 </button>
         </div>
-        <hr style={{ backgroundColor: '#BF9AFC', width: '70%' }} /></div>
-      <div className="row col-8">
+        <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} /></div>
+      <div className="row">
+        <div className="col-1"></div>
         <div className="row col-12">
-          <div className="col-6"></div>
-          <div className="col-5 text-center">
+          <div className="col-1"></div>
+          <div className="col text-center">
             <Link to="/" style={{ color: "#BF9AFC", textDecoration: "underline", }}>
               <br /><p onClick={() => props.signOut()}>sign out</p>
             </Link>
