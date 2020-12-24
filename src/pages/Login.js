@@ -47,14 +47,15 @@ function Login(props) {
           <br />
           <div className="form-group" >
             <div className="row">
-              <div className="col-1"></div>
+              <div className="col-6"></div>
               <div className="row">
-                <div className="col-1"></div>
+                <div className="col-6"></div>
                 <div className="row">
-                  <div className="col-1"></div>
+                  <div className="col-6"></div>
                   <div className="row">
-                    <div className="col-1"></div>
+                    <div className="col-4"></div>
                     <div className="Input" >
+                      <br />
                       <input style={inputStyle} className="border border-secondary" type="email"
                         placeholder="email" ref={emailRef}
                         onKeyPress={(e) => handleSignIn(e)} style={{ backgroundColor: "#292833" }} />
@@ -69,37 +70,42 @@ function Login(props) {
                   <div className="col-1"></div>
                   <div className="row">
                     <div className="col-1"></div>
-                    <div className="Input" >
-                      <input style={inputStyle} className="border border-secondary" type="Password"
-                        placeholder="password" ref={passwordRef}
-                        onKeyPress={(e) => handleSignIn(e)} style={{ backgroundColor: "#292833" }} />
-                    </div></div></div></div></div>
+                    <div className="row">
+                      <div className="col-1"></div>
+                      <div className="row">
+                        <div className="col-1"></div>
+                        <div className="Input" >
+                          <input style={inputStyle} className="border border-secondary" type="Password"
+                            placeholder="password" ref={passwordRef}
+                            onKeyPress={(e) => handleSignIn(e)} style={{ backgroundColor: "#292833" }} />
+                        </div></div></div></div></div></div></div>
           </div>
+          <div className="row col-12">
           <div className="col-5"></div>
-          <button type="submit" className="btn btn-outline-light"
-            onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value)} style={{
-              marginBottom: "20px",
-              backgroundColor: "transparent",
-              color: "#BF9AFC",
-              border: "solid",
-              borderRadius: "10px",
-              borderColor: "#BF9AFC",
-              borderWidth: "2px"
-            }}>
-            <img src={arrow} />
-          </button>
-          <div className="col-4"></div>
-        </div>
+            <div className="form-group">
+                      <button type="submit" className="btn btn-outline-light"
+                        onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value)} style={{
+                          marginBottom: "20px",
+                          backgroundColor: "transparent",
+                          color: "#BF9AFC",
+                          border: "solid",
+                          borderRadius: "10px",
+                          borderColor: "#BF9AFC",
+                          borderWidth: "2px",
+                        }}>
+                        <img src={arrow} />
+                      </button>
+                    </div></div></div>
       </div>
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
           <Link to="/signup">
-            <p className="col" style={{ color: "#BF9AFC" }}>
+            <p className="col" style={{ color: "#BF9AFC", textDecoration: "underline" }}>
               new? sign up
               </p>
           </Link>
-          <a href="" style={{ color: "#BF9AFC" }}>
+          <a href="" style={{ color: "#BF9AFC", textDecoration: "underline" }}>
             <p className="col">
               forgot password?</p>
           </a>

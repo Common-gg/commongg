@@ -32,20 +32,22 @@ function SignUp(props) {
           borderRadius: "10px",
           boxShadow: "-1px 10px 250px 1px #171421"
         }}>
+          
         <div style={{ margin: "20px 20px 0px 20px" }} className="row">
           <div className="col-4"></div>
           <img src={logo} style={logoCSS} />
           <div className="col-5"></div>
-          <br />
+          <br /> 
           <div className="form-group" >
-            <div className="row">
-              <div className="col-1"></div>
+          <div className="row">
+              <div className="col-6"></div>
               <div className="row">
-                <div className="col-1"></div>
+                <div className="col-6"></div>
                 <div className="row">
-                  <div className="col-1"></div>
+                  <div className="col-6"></div>
                   <div className="row">
-                    <div className="col-1"></div>
+                    <div className="col-4"></div>
+                    <br />
                     <Input type="email"
                       bootstrap="border border-secondary"
                       placeholder="Email"
@@ -53,7 +55,7 @@ function SignUp(props) {
                       style={{ backgroundColor: "#292833", }} />
                   </div></div></div></div></div>
           <div className="form-group">
-            <div className="row">
+          <div className="row">
               <div className="col-1"></div>
               <div className="row">
                 <div className="col-1"></div>
@@ -61,32 +63,37 @@ function SignUp(props) {
                   <div className="col-1"></div>
                   <div className="row">
                     <div className="col-1"></div>
+                    <div className="row">
+                      <div className="col-1"></div>
+                      <div className="row">
+                        <div className="col-1"></div>
                     <Input type="password"
                       bootstrap="border border-secondary"
                       placeholder="Password"
                       track={setPassword}
                       style={{ backgroundColor: "#292833", }} />
-                  </div></div></div></div></div>
+                  </div></div></div></div></div></div></div>
           <div className="row col-12">
-          <div className="col-4"></div>
+          <div className="col-5"></div>
             <div className="form-group">
               <SignUpButton click={signUp} />
             </div></div></div>
         <div className="row">
-          <div className="col-4"></div>
+          <div className="col-5"></div>
 
           <br />
         </div>
 
       </div>
       <div className="row">
-        <div className="col-5 text-center"></div>
+        <div className="col-4"></div>
+        <div className="text-center col-4">
       <Link to="/">
-        <p className="col-4 text-center" style={{ color: "#BF9AFC" }}>
+        <p className="col" style={{ color: "#BF9AFC", textDecoration: "underline" }}>
           Login
       </p>
       </Link>
-    </div></div>
+    </div></div></div>
   )
 }
 
