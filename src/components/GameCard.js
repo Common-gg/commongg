@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import gameSelect from "../images/icons/gameselect.png";
 
 function GameCard(props) {
     const [selected, setSelected] = useState("none");
+
+    //if the props passed down a setSelected use it
+    useEffect(() => {
+        if (props.selectedGames.includes(props.index)) {
+            setSelected("block");
+        }
+    }, [props.selectedGames, props.index])
 
     const select = () => {
         if (selected === "none") {

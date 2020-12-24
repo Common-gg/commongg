@@ -10,10 +10,19 @@ function CreateProfile(props) {
 
   const [displayName, setDisplayName] = useState();
   const [img, setImg] = useState('https://static.zerochan.net/Dango.%28Teamfight.Tactics%29.full.2963102.jpg');
+  const [failed, setFailed] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.storeBlob(displayName.current.value, img);
+    props.existsUsername(displayName.current.value).then((existsUser) => {
+      if (existsUser === true) {
+        console.log(displayName.current.value);
+        setFailed(true);
+      } else {
+        console.log("success")
+        props.storeBlob(displayName.current.value, img);
+      }
+    })
   }
 
   const addCSS = {
@@ -38,7 +47,8 @@ function CreateProfile(props) {
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input type="displayName" placeholder="username" track={setDisplayName} style={{ backgroundColor: "#292833" }} />
+        <Input type="displayName" placeholder="username" track={setDisplayName} style= {{ backgroundColor: "#292833" }} />
+        {failed ? <p style={{ color: "red" }}>username already in use</p>:""}
         < br />
         add a profile picture
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} />
