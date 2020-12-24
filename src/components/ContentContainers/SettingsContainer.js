@@ -31,7 +31,7 @@ function SettingsContainer(props) {
         <div className="col-3"></div>
         <div className="col-4">
           <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
-          <div class="container" style={{ cursor: "pointer" }}>
+          <div className="container" style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
               currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} />
             <label htmlFor="fileInput"

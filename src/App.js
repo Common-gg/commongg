@@ -263,9 +263,23 @@ function App() {
   const getPosts = (filter, sort, callback) => {
     // gets all posts for the DB
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
-
     postRef.once('value', function (snapshot) {
-      if (snapshot.val() !== null) return callback(snapshot.val());
+      if (snapshot.val() !== null) {
+        return callback(snapshot.val());
+      } else {
+        return callback({
+          "00000000": {
+            author: "404",
+            caption: "Nothing here",
+            game: "",
+            link: "",
+            text: "There are no posts to see",
+            timestamp: 0,
+            title: "No Content",
+            type: "text"
+          }
+        })
+      }
     });
   }
 

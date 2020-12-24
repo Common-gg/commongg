@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useState} from 'react';
 import { Link } from "react-router-dom";
 import ProfilePicture from './ProfilePicture.js';
 
@@ -9,6 +9,15 @@ import setting from "../images/icons/settingsaccent-1.png";
 import editGame from "../images/icons/editgameaccent-1.png"
 
 function NavigationBar(props) {
+    const [allGames, setAllGames] = useState([
+        {
+          title: "Common Chat",
+        },
+        {
+          title: "Teamfight Tactics",
+        }
+      ]);
+
     const iconStyle = {
         width: "50px",
         height: "50px",
@@ -44,6 +53,11 @@ function NavigationBar(props) {
             <Link to="/settings" style={linkStyle}>
                 <p><img src={setting} style={iconStyle} alt="" /> settings</p>
             </Link>
+            {props.currentUserInfo.games.map((game) => {
+                return <Link to={"/games/" + (allGames[game].title.split(" ")).join('').toLowerCase()} key={allGames[game].title} style={linkStyle}>
+                            <p>{allGames[game].title}</p>
+                        </Link>
+            })}
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
                 <p style={{ fontSize: "30px", fontFamily: "SansationRegular" }}>
                     <img src={editGame} style={iconStyle}></img>edit games</p>

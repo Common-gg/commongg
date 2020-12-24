@@ -17,9 +17,18 @@ function FeedType(props) {
     }
   });
 
+  const filter = props.filter;
+  const sort = props.sort;
+
   useEffect(() => {
-    props.getPosts(props.filter, props.sort, setPosts);
-  }, []);
+    console.log("filter changed")
+    console.log(filter)
+    if (filter !== "") {
+      props.getPosts(filter, sort, setPosts);
+    } else {
+      setPosts([]);
+    }
+  }, [filter,sort]);
 
   return (
     <div>
