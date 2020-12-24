@@ -18,6 +18,16 @@ function GamesContainer(props) {
     ]);
     const [modalDismiss, setModalDismiss] = useState("");
     const [clicked, setClicked] = useState(false);
+
+    //on mount load the games that are already in the user profile
+    useEffect(() => {
+        //if the user's games are not null or undefined preselect it
+        if (props.currentUserInfo.games != null) {
+            setSelectedGames(props.currentUserInfo.games)
+        }
+    }, [props.currentUserInfo.games])
+
+    //this switches the state for whether modal can be closed based on number of games
     useEffect(() => {
         if (selectedGames.length > 0) {
             setModalDismiss("modal");
@@ -53,7 +63,6 @@ function GamesContainer(props) {
     function handleDoneClick() {
         if (selectedGames.length > 0) {
             props.storeUserGames(selectedGames);
-            setSelectedGames([]);
         } else {
             setClicked(true);
         }
@@ -69,7 +78,7 @@ function GamesContainer(props) {
 
                         <div className="modal-dialog" role="document">
                             <div className="modal-content" style={modalContentStyle}>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: "#292833" }}>
                                     <div className="modal-header" style={modalHeaderStyle}>
                                     </div>
                                     <h5 className="modal-title" id="chooseGameModalLabel">edit your games</h5>
@@ -82,6 +91,7 @@ function GamesContainer(props) {
                                         index={i}
                                         selectedGames={selectedGames}
                                         setSelectedGames={setSelectedGames}
+                                        style= {{ backgroundColor: "#292833" }}
                                     />;
                                 })}</div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>

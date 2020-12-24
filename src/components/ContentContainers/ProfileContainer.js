@@ -96,7 +96,7 @@ function ProfileContainer(props) {
                 </div>
             </div>
             <hr style={{backgroundColor:'#BF9AFC', width: '90%'}}/>
-            <div className="d-flex flex-row justify-content-center">
+            <div className="flex-wrap d-flex flex-row justify-content-center">
                 <div className="flex-wrap d-flex flex-row justify-content-center" style={{width:"70%"}}>
                     {user.games.map(index => {
                         return <img 

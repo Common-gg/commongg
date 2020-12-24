@@ -192,6 +192,13 @@ function App() {
     postRef.set(post);
   }
 
+  const createComment = (comment) => {
+    // Creates a comment in the DB
+    if (currentUser === undefined) return;
+    const commentRef = database.ref('/content/comments/').push();
+    commentRef.set(comment);
+  }
+
   const getUser = (userId, callback) => {
     // Gets user from DB
     database.ref('/users/' + userId).once('value').then(function (snapshot) {
@@ -283,9 +290,27 @@ function App() {
     });
   }
 
+  const existsUsername = (username) => {
+    // checks if there is a user with the username already
+    // returns true if it exists false if doesn't exist
+    return new Promise(function (resolve, reject) {
+      const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
+      postRef.once('value').then((snapshot) => {
+        const usersWithUsername = snapshot.val();
+        
+        //if it's not null, there is some user with the username 
+        if (usersWithUsername !== null) {
+          return resolve(true);
+        } else {
+          return resolve(false);
+        }
+      });
+    })
+  }
+
   const getPost = (postId, callback) => {
     // Gets a single post from DB
-    database.ref('/content/posts/' + postId).once('value').then(function (snapshot) {
+    database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
       const postData = snapshot.val();
       if (postData !== null) return callback(postData);
     })
@@ -331,7 +356,7 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <CreateProfile storeBlob={storeBlob} />
+              <CreateProfile existsUsername={existsUsername} storeBlob={storeBlob} />
             )} />
         </Switch>
       </Router>
@@ -351,6 +376,7 @@ function App() {
                 getPosts={getPosts}
                 getPost={getPost}
                 createPost={createPost}
+                createComment={createComment}
                 getComments={getComments}
                 search={search}
 

@@ -26,12 +26,25 @@ function SettingsContainer(props) {
   }
 
   return (
-    <div className="SettingsContainer">
+    <div className="SettingsContainer" style={{
+      border: "solid",
+      borderBottomstyle: "none",
+      borderRadius: "10px",
+      borderColor: "#5F5177",
+      borderWidth: "1px",
+      padding: "0px 0px 50px 0px",
+      overflow: "hidden"
+    }}>
+      <div className="row col-12">
+        <div className="col-4"></div>
+        <div className="col-8">
+          <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
+        </div>
+      </div>
       <div className="row col-12">
         <div className="col-3"></div>
-        <div className="col-4">
-          <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
-          <div className="container" style={{ cursor: "pointer" }}>
+        <div className="col-8">
+          <div class="container" style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
               currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} />
             <label htmlFor="fileInput"
@@ -42,8 +55,8 @@ function SettingsContainer(props) {
                 background: "transparent",
                 position: 'absolute',
                 bottom: 85,
-                right: 130,
-                top: 150
+                right: 145,
+                top: 112
               }}>
               <img src={edit} style={{ width: "60px", height: "60px" }} />
             </label>
@@ -52,7 +65,7 @@ function SettingsContainer(props) {
       </div>
       <div className="row col-12">
         <div className="row col-12">
-          <div className="col-1"></div>
+          <div className="col-3"></div>
           <div className="col-8">
             <form>
               <div className="form-group" style={{ color: "#FFFFFF" }}>
@@ -65,13 +78,14 @@ function SettingsContainer(props) {
                     backgroundColor: "transparent",
                     color: "#BF9AFC",
                     resize: "none",
+                    maxWidth: "500px"
                   }}
                 />
               </div>
             </form>
           </div>
         </div>
-        <div className="col-7"></div>
+        <div className="col-8"></div>
         <div className="row col-2">
           <button type="button"
             className="btn"
@@ -87,15 +101,16 @@ function SettingsContainer(props) {
             update
                 </button>
         </div>
-        <div className="row col-8">
-          <div className="row col-12">
-            <div className="col-6"></div>
-            <div className="col-5 text-center">
-              <Link to="/" style={{ color: "#BF9AFC" }}>
-                <br /><br /><p onClick={() => props.signOut()}>sign out</p>
-              </Link>
-              <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC" }}>discord</a></p>
-            </div>
+        <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} /></div>
+      <div className="row">
+        <div className="col-1"></div>
+        <div className="row col-12">
+          <div className="col-1"></div>
+          <div className="col text-center">
+            <Link to="/" style={{ color: "#BF9AFC", textDecoration: "underline", }}>
+              <br /><p onClick={() => props.signOut()}>sign out</p>
+            </Link>
+            <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC", textDecoration: "underline" }}>discord</a></p>
           </div>
         </div>
       </div>
