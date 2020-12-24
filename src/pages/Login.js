@@ -33,35 +33,49 @@ function Login(props) {
   return (
     <div className="Login">
       <div className="mx-auto card" style={{
-        margin: "40px",
-        maxWidth: "230px",
+        margin: "150px",
+        maxWidth: "410px",
         backgroundColor: "#292833",
         borderRadius: "10px",
         boxShadow: "-1px 10px 250px 1px #171421"
       }}>
 
         <div style={{ margin: "20px 20px 0px 20px" }} className="row">
-          <div className="row">
-            <div className="col-4"></div>
-            <img src={logo} style={logoCSS} />
-            <div className="col-4"></div>
-            <br />
-          </div>
-          <div className="form-group" >
-            <div className="Input" >
-              <input style={inputStyle} className="border border-secondary" type="email"
-                placeholder="email" ref={emailRef}
-                onKeyPress={(e) => handleSignIn(e)} />
-            </div>
-          </div>
-          <div className="form-group" >
-            <div className="Input" >
-              <input style={inputStyle} className="border border-secondary" type="Password"
-                placeholder="password" ref={passwordRef}
-                onKeyPress={(e) => handleSignIn(e)} />
-            </div>
-          </div>
           <div className="col-4"></div>
+          <img src={logo} style={logoCSS} />
+          <div className="col-5"></div>
+          <br />
+          <div className="form-group" >
+            <div className="row">
+              <div className="col-1"></div>
+              <div className="row">
+                <div className="col-1"></div>
+                <div className="row">
+                  <div className="col-1"></div>
+                  <div className="row">
+                    <div className="col-1"></div>
+                    <div className="Input" >
+                      <input style={inputStyle} className="border border-secondary" type="email"
+                        placeholder="email" ref={emailRef}
+                        onKeyPress={(e) => handleSignIn(e)} style={{ backgroundColor: "#292833" }} />
+                    </div></div></div></div></div>
+          </div>
+          <div className="form-group" >
+            <div className="row">
+              <div className="col-1"></div>
+              <div className="row">
+                <div className="col-1"></div>
+                <div className="row">
+                  <div className="col-1"></div>
+                  <div className="row">
+                    <div className="col-1"></div>
+                    <div className="Input" >
+                      <input style={inputStyle} className="border border-secondary" type="Password"
+                        placeholder="password" ref={passwordRef}
+                        onKeyPress={(e) => handleSignIn(e)} style={{ backgroundColor: "#292833" }} />
+                    </div></div></div></div></div>
+          </div>
+          <div className="col-5"></div>
           <button type="submit" className="btn btn-outline-light"
             onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value)} style={{
               marginBottom: "20px",

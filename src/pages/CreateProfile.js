@@ -35,9 +35,9 @@ function CreateProfile(props) {
   return (
     <div className="CreateProfile">
       <div className="mx-auto card text-center" style={{
-        margin: "40px",
+        margin: "150px",
         maxWidth: "485px",
-        backgroundColor: "#292823",
+        backgroundColor: "#292833",
         borderRadius: "10px",
         boxShadow: "-1px 10px 250px 1px #171421",
         color: "#BF9AFC"
@@ -46,7 +46,7 @@ function CreateProfile(props) {
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input type="displayName" placeholder="username" track={setDisplayName} />
+        <Input type="displayName" placeholder="username" track={setDisplayName} style= {{ backgroundColor: "#292833" }} />
         {failed ? <p style={{ color: "red" }}>username already in use</p>:""}
         < br />
         add a profile picture
