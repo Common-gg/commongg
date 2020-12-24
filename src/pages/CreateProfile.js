@@ -3,6 +3,7 @@ import Input from '../components/Input.js';
 // import Button from '../components/Button.js';
 import DisplayImage from '../components/DisplayImage.js'
 import add from "../images/icons/Group-104.png";
+import arrow from "../images/icons/arrow-right.png";
 
 function CreateProfile(props) {
   // add categories later
@@ -26,25 +27,33 @@ function CreateProfile(props) {
   return (
     <div className="CreateProfile">
       <div className="mx-auto card text-center" style={{
-        margin: "150px",
+        margin: "175px",
         maxWidth: "485px",
         backgroundColor: "#292833",
         borderRadius: "10px",
         boxShadow: "-1px 10px 250px 1px #171421",
         color: "#BF9AFC"
       }}>
-
+<br />
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input type="displayName" placeholder="username" track={setDisplayName} style= {{ backgroundColor: "#292833" }}  />
+        <Input type="displayName" placeholder="username" track={setDisplayName} style={{ backgroundColor: "#292833" }} />
         < br />
         add a profile picture
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} />
         <button type="submit" className="btn btn-outline-dark"
-          style={{ marginBottom: "20px" }}
+          style={{
+            marginBottom: "20px",
+            backgroundColor: "transparent",
+            color: "#BF9AFC",
+            border: "solid",
+            borderRadius: "10px",
+            borderColor: "#BF9AFC",
+            borderWidth: "2px"
+          }}
           onClick={handleSubmit}>
-          Complete
+       <img src={arrow} />
         </button>
       </div>
     </div>

@@ -29,8 +29,13 @@ function SettingsContainer(props) {
     <div className="SettingsContainer">
       <div className="row col-12">
         <div className="col-3"></div>
-        <div className="col-4">
+        <div className="col-8">
           <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
+        </div>
+      </div>
+      <div className="row col-12">
+        <div className="col-2"></div>
+        <div className="col-8">
           <div class="container" style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
               currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} />
@@ -42,8 +47,8 @@ function SettingsContainer(props) {
                 background: "transparent",
                 position: 'absolute',
                 bottom: 85,
-                right: 130,
-                top: 150
+                right: 145,
+                top: 112
               }}>
               <img src={edit} style={{ width: "60px", height: "60px" }} />
             </label>
@@ -52,7 +57,7 @@ function SettingsContainer(props) {
       </div>
       <div className="row col-12">
         <div className="row col-12">
-          <div className="col-1"></div>
+          <div className="col-2"></div>
           <div className="col-8">
             <form>
               <div className="form-group" style={{ color: "#FFFFFF" }}>
@@ -65,6 +70,7 @@ function SettingsContainer(props) {
                     backgroundColor: "transparent",
                     color: "#BF9AFC",
                     resize: "none",
+                    maxWidth: "500px"
                   }}
                 />
               </div>
@@ -87,15 +93,15 @@ function SettingsContainer(props) {
             update
                 </button>
         </div>
-        <div className="row col-8">
-          <div className="row col-12">
-            <div className="col-6"></div>
-            <div className="col-5 text-center">
-              <Link to="/" style={{ color: "#BF9AFC" }}>
-                <br /><br /><p onClick={() => props.signOut()}>sign out</p>
-              </Link>
-              <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC" }}>discord</a></p>
-            </div>
+        <hr style={{ backgroundColor: '#BF9AFC', width: '70%' }} /></div>
+      <div className="row col-8">
+        <div className="row col-12">
+          <div className="col-6"></div>
+          <div className="col-5 text-center">
+            <Link to="/" style={{ color: "#BF9AFC", textDecoration: "underline", }}>
+              <br /><p onClick={() => props.signOut()}>sign out</p>
+            </Link>
+            <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC", textDecoration: "underline" }}>discord</a></p>
           </div>
         </div>
       </div>

@@ -53,7 +53,7 @@ function GamesContainer(props) {
 
                         <div className="modal-dialog" role="document">
                             <div className="modal-content" style={modalContentStyle}>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: "#292833" }}>
                                     <div className="modal-header" style={modalHeaderStyle}>
                                     </div>
                                     <h5 className="modal-title" id="chooseGameModalLabel">edit your games</h5>
@@ -66,9 +66,10 @@ function GamesContainer(props) {
                                         index={i}
                                         selectedGames={selectedGames}
                                         setSelectedGames={setSelectedGames}
+                                        style= {{ backgroundColor: "#292833" }}
                                     />;
                                 })}</div>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: "#292833" }}>
                                     <button style={buttonStyle} type="button" className="btn btn-primary" data-dismiss="modal" onClick={handleDoneClick}>done</button>
                                 </div>
                             </div>
