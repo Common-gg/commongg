@@ -192,6 +192,13 @@ function App() {
     postRef.set(post);
   }
 
+  const createComment = (comment) => {
+    // Creates a comment in the DB
+    if (currentUser === undefined) return;
+    const commentRef = database.ref('/content/comments/').push();
+    commentRef.set(comment);
+  }
+
   const getUser = (userId, callback) => {
     // Gets user from DB
     database.ref('/users/' + userId).once('value').then(function (snapshot) {
@@ -337,6 +344,7 @@ function App() {
                 getPosts={getPosts}
                 getPost={getPost}
                 createPost={createPost}
+                createComment={createComment}
                 getComments={getComments}
                 search={search}
 
