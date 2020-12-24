@@ -24,9 +24,10 @@ function FeedType(props) {
   return (
     <div>
       {Object.values(posts).reverse().map((post, i) => {
+        if(post.author !== "404")
         return (
           <div key={Object.keys(posts).reverse()[i]}>
-            <Post post={post} postId={Object.keys(posts).reverse()[i]} getUser={props.getUser}/><br />
+            <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} showCommentButton={false}/><br />
           </div>
         )
       })}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Text from '../Text.js';
 import Post from '../Post/Post.js';
-import Comment from '../../components/Post/Comment';
+import Comment from '../../components/Post/Comment.js';
 
 function ViewPostContainer(props) {
 
@@ -37,7 +37,7 @@ function ViewPostContainer(props) {
 
     useEffect(() => {
         console.log(post);
-        if (post.author !== "404") { // rewrite this
+        if (post.author !== "404") {
             props.getComments(postId, "postId", setComments);
         }
     }, [post])
@@ -49,10 +49,11 @@ function ViewPostContainer(props) {
     return (
         <div className="ViewPostContainer">
             <br />
-            <Post post={post} getUser={props.getUser} />
+            <Post {...props} post={post} postId={postId} showCommentButton={true}/>
             <br />
             <Text text="Comments" />
             {Object.values(comments).map(comment => {
+                if (comment.author !== "404")
                 return (
                     <div>
                         <br />

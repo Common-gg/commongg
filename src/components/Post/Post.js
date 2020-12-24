@@ -3,6 +3,7 @@ import Text from '../Text.js';
 import IconButton from '../IconButton.js';
 import ProfilePicture from '../ProfilePicture.js';
 import { Link } from "react-router-dom";
+import CreateCommentModal from './CreateCommentModal.js';
 
 function Post(props) {
 
@@ -32,15 +33,15 @@ function Post(props) {
       return
     } else if (props.post.type === "image") {
       return (
-      <img 
-        src={props.post.link}
-        alt="posted image" 
-        style={{
-          width: "100%"
-        }}
+        <img
+          src={props.post.link}
+          alt="posted image"
+          style={{
+            width: "100%"
+          }}
         />
       )
-    } 
+    }
     // Code to turn on video later!
     // else if (props.post.type === "video") {
     //   return (
@@ -54,6 +55,19 @@ function Post(props) {
     //     </video>
     //   )
     // }
+  }
+
+  const commentButtonCheck = () => {
+    if (props.postId !== undefined) {
+      return (
+        <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
+          <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
+        </Link>)
+    } else {
+      return (
+        <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
+      )
+    }
   }
 
   return (
@@ -83,13 +97,14 @@ function Post(props) {
           <div className="col-2">
             <IconButton class="fa fa-frown-o" text={convertNum(props.post.dislikes)} />
           </div>
-          <div className="col-4">
+          <div className="col-2">
 
           </div>
           <div className="col-2">
-            <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
-              <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
-            </Link>
+            <CreateCommentModal {...props} post={props.post} postId={props.postId} showCommentButton={props.showCommentButton}/>
+          </div>
+          <div className="col-2">
+            {commentButtonCheck()}
           </div>
           <div className="col-2">
             <IconButton class="fa fa-share-alt" text="" />
