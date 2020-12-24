@@ -323,12 +323,12 @@ function App() {
     });
   }
 
-  const search = (value, callback) => {
+  const search = (value, callback, query) => {
     // search the db
     const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
     usersRef.once('value', function (snapshot) {
       console.log(snapshot.val());
-      if (snapshot.val() !== null) return callback(snapshot.val());
+      if (snapshot.val() !== null) return callback(snapshot.val(), query);
     });
   }
 
