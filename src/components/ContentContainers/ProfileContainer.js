@@ -7,9 +7,7 @@ import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
 import CommonChat from "../../images/games/Common Chat.png";
 
 function ProfileContainer(props) {
-
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
-    const [userId, setUserId] = useState();
 
     const [followBtnState, setFollowBtnState] = useState({
         text: "Follow"
@@ -28,45 +26,39 @@ function ProfileContainer(props) {
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
-            props.followUser(props.currentUserId, userId);
+            props.followUser(props.currentUserId,props.pageId);
             setFollowBtnState({ ...followBtnState, text: "Following" });
         } else {
-            props.unFollowUser(props.currentUserId, userId);
+            props.unFollowUser(props.currentUserId,props.pageId);
             setFollowBtnState({ ...followBtnState, text: "Follow" });
         }
     }
 
     useEffect(() => {
-        let url = window.location.href;
-        url = url.split('/');
-        setUserId(url[url.length - 1]);
-    }, []);
-
-    useEffect(() => {
-        props.getUser(userId, setUser);
-    }, [userId]);
+        props.getUser(props.pageId, setUser);
+    }, [props.pageId]);
 
     useEffect(() => {
         if (props.currentUserId) {
-            if (props.currentUserId === userId) {
+            if (props.currentUserId ===props.pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             }
         }
-    }, [userId]);
+    }, [props.pageId]);
 
     useEffect(() => {
         if (props.currentUserInfo.following) {
             let temp = Object.values(props.currentUserInfo.following);
-            if (temp.includes(userId)) {
+            if (temp.includes(props.pageId)) {
                 setFollowBtnState({ ...followBtnState, text: "Following" });
             }
         }
     }, [])
 
     const checkId = () => {
-        if(userId !== undefined){
+        if(props.pageId !== undefined){
             return (
-                <FeedType {...props} filter={userId} sort={"author"}/>
+                <FeedType {...props} filter={props.pageId} sort={"author"}/>
             )
         }
     }
