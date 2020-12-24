@@ -28,10 +28,10 @@ function ProfileContainer(props) {
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
-            props.followUser(props.currentUser, userId);
+            props.followUser(props.currentUserId, userId);
             setFollowBtnState({ ...followBtnState, text: "Following" });
         } else {
-            props.unFollowUser(props.currentUser, userId);
+            props.unFollowUser(props.currentUserId, userId);
             setFollowBtnState({ ...followBtnState, text: "Follow" });
         }
     }

@@ -24,9 +24,7 @@ function Login(props) {
   }
 
   const inputStyle = {
-    fontFamily: "SansationRegular",
-    backgroundColor: "#292833",
-    backgroundColor: "transparent",
+    backgroundColor: "transparent #292833",
     color: "#BF9AFC",
     border: "solid",
     borderColor: "#BF9AFC",
@@ -83,11 +81,11 @@ function Login(props) {
         <div className="col-4"></div>
         <div className="text-center col-4">
           <Link to="/signup">
-            <p className="col" style={{ color: "#BF9AFC", fontFamily: "SansationRegular" }}>
+            <p className="col" style={{ color: "#BF9AFC" }}>
               new? sign up
               </p>
           </Link>
-          <a href="" style={{ color: "#BF9AFC", fontFamily: "SansationRegular" }}>
+          <a href="" style={{ color: "#BF9AFC" }}>
             <p className="col">
               forgot password?</p>
           </a>

@@ -200,6 +200,12 @@ function App() {
     })
   }
 
+  const updateFollow = (userId, followType, value) => {
+    const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
+    console.log(followRef);
+    followRef.set(database.ServerValue.increment(value));
+  }
+
   const followUser = (follower, followed) => {
     // follows the desired user
     const followerRef = database.ref('/users/' + follower + '/following/').push();
@@ -207,6 +213,8 @@ function App() {
 
     followerRef.set(followed);
     followedRef.set(follower);
+    updateFollow(follower, "following", 1);
+    updateFollow(followed, "follower", 1);
   }
 
   const unFollowUser = (follower, followed) => {
@@ -224,6 +232,8 @@ function App() {
       const followStamp = Object.keys(followerList)[Object.values(followerList).indexOf(follower)];
       followedRef.set({ ...followerList, [followStamp]: null });
     });
+    updateFollow(follower, "following", -1);
+    updateFollow(followed, "follower", -1);
   }
 
   const getTitleOfGameById = (gameId) => {

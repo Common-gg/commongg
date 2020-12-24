@@ -10,14 +10,15 @@ import editGame from "../images/icons/editgameaccent-1.png"
 
 function NavigationBar(props) {
     const iconStyle = {
-        width: "40px",
-        height: "40px",
+        width: "50px",
+        height: "50px",
         marginRight: ".5rem"
     };
 
     const linkStyle = {
         color: "#BF9AFC",
-        textDecoration: 'none'
+        textDecoration: 'none',
+        fontSize: "30px"
     };
 
     useEffect(() => {
@@ -29,7 +30,7 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="50px" height="50px" /> profile</p>
+                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="50px" height="50px" />  profile</p>
             </Link>
             <Link to="/" style={linkStyle}>
                 <p><img src={home} style={iconStyle} alt="" /> home</p>
@@ -44,12 +45,9 @@ function NavigationBar(props) {
                 <p><img src={setting} style={iconStyle} alt="" /> settings</p>
             </Link>
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
-                <p style={{ fontFamily: "SansationRegular" }}>
+                <p style={{ fontSize: "30px", fontFamily: "SansationRegular" }}>
                     <img src={editGame} style={iconStyle}></img>edit games</p>
             </a>
-            <Link to="/" style={linkStyle}>
-                <p onClick={() => props.signOut()}>logout</p>
-            </Link>
         </div>
     );
 }

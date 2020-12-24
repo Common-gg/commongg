@@ -22,7 +22,6 @@ function CreateProfile(props) {
         props.storeBlob(displayName.current.value, img);
       }
     })
-    
   }
 
   const addCSS = {
@@ -59,7 +58,7 @@ function CreateProfile(props) {
         </button>
       </div>
     </div>
-    
+
 
   );
 }
