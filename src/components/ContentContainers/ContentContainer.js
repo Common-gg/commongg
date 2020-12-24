@@ -5,6 +5,7 @@ import ViewPostContainer from './ViewPostContainer.js';
 import SettingsContainer from './SettingsContainer.js';
 import GamesContainer from './GamesContainer.js';
 import PageNotFound from './PageNotFound.js';
+import GameFeedContainer from './GameFeedContainer.js'
 
 function ContentContainer(props) {
 
@@ -27,6 +28,8 @@ function ContentContainer(props) {
       return <GamesContainer {...props} />;
     case "":
       return <FeedContainer {...props} />;
+    case "games":
+      return <GameFeedContainer {...props} />;
     default: 
       return <PageNotFound />;
   }
