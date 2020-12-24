@@ -16,7 +16,27 @@ function GamesContainer(props) {
             image: TeamfightTactics
         }
     ]);
-  
+    const [modalDismiss, setModalDismiss] = useState("");
+    const [clicked, setClicked] = useState(false);
+
+    //on mount load the games that are already in the user profile
+    useEffect(() => {
+        //if the user's games are not null or undefined preselect it
+        if (props.currentUserInfo.games != null) {
+            setSelectedGames(props.currentUserInfo.games)
+        }
+    }, [props.currentUserInfo.games])
+
+    //this switches the state for whether modal can be closed based on number of games
+    useEffect(() => {
+        if (selectedGames.length > 0) {
+            setModalDismiss("modal");
+            setClicked(false);
+        } else {
+            setModalDismiss("");
+        }
+    }, [selectedGames])
+
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
@@ -41,7 +61,12 @@ function GamesContainer(props) {
     }
     
     function handleDoneClick() {
-        props.storeUserGames(selectedGames);
+        if (selectedGames.length > 0) {
+            props.storeUserGames(selectedGames);
+        } else {
+            setClicked(true);
+        }
+        
     }
 
     return (
@@ -69,8 +94,11 @@ function GamesContainer(props) {
                                     />;
                                 })}</div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <button style={buttonStyle} type="button" className="btn btn-primary" data-dismiss="modal" onClick={handleDoneClick}>done</button>
+                                    <button style={buttonStyle} type="button" className="btn btn-primary" data-dismiss={modalDismiss} onClick={handleDoneClick}>done</button>
                                 </div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                   {clicked?<p style={{color: "red"}}>must pick at least one game</p>:""}
+                                </div>                        
                             </div>
                         </div>
                     </div>
