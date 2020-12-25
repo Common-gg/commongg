@@ -13,6 +13,22 @@ function Post(props) {
     props.getUser(props.post.author, setAuthor)
   }, [props.post]);
 
+  function getStyle () {
+    if(props.style === undefined){
+      return({
+        borderStyle: 'solid',
+        borderRadius: '5px',
+        borderColor: '#5F5177',
+        borderWidth: '2px',
+        paddingBottom: '0px',
+        paddingLeft: '20px',
+        paddingRight: '20px'
+      });
+    }else{
+      return props.style;
+    }
+  }
+
   function convertNum(val) {
     let editedVal = val;
     if (editedVal > 1000000) {
@@ -71,22 +87,26 @@ function Post(props) {
   }
 
   return (
-    <div className="Post">
+    <div className="Post" style={getStyle()}>
       <div className="container">
         <br />
         <div className="row">
           <div className="col-1">
             <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
           </div>
-          <div className="col-11">
+          <div className="col-11" style={{ marginBottom: '5px', lineHeight: '4px' }}>
+            <br />
+            <br />
             <Text text={author.username} />
-            <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")} />
+            <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
+              style={{ color: '#BF9AFC', fontSize: '12px' }}
+            />
           </div>
         </div>
         <div className="row">
           <div className="col-12">
-            <Text text={props.post.title} />
-            <Text text={props.post.text} />
+            <Text text={props.post.title} style={{ fontSize: '32px' }} />
+            <Text text={props.post.text} style={{ fontSize: '18px' }} />
             {checkType()}
           </div>
         </div>
@@ -101,7 +121,7 @@ function Post(props) {
 
           </div>
           <div className="col-2">
-            <CreateCommentModal {...props} post={props.post} postId={props.postId} showCommentButton={props.showCommentButton}/>
+            <CreateCommentModal {...props} post={props.post} postId={props.postId} showCommentButton={props.showCommentButton} />
           </div>
           <div className="col-2">
             {commentButtonCheck()}

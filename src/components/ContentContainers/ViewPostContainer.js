@@ -48,21 +48,22 @@ function ViewPostContainer(props) {
 
     return (
         <div className="ViewPostContainer">
+            <Post {...props} post={post} postId={postId} showCommentButton={true}
+                style={{
+                    paddingBottom: '0px',
+                    paddingLeft: '0px',
+                    paddingRight: '0px'
+                }}
+            />
             <br />
-            <Post {...props} post={post} postId={postId} showCommentButton={true}/>
-            <br />
-            <Text text="Comments" />
             {Object.values(comments).map(comment => {
                 if (comment.author !== "404")
-                return (
-                    <div>
-                        <br />
-                        <div className="commentBorder">
-                            <br />
+                    return (
+                        <div>
+                            <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
                             <Comment comment={comment} getUser={props.getUser} />
                         </div>
-                    </div>
-                )
+                    )
             })}
         </div>
     );
