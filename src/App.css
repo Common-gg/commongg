@@ -52,16 +52,6 @@ body {
 background-color: #292833;
 }
 
-.Post {
-  border-style: solid;
-  border-radius: 5px;
-  border-color: #5F5177;
-  border-width: 2px;
-  padding-bottom: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 .IconButton {
   margin: 0 0 0 0;
 }
@@ -82,15 +72,6 @@ background-color: #292833;
 }
 .testimonial-group > .row > .col-2 {
   display: inline-block;
-}
-
-.commentBorder {
-  border-style: solid;
-  border-radius: 5px;
-  border-color: #5F5177;
-  border-width: 2px;
-  padding-bottom: 0px;
-  padding-left: 20px;
 }
 
 *:focus {
