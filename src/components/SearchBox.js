@@ -2,6 +2,8 @@ import React, { useState, useRef, Fragment } from 'react';
 import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { Link } from "react-router-dom";
+import TeamfightTactics from "../images/games/Teamfight Tactics.jpg";
+import CommonChat from "../images/games/Common Chat.png";
 
 const AsyncTypeahead = withAsync(Typeahead);
 
@@ -9,24 +11,59 @@ function SearchBox(props) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
+  const [allGames, setAllGames] = useState([
+    {
+        title: "Common Chat",
+        image: CommonChat
+    },
+    {
+        title: "Teamfight Tactics",
+        image: TeamfightTactics
+    }
+]);
 
   const inputStyle = {
     border: "none",
     width: "100%"
   }
 
-  const afterSearch = (users) => {
-    setOptions(Object.values(users).map((user, i) => ({
+  //the users from search results get passed in
+  const afterSearch = (users, query) => {
+    let options = [{name: "users", type: "label"}]
+    options = options.concat(Object.values(users).map((user, i) => ({
       avatar_url: user.profile_picture,
       id: Object.keys(users)[i],
-      login: user.username
+      name: user.username,
+      type: "user"
     })));
+    options.push({name: "games", type: "label"})
+    const gameResult = searchGames(query);
+    //might introduce issue when a person's name is same as game's name
+    options = options.concat(gameResult.map((game, i) => ({
+      image: game.image,
+      name: game.title,
+      type: "game"
+    })));
+    setOptions(options);
     setIsLoading(false);
   }
 
+  //search games based on query
+  const searchGames = (query) => {
+    console.log("search games");
+    console.log(query)
+    let result = allGames.filter((game) => {
+      //check if query is in the title
+      return game.title.toLowerCase().includes(query.toLowerCase());
+    });
+    console.log(result)
+    return result;
+  }
+
   const handleSearch = (query) => {
+    console.log(query);
     setIsLoading(true);
-    props.search(query, afterSearch);
+    props.search(query, afterSearch, query);
   };
 
   const filterBy = () => true;
@@ -36,7 +73,7 @@ function SearchBox(props) {
       filterBy={filterBy}
       id="searchBox"
       isLoading={isLoading}
-      labelKey="login"
+      labelKey="name"
       minLength={3}
       onSearch={handleSearch}
       options={options}
@@ -44,9 +81,9 @@ function SearchBox(props) {
       style={inputStyle}
       renderMenuItemChildren={(option, props) => (
         <Fragment>
-          <Link to={"/profile/" + option.id }>
+          {option.type==="user" && <Link to={"/profile/" + option.id }>
             <img
-              alt={option.login}
+              alt={option.name}
               src={option.avatar_url}
               style={{
                 borderRadius: '25px',
@@ -55,8 +92,24 @@ function SearchBox(props) {
                 width: '24px',
               }}
             />
-            <span style={{color: "white"}}>{option.login}</span>
-          </Link>
+            <span style={{color: "white"}}>{option.name}</span>
+          </Link>}
+          {option.type==="game" && <Link to={"/games/" + option.name.split(" ").join('').toLowerCase() }>
+            <img
+              alt={option.title}
+              src={option.image}
+              style={{
+                borderRadius: '25px',
+                height: '24px',
+                marginRight: '10px',
+                width: '24px',
+              }}
+            />
+            <span style={{color: "white"}}>{option.name}</span>
+          </Link>}
+          {option.type==="label" && 
+            <span style={{color: "white"}}>{option.name}</span>
+          }
         </Fragment>
       )}
     />
