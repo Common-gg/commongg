@@ -242,16 +242,6 @@ function App() {
     updateFollow(followed, "follower", -1);
   }
 
-  const getGamesUserFollows = (callback) => {
-    database.ref('users/' + currentUser.uid + "/games/").once('value').then((snapshot) => {
-      let userGames = snapshot.val();
-      if (userGames !== null) {
-        console.log(userGames);
-        return callback(userGames);
-      }
-    });
-  }
-
   const getTitleOfGameById = (gameId) => {
     // Gets the title of a game by it's ID
     let gameTitle = "";
@@ -396,8 +386,6 @@ function App() {
                 followUser={followUser}
                 unFollowUser={unFollowUser}
                 storeUserGames={storeUserGames}
-                getGamesUserFollows={getGamesUserFollows}
-                getTitleOfGameById={getTitleOfGameById}
               />
             )} />
         </Switch>
