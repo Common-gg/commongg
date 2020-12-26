@@ -88,7 +88,7 @@ background-color: #292833;
   border: none;
 }
 
-.rbt-input-main:focus {
+.rbt-input-main:focus, input:focus, textarea:focus, button:focus {
   outline: none !important;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
 }
