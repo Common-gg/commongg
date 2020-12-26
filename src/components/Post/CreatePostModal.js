@@ -4,8 +4,6 @@ import Select from 'react-select';
 import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
 import CommonChat from "../../images/games/Common Chat.png";
 
-
-
 function CreatePostModal(props) {
     const postTextRef = useRef();
     const postTitleRef = useRef();
@@ -157,7 +155,7 @@ function CreatePostModal(props) {
     }
 
     function handleOnChangeDropdown(e) {
-        setSelectedOption(e.value);
+        setSelectedOption(e.label);
     }
 
     return (
