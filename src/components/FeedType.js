@@ -19,6 +19,7 @@ function FeedType(props) {
 
   const filter = props.filter;
   const sort = props.sort;
+  const postRefresh = props.postRefresh;
 
   useEffect(() => {
     console.log("filter changed")
@@ -28,7 +29,7 @@ function FeedType(props) {
     } else {
       setPosts([]);
     }
-  }, [filter,sort]);
+  }, [filter,sort, postRefresh]);
 
   return (
     <div>

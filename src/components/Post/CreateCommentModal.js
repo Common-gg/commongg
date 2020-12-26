@@ -77,6 +77,7 @@ function CreateCommentModal(props) {
             postId: props.postId,
             timestamp: Date.now()
         });
+        props.updateRefresh();
         clearFields();
     }
 

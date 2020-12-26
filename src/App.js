@@ -191,11 +191,19 @@ function App() {
     postRef.set(post);
   }
 
+  const updateNumComments = (postId) => {
+    const numCommentsRef = database.ref('/content/posts/' + postId + '/numComments')
+    if (numCommentsRef === undefined) return;
+    numCommentsRef.set(firebase.database.ServerValue.increment(1));
+  }
+
   const createComment = (comment) => {
     // Creates a comment in the DB
     if (currentUser === undefined) return;
     const commentRef = database.ref('/content/comments/').push();
     commentRef.set(comment);
+    //update the number of comments
+    updateNumComments(comment.postId);
   }
 
   const getUser = (userId, callback) => {
@@ -376,6 +384,7 @@ function App() {
                 getPost={getPost}
                 createPost={createPost}
                 createComment={createComment}
+                updateNumComments={updateNumComments}
                 getComments={getComments}
                 search={search}
 
