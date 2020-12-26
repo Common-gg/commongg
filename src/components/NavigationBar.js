@@ -14,20 +14,20 @@ function NavigationBar(props) {
           title: "Common Chat",
         },
         {
-          title: "Teamfight Tactics",
+          title: "TFT",
         }
       ]);
 
     const iconStyle = {
-        width: "50px",
-        height: "50px",
+        width: "35px",
+        height: "35px",
         marginRight: ".5rem"
     };
 
     const linkStyle = {
         color: "#BF9AFC",
         textDecoration: 'none',
-        fontSize: "30px"
+        fontSize: "20px"
     };
 
     useEffect(() => {
@@ -39,7 +39,7 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="50px" height="50px" />  profile</p>
+                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="35px" height="35px" />  profile</p>
             </Link>
             <Link to="/" style={linkStyle}>
                 <p><img src={home} style={iconStyle} alt="" /> home</p>
@@ -59,7 +59,7 @@ function NavigationBar(props) {
                         </Link>
             })}
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
-                <p style={{ fontSize: "30px", fontFamily: "SansationRegular" }}>
+                <p style={linkStyle}>
                     <img src={editGame} style={iconStyle}></img>edit games</p>
             </a>
         </div>

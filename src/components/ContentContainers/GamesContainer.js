@@ -12,7 +12,7 @@ function GamesContainer(props) {
             image: CommonChat
         },
         {
-            title: "Teamfight Tactics",
+            title: "TFT",
             image: TeamfightTactics
         }
     ]);

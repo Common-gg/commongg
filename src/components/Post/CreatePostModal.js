@@ -30,7 +30,8 @@ function CreatePostModal(props) {
         backgroundColor: "#292833",
         border: "2px solid #BF9AFC",
         width: "100%",
-        textAlign: "left"
+        textAlign: "left",
+        borderRadius: "8px"
     };
     const modalContentStyle = {
         color: "#BF9AFC",
