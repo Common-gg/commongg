@@ -86,6 +86,24 @@ function Post(props) {
     }
   }
 
+  const showCategory = () => {
+    if (props.showCategory !== undefined) {
+      return (
+        <div class="p-2">
+          <Text text={props.post.category}
+            style={{
+              borderStyle: 'solid',
+              borderWidth: '1px',
+              borderRadius: '5px',
+              height: '25px',
+              color: '#BF9AFC',
+              borderColor: '#BF9AFC'
+            }} />
+        </div>
+      );
+    }
+  }
+
   return (
     <div className="Post" style={getStyle()}>
       <div className="container">
@@ -110,7 +128,10 @@ function Post(props) {
         </div>
         <div className="row">
           <div className="col-12">
-            <Text text={props.post.title} style={{ fontSize: '32px' }} />
+            <div class="d-flex align-items-center flex-wrap">
+              <div class="p-2"><Text text={props.post.title} style={{ fontSize: '32px' }} /></div>
+              {showCategory()}
+            </div>
             <Text text={props.post.text} style={{ fontSize: '18px' }} />
             {checkType()}
           </div>
