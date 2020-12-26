@@ -48,7 +48,7 @@ function ViewPostContainer(props) {
 
     return (
         <div className="ViewPostContainer">
-            <Post {...props} post={post} postId={postId} showCommentButton={true}
+            <Post {...props} post={post} postId={postId} showCommentButton={true} showCategory={true}
                 style={{
                     paddingBottom: '0px',
                     paddingLeft: '0px',
