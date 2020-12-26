@@ -296,7 +296,7 @@ function App() {
       const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
       postRef.once('value').then((snapshot) => {
         const usersWithUsername = snapshot.val();
-        
+
         //if it's not null, there is some user with the username 
         if (usersWithUsername !== null) {
           return resolve(true);

@@ -6,9 +6,10 @@ function FeedContainer(props) {
 
   return (
     <div>
-      <CreatePostModal currentUserId={props.currentUserId} createPost={props.createPost} storeImage={props.storeImage} />
+      <CreatePostModal currentUserId={props.currentUserId} createPost={props.createPost} storeImage={props.storeImage} currentUserInfo={props.currentUserInfo}
+      />
       <br />
-      <FeedType {...props} filter={"CAPTION_TEXT"} sort={"caption"}/>
+      <FeedType {...props} filter={"CAPTION_TEXT"} sort={"caption"} />
     </div>
   );
 }

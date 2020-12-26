@@ -1,5 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import excludeIcon from "../../images/icons/exclude-1.png";
+import Select from 'react-select';
+import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
+import CommonChat from "../../images/games/Common Chat.png";
+
+
 
 function CreatePostModal(props) {
     const postTextRef = useRef();
@@ -8,6 +13,18 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
+    const [selectedOption, setSelectedOption] = useState("");
+    const [allGames, setAllGames] = useState([
+        {
+            title: "Common Chat",
+            image: CommonChat
+        },
+        {
+            title: "Teamfight Tactics",
+            image: TeamfightTactics
+        }
+    ]);
+
     const buttonStyle = {
         color: "#BF9AFC",
         backgroundColor: "#292833",
@@ -59,17 +76,21 @@ function CreatePostModal(props) {
         borderLeft: "0",
         borderRight: "0"
     };
+    const dropdownStyle = {
+        // control: styles => ({ ...styles, backgroundColor: 'black' }),
+        // option: (provided, state) => ({
 
-    const modalStyle={
+        // })
+    }
+    const modalStyle = {
         position: "absolute",
         top: "170px"
     };
-
     function clearFields() {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";
         fileInputRef.current.value = "";
-    }
+    };
 
     function handlePostClick() {
         if (selectedFile !== null) {
@@ -93,7 +114,8 @@ function CreatePostModal(props) {
             type: postType,
             likes: 0,
             dislikes: 0,
-            numComments: 0
+            numComments: 0,
+            category: selectedOption
         });
         clearFields();
         setSelectedFile(null);
@@ -125,6 +147,17 @@ function CreatePostModal(props) {
             console.log(file);
             setSelectedFile(file);
         }
+    }
+    function setOptions() {
+        let tempArr = [];
+        props.currentUserInfo.games.map((game) => {
+            tempArr.push({ label: allGames[game].title, value: game });
+        });
+        return tempArr;
+    }
+
+    function handleOnChangeDropdown(e) {
+        setSelectedOption(e.value);
     }
 
     return (
@@ -165,9 +198,14 @@ function CreatePostModal(props) {
                             rows="5"
                             style={textAreaStyle}
                         />
+
+                        <input id="fileInput" type="file" accept="video/*,image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
                         <div style={{ display: "flex" }}>
-                            <input id="fileInput" type="file" accept="video/*,image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
                             <label style={attachButtonStyle} htmlFor="fileInput" className="btn btn-primary">Attach Photo or Video</label>
+                            <div className="col-5">
+                                <Select style={dropdownStyle} onChange={handleOnChangeDropdown}
+                                    options={setOptions()} placeholder="Select an option" />
+                            </div>
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={postButtonStyle}>Post</button>
                         </div>
                     </div>
