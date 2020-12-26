@@ -152,6 +152,8 @@ function CreatePostModal(props) {
             category: selectedOption
         });
         clearFields();
+        //get the feedcontainer to update posts from db
+        props.updatePostRefresh();
         setSelectedFile(null);
     }
 
