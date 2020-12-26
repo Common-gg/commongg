@@ -53,10 +53,9 @@ function SettingsContainer(props) {
                 width: "30px",
                 height: "30px",
                 background: "transparent",
-                position: 'absolute',
-                bottom: 85,
-                right: 145,
-                top: 112
+                position: 'relative',
+                top: "-90px",
+                right: "-90px"
               }}>
               <img src={edit} style={{ width: "60px", height: "60px" }} />
             </label>
