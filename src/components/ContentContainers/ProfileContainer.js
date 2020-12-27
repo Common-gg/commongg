@@ -66,24 +66,45 @@ function ProfileContainer(props) {
 
     const checkAboutMe = () => {
         if (user.about_me !== "") {
-            return (<Text text={"About Me: " + user.about_me} />)
+            return (<Text style={{overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px"}} text={"About Me: " + user.about_me} />)
         }
     }
 
+    const followStyle = {
+        color: "#BF9AFC", 
+        fontSize: "1.2rem",
+        marginRight: "1rem"
+    };
+
+    const numberStyle = {
+        fontSize: "1.2rem"
+    };
+
     return (
-        <div className="ProfileContainer" style={{
+        <div className="ProfileContainer container" style={{
             borderStyle: "solid",
             borderRadius: "5px",
             borderColor: "#BF9AFC",
             borderWidth: "2px",
         }}>
             <br />
-            <div className="row">
+            <div container>
+                
+            </div>
+            <div className="row p-0">
                 <div className="col-1"></div>
                     <ProfilePicture currentUserInfo={user} width="115px" height="115px" />
                 <div className="col-5">
                     <h2><Text text={user.username} /></h2>
-                   <span>{user.followCounts.following} <a style={{color: "#BF9AFC", fontSize: "25px"}}>following</a></span> <span>{user.followCounts.follower} <a style={{color: "#BF9AFC",}}>followers</a></span>
+                    <div className="d-flex flex-wrap">
+                        <span style={numberStyle}>{user.followCounts.following} 
+                            <a style={followStyle}> following</a>
+                        </span> 
+                        <span style={numberStyle}>{user.followCounts.follower} 
+                            <a style={followStyle}> followers</a>
+                        </span>
+                    </div>
+                   
                 </div>
                 <div className="col-2">
                     <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
@@ -91,7 +112,9 @@ function ProfileContainer(props) {
                         {/* <img src={plus} /> */}
                     </button>
                 </div>
-                {checkAboutMe()}
+                <div className="container text-wrap" style={{margin: "auto"}}>
+                    {checkAboutMe()}
+                </div>
             </div>
             <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
             <div className="flex-wrap d-flex flex-row justify-content-center">
