@@ -24,6 +24,10 @@ function ViewPostContainer(props) {
             postId: ""
         }
     });
+    const [commentRefresh, setCommentRefresh] = useState(0)
+    const updateRefresh = function() {
+        setCommentRefresh(commentRefresh + 1);
+    }
 
     useEffect(() => {
         let url = window.location.href;
@@ -33,14 +37,14 @@ function ViewPostContainer(props) {
 
     useEffect(() => {
         props.getPost(postId, setPost);
-    }, [postId])
+    }, [postId, commentRefresh])
 
     useEffect(() => {
         console.log(post);
         if (post.author !== "404") {
             props.getComments(postId, "postId", setComments);
         }
-    }, [post])
+    }, [post, commentRefresh])
 
     useEffect(() => {
         console.log(comments);
@@ -49,6 +53,7 @@ function ViewPostContainer(props) {
     return (
         <div className="ViewPostContainer">
             <Post {...props} post={post} postId={postId} showCommentButton={true}
+                updateRefresh={updateRefresh} showCategory={true}
                 style={{
                     paddingBottom: '0px',
                     paddingLeft: '0px',
