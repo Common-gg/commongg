@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Text from '../Text.js';
-import IconButton from '../IconButton.js';
+import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
-import { Link } from "react-router-dom";
-import CreateCommentModal from './CreateCommentModal.js';
 
 function Post(props) {
 
@@ -22,24 +20,10 @@ function Post(props) {
         borderWidth: '2px',
         paddingBottom: '0px',
         paddingLeft: '20px',
-        paddingRight: '20px'
+        paddingRight: '0px'
       });
     } else {
       return props.style;
-    }
-  }
-
-  function convertNum(val) {
-    let editedVal = val;
-    if (editedVal > 1000000) {
-      editedVal = Math.round(val / 100000) / 10;
-      return (editedVal + "M");
-    }
-    if (editedVal > 1000) {
-      editedVal = Math.round(val / 100) / 10;
-      return (editedVal + "K");
-    } else {
-      return editedVal;
     }
   }
 
@@ -73,18 +57,7 @@ function Post(props) {
     // }
   }
 
-  const commentButtonCheck = () => {
-    if (props.postId !== undefined) {
-      return (
-        <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
-          <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
-        </Link>)
-    } else {
-      return (
-        <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
-      )
-    }
-  }
+ 
 
   const showCategory = () => {
     if (props.showCategory !== undefined) {
@@ -136,26 +109,7 @@ function Post(props) {
             {checkType()}
           </div>
         </div>
-        <div className="row">
-          <div className="col-2">
-            <IconButton class="fa fa-smile-o" text={convertNum(props.post.likes)} />
-          </div>
-          <div className="col-2">
-            <IconButton class="fa fa-frown-o" text={convertNum(props.post.dislikes)} />
-          </div>
-          <div className="col-2">
-
-          </div>
-          <div className="col-2">
-            <CreateCommentModal {...props} post={props.post} postId={props.postId} showCommentButton={props.showCommentButton} />
-          </div>
-          <div className="col-2">
-            {commentButtonCheck()}
-          </div>
-          <div className="col-2">
-            <IconButton class="fa fa-share-alt" text="" />
-          </div>
-        </div>
+        <PostFooter {...props} />
       </div>
       <br />
     </div >
