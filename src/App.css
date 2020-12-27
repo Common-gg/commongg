@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'SansationRegular';
-  src: url('./fonts/fonts.css')
-}
-
 .App {
   text-align: center;
 }
@@ -10,7 +5,7 @@
 body {
   background-color: #292833;
   color: #f5f1f1;
-  font-family: 'SansationRegular';
+  font-family: 'Overpass';
 }
 
 .App-logo {
