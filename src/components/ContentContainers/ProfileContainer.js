@@ -5,6 +5,7 @@ import ProfilePicture from '../ProfilePicture.js';
 import FeedType from '../FeedType.js';
 import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
 import CommonChat from "../../images/games/Common Chat.png";
+// import plus from "../images/icons/followingplus-1.png";
 
 function ProfileContainer(props) {
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
@@ -64,49 +65,53 @@ function ProfileContainer(props) {
     }
 
     const checkAboutMe = () => {
-        if(user.about_me !== ""){
+        if (user.about_me !== "") {
             return (<Text text={"About Me: " + user.about_me} />)
         }
     }
 
     return (
-        <div className="ProfileContainer">
+        <div className="ProfileContainer" style={{
+            borderStyle: "solid",
+            borderRadius: "5px",
+            borderColor: "#BF9AFC",
+            borderWidth: "2px",
+        }}>
+            <br />
             <div className="row">
-                <div className="col-lg-4">
-                    <ProfilePicture currentUserInfo={user} width="150px" height="150px"/>
+                <div className="col-1"></div>
+                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" />
+                <div className="col-5">
+                    <h2><Text text={user.username} /></h2>
+                   <span>{user.followCounts.following} <a style={{color: "#BF9AFC", fontSize: "25px"}}>following</a></span> <span>{user.followCounts.follower} <a style={{color: "#BF9AFC",}}>followers</a></span>
                 </div>
-                <div className="col-lg-6">
-                    <Text text={user.username} />
-                    {checkAboutMe()}
-                    <Text text={"Following: " + user.followCounts.following} />
-                    <Text text={"Followers: " + user.followCounts.follower} />
-                </div>
-                <div className="col-lg-2">
+                <div className="col-2">
                     <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
                         {followBtnState.text}
+                        {/* <img src={plus} /> */}
                     </button>
                 </div>
+                {checkAboutMe()}
             </div>
-            <hr style={{backgroundColor:'#BF9AFC', width: '90%'}}/>
+            <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
             <div className="flex-wrap d-flex flex-row justify-content-center">
-                <div className="flex-wrap d-flex flex-row justify-content-center" style={{width:"70%"}}>
+                <div className="flex-wrap d-flex flex-row justify-content-center" style={{ width: "70%" }}>
                     {user.games.map(index => {
-                        return <img 
-                        src={allGames[index].image} 
-                        key={"game-image2" + index} 
-                        alt={allGames[index].title}
-                        className="rounded"
-                        style = {
-                            {
-                            width: '22%', 
-                            height: 'auto', 
-                            margin: '3%'
-                        }}
+                        return <img
+                            src={allGames[index].image}
+                            key={"game-image2" + index}
+                            alt={allGames[index].title}
+                            className="rounded"
+                            style={
+                                {
+                                    width: '22%',
+                                    height: 'auto',
+                                    margin: '3%'
+                                }}
                         ></img>
                     })}
                 </div>
             </div>
-            <hr style={{backgroundColor:'#BF9AFC', width: '90%'}}/>
             {checkId()}
         </div>
     );
