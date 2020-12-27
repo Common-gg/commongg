@@ -15,11 +15,11 @@ function PageContainer(props) {
       <div className="container-fluid">
         <br /><br />
         <div className="row">
-        <div className="col-2"></div>
-          <div className="col-2">
+        <div className="col-xl-2 col-lg-1 col-md-0 col-sm-0"></div>
+          <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4">
             <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
           </div>
-          <div className="col-4">
+          <div className="col" style={{flex: '0 0 530px'}}>
             <div className="text-center">
               <SearchBar track={setSearch} search={props.search} />
               <br />
@@ -29,7 +29,6 @@ function PageContainer(props) {
           <div className="col-3">
             <Text text="ADS GO HERE TO MAKE $$ YEP" />
           </div>
-          <div className="col-1"></div>
         </div>
       </div>
     </div>

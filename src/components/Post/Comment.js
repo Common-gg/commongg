@@ -31,16 +31,21 @@ function Comment(props) {
         <div className="Comment">
             <div className="container">
                 <div className="row">
-                    <div className="col-1">
-                        <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
-                    </div>
-                    <div className="col-11" style={{marginBottom: '5px', lineHeight: '4px'}}>
-                        <br/>
-                        <br/>
-                        <Text text={author.username}/>
-                        <Text text={new Date(props.comment.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.comment.timestamp).toLocaleDateString("en-US")}
-                            style={{color:'#BF9AFC', fontSize: '12px'}}
-                        />
+                    <div className="col-8 row">
+                        <div className="col-1">
+                            <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
+                        </div>
+                        <div className="col-11 row" style={{ marginBottom: '5px', lineHeight: '4px' }}>
+                            <div className="col-1"></div>
+                            <div className="col-10">
+                                <br />
+                                <br />
+                                <Text text={author.username} />
+                                <Text text={new Date(props.comment.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.comment.timestamp).toLocaleDateString("en-US")}
+                                    style={{ color: '#BF9AFC', fontSize: '12px' }}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="row">

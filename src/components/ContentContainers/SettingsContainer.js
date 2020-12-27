@@ -84,7 +84,7 @@ function SettingsContainer(props) {
                   ref={aboutMeRef}
                   style={{
                     backgroundColor: "transparent",
-                    color: "#BF9AFC",
+                    color: "#FFFFFF",
                     resize: "none",
                     maxWidth: "500px"
                   }}
