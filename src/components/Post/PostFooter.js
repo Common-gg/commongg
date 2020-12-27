@@ -129,6 +129,7 @@ function PostFooter(props) {
         </OverlayTrigger>
       </div>
       <div className="col-4 row" style={{ position: 'relative', bottom: '-20px' }}>
+        {checkReactionLines()}
         <div className="col-2" />
         <div className="col-2">
           <Text text={convertNum(props.post.numComments)} style={{
