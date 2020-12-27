@@ -1,0 +1,2 @@
+(this.webpackJsonpcommongg=this.webpackJsonpcommongg||[]).push([[12],{520:function(c,o,p){"use strict";p.r(o),o.default=p.p+"static/media/pog.1fce5215.png"}}]);
+//# sourceMappingURL=12.1a967095.chunk.js.map

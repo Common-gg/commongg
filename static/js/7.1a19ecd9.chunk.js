@@ -1,0 +1,2 @@
+(this.webpackJsonpcommongg=this.webpackJsonpcommongg||[]).push([[7],{515:function(c,n,o){"use strict";o.r(n),n.default=o.p+"static/media/monkaS.514cc038.png"}}]);
+//# sourceMappingURL=7.1a19ecd9.chunk.js.map
