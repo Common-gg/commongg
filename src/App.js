@@ -131,6 +131,16 @@ function App() {
     })
   }
 
+  const storeUserAboutMe = (aboutMe) => {
+    // stores profile data for the user
+    if (currentUser === undefined) return;
+    database.ref('users/' + currentUser.uid + '/about_me').set(aboutMe);
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      about_me: aboutMe,
+    })
+  }
+
   const storeUserGames = (games) => {
     // stores game data for the user
     if (currentUser === undefined) return;
@@ -400,6 +410,7 @@ function App() {
                 followUser={followUser}
                 unFollowUser={unFollowUser}
                 storeUserGames={storeUserGames}
+                storeUserAboutMe={storeUserAboutMe}
               />
             )} />
         </Switch>
