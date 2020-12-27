@@ -11,6 +11,7 @@ function PageContainer(props) {
 
   return (
     <div className="PageContainer">
+      <GamesContainer {...props} />
       <div className="container-fluid">
         <br /><br />
         <div className="row">
@@ -19,7 +20,6 @@ function PageContainer(props) {
             <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
           </div>
           <div className="col-4">
-            <GamesContainer {...props} />
             <div className="text-center">
               <SearchBar track={setSearch} search={props.search} />
               <br />

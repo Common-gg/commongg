@@ -21,23 +21,21 @@ function ReactionIcon(props) {
       <button
         className="btn"
         id={props.id}
-        // onClick={props.react(props.reaction)}
+        onClick={() => props.react(props.reaction)}
         style={{
           backgroundColor: "transparent",
           padding: "0 0 0 0",
           position: "relative",
-          bottom: "-20px",
-          left: "-10px",
           width: "30px",
           height: "30px"
         }}>
-        <label htmlFor={props.id}>
+        <label style={{cursor: "pointer"}} htmlFor={props.id}>
           <img style={{
             width: "30px",
             height: "30px"
           }} src={image} alt={"reaction: " + props.text + props.reaction} />
+          {props.text}
         </label>
-        {" " + props.text}
       </button>
     </div>
   );

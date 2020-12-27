@@ -206,9 +206,13 @@ function App() {
     })
   }
 
+  const reactToPost = (postId, reaction, value) => {
+    const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
+    reactionRef.set(firebase.database.ServerValue.increment(value));
+  }
+
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
-    console.log(followRef);
     followRef.set(firebase.database.ServerValue.increment(value));
   }
 
@@ -374,6 +378,7 @@ function App() {
 
                 getPosts={getPosts}
                 getPost={getPost}
+                reactToPost={reactToPost}
                 createPost={createPost}
                 createComment={createComment}
                 getComments={getComments}
