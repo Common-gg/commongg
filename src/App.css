@@ -34,6 +34,24 @@ background-color: #292833;
   display: inline-block;
 }
 
+.Post {
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #5F5177;
+  border-width: 2px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+}
+
+.commentBorder {
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #5F5177;
+  border-width: 2px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+}
+
 *:focus {
   outline: none;
 }
