@@ -20,7 +20,7 @@ function Post(props) {
         borderWidth: '2px',
         paddingBottom: '0px',
         paddingLeft: '20px',
-        paddingRight: '0px'
+        paddingRight: '20px'
       });
     } else {
       return props.style;
@@ -92,7 +92,7 @@ function Post(props) {
                 <br />
                 <br />
                 <Text text={author.username} />
-                <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
+                <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US",{hour: '2-digit', minute:'2-digit'}) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
                   style={{ color: '#BF9AFC', fontSize: '12px' }}
                 />
               </div>

@@ -12,7 +12,7 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState("Common Chat");
     const [allGames, setAllGames] = useState([
         {
             title: "Common Chat",
