@@ -15,14 +15,23 @@ function SettingsContainer(props) {
   function handleUpdateButtonClick(e) {
     let aboutMe = props.currentUserInfo.about_me;
     let profilePicture = props.currentUserInfo.profile_picture;
+    let profilePictureUpdated = false;
 
     if (aboutMeRef.current.value !== "") {
       aboutMe = aboutMeRef.current.value;
     }
-    if (((profilePicture === "") || selectedFile !== null)) {
-      profilePicture = selectedFile;
+    //seleted file initializes to { current: { value: "" } }
+    //if selected doesn't have current it means it loaded from setImage
+    if (selectedFile.current === undefined) {
+      profilePictureUpdated = true;
+      profilePicture = selectedFile;      
     }
-    props.storeBlob(props.currentUserInfo.username, profilePicture, aboutMe);
+    if (profilePictureUpdated) {
+      props.storeBlob(props.currentUserInfo.username, profilePicture, aboutMe);
+    } else {
+      props.storeUserAboutMe(aboutMe);
+    }
+    
   }
 
   return (
@@ -44,7 +53,7 @@ function SettingsContainer(props) {
       <div className="row col-12">
         <div className="col-3"></div>
         <div className="col-8">
-          <div class="container" style={{ cursor: "pointer" }}>
+          <div className="container" style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
               currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} />
             <label htmlFor="fileInput"
