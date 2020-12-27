@@ -5,10 +5,9 @@ import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
 import SignUp from "./pages/SignUp";
 import PageContainer from './pages/PageContainer';
+import firebase from "firebase/app";
 
 const Twitch = require("./api/Twitch.js");
-
-const firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/database");
 require("firebase/storage");
@@ -192,6 +191,21 @@ function App() {
     postRef.set(post);
   }
 
+  const updateNumComments = (postId) => {
+    const numCommentsRef = database.ref('/content/posts/' + postId + '/numComments')
+    if (numCommentsRef === undefined) return;
+    numCommentsRef.set(firebase.database.ServerValue.increment(1));
+  }
+
+  const createComment = (comment) => {
+    // Creates a comment in the DB
+    if (currentUser === undefined) return;
+    const commentRef = database.ref('/content/comments/').push();
+    commentRef.set(comment);
+    //update the number of comments
+    updateNumComments(comment.postId);
+  }
+
   const getUser = (userId, callback) => {
     // Gets user from DB
     database.ref('/users/' + userId).once('value').then(function (snapshot) {
@@ -203,7 +217,7 @@ function App() {
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
     console.log(followRef);
-    followRef.set(database.ServerValue.increment(value));
+    followRef.set(firebase.database.ServerValue.increment(value));
   }
 
   const followUser = (follower, followed) => {
@@ -263,9 +277,23 @@ function App() {
   const getPosts = (filter, sort, callback) => {
     // gets all posts for the DB
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
-
     postRef.once('value', function (snapshot) {
-      if (snapshot.val() !== null) return callback(snapshot.val());
+      if (snapshot.val() !== null) {
+        return callback(snapshot.val());
+      } else {
+        return callback({
+          "00000000": {
+            author: "404",
+            caption: "Nothing here",
+            game: "",
+            link: "",
+            text: "There are no posts to see",
+            timestamp: 0,
+            title: "No Content",
+            type: "text"
+          }
+        })
+      }
     });
   }
 
@@ -276,7 +304,7 @@ function App() {
       const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
       postRef.once('value').then((snapshot) => {
         const usersWithUsername = snapshot.val();
-        
+
         //if it's not null, there is some user with the username 
         if (usersWithUsername !== null) {
           return resolve(true);
@@ -303,12 +331,12 @@ function App() {
     });
   }
 
-  const search = (value, callback) => {
+  const search = (value, callback, query) => {
     // search the db
     const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
     usersRef.once('value', function (snapshot) {
       console.log(snapshot.val());
-      if (snapshot.val() !== null) return callback(snapshot.val());
+      if (snapshot.val() !== null) return callback(snapshot.val(), query);
     });
   }
 
@@ -355,6 +383,8 @@ function App() {
                 getPosts={getPosts}
                 getPost={getPost}
                 createPost={createPost}
+                createComment={createComment}
+                updateNumComments={updateNumComments}
                 getComments={getComments}
                 search={search}
 

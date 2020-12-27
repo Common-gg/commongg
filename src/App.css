@@ -52,16 +52,6 @@ body {
 background-color: #292833;
 }
 
-.Post {
-  border-style: solid;
-  border-radius: 5px;
-  border-color: #5F5177;
-  border-width: 2px;
-  padding-bottom: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 .IconButton {
   margin: 0 0 0 0;
 }
@@ -84,15 +74,6 @@ background-color: #292833;
   display: inline-block;
 }
 
-.commentBorder {
-  border-style: solid;
-  border-radius: 5px;
-  border-color: #5F5177;
-  border-width: 2px;
-  padding-bottom: 0px;
-  padding-left: 20px;
-}
-
 *:focus {
   outline: none;
 }
@@ -107,7 +88,7 @@ background-color: #292833;
   border: none;
 }
 
-.rbt-input-main:focus {
+.rbt-input-main:focus, input:focus, textarea:focus, button:focus {
   outline: none !important;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
 }

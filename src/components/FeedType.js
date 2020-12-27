@@ -17,16 +17,27 @@ function FeedType(props) {
     }
   });
 
+  const filter = props.filter;
+  const sort = props.sort;
+  const postRefresh = props.postRefresh;
+
   useEffect(() => {
-    props.getPosts(props.filter, props.sort, setPosts);
-  }, []);
+    console.log("filter changed")
+    console.log(filter)
+    if (filter !== "") {
+      props.getPosts(filter, sort, setPosts);
+    } else {
+      setPosts([]);
+    }
+  }, [filter,sort, postRefresh]);
 
   return (
     <div>
       {Object.values(posts).reverse().map((post, i) => {
+        if(post.author !== "404")
         return (
           <div key={Object.keys(posts).reverse()[i]}>
-            <Post post={post} postId={Object.keys(posts).reverse()[i]} getUser={props.getUser}/><br />
+            <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} showCommentButton={false}/><br />
           </div>
         )
       })}

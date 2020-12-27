@@ -1,5 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import excludeIcon from "../../images/icons/exclude-1.png";
+import Select from 'react-select';
+import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
+import CommonChat from "../../images/games/Common Chat.png";
+import ImageIcon from "../../images/icons/image22.png";
 
 function CreatePostModal(props) {
     const postTextRef = useRef();
@@ -8,68 +12,119 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
+    const [selectedOption, setSelectedOption] = useState("");
+    const [allGames, setAllGames] = useState([
+        {
+            title: "Common Chat",
+            image: CommonChat
+        },
+        {
+            title: "Teamfight Tactics",
+            image: TeamfightTactics
+        }
+    ]);
+
     const buttonStyle = {
         color: "#BF9AFC",
         backgroundColor: "#292833",
         border: "2px solid #BF9AFC",
         width: "100%",
-        textAlign: "left"
+        textAlign: "left",
+        borderRadius: "8px"
     };
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
-        borderBottom: ""
     };
     const modalHeaderStyle = {
-        borderBottom: "0 none",
-        textAlign: "center"
+        border: "none",
+        textAlign: "center",
+        padding: "0 !important"
     };
     const postButtonStyle = {
         height: 48,
         marginLeft: "auto",
-        backgroundColor: "transparent",
-        color: "#BF9AFC",
+        backgroundColor: "#BF9AFC",
+        color: "#292833",
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
         borderWidth: "2px",
+        marginRight: "40px"
     };
-    const attachButtonStyle = {
+    const fileInputImageStyle = {
         height: 48,
-        marginRight: "auto",
         backgroundColor: "transparent",
         color: "#BF9AFC",
-        border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
-        borderWidth: "2px",
+        cursor: "pointer",
+        marginRight: "20px",
+        marginLeft: "40px"
     };
     const titleInputStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
-        borderLeft: "0",
-        borderTop: "0",
-        borderRight: "0"
+        border: "none",
+        marginTop: "none"
     };
     const textAreaStyle = {
         resize: "none",
         color: "#BF9AFC",
         backgroundColor: "#202020",
-        borderTop: "0",
-        borderLeft: "0",
-        borderRight: "0"
+        border: "none",
+        marginTop: 0
     };
-
-    const modalStyle={
+    const dropdownStyle = {
+        control: (base) => ({
+            ...base,
+            backgroundColor: "#292833",
+            color: "#BF9AFC",
+            fontSize: 16,
+            border: "2px solid #BF9AFC",
+            borderRadius: '8px !important',
+            cursor: "pointer",
+            width: "160px",
+            height: "48px",
+            padding: 0,
+            textAlign: "center",
+            backgroundColor: "transparent",
+        }),
+        option: (provided) => ({
+            ...provided,
+            color: "#BF9AFC",
+            fontSize: 16,
+            backgroundColor: "#292833",
+            textAlign: "left",
+            cursor: "pointer",
+            borderBottom: '1px solid #BF9AFC',
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: "#BF9AFC",
+            fontSize: 16,
+            textAlign: "center"
+        }),
+        menuList: (base) => ({
+            ...base,
+            backgroundColor: "#292833",
+            borderRadius: '8px !important',
+            textAlign: "center"
+        }),
+        menu: (base) => ({
+            ...base,
+            backgroundColor: "#292833",
+        })
+    }
+    const modalStyle = {
         position: "absolute",
         top: "170px"
     };
-
     function clearFields() {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";
         fileInputRef.current.value = "";
-    }
+    };
 
     function handlePostClick() {
         if (selectedFile !== null) {
@@ -93,9 +148,12 @@ function CreatePostModal(props) {
             type: postType,
             likes: 0,
             dislikes: 0,
-            numComments: 0
+            numComments: 0,
+            category: selectedOption
         });
         clearFields();
+        //get the feedcontainer to update posts from db
+        props.updatePostRefresh();
         setSelectedFile(null);
     }
 
@@ -126,6 +184,17 @@ function CreatePostModal(props) {
             setSelectedFile(file);
         }
     }
+    function setOptions() {
+        let tempArr = [];
+        props.currentUserInfo.games.map((game) => {
+            tempArr.push({ label: allGames[game].title, value: game });
+        });
+        return tempArr;
+    }
+
+    function handleOnChangeDropdown(e) {
+        setSelectedOption(e.label);
+    }
 
     return (
         <div className="CreatePostModal">
@@ -144,19 +213,19 @@ function CreatePostModal(props) {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content" style={modalContentStyle}>
                         <div className="modal-header" style={modalHeaderStyle}>
-                            <h5 className="modal-title" id="createPostModalLabel">create a post</h5>
+                            <h4 className="modal-title" id="createPostModalLabel">title...</h4>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">x</span>
                             </button>
                         </div>
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="title..."
                             onChange={() => setPostTitle(postTitleRef)}
                             ref={postTitleRef}
                             style={titleInputStyle}
                         />
+                        <hr style={{ padding: "0", backgroundColor: '#BF9AFC', width: '90%' }} />
                         <textarea
                             className="form-control"
                             onChange={() => setPostText(postTextRef)}
@@ -165,9 +234,25 @@ function CreatePostModal(props) {
                             rows="5"
                             style={textAreaStyle}
                         />
+                        <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                         <div style={{ display: "flex" }}>
-                            <input id="fileInput" type="file" accept="video/*,image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
-                            <label style={attachButtonStyle} htmlFor="fileInput" className="btn btn-primary">Attach Photo or Video</label>
+                            <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
+                            <label htmlFor="fileInput"><img style={fileInputImageStyle} src={ImageIcon}></img></label>
+                            <div>
+                                <Select theme={(theme) => ({
+                                    ...theme,
+                                    colors: {
+                                        ...theme.colors,
+                                        text: "#292833",
+                                        primary: '#BF9AFC',
+                                    },
+                                })}
+                                    styles={dropdownStyle} onChange={handleOnChangeDropdown}
+                                    options={setOptions()}
+                                    components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+                                    defaultValue={setOptions()[0]}
+                                />
+                            </div>
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={postButtonStyle}>Post</button>
                         </div>
                     </div>

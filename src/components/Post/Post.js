@@ -3,6 +3,7 @@ import Text from '../Text.js';
 import IconButton from '../IconButton.js';
 import ProfilePicture from '../ProfilePicture.js';
 import { Link } from "react-router-dom";
+import CreateCommentModal from './CreateCommentModal.js';
 
 function Post(props) {
 
@@ -11,6 +12,22 @@ function Post(props) {
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
   }, [props.post]);
+
+  function getStyle() {
+    if (props.style === undefined) {
+      return ({
+        borderStyle: 'solid',
+        borderRadius: '8px',
+        borderColor: '#5F5177',
+        borderWidth: '2px',
+        paddingBottom: '0px',
+        paddingLeft: '20px',
+        paddingRight: '20px'
+      });
+    } else {
+      return props.style;
+    }
+  }
 
   function convertNum(val) {
     let editedVal = val;
@@ -32,15 +49,15 @@ function Post(props) {
       return
     } else if (props.post.type === "image") {
       return (
-      <img 
-        src={props.post.link}
-        alt="posted image" 
-        style={{
-          width: "100%"
-        }}
+        <img
+          src={props.post.link}
+          alt="posted image"
+          style={{
+            width: "100%"
+          }}
         />
       )
-    } 
+    }
     // Code to turn on video later!
     // else if (props.post.type === "video") {
     //   return (
@@ -56,23 +73,66 @@ function Post(props) {
     // }
   }
 
+  const commentButtonCheck = () => {
+    if (props.postId !== undefined) {
+      return (
+        <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
+          <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
+        </Link>)
+    } else {
+      return (
+        <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
+      )
+    }
+  }
+
+  const showCategory = () => {
+    if (props.showCategory !== undefined) {
+      return (
+        <div class="p-2">
+          <Text text={props.post.category}
+            style={{
+              borderStyle: 'solid',
+              borderWidth: '1px',
+              borderRadius: '5px',
+              height: '25px',
+              color: '#BF9AFC',
+              borderColor: '#BF9AFC'
+            }} />
+        </div>
+      );
+    }
+  }
+
   return (
-    <div className="Post">
+    <div className="Post" style={getStyle()}>
       <div className="container">
         <br />
         <div className="row">
-          <div className="col-1">
-            <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
-          </div>
-          <div className="col-11">
-            <Text text={author.username} />
-            <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")} />
+          <div className="col-8 row">
+            <div className="col-1">
+              <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
+            </div>
+            <div className="col-11 row" style={{ marginBottom: '5px', lineHeight: '4px' }}>
+              <div className="col-1"></div>
+              <div className="col-10">
+                <br />
+                <br />
+                <Text text={author.username} />
+                <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
+                  style={{ color: '#BF9AFC', fontSize: '12px' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div className="row">
           <div className="col-12">
-            <Text text={props.post.title} />
-            <Text text={props.post.text} />
+            <div class="d-flex align-items-center flex-wrap">
+              <div class="p-2"><Text text={props.post.title} style={{ fontSize: '32px' }} /></div>
+              {showCategory()}
+            </div>
+            <Text text={props.post.text} style={{ fontSize: '18px' }} />
             {checkType()}
           </div>
         </div>
@@ -83,13 +143,14 @@ function Post(props) {
           <div className="col-2">
             <IconButton class="fa fa-frown-o" text={convertNum(props.post.dislikes)} />
           </div>
-          <div className="col-4">
+          <div className="col-2">
 
           </div>
           <div className="col-2">
-            <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
-              <IconButton class="fa fa-comment-o" text={convertNum(props.post.numComments)} />
-            </Link>
+            <CreateCommentModal {...props} post={props.post} postId={props.postId} showCommentButton={props.showCommentButton} />
+          </div>
+          <div className="col-2">
+            {commentButtonCheck()}
           </div>
           <div className="col-2">
             <IconButton class="fa fa-share-alt" text="" />

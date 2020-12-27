@@ -14,6 +14,7 @@ function SearchBar(props) {
 
   const barStyle = {
     border: "2px solid #BF9AFC",
+    borderRadius: "8px",
     width: "100%",
     height: "50px",
     display: "flex",
