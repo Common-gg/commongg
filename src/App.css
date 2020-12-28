@@ -85,7 +85,7 @@ background-color: #292833;
   border-color: #BF9AFC !important;
 }
 
-::placeholder {
+::placeholder, textarea::placeholder {
   color: #5F5177;
 }
 

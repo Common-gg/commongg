@@ -66,14 +66,15 @@ function CreatePostModal(props) {
         color: "#BF9AFC",
         backgroundColor: "#202020",
         border: "none",
-        marginTop: "none"
+        marginTop: "none",
+
     };
     const textAreaStyle = {
         resize: "none",
         color: "#BF9AFC",
         backgroundColor: "#202020",
         border: "none",
-        marginTop: 0
+        marginTop: 0,
     };
     const dropdownStyle = {
         control: (base) => ({
@@ -211,28 +212,33 @@ function CreatePostModal(props) {
             <div className="modal fade" id="createPostModal" tabIndex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content" style={modalContentStyle}>
-                        <div className="modal-header" style={modalHeaderStyle}>
-                            <h4 className="modal-title" id="createPostModalLabel">title...</h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
-                                <span aria-hidden="true">x</span>
-                            </button>
+                        <br />
+                        <div className="col-12">
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="title..."
+                                    onChange={() => setPostTitle(postTitleRef)}
+                                    ref={postTitleRef}
+                                    style={titleInputStyle}
+                                />
+                                <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         </div>
-                        <input
-                            type="text"
-                            className="form-control"
-                            onChange={() => setPostTitle(postTitleRef)}
-                            ref={postTitleRef}
-                            style={titleInputStyle}
-                        />
                         <hr style={{ padding: "0", backgroundColor: '#BF9AFC', width: '90%' }} />
-                        <textarea
-                            className="form-control"
-                            onChange={() => setPostText(postTextRef)}
-                            ref={postTextRef}
-                            placeholder="type your body here..."
-                            rows="5"
-                            style={textAreaStyle}
-                        />
+                        <div className="col-12">
+                            <textarea
+                                className="form-control"
+                                onChange={() => setPostText(postTextRef)}
+                                ref={postTextRef}
+                                placeholder="type your body here..."
+                                rows="5"
+                                style={textAreaStyle}
+                            />
+                        </div>
                         <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                         <div style={{ display: "flex" }}>
                             <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
@@ -254,6 +260,7 @@ function CreatePostModal(props) {
                             </div>
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={postButtonStyle}>Post</button>
                         </div>
+                        <br />
                     </div>
                 </div>
             </div>
