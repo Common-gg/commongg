@@ -120,7 +120,7 @@ function PostFooter(props) {
     }}>
       <div className="col-8 row">
         {checkReactions()}
-        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
           <div>
             <div style={{ padding: "10px", bottom: "-20px", }} className="col-1">
               <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
