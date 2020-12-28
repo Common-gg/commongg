@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import excludeIcon from "../../images/icons/exclude-1.png";
 import Select from 'react-select';
-import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
-import CommonChat from "../../images/games/Common Chat.png";
 import ImageIcon from "../../images/icons/image22.png";
 
 function CreatePostModal(props) {
@@ -12,17 +10,7 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
-    const [selectedOption, setSelectedOption] = useState("");
-    const [allGames, setAllGames] = useState([
-        {
-            title: "Common Chat",
-            image: CommonChat
-        },
-        {
-            title: "Teamfight Tactics",
-            image: TeamfightTactics
-        }
-    ]);
+    const [selectedOption, setSelectedOption] = useState(setOptions()[0].label);
 
     const buttonStyle = {
         color: "#BF9AFC",
@@ -136,12 +124,18 @@ function CreatePostModal(props) {
 
     function createPost(url) {
         let postType = getPostType();
+        //find the game id by game selected
+        let gameId = props.allGames.findIndex((element) => {
+            return element.title === selectedOption;
+        });
+        console.log(selectedOption);
+        console.log(props.allGames);
 
         props.createPost({
             text: postText.current.value,
             author: props.currentUserId,
             caption: "CAPTION_TEXT",
-            game: "GAME_ID",
+            game: gameId.toString(),
             link: url,
             timestamp: Date.now(),
             title: postTitle.current.value,
@@ -186,7 +180,7 @@ function CreatePostModal(props) {
         let tempArr = [];
         console.log(props.currentUserInfo);
         props.currentUserInfo.games.map((game) => {
-            tempArr.push({ label: allGames[game].title, value: game });
+            tempArr.push({ label: props.allGames[game].title, value: game });
         });
         return tempArr;
     }

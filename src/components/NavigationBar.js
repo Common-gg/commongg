@@ -9,15 +9,6 @@ import setting from "../images/icons/settingsaccent-1.png";
 import editGame from "../images/icons/editgameaccent-1.png"
 
 function NavigationBar(props) {
-    const [allGames, setAllGames] = useState([
-        {
-          title: "Common Chat",
-        },
-        {
-          title: "TFT",
-        }
-      ]);
-
     const iconStyle = {
         width: "35px",
         height: "35px",
@@ -54,8 +45,8 @@ function NavigationBar(props) {
                 <p><img src={setting} style={iconStyle} alt="" /> settings</p>
             </Link>
             {props.currentUserInfo.games.map((game) => {
-                return <Link to={"/games/" + (allGames[game].title.split(" ")).join('').toLowerCase()} key={allGames[game].title} style={linkStyle}>
-                            <p>{allGames[game].title}</p>
+                return <Link to={"/games/" + (props.allGames[game].title.split(" ")).join('').toLowerCase()} key={props.allGames[game].title} style={linkStyle}>
+                            <p>{props.allGames[game].title}</p>
                         </Link>
             })}
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >

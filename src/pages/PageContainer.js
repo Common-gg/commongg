@@ -17,11 +17,11 @@ function PageContainer(props) {
         <div className="row">
         <div className="col-2"></div>
           <div className="col-2">
-            <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
+            <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
           </div>
           <div className="col-4">
             <div className="text-center">
-              <SearchBar track={setSearch} search={props.search} />
+              <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames}/>
               <br />
             </div>
             <ContentContainer {...props} />

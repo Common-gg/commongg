@@ -10,7 +10,7 @@ function Feed(props) {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-2">
-                        <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut}/>
+                        <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
                     </div>
                     <div className="col-lg-7">
                         <FeedContainer currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} />

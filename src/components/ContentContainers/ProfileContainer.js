@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
 import FeedType from '../FeedType.js';
-import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
-import CommonChat from "../../images/games/Common Chat.png";
 // import plus from "../images/icons/followingplus-1.png";
 
 function ProfileContainer(props) {
@@ -14,16 +12,6 @@ function ProfileContainer(props) {
         text: "Follow"
     })
     const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible" });
-    const [allGames, setAllGames] = useState([
-        {
-            title: "Common Chat",
-            image: CommonChat
-        },
-        {
-            title: "Teamfight Tactics",
-            image: TeamfightTactics
-        }
-    ]);
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
@@ -121,9 +109,9 @@ function ProfileContainer(props) {
                 <div className="flex-wrap d-flex flex-row justify-content-center" style={{ width: "70%" }}>
                     {user.games.map(index => {
                         return <img
-                            src={allGames[index].image}
+                            src={props.allGames[index].image}
                             key={"game-image2" + index}
-                            alt={allGames[index].title}
+                            alt={props.allGames[index].title}
                             className="rounded"
                             style={
                                 {
