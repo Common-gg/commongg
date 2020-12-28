@@ -102,7 +102,7 @@ function App() {
         username: "",
         profile_picture: "",
         about_me: "",
-        games: {},
+        games: {"0": 0},
         followers: [],
         following: [],
         followCounts: {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Text from '../Text.js';
-import IconButton from '../IconButton.js';
 import ProfilePicture from '../ProfilePicture.js';
+import { Link } from "react-router-dom";
 
 function Comment(props) {
 
@@ -40,7 +40,9 @@ function Comment(props) {
                             <div className="col-10">
                                 <br />
                                 <br />
-                                <Text text={author.username} />
+                                <Link to={"/profile/" + props.comment.author} >
+                                    <Text text={author.username} />
+                                </Link>
                                 <Text text={new Date(props.comment.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.comment.timestamp).toLocaleDateString("en-US")}
                                     style={{ color: '#BF9AFC', fontSize: '12px' }}
                                 />
