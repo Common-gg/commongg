@@ -79,3 +79,16 @@ background-color: #292833;
 .dropdown-item:hover {
  background-color: #BF9AFC; 
 }
+
+.border, .border-secondary {
+  color: #BF9AFC;
+  border-color: #BF9AFC !important;
+}
+
+::placeholder {
+  color: #5F5177;
+}
+
+Input{
+  background-color: #292833;
+}
