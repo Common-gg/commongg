@@ -40,29 +40,29 @@ function Login(props) {
         boxShadow: "-1px 10px 250px 1px #171421"
       }}>
 
-        <div style={{ margin: "20px 20px 0px 20px" }} className="row">
-          <div className="col-4"></div>
-          <img src={logo} style={logoCSS} />
-          <div className="col-5" style={{ pointerEvents: "none" }}></div>
-          <br />
-          <div className="form-group" >
-            <div className="row">
-              <div className="col-6"></div>
+<div style={{ margin: "20px 20px 0px 20px" }}>
+          <div className="row">
+            <div className="col-4"></div>
+            <img src={logo} style={logoCSS} />
+            <div className="col-5" style={{ pointerEvents: "none" }}></div>
+            <br />
+            <div className="form-group" >
               <div className="row">
                 <div className="col-6"></div>
                 <div className="row">
                   <div className="col-6"></div>
                   <div className="row">
-                    <div className="col-4"></div>
-                    <div className="Input" >
-                      <br />
-                      <input style={inputStyle} className="border border-secondary" type="email"
-                        placeholder="email" ref={emailRef}
-                        onKeyPress={(e) => handleSignIn(e)} />
-                    </div></div></div></div></div>
-          </div>
+                    <div className="col-6"></div>
+                    <div className="row">
+                      <div className="col-4"></div>
+                      <div className="Input" >
+                        <br />
+                        <input style={inputStyle} className="border border-secondary" type="email"
+                          placeholder="email" ref={emailRef}
+                          onKeyPress={(e) => handleSignIn(e)} />
+                      </div></div></div></div></div></div></div>
           <div className="form-group" >
-            <div className="row">
+            <div className="row col-12">
               <div className="col-1"></div>
               <div className="row">
                 <div className="col-1"></div>
@@ -72,13 +72,11 @@ function Login(props) {
                     <div className="col-1"></div>
                     <div className="row">
                       <div className="col-1"></div>
-                      <div className="row">
-                        <div className="col-1"></div>
-                        <div className="Input" >
-                          <input style={inputStyle} className="border border-secondary" type="Password"
-                            placeholder="password" ref={passwordRef}
-                            onKeyPress={(e) => handleSignIn(e)} />
-                        </div></div></div></div></div></div></div>
+                      <div className="Input" >
+                        <input style={inputStyle} className="border border-secondary" type="Password"
+                          placeholder="password" ref={passwordRef}
+                          onKeyPress={(e) => handleSignIn(e)} />
+                      </div></div></div></div></div></div>
           </div>
           <div className="row col-12">
             <div className="col-5"></div>
