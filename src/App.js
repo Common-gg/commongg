@@ -42,12 +42,12 @@ function App() {
   const [twitchToken, setTwitchToken] = useState();
   const [allGames, setAllGames] = useState([
     {
-        title: "Common Chat",
-        image: CommonChat
+      title: "Common Chat",
+      image: CommonChat
     },
     {
-        title: "TFT",
-        image: TeamfightTactics
+      title: "TFT",
+      image: TeamfightTactics
     }
   ]);
 
@@ -114,7 +114,7 @@ function App() {
         username: "",
         profile_picture: "",
         about_me: "",
-        games: {"0": 0},
+        games: { "0": 0 },
         followers: [],
         following: [],
         followCounts: {
