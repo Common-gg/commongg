@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import excludeIcon from "../../images/icons/exclude-1.png";
 import Select from 'react-select';
 import ImageIcon from "../../images/icons/image22.png";
+import Compress from "compress.js";
 
 function CreatePostModal(props) {
     const postTextRef = useRef();
@@ -173,8 +174,20 @@ function CreatePostModal(props) {
     function fileSelectedHandler(e) {
         if (e.target.files && e.target.files[0]) {
             let file = e.target.files[0];
-            console.log(file);
-            setSelectedFile(file);
+
+            const compress = new Compress();
+
+            compress.compress([file], {
+                size: 4,
+                quality: .75,
+                maxWidth: 470,
+                maxHeight: 470,
+                resize: true
+            }).then((data) => {
+                const img = data[0];
+                let file = Compress.convertBase64ToFile(img.data, img.ext);
+                setSelectedFile(file);
+            });
         }
     }
     function setOptions() {
