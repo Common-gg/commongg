@@ -45,6 +45,17 @@ function PostFooter(props) {
     }
   }
 
+  //check if current user reacted to post
+  function reacted(reaction) {
+    //not found in reated means it didn't react to emote
+    if (post.reacted === undefined || post.reacted[props.currentUserInfo.username] === undefined) {
+      return false;
+    } else {
+      //reacted if current is same as reacted emote
+      return (post.reacted[props.currentUserInfo.username] === reaction);
+    }
+  }
+
   const commentButtonCheck = () => {
     if (props.postId !== undefined) {
       return (
@@ -62,11 +73,13 @@ function PostFooter(props) {
     if (post.reactions !== undefined) {
       return (
         Object.keys(post.reactions).map(reaction => {
-          return (
-            <div style={{ padding: "10px", bottom: "-20px", left: "-10px", }} key={reaction} className="col-4">
-              <ReactionIcon reaction={reaction} react={react} text={" " + convertNum(post.reactions[reaction])} id={props.postId + reaction} />
-            </div>
-          )
+          if (post.reactions[reaction] !== 0) {
+            return (
+              <div style={{ padding: "10px", bottom: "-20px", left: "-10px", }} key={reaction} className="col-4">
+                <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={post.reactions[reaction]} id={props.postId + reaction} />
+              </div>
+            )
+          }
         })
       )
     }
@@ -87,8 +100,30 @@ function PostFooter(props) {
   }
 
   const react = emote => {
-    props.reactToPost(props.postId, emote, 1);
-    props.getPost(props.postId, setPost);
+    //first check if anyone has reacted
+    if (post.reacted === undefined) {
+      //hasn't reacted to post
+      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost);
+      return;
+    }
+    //reacted would be undefined if not found and some emote if found
+    const reacted = post.reacted[props.currentUserInfo.username]
+    if (reacted === undefined) {
+      //hasn't reacted to post
+      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost);
+      return;
+    } else {
+      //reacted to post so check if reacted then unreact else switch reaction
+      if (reacted !== emote) {
+        //if reacted is some other emote we just switch it
+        console.log("changed from " + reacted + " to " + emote);
+        props.changeReaction(props.currentUserInfo.username, props.postId, reacted, emote, 1, setPost);
+      } else {
+        //deselect current reaction if reacted to same emote
+        props.unreactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost);
+      }
+    }
+    
   }
 
   const popover = (

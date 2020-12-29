@@ -23,7 +23,7 @@ function ReactionIcon(props) {
         id={props.id}
         onClick={() => props.react(props.reaction)}
         style={{
-          backgroundColor: "transparent",
+          backgroundColor: (props.reacted?"yellow":"transparent"),
           padding: "0 0 0 0",
           position: "relative",
           width: "30px",
