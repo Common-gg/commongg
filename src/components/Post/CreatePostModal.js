@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import excludeIcon from "../../images/icons/exclude-1.png";
 import Select from 'react-select';
 import ImageIcon from "../../images/icons/image22.png";
+import Compress from "compress.js";
 
 function CreatePostModal(props) {
     const postTextRef = useRef();
@@ -11,6 +12,7 @@ function CreatePostModal(props) {
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(setOptions()[0].label);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const buttonStyle = {
         color: "#BF9AFC",
@@ -18,7 +20,8 @@ function CreatePostModal(props) {
         border: "2px solid #BF9AFC",
         width: "100%",
         textAlign: "left",
-        borderRadius: "8px"
+        borderRadius: "8px",
+        cursor: "pointer"
     };
     const modalContentStyle = {
         color: "#BF9AFC",
@@ -54,14 +57,15 @@ function CreatePostModal(props) {
         color: "#BF9AFC",
         backgroundColor: "#202020",
         border: "none",
-        marginTop: "none"
+        marginTop: "none",
+
     };
     const textAreaStyle = {
         resize: "none",
         color: "#BF9AFC",
         backgroundColor: "#202020",
         border: "none",
-        marginTop: 0
+        marginTop: 0,
     };
     const dropdownStyle = {
         control: (base) => ({
@@ -112,6 +116,7 @@ function CreatePostModal(props) {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";
         fileInputRef.current.value = "";
+        setSelectedFile(null);
     };
 
     function handlePostClick() {
@@ -120,6 +125,7 @@ function CreatePostModal(props) {
         } else {
             createPost("");
         }
+        setIsModalOpen(false);
     }
 
     function createPost(url) {
@@ -146,7 +152,6 @@ function CreatePostModal(props) {
         clearFields();
         //get the feedcontainer to update posts from db
         props.updatePostRefresh();
-        setSelectedFile(null);
     }
 
     function getPostType() {
@@ -172,8 +177,20 @@ function CreatePostModal(props) {
     function fileSelectedHandler(e) {
         if (e.target.files && e.target.files[0]) {
             let file = e.target.files[0];
-            console.log(file);
-            setSelectedFile(file);
+
+            const compress = new Compress();
+
+            compress.compress([file], {
+                size: 4,
+                quality: .75,
+                maxWidth: 470,
+                maxHeight: 470,
+                resize: true
+            }).then((data) => {
+                const img = data[0];
+                let file = Compress.convertBase64ToFile(img.data, img.ext);
+                setSelectedFile(file);
+            });
         }
     }
     function setOptions() {
@@ -189,9 +206,19 @@ function CreatePostModal(props) {
         setSelectedOption(e.label);
     }
 
+    function toggleModalState() {
+        if (isModalOpen === false) {
+            setIsModalOpen(true);
+        }
+        else {
+            setIsModalOpen(false);
+            clearFields();
+        }
+    }
+
     return (
         <div className="CreatePostModal">
-            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
+            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#createPostModal" onClick={toggleModalState}>
                 <img
                     src={excludeIcon}
                     alt="post button"
@@ -205,28 +232,34 @@ function CreatePostModal(props) {
             <div className="modal fade" id="createPostModal" tabIndex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content" style={modalContentStyle}>
-                        <div className="modal-header" style={modalHeaderStyle}>
-                            <h4 className="modal-title" id="createPostModalLabel">title...</h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
-                                <span aria-hidden="true">x</span>
-                            </button>
+                        <br />
+                        <div className="col-12">
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="title..."
+                                    onChange={() => setPostTitle(postTitleRef)}
+                                    ref={postTitleRef}
+                                    style={titleInputStyle}
+                                />
+                                <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close" data-dismiss="modal"
+                                    aria-label="Close" onClick={() => clearFields()}>
+                                    <span onClick={toggleModalState} aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         </div>
-                        <input
-                            type="text"
-                            className="form-control"
-                            onChange={() => setPostTitle(postTitleRef)}
-                            ref={postTitleRef}
-                            style={titleInputStyle}
-                        />
                         <hr style={{ padding: "0", backgroundColor: '#BF9AFC', width: '90%' }} />
-                        <textarea
-                            className="form-control"
-                            onChange={() => setPostText(postTextRef)}
-                            ref={postTextRef}
-                            placeholder="type your body here..."
-                            rows="5"
-                            style={textAreaStyle}
-                        />
+                        <div className="col-12">
+                            <textarea
+                                className="form-control"
+                                onChange={() => setPostText(postTextRef)}
+                                ref={postTextRef}
+                                placeholder="type your body here..."
+                                rows="5"
+                                style={textAreaStyle}
+                            />
+                        </div>
                         <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                         <div style={{ display: "flex" }}>
                             <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
@@ -248,6 +281,7 @@ function CreatePostModal(props) {
                             </div>
                             <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={postButtonStyle}>Post</button>
                         </div>
+                        <br />
                     </div>
                 </div>
             </div>

@@ -2,11 +2,21 @@ import React from 'react';
 
 function Text(props) {
 
-  function getStyle () {
-    if(props.style === undefined){
-      return({color: "#ffffff"});
-    }else{
-      return props.style;
+  function getStyle() {
+    const defaultStyle = {
+      color: "#ffffff",
+      overflowWrap: 'break-word', 
+      paddingLeft: "0px", 
+      paddingRight: "0px"
+    };
+    if (props.style === undefined) {
+      return (defaultStyle);
+    } else {
+      let combinedStyle = {
+        ...defaultStyle,
+        ...props.style
+      }
+      return combinedStyle;
     }
   }
 

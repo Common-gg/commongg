@@ -4,6 +4,9 @@ import IconButton from '../IconButton';
 import CreateCommentModal from './CreateCommentModal.js';
 import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
+import commentIcon from '../../images/icons/comment.png';
+import shareIcon from '../../images/icons/share.png';
+import Text from '../Text.js';
 
 function PostFooter(props) {
   const [post, setPost] = useState(props.post)
@@ -21,7 +24,8 @@ function PostFooter(props) {
     "sadge",
     "soulessFF",
     "soulessOhno",
-    "thumbsup"
+    "thumbsup",
+    "influrUWUW"
   ];
 
   useEffect(() => {
@@ -64,11 +68,15 @@ function PostFooter(props) {
     if (props.postId !== undefined) {
       return (
         <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
-          <IconButton class="fa fa-comment-o" text={convertNum(post.numComments)} />
+          <img src={commentIcon} style={{
+            backgroundColor: "transparent",
+            position: "relative",
+            bottom: "-12px"
+          }} />
         </Link>)
     } else {
       return (
-        <IconButton class="fa fa-comment-o" text={convertNum(post.numComments)} />
+        <CreateCommentModal {...props} post={post} postId={props.postId} showCommentButton={props.showCommentButton} />
       )
     }
   }
@@ -134,19 +142,19 @@ function PostFooter(props) {
   }
 
   const popover = (
-      <Popover id={props.postId + "popvoer"} style={popoverStyle}>
-        <Popover.Content>
-          <div className="row">
-            {popoverReactions.map(reaction => {
-              return (
-                <div style={{ padding: "5px", }} key={reaction} className="col-3">
-                  <ReactionIcon reaction={reaction} react={react} text="" id={props.postId + reaction} />
-                </div>
-              )
-            })}
-          </div>
-        </Popover.Content>
-      </Popover>
+    <Popover id={props.postId + "popvoer"} style={popoverStyle}>
+      <Popover.Content>
+        <div className="row">
+          {popoverReactions.map(reaction => {
+            return (
+              <div style={{ padding: "5px", }} key={reaction} className="col-3">
+                <ReactionIcon reaction={reaction} react={react} text="" id={props.postId + reaction} />
+              </div>
+            )
+          })}
+        </div>
+      </Popover.Content>
+    </Popover>
   );
 
   return (
@@ -155,7 +163,7 @@ function PostFooter(props) {
     }}>
       <div className="col-8 row">
         {checkReactions()}
-        <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
           <div>
             <div style={{ padding: "10px", bottom: "-20px", }} className="col-1">
               <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
@@ -165,15 +173,23 @@ function PostFooter(props) {
       </div>
       <div className="col-4 row" style={{ position: 'relative', bottom: '-20px'}}>
         {checkReactionLines()}
-        <div className="col-3"></div>
-        <div>
-          <CreateCommentModal {...props} post={post} postId={props.postId} showCommentButton={props.showCommentButton} />
+        <div className="col-2" />
+        <div className="col-2">
+          <Text text={convertNum(props.post.numComments)} style={{
+            position: "relative",
+            bottom: "-12px"
+          }} />
         </div>
-        <div className="col-6">
-          {commentButtonCheck()}
+        <div className="col-2">
+          {checkCommentButton()}
         </div>
-        <div>
-          <IconButton class="fa fa-share-alt" text="" id={props.postId + "comment"} />
+        <div className="col-2">
+          <img src={shareIcon} style={{
+            backgroundColor: "transparent",
+            position: "relative",
+            bottom: "-8px",
+            left: "10px"
+          }} />
         </div>
       </div>
     </div>

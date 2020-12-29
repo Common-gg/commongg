@@ -9,15 +9,21 @@ function PageContainer(props) {
 
   const [search, setSearch] = useState();
 
+  const sticky = {
+    position: "fixed"
+  }
+
   return (
     <div className="PageContainer">
       <GamesContainer {...props} />
       <div className="container-fluid">
         <br /><br />
         <div className="row">
-        <div className="col-2"></div>
-          <div className="col-2">
-            <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
+        <div className="col-xl-2 col-lg-1 col-md-0 col-sm-0"></div>
+          <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4">
+            <div style={sticky}>
+              <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
+            </div>
           </div>
           <div className="col-4">
             <div className="text-center">
@@ -27,9 +33,10 @@ function PageContainer(props) {
             <ContentContainer {...props} />
           </div>
           <div className="col-3">
-            <Text text="ADS GO HERE TO MAKE $$ YEP" />
+            <div style={sticky}>
+              <Text text="ADS GO HERE TO MAKE $$ YEP" />
+            </div>
           </div>
-          <div className="col-1"></div>
         </div>
       </div>
     </div>

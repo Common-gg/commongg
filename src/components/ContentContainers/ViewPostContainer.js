@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Text from '../Text.js';
 import Post from '../Post/Post.js';
 import Comment from '../../components/Post/Comment.js';
 
@@ -25,7 +24,7 @@ function ViewPostContainer(props) {
         }
     });
     const [commentRefresh, setCommentRefresh] = useState(0)
-    const updateRefresh = function() {
+    const updateRefresh = function () {
         setCommentRefresh(commentRefresh + 1);
     }
 
@@ -61,12 +60,16 @@ function ViewPostContainer(props) {
                 }}
             />
             <br />
-            {Object.values(comments).map(comment => {
+            {/*<div>
+                <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
+                <Comment comment={comment} getUser={props.getUser} getComment={props.getComment}/>
+            </div>*/}
+            {Object.values(comments).reverse().map((comment, i) => {
                 if (comment.author !== "404")
                     return (
-                        <div>
+                        <div key={Object.keys(comments).reverse()[i]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment comment={comment} getUser={props.getUser} />
+                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} />
                         </div>
                     )
             })}
