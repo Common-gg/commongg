@@ -12,6 +12,7 @@ function CreatePostModal(props) {
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(setOptions()[0].label);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const buttonStyle = {
         color: "#BF9AFC",
@@ -19,7 +20,8 @@ function CreatePostModal(props) {
         border: "2px solid #BF9AFC",
         width: "100%",
         textAlign: "left",
-        borderRadius: "8px"
+        borderRadius: "8px",
+        cursor: "pointer"
     };
     const modalContentStyle = {
         color: "#BF9AFC",
@@ -114,6 +116,7 @@ function CreatePostModal(props) {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";
         fileInputRef.current.value = "";
+        setSelectedFile(null);
     };
 
     function handlePostClick() {
@@ -122,6 +125,7 @@ function CreatePostModal(props) {
         } else {
             createPost("");
         }
+        setIsModalOpen(false);
     }
 
     function createPost(url) {
@@ -148,7 +152,6 @@ function CreatePostModal(props) {
         clearFields();
         //get the feedcontainer to update posts from db
         props.updatePostRefresh();
-        setSelectedFile(null);
     }
 
     function getPostType() {
@@ -203,9 +206,19 @@ function CreatePostModal(props) {
         setSelectedOption(e.label);
     }
 
+    function toggleModalState() {
+        if (isModalOpen === false) {
+            setIsModalOpen(true);
+        }
+        else {
+            setIsModalOpen(false);
+            clearFields();
+        }
+    }
+
     return (
         <div className="CreatePostModal">
-            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-target="#createPostModal">
+            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#createPostModal" onClick={toggleModalState}>
                 <img
                     src={excludeIcon}
                     alt="post button"
@@ -230,8 +243,9 @@ function CreatePostModal(props) {
                                     ref={postTitleRef}
                                     style={titleInputStyle}
                                 />
-                                <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
-                                    <span aria-hidden="true">&times;</span>
+                                <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close" data-dismiss="modal"
+                                    aria-label="Close" onClick={() => clearFields()}>
+                                    <span onClick={toggleModalState} aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                         </div>
