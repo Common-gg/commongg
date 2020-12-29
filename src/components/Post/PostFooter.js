@@ -163,7 +163,7 @@ function PostFooter(props) {
           </div>
         </OverlayTrigger>
       </div>
-      <div className="col-4 row" style={{ position: 'relative', bottom: '-20px' }}>
+      <div className="col-4 row" style={{ position: 'relative', bottom: '-20px'}}>
         {checkReactionLines()}
         <div className="col-3"></div>
         <div>
