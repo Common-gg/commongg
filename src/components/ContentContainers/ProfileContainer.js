@@ -110,9 +110,9 @@ function ProfileContainer(props) {
                     <div className="flex-wrap d-flex flex-row justify-content-center" style={{ width: "70%" }}>
                         {user.games.map(index => {
                             return <img
-                                src={allGames[index].image}
+                                src={props.allGames[index].image}
                                 key={"game-image2" + index}
-                                alt={allGames[index].title}
+                                alt={props.allGames[index].title}
                                 className="rounded"
                                 style={
                                     {
