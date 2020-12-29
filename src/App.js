@@ -357,6 +357,14 @@ function App() {
     });
   }
 
+  const getComment = (commentId, callback) => {
+    // Gets a single comment from DB
+    database.ref('/content/comments/' + commentId).once('value').then((snapshot) => {
+      const commentData = snapshot.val();
+      if (commentData !== null) return callback(commentData);
+    })
+  }
+
   const search = (value, callback, query) => {
     // search the db
     const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
@@ -416,6 +424,7 @@ function App() {
                 createComment={createComment}
                 updateNumComments={updateNumComments}
                 getComments={getComments}
+                getComment={getComment}
                 search={search}
 
                 storeImage={storeImage}

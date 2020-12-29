@@ -25,7 +25,7 @@ function PageContainer(props) {
               <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
             </div>
           </div>
-          <div className="col" style={{flex: '0 0 530px'}}>
+          <div className="col-4">
             <div className="text-center">
               <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames}/>
               <br />
