@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
     "bootstrap": "^4.5.3",
+    "compress.js": "^1.1.2",
     "dotenv": "^8.2.0",
     "firebase": "^8.2.1",
     "fontsource-overpass": "^4.0.0",
