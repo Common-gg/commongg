@@ -236,9 +236,49 @@ function App() {
     })
   }
 
-  const reactToPost = (postId, reaction, value) => {
-    const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
-    reactionRef.set(firebase.database.ServerValue.increment(value));
+  const reactToPost = (username, postId, reaction, value, setPost) => {
+    //add to list to reacted
+    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    reactedRef.set(reaction).then(()=> {
+      //increment the counter for the post
+      const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
+      reactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
+        getPost(postId, setPost);
+      })
+    })
+  }
+
+  //unreact to post and decrement
+  const unreactToPost = (username, postId, reaction, value, setPost)  => {
+    //add to list to reacted
+    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    reactedRef.set(null).then(()=> {
+      //decrement the counter for the post
+      const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
+      reactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
+        //make sure everything is updated on server before gettingp ost
+        getPost(postId, setPost);
+      })
+    })
+  }
+
+  //change the current reaction, decrement old, increment new
+  const changeReaction = (username, postId, oldReaction, newReaction, value, setPost) => {
+    //set the reaction of user on post to new reaction
+    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    reactedRef.set(newReaction).then(()=> {
+      //increment the counter for the new emote
+      const newReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + newReaction);
+      newReactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
+        //decrementr the counter for old emote
+        const oldReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + oldReaction);
+        oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() =>{
+          getPost(postId, setPost);
+        })
+        
+      })
+      
+    })
   }
 
   const updateFollow = (userId, followType, value) => {
@@ -420,6 +460,8 @@ function App() {
                 getPosts={getPosts}
                 getPost={getPost}
                 reactToPost={reactToPost}
+                unreactToPost={unreactToPost}
+                changeReaction={changeReaction}
                 createPost={createPost}
                 createComment={createComment}
                 updateNumComments={updateNumComments}
