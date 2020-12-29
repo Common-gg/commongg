@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import addcommentIcon from '../../images/icons/addcomment.png';
 
 function CreateCommentModal(props) {
     const commentTextRef = useRef();
@@ -6,11 +7,10 @@ function CreateCommentModal(props) {
 
     let buttonStyle = {
         backgroundColor: "transparent",
-        padding: "0 0 0 0",
         position: "relative",
-        bottom: "-20px",
-        left: "-10px"
-    }
+        bottom: "0px",
+        left: "-8px"
+      }
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
@@ -58,7 +58,6 @@ function CreateCommentModal(props) {
                 left: "-10px",
                 visibility: "hidden"
             }
-            console.log("reached");
         }
     }
 
@@ -83,10 +82,8 @@ function CreateCommentModal(props) {
 
     return (
         <div className="CreateCommentModal">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-            {showCommentButton()}
             <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-target="#createCommentModal">
-                <i className={"fa fa-commenting-o"} />
+                <img src={addcommentIcon} style={buttonStyle}/>
             </button>
             <div className="modal fade" id="createCommentModal" tabIndex="-1" role="dialog" aria-labelledby="createCommentModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">

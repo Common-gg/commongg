@@ -41,9 +41,6 @@ function NavigationBar(props) {
             <Link to="/trending" style={linkStyle}>
                 <p><img src={trend} style={iconStyle} alt="" /> trending</p>
             </Link>
-            <Link to="/settings" style={linkStyle}>
-                <p><img src={setting} style={iconStyle} alt="" /> settings</p>
-            </Link>
             {props.currentUserInfo.games.map((game) => {
                 return <Link to={"/games/" + (props.allGames[game].title.split(" ")).join('').toLowerCase()} key={props.allGames[game].title} style={linkStyle}>
                             <p>{props.allGames[game].title}</p>
@@ -53,6 +50,9 @@ function NavigationBar(props) {
                 <p style={linkStyle}>
                     <img src={editGame} style={iconStyle}></img>edit games</p>
             </a>
+            <Link to="/settings" style={linkStyle}>
+                <p><img src={setting} style={iconStyle} alt="" /> settings</p>
+            </Link>
         </div>
     );
 }

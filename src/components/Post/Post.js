@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
+import { Link } from "react-router-dom";
 
 function Post(props) {
 
@@ -20,7 +21,7 @@ function Post(props) {
         borderWidth: '2px',
         paddingBottom: '0px',
         paddingLeft: '20px',
-        paddingRight: '0px'
+        paddingRight: '20px'
       });
     } else {
       return props.style;
@@ -91,8 +92,10 @@ function Post(props) {
               <div className="col-10">
                 <br />
                 <br />
-                <Text text={author.username} />
-                <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US") + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
+                <Link to={"/profile/" + props.post.author} >
+                  <Text text={author.username} />
+                </Link>
+                <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US",{hour: '2-digit', minute:'2-digit'}) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
                   style={{ color: '#BF9AFC', fontSize: '12px' }}
                 />
               </div>

@@ -8,41 +8,6 @@ body {
   font-family: 'Overpass';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282334;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #1aa2cc;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .container{
 background-color: #292833;
 }
@@ -67,6 +32,24 @@ background-color: #292833;
 }
 .testimonial-group > .row > .col-2 {
   display: inline-block;
+}
+
+.Post {
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #5F5177;
+  border-width: 2px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+}
+
+.commentBorder {
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #5F5177;
+  border-width: 2px;
+  padding-bottom: 0px;
+  padding-left: 20px;
 }
 
 *:focus {
@@ -95,4 +78,17 @@ background-color: #292833;
 
 .dropdown-item:hover {
  background-color: #BF9AFC; 
+}
+
+.border, .border-secondary {
+  color: #BF9AFC;
+  border-color: #BF9AFC !important;
+}
+
+::placeholder, textarea::placeholder {
+  color: #5F5177;
+}
+
+Input{
+  background-color: #292833;
 }
