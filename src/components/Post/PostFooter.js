@@ -8,6 +8,7 @@ import ReactionIcon from '../ReactionIcon';
 function PostFooter(props) {
   const [post, setPost] = useState(props.post)
   const [popoverReactions, setPopoverReactions] = useState([]);
+  const [allowClick, setAllowClick] = useState(true);
   const reactions = [
     "kekw",
     "mad",
@@ -24,12 +25,15 @@ function PostFooter(props) {
   ];
 
   useEffect(() => {
+    setAllowClick(true);
     if (post.reactions !== undefined) {
-      setPopoverReactions(reactions.filter(reaction => !Object.keys(post.reactions).includes(reaction)));
+      setPopoverReactions(reactions.filter(reaction => 
+        (!Object.keys(post.reactions).includes(reaction) ||
+        post.reactions[reaction]  <= 0)));
     } else {
       setPopoverReactions(reactions);
     }
-  }, [])
+  }, [post])
 
   function convertNum(val) {
     let editedVal = val;
@@ -73,7 +77,7 @@ function PostFooter(props) {
     if (post.reactions !== undefined) {
       return (
         Object.keys(post.reactions).map(reaction => {
-          if (post.reactions[reaction] !== 0) {
+          if (post.reactions[reaction] > 0) {
             return (
               <div style={{ padding: "10px", bottom: "-20px", left: "-10px", }} key={reaction} className="col-4">
                 <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={post.reactions[reaction]} id={props.postId + reaction} />
@@ -100,6 +104,10 @@ function PostFooter(props) {
   }
 
   const react = emote => {
+    if (!allowClick) {
+      return;
+    }
+    setAllowClick(false);
     //first check if anyone has reacted
     if (post.reacted === undefined) {
       //hasn't reacted to post
@@ -116,7 +124,6 @@ function PostFooter(props) {
       //reacted to post so check if reacted then unreact else switch reaction
       if (reacted !== emote) {
         //if reacted is some other emote we just switch it
-        console.log("changed from " + reacted + " to " + emote);
         props.changeReaction(props.currentUserInfo.username, props.postId, reacted, emote, 1, setPost);
       } else {
         //deselect current reaction if reacted to same emote
