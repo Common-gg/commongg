@@ -213,10 +213,11 @@ function App() {
     postRef.set(post);
   }
 
-  const updateNumComments = (postId) => {
+  const updateNumComments = (postId, numIncrement) => {
     const numCommentsRef = database.ref('/content/posts/' + postId + '/numComments')
     if (numCommentsRef === undefined) return;
-    numCommentsRef.set(firebase.database.ServerValue.increment(1));
+    console.log(numIncrement);
+    numCommentsRef.set(firebase.database.ServerValue.increment(numIncrement));
   }
 
   const createComment = (comment) => {
@@ -225,7 +226,18 @@ function App() {
     const commentRef = database.ref('/content/comments/').push();
     commentRef.set(comment);
     //update the number of comments
-    updateNumComments(comment.postId);
+    updateNumComments(comment.postId, 1);
+  }
+
+  const deleteComment = (commentId, postId) => {
+    // Deletes a comment in the DB
+    if (currentUser === undefined) return;
+    if (commentId === undefined || commentId === "") return;
+    const commentRef = database.ref('/content/comments/' + commentId);
+    commentRef.remove();
+    //update the number of comments
+    console.log(postId);
+    updateNumComments(postId, -1);
   }
 
   const getUser = (userId, callback) => {
@@ -422,6 +434,7 @@ function App() {
                 reactToPost={reactToPost}
                 createPost={createPost}
                 createComment={createComment}
+                deleteComment={deleteComment}
                 updateNumComments={updateNumComments}
                 getComments={getComments}
                 getComment={getComment}
