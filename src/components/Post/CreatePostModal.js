@@ -218,7 +218,7 @@ function CreatePostModal(props) {
 
     return (
         <div className="CreatePostModal">
-            <button type="button" style={buttonStyle} lassName="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#createPostModal" onClick={toggleModalState}>
+            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#createPostModal" onClick={toggleModalState}>
                 <img
                     src={excludeIcon}
                     alt="post button"
