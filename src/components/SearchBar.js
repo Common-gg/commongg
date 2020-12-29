@@ -56,7 +56,7 @@ function SearchBar(props) {
   return (
     <div>
       <div className="Input" style={barStyle} >
-        <SearchBox search={props.search} />
+        <SearchBox search={props.search} allGames={props.allGames} setAllGames={props.setAllGames}/>
         <img src={searchIcon} alt="search bar" style={imgStyle} />
       </div>
     </div>

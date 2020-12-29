@@ -6,6 +6,8 @@ import CreateProfile from './pages/CreateProfile.js';
 import SignUp from "./pages/SignUp";
 import PageContainer from './pages/PageContainer';
 import firebase from "firebase/app";
+import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
+import CommonChat from "./images/games/Common Chat.png";
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -38,6 +40,16 @@ function App() {
   const [startUp, setStartUp] = useState(false);
 
   const [twitchToken, setTwitchToken] = useState();
+  const [allGames, setAllGames] = useState([
+    {
+        title: "Common Chat",
+        image: CommonChat
+    },
+    {
+        title: "TFT",
+        image: TeamfightTactics
+    }
+  ]);
 
   useEffect(() => {
     // User authentication redirect
@@ -345,6 +357,14 @@ function App() {
     });
   }
 
+  const getComment = (commentId, callback) => {
+    // Gets a single comment from DB
+    database.ref('/content/comments/' + commentId).once('value').then((snapshot) => {
+      const commentData = snapshot.val();
+      if (commentData !== null) return callback(commentData);
+    })
+  }
+
   const search = (value, callback, query) => {
     // search the db
     const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
@@ -392,6 +412,9 @@ function App() {
                 currentUserId={currentUser.uid}
                 currentUserInfo={currentUserInfo}
 
+                allGames={allGames}
+                setAllGames={setAllGames}
+
                 signOut={signOut}
 
                 getPosts={getPosts}
@@ -401,6 +424,7 @@ function App() {
                 createComment={createComment}
                 updateNumComments={updateNumComments}
                 getComments={getComments}
+                getComment={getComment}
                 search={search}
 
                 storeImage={storeImage}

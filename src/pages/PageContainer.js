@@ -22,12 +22,12 @@ function PageContainer(props) {
         <div className="col-xl-2 col-lg-1 col-md-0 col-sm-0"></div>
           <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4">
             <div style={sticky}>
-              <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} />
+              <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
             </div>
           </div>
-          <div className="col" style={{flex: '0 0 530px'}}>
+          <div className="col-4">
             <div className="text-center">
-              <SearchBar track={setSearch} search={props.search} />
+              <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames}/>
               <br />
             </div>
             <ContentContainer {...props} />

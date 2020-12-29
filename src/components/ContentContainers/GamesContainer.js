@@ -1,21 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import GameCard from "../GameCard.js";
 
-import TeamfightTactics from "../../images/games/Teamfight Tactics.jpg";
-import CommonChat from "../../images/games/Common Chat.png";
-
 function GamesContainer(props) {
     const [selectedGames, setSelectedGames] = useState([]);
-    const [allGames, setAllGames] = useState([
-        {
-            title: "Common Chat",
-            image: CommonChat
-        },
-        {
-            title: "TFT",
-            image: TeamfightTactics
-        }
-    ]);
     const [modalDismiss, setModalDismiss] = useState("");
     const [clicked, setClicked] = useState(false);
 
@@ -83,7 +70,7 @@ function GamesContainer(props) {
                                     </div>
                                     <h5 className="modal-title" id="chooseGameModalLabel">edit your games</h5>
                                 </div>
-                                <div className="row">{allGames.map((game, i) => {
+                                <div className="row">{props.allGames.map((game, i) => {
                                     return <GameCard
                                         key={i}
                                         gameTitle={game.title}

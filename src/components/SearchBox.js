@@ -2,8 +2,6 @@ import React, { useState, useRef, Fragment } from 'react';
 import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { Link } from "react-router-dom";
-import TeamfightTactics from "../images/games/Teamfight Tactics.jpg";
-import CommonChat from "../images/games/Common Chat.png";
 
 const AsyncTypeahead = withAsync(Typeahead);
 
@@ -11,16 +9,6 @@ function SearchBox(props) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
-  const [allGames, setAllGames] = useState([
-    {
-        title: "Common Chat",
-        image: CommonChat
-    },
-    {
-        title: "Teamfight Tactics",
-        image: TeamfightTactics
-    }
-]);
 
   const inputStyle = {
     border: "none",
@@ -52,7 +40,7 @@ function SearchBox(props) {
   const searchGames = (query) => {
     console.log("search games");
     console.log(query)
-    let result = allGames.filter((game) => {
+    let result = props.allGames.filter((game) => {
       //check if query is in the title
       return game.title.toLowerCase().includes(query.toLowerCase());
     });
