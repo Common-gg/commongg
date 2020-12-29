@@ -63,7 +63,7 @@ function Post(props) {
   const showCategory = () => {
     if (props.showCategory !== undefined) {
       return (
-        <div class="p-2">
+        <div className="p-2">
           <Text text={props.post.category}
             style={{
               borderStyle: 'solid',
@@ -104,8 +104,8 @@ function Post(props) {
         </div>
         <div className="row">
           <div className="col-12">
-            <div class="d-flex align-items-center flex-wrap">
-              <div class="p-2"><Text text={props.post.title} style={{ fontSize: '32px' }} /></div>
+            <div className="d-flex align-items-center flex-wrap">
+              <div className="p-2"><Text text={props.post.title} style={{ fontSize: '32px' }} /></div>
               {showCategory()}
             </div>
             <Text text={props.post.text} style={{ fontSize: '18px' }} />
