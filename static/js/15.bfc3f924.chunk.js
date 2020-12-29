@@ -1,0 +1,2 @@
+(this.webpackJsonpcommongg=this.webpackJsonpcommongg||[]).push([[15],{525:function(s,e,o){"use strict";o.r(e),e.default=o.p+"static/media/soulessOhno.5ee688e2.png"}}]);
+//# sourceMappingURL=15.bfc3f924.chunk.js.map

@@ -1,0 +1,2 @@
+(this.webpackJsonpcommongg=this.webpackJsonpcommongg||[]).push([[8],{518:function(o,s,t){"use strict";t.r(s),s.default=t.p+"static/media/omegalul.f0d9b983.png"}}]);
+//# sourceMappingURL=8.3ea7c2cb.chunk.js.map

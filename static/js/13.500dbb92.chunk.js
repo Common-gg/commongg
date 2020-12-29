@@ -1,0 +1,2 @@
+(this.webpackJsonpcommongg=this.webpackJsonpcommongg||[]).push([[13],{523:function(s,t,c){"use strict";c.r(t),t.default=c.p+"static/media/sadge.149f91d7.png"}}]);
+//# sourceMappingURL=13.500dbb92.chunk.js.map
