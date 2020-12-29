@@ -6,6 +6,8 @@ import CreateProfile from './pages/CreateProfile.js';
 import SignUp from "./pages/SignUp";
 import PageContainer from './pages/PageContainer';
 import firebase from "firebase/app";
+import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
+import CommonChat from "./images/games/Common Chat.png";
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -38,6 +40,16 @@ function App() {
   const [startUp, setStartUp] = useState(false);
 
   const [twitchToken, setTwitchToken] = useState();
+  const [allGames, setAllGames] = useState([
+    {
+        title: "Common Chat",
+        image: CommonChat
+    },
+    {
+        title: "TFT",
+        image: TeamfightTactics
+    }
+  ]);
 
   useEffect(() => {
     // User authentication redirect
@@ -391,6 +403,9 @@ function App() {
               <PageContainer
                 currentUserId={currentUser.uid}
                 currentUserInfo={currentUserInfo}
+
+                allGames={allGames}
+                setAllGames={setAllGames}
 
                 signOut={signOut}
 
