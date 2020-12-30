@@ -54,7 +54,7 @@ function ProfileContainer(props) {
 
     const checkAboutMe = () => {
         if (user.about_me !== "") {
-            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px" }} text={"About Me: " + user.about_me} />)
+            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px" }} text={user.about_me} />)
         }
     }
 
@@ -82,7 +82,7 @@ function ProfileContainer(props) {
                 </div>
                 <div className="row p-0">
                     <div className="col-1"></div>
-                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" />
+                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }} />
                     <div className="col-5">
                         <h2><Text text={user.username} /></h2>
                         <div className="d-flex flex-wrap">
@@ -102,8 +102,9 @@ function ProfileContainer(props) {
                         </button>
                     </div>
                     <div className="container text-wrap" style={{ margin: "auto" }}>
-                        {checkAboutMe()}
-                    </div>
+                        <div className="col-12">
+                            <br />{checkAboutMe()}
+                        </div></div>
                 </div>
                 <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                 <div className="flex-wrap d-flex flex-row justify-content-center">

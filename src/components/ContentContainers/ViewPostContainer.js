@@ -39,15 +39,10 @@ function ViewPostContainer(props) {
     }, [postId, commentRefresh])
 
     useEffect(() => {
-        console.log(post);
         if (post.author !== "404") {
             props.getComments(postId, "postId", setComments);
         }
     }, [post, commentRefresh])
-
-    useEffect(() => {
-        console.log(comments);
-    }, [comments])
 
     return (
         <div className="ViewPostContainer">
@@ -60,16 +55,12 @@ function ViewPostContainer(props) {
                 }}
             />
             <br />
-            {/*<div>
-                <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                <Comment comment={comment} getUser={props.getUser} getComment={props.getComment}/>
-            </div>*/}
             {Object.values(comments).reverse().map((comment, i) => {
                 if (comment.author !== "404")
                     return (
                         <div key={Object.keys(comments).reverse()[i]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} />
+                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} showCommentButton={true} updateRefresh={updateRefresh} />
                         </div>
                     )
             })}

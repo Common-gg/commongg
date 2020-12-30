@@ -10,7 +10,6 @@ function SignUp(props) {
   const [password, setPassword] = useState();
 
   const signUp = () => {
-    console.log(email.current.value);
     props.signUpUser(email.current.value, password.current.value);
   }
 
@@ -33,27 +32,28 @@ function SignUp(props) {
           boxShadow: "-1px 10px 250px 1px #171421"
         }}>
 
-        <div style={{ margin: "20px 20px 0px 20px" }} className="row">
-          <div className="col-4"></div>
-          <img src={logo} style={logoCSS} />
-          <div className="col-5" style={{ pointerEvents: "none" }}></div>
-          <br />
-          <div className="form-group" >
-            <div className="row">
-              <div className="col-6"></div>
+        <div style={{ margin: "20px 20px 0px 20px" }}>
+          <div className="row">
+            <div className="col-4"></div>
+            <img src={logo} style={logoCSS} />
+            <div className="col-5" style={{ pointerEvents: "none" }}></div>
+            <br />
+            <div className="form-group" >
               <div className="row">
                 <div className="col-6"></div>
                 <div className="row">
                   <div className="col-6"></div>
                   <div className="row">
-                    <div className="col-4"></div>
-                    <br />
-                    <Input type="email"
-                      bootstrap="border border-secondary"
-                      placeholder="email"
-                      track={setEmail}
-                      style={{ backgroundColor: "#292833", }} />
-                  </div></div></div></div></div>
+                    <div className="col-6"></div>
+                    <div className="row">
+                      <div className="col-4"></div>
+                      <br />
+                      <Input type="email"
+                        bootstrap="border border-secondary"
+                        placeholder="email"
+                        track={setEmail}
+                        style={{ backgroundColor: "#292833", }} />
+                    </div></div></div></div></div></div>
           <div className="form-group">
             <div className="row">
               <div className="col-1"></div>

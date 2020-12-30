@@ -27,14 +27,19 @@ function ReactionIcon(props) {
           padding: "0 0 0 0",
           position: "relative",
           width: "30px",
-          height: "30px"
+          height: "30px",
+
         }}>
-        <label style={{cursor: "pointer"}} htmlFor={props.id}>
-          <img style={{
-            width: "30px",
-            height: "30px"
-          }} src={image} alt={"reaction: " + props.text + props.reaction} />
-          {props.text}
+        <label style={{cursor: "pointer",}} htmlFor={props.id}>
+          <div style={{border: (props.reacted?"3px solid #BF9AFC":null),display: "inline-block", borderRadius: "8px"}}>
+            <img style={{
+              background:"transparent",
+              width: "30px",
+              height: "30px",
+              
+            }} src={image} alt={"reaction: " + props.text + props.reaction} />
+          </div>  
+          {props.text}      
         </label>
       </button>
     </div>

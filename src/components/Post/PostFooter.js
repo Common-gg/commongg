@@ -4,13 +4,14 @@ import IconButton from '../IconButton';
 import CreateCommentModal from './CreateCommentModal.js';
 import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
-import commentIcon from '../../images/icons/comment.png';
+import commentIcon from '../../images/icons/addcomment.png';
 import shareIcon from '../../images/icons/share.png';
 import Text from '../Text.js';
 
 function PostFooter(props) {
   const [post, setPost] = useState(props.post)
   const [popoverReactions, setPopoverReactions] = useState([]);
+  const [allowClick, setAllowClick] = useState(true);
   const reactions = [
     "kekw",
     "mad",
@@ -23,16 +24,21 @@ function PostFooter(props) {
     "sadge",
     "soulessFF",
     "soulessOhno",
-    "thumbsup"
+    "thumbsup",
+    "influrUWU"
+    "avnijoPeter"
   ];
 
   useEffect(() => {
+    setAllowClick(true);
     if (post.reactions !== undefined) {
-      setPopoverReactions(reactions.filter(reaction => !Object.keys(post.reactions).includes(reaction)));
+      setPopoverReactions(reactions.filter(reaction => 
+        (!Object.keys(post.reactions).includes(reaction) ||
+        post.reactions[reaction]  <= 0)));
     } else {
       setPopoverReactions(reactions);
     }
-  }, [])
+  }, [post])
 
   function convertNum(val) {
     let editedVal = val;
@@ -48,10 +54,21 @@ function PostFooter(props) {
     }
   }
 
+  //check if current user reacted to post
+  function reacted(reaction) {
+    //not found in reated means it didn't react to emote
+    if (post.reacted === undefined || post.reacted[props.currentUserInfo.username] === undefined) {
+      return false;
+    } else {
+      //reacted if current is same as reacted emote
+      return (post.reacted[props.currentUserInfo.username] === reaction);
+    }
+  }
+
   const checkCommentButton = () => {
     if (props.showCommentButton !== true) {
-      return (
-        <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
+      return ( 
+        <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
           <img src={commentIcon} style={{
             backgroundColor: "transparent",
             position: "relative",
@@ -69,11 +86,13 @@ function PostFooter(props) {
     if (post.reactions !== undefined) {
       return (
         Object.keys(post.reactions).map(reaction => {
-          return (
-            <div style={{ padding: "10px", bottom: "-20px", left: "-10px", }} key={reaction} className="col-4">
-              <ReactionIcon reaction={reaction} react={react} text={" " + convertNum(post.reactions[reaction])} id={props.postId + reaction} />
-            </div>
-          )
+          if (post.reactions[reaction] > 0) {
+            return (
+              <div style={{ padding: "10px", bottom: "-20px", left: "-10px", }} key={reaction} className="col-4">
+                <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={convertNum(post.reactions[reaction])} id={props.postId + reaction} />
+              </div>
+            )
+          }
         })
       )
     }
@@ -94,8 +113,33 @@ function PostFooter(props) {
   }
 
   const react = emote => {
-    props.reactToPost(props.postId, emote, 1);
-    props.getPost(props.postId, setPost);
+    if (!allowClick) {
+      return;
+    }
+    setAllowClick(false);
+    //first check if anyone has reacted
+    if (post.reacted === undefined) {
+      //hasn't reacted to post
+      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost);
+      return;
+    }
+    //reacted would be undefined if not found and some emote if found
+    const reacted = post.reacted[props.currentUserInfo.username]
+    if (reacted === undefined) {
+      //hasn't reacted to post
+      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost);
+      return;
+    } else {
+      //reacted to post so check if reacted then unreact else switch reaction
+      if (reacted !== emote) {
+        //if reacted is some other emote we just switch it
+        props.changeReaction(props.currentUserInfo.username, props.postId, reacted, emote, 1, setPost);
+      } else {
+        //deselect current reaction if reacted to same emote
+        props.unreactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost);
+      }
+    }
+    
   }
 
   const popover = (
@@ -128,7 +172,7 @@ function PostFooter(props) {
           </div>
         </OverlayTrigger>
       </div>
-      <div className="col-4 row" style={{ position: 'relative', bottom: '-20px' }}>
+      <div className="col-4 row" style={{ position: 'relative', bottom: '-20px'}}>
         {checkReactionLines()}
         <div className="col-2" />
         <div className="col-2">

@@ -15,7 +15,7 @@ const API = {
     };
     request.post(options, (err, res, body) => {
       if (err) {
-        return console.log(err);
+        //todo:: implement logic here when theres an error thats not a console log
       }
       callback(res);
     });
@@ -33,14 +33,14 @@ const API = {
 
     request.get(options, (err, res, body) => {
       if (err) {
-        return console.log(err);
+        //todo:: implement logic here when request fails
       }
-      
+
       callback(res);
     });
   },
   validate: (url, token, callback) => {
-    if(token === undefined) return "no token"
+    if (token === undefined) return "no token"
     const options = {
       url: "https://id.twitch.tv/oauth2/validate",
       json: true,
@@ -51,7 +51,7 @@ const API = {
 
     request.get(options, (err, res, body) => {
       if (err) {
-        return console.log(err);
+        //todo:: implement logic here when request fails
       }
       callback(res);
     });
