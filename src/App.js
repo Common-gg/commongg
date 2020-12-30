@@ -250,7 +250,7 @@ function App() {
   const reactToPost = (username, postId, reaction, value, setPost) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
-    reactedRef.set(reaction).then(()=> {
+    reactedRef.set(reaction).then(() => {
       //increment the counter for the post
       const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
       reactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
@@ -260,10 +260,10 @@ function App() {
   }
 
   //unreact to post and decrement
-  const unreactToPost = (username, postId, reaction, value, setPost)  => {
+  const unreactToPost = (username, postId, reaction, value, setPost) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
-    reactedRef.set(null).then(()=> {
+    reactedRef.set(null).then(() => {
       //decrement the counter for the post
       const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
       reactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
@@ -277,13 +277,13 @@ function App() {
   const changeReaction = (username, postId, oldReaction, newReaction, value, setPost) => {
     //set the reaction of user on post to new reaction
     const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
-    reactedRef.set(newReaction).then(()=> {
+    reactedRef.set(newReaction).then(() => {
       //increment the counter for the new emote
       const newReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + newReaction);
       newReactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
         //decrementr the counter for old emote
         const oldReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + oldReaction);
-        oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() =>{
+        oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
           getPost(postId, setPost);
         })
 
@@ -291,209 +291,209 @@ function App() {
 
     })
 
-  const updateFollow = (userId, followType, value) => {
-    const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
-    followRef.set(firebase.database.ServerValue.increment(value));
-  }
+    const updateFollow = (userId, followType, value) => {
+      const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
+      followRef.set(firebase.database.ServerValue.increment(value));
+    }
 
-  const followUser = (follower, followed) => {
-    // follows the desired user
-    const followerRef = database.ref('/users/' + follower + '/following/').push();
-    const followedRef = database.ref('/users/' + followed + '/followers/').push();
+    const followUser = (follower, followed) => {
+      // follows the desired user
+      const followerRef = database.ref('/users/' + follower + '/following/').push();
+      const followedRef = database.ref('/users/' + followed + '/followers/').push();
 
-    followerRef.set(followed);
-    followedRef.set(follower);
-    updateFollow(follower, "following", 1);
-    updateFollow(followed, "follower", 1);
-  }
+      followerRef.set(followed);
+      followedRef.set(follower);
+      updateFollow(follower, "following", 1);
+      updateFollow(followed, "follower", 1);
+    }
 
-  const unFollowUser = (follower, followed) => {
-    // unfollows the desired user
-    const followerRef = database.ref('/users/' + follower + '/following/');
-    const followedRef = database.ref('/users/' + followed + '/followers/');
+    const unFollowUser = (follower, followed) => {
+      // unfollows the desired user
+      const followerRef = database.ref('/users/' + follower + '/following/');
+      const followedRef = database.ref('/users/' + followed + '/followers/');
 
-    followerRef.once('value').then(function (snapshot) {
-      let followingList = snapshot.val();
-      const followStamp = Object.keys(followingList)[Object.values(followingList).indexOf(followed)];
-      followerRef.set({ ...followingList, [followStamp]: null });
-    });
-    followedRef.once('value').then(function (snapshot) {
-      let followerList = snapshot.val();
-      const followStamp = Object.keys(followerList)[Object.values(followerList).indexOf(follower)];
-      followedRef.set({ ...followerList, [followStamp]: null });
-    });
-    updateFollow(follower, "following", -1);
-    updateFollow(followed, "follower", -1);
-  }
+      followerRef.once('value').then(function (snapshot) {
+        let followingList = snapshot.val();
+        const followStamp = Object.keys(followingList)[Object.values(followingList).indexOf(followed)];
+        followerRef.set({ ...followingList, [followStamp]: null });
+      });
+      followedRef.once('value').then(function (snapshot) {
+        let followerList = snapshot.val();
+        const followStamp = Object.keys(followerList)[Object.values(followerList).indexOf(follower)];
+        followedRef.set({ ...followerList, [followStamp]: null });
+      });
+      updateFollow(follower, "following", -1);
+      updateFollow(followed, "follower", -1);
+    }
 
-  const getTitleOfGameById = (gameId) => {
-    // Gets the title of a game by it's ID
-    let gameTitle = "";
+    const getTitleOfGameById = (gameId) => {
+      // Gets the title of a game by it's ID
+      let gameTitle = "";
 
-    database.ref("/games/").once("value").then((snapshot) => {
-      let games = snapshot.val();
+      database.ref("/games/").once("value").then((snapshot) => {
+        let games = snapshot.val();
 
-      if (games.hasOwnProperty(gameId)) {
-        gameTitle = games[gameId].title;
-      }
-      else {
-        console.log(`Couldnt find game name for game with ID: ${gameId}`);
-      }
-      return gameTitle;
-    });
-  }
+        if (games.hasOwnProperty(gameId)) {
+          gameTitle = games[gameId].title;
+        }
+        else {
+          console.log(`Couldnt find game name for game with ID: ${gameId}`);
+        }
+        return gameTitle;
+      });
+    }
 
-  const getAllGames = (callback) => {
-    // gets all games from the db
-    database.ref("/games/").once("value").then((snapshot) => {
-      return callback(snapshot.val());
-    });
-  }
-
-  const getPosts = (filter, sort, callback) => {
-    // gets all posts for the DB
-    const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
-    postRef.once('value', function (snapshot) {
-      if (snapshot.val() !== null) {
+    const getAllGames = (callback) => {
+      // gets all games from the db
+      database.ref("/games/").once("value").then((snapshot) => {
         return callback(snapshot.val());
-      } else {
-        return callback({
-          "00000000": {
-            author: "404",
-            caption: "Nothing here",
-            game: "",
-            link: "",
-            text: "There are no posts to see",
-            timestamp: 0,
-            title: "No Content",
-            type: "text"
-          }
-        })
-      }
-    });
-  }
+      });
+    }
 
-  const existsUsername = (username) => {
-    // checks if there is a user with the username already
-    // returns true if it exists false if doesn't exist
-    return new Promise(function (resolve, reject) {
-      const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
-      postRef.once('value').then((snapshot) => {
-        const usersWithUsername = snapshot.val();
-
-        //if it's not null, there is some user with the username 
-        if (usersWithUsername !== null) {
-          return resolve(true);
+    const getPosts = (filter, sort, callback) => {
+      // gets all posts for the DB
+      const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
+      postRef.once('value', function (snapshot) {
+        if (snapshot.val() !== null) {
+          return callback(snapshot.val());
         } else {
-          return resolve(false);
+          return callback({
+            "00000000": {
+              author: "404",
+              caption: "Nothing here",
+              game: "",
+              link: "",
+              text: "There are no posts to see",
+              timestamp: 0,
+              title: "No Content",
+              type: "text"
+            }
+          })
         }
       });
-    })
-  }
+    }
 
-  const getPost = (postId, callback) => {
-    // Gets a single post from DB
-    database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
-      const postData = snapshot.val();
-      if (postData !== null) return callback(postData);
-    })
-  }
+    const existsUsername = (username) => {
+      // checks if there is a user with the username already
+      // returns true if it exists false if doesn't exist
+      return new Promise(function (resolve, reject) {
+        const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
+        postRef.once('value').then((snapshot) => {
+          const usersWithUsername = snapshot.val();
 
-  const getComments = (filter, sort, callback) => {
-    // gets comments from db
-    const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
-    postRef.once('value', function (snapshot) {
-      if (snapshot.val() !== null) return callback(snapshot.val());
-    });
-  }
+          //if it's not null, there is some user with the username 
+          if (usersWithUsername !== null) {
+            return resolve(true);
+          } else {
+            return resolve(false);
+          }
+        });
+      })
+    }
 
-  const getComment = (commentId, callback) => {
-    // Gets a single comment from DB
-    database.ref('/content/comments/' + commentId).once('value').then((snapshot) => {
-      const commentData = snapshot.val();
-      if (commentData !== null) return callback(commentData);
-    })
-  }
+    const getPost = (postId, callback) => {
+      // Gets a single post from DB
+      database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
+        const postData = snapshot.val();
+        if (postData !== null) return callback(postData);
+      })
+    }
 
-  const search = (value, callback, query) => {
-    // search the db
-    const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
-    usersRef.once('value', function (snapshot) {
-      console.log(snapshot.val());
-      if (snapshot.val() !== null) return callback(snapshot.val(), query);
-    });
-  }
+    const getComments = (filter, sort, callback) => {
+      // gets comments from db
+      const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
+      postRef.once('value', function (snapshot) {
+        if (snapshot.val() !== null) return callback(snapshot.val());
+      });
+    }
 
-  if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
-    return (<div></div>)
-  } else if (currentUser === null) {
-    return (
-      <Router>
-        <Switch>
-          <Route exact path="/SignUp" render={
-            (props) => (
-              <SignUp signUpUser={signUpUser} />
-            )} />
-          <Route path="/" render={
-            (props) => (
-              <Login signInUser={signInUser} />
-            )} />
-        </Switch>
-      </Router>
-    )
-  } else if (currentUserInfo.username === "") {
-    return (
-      <Router>
-        <Switch>
-          <Route path="/" render={
-            (props) => (
-              <CreateProfile existsUsername={existsUsername} storeBlob={storeBlob} />
-            )} />
-        </Switch>
-      </Router>
-    )
-  } else {
-    return (
-      <Router>
-        <Switch>
-          <Route path="/" render={
-            (props) => (
-              <PageContainer
-                currentUserId={currentUser.uid}
-                currentUserInfo={currentUserInfo}
+    const getComment = (commentId, callback) => {
+      // Gets a single comment from DB
+      database.ref('/content/comments/' + commentId).once('value').then((snapshot) => {
+        const commentData = snapshot.val();
+        if (commentData !== null) return callback(commentData);
+      })
+    }
 
-                allGames={allGames}
-                setAllGames={setAllGames}
+    const search = (value, callback, query) => {
+      // search the db
+      const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
+      usersRef.once('value', function (snapshot) {
+        console.log(snapshot.val());
+        if (snapshot.val() !== null) return callback(snapshot.val(), query);
+      });
+    }
 
-                signOut={signOut}
+    if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
+      return (<div></div>)
+    } else if (currentUser === null) {
+      return (
+        <Router>
+          <Switch>
+            <Route exact path="/SignUp" render={
+              (props) => (
+                <SignUp signUpUser={signUpUser} />
+              )} />
+            <Route path="/" render={
+              (props) => (
+                <Login signInUser={signInUser} />
+              )} />
+          </Switch>
+        </Router>
+      )
+    } else if (currentUserInfo.username === "") {
+      return (
+        <Router>
+          <Switch>
+            <Route path="/" render={
+              (props) => (
+                <CreateProfile existsUsername={existsUsername} storeBlob={storeBlob} />
+              )} />
+          </Switch>
+        </Router>
+      )
+    } else {
+      return (
+        <Router>
+          <Switch>
+            <Route path="/" render={
+              (props) => (
+                <PageContainer
+                  currentUserId={currentUser.uid}
+                  currentUserInfo={currentUserInfo}
 
-                getPosts={getPosts}
-                getPost={getPost}
-                reactToPost={reactToPost}
-                unreactToPost={unreactToPost}
-                changeReaction={changeReaction}
-                createPost={createPost}
-                createComment={createComment}
-                deleteComment={deleteComment}
-                updateNumComments={updateNumComments}
-                getComments={getComments}
-                getComment={getComment}
-                search={search}
+                  allGames={allGames}
+                  setAllGames={setAllGames}
 
-                storeImage={storeImage}
-                storeBlob={storeBlob}
+                  signOut={signOut}
 
-                getUser={getUser}
-                followUser={followUser}
-                unFollowUser={unFollowUser}
-                storeUserGames={storeUserGames}
-                storeUserAboutMe={storeUserAboutMe}
-              />
-            )} />
-        </Switch>
-      </Router>
-    );
+                  getPosts={getPosts}
+                  getPost={getPost}
+                  reactToPost={reactToPost}
+                  unreactToPost={unreactToPost}
+                  changeReaction={changeReaction}
+                  createPost={createPost}
+                  createComment={createComment}
+                  deleteComment={deleteComment}
+                  updateNumComments={updateNumComments}
+                  getComments={getComments}
+                  getComment={getComment}
+                  search={search}
+
+                  storeImage={storeImage}
+                  storeBlob={storeBlob}
+
+                  getUser={getUser}
+                  followUser={followUser}
+                  unFollowUser={unFollowUser}
+                  storeUserGames={storeUserGames}
+                  storeUserAboutMe={storeUserAboutMe}
+                />
+              )} />
+          </Switch>
+        </Router>
+      );
+    }
   }
 }
-
 export default App;
