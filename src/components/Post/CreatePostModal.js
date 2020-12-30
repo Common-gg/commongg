@@ -218,6 +218,22 @@ function CreatePostModal(props) {
         }
     }
 
+    //component for image preview when selectedFile is not null
+    function imagePreview() {   
+        if (selectedFile !== null) {
+            return (
+                <div>
+                    <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
+                    <div className="d-flex justify-content-center">
+                        <img src={URL.createObjectURL(selectedFile)} alt="preview" 
+                        style={{maxHeight: "50px"}}/>
+                    </div>
+                    
+                </div>
+            )
+        }
+    }
+
     return (
         <div className="CreatePostModal">
             <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#createPostModal" onClick={toggleModalState}>
@@ -261,7 +277,8 @@ function CreatePostModal(props) {
                                 rows="5"
                                 style={textAreaStyle}
                             />
-                        </div>
+                        </div>     
+                        {imagePreview()}                   
                         <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                         <div style={{ display: "flex" }}>
                             <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
