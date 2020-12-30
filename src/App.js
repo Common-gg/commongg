@@ -378,84 +378,86 @@ function App() {
         })
       })
     })
+  }
 
-    const existsUsername = (username) => {
-      // checks if there is a user with the username already
-      // returns true if it exists false if doesn't exist
-      return new Promise(function (resolve, reject) {
-        const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
-        postRef.once('value').then((snapshot) => {
-          const usersWithUsername = snapshot.val();
+  const existsUsername = (username) => {
+    // checks if there is a user with the username already
+    // returns true if it exists false if doesn't exist
+    return new Promise(function (resolve, reject) {
+      const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
+      postRef.once('value').then((snapshot) => {
+        const usersWithUsername = snapshot.val();
 
-          //if it's not null, there is some user with the username 
-          if (usersWithUsername !== null) {
-            return resolve(true);
-          } else {
-            return resolve(false);
-          }
-        });
-      })
-    }
-
-    const getComments = (filter, sort, callback) => {
-      // gets comments from db
-      const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
-      postRef.once('value', function (snapshot) {
-        if (snapshot.val() !== null) return callback(snapshot.val());
+        //if it's not null, there is some user with the username 
+        if (usersWithUsername !== null) {
+          return resolve(true);
+        } else {
+          return resolve(false);
+        }
       });
-    }
+    })
+  }
 
-    const getComment = (commentId, callback) => {
-      // Gets a single comment from DB
-      database.ref('/content/comments/' + commentId).once('value').then((snapshot) => {
-        const commentData = snapshot.val();
-        if (commentData !== null) return callback(commentData);
-      })
-    }
+  const getComments = (filter, sort, callback) => {
+    // gets comments from db
+    const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
+    postRef.once('value', function (snapshot) {
+      if (snapshot.val() !== null) return callback(snapshot.val());
+    });
+  }
 
-    const search = (value, callback, query) => {
-      // search the db
-      const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
-      usersRef.once('value', function (snapshot) {
-        console.log(snapshot.val());
-        if (snapshot.val() !== null) return callback(snapshot.val(), query);
-      });
-    }
+  const getComment = (commentId, callback) => {
+    // Gets a single comment from DB
+    database.ref('/content/comments/' + commentId).once('value').then((snapshot) => {
+      const commentData = snapshot.val();
+      if (commentData !== null) return callback(commentData);
+    })
+  }
 
-    if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
-      return (<div></div>)
-    } else if (currentUser === null) {
-      return (
-        <Router>
-          <Switch>
-            <Route exact path="/SignUp" render={
-              (props) => (
-                <SignUp signUpUser={signUpUser} />
-              )} />
-            <Route path="/" render={
-              (props) => (
-                <Login signInUser={signInUser} />
-              )} />
-          </Switch>
-        </Router>
-      )
-    } else if (currentUserInfo.username === "") {
-      return (
-        <Router>
-          <Switch>
-            <Route path="/" render={
-              (props) => (
-                <CreateProfile existsUsername={existsUsername} storeBlob={storeBlob} />
-              )} />
-          </Switch>
-        </Router>
-      )
-    } else {
-      return (
-        <Router>
-          <Switch>
-            <Route path="/" render={
-              (props) => (
+  const search = (value, callback, query) => {
+    // search the db
+    const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
+    usersRef.once('value', function (snapshot) {
+      console.log(snapshot.val());
+      if (snapshot.val() !== null) return callback(snapshot.val(), query);
+    });
+  }
+
+  if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
+    return (<div></div>)
+  } else if (currentUser === null) {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/SignUp" render={
+            (props) => (
+              <SignUp signUpUser={signUpUser} />
+            )} />
+          <Route path="/" render={
+            (props) => (
+              <Login signInUser={signInUser} />
+            )} />
+        </Switch>
+      </Router>
+    )
+  } else if (currentUserInfo.username === "") {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/" render={
+            (props) => (
+              <CreateProfile existsUsername={existsUsername} storeBlob={storeBlob} />
+            )} />
+        </Switch>
+      </Router>
+    )
+  } else {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/" render={
+            (props) => (
+              <div>
                 <PageContainer
                   currentUserId={currentUser.uid}
                   currentUserInfo={currentUserInfo}
@@ -487,11 +489,12 @@ function App() {
                   storeUserGames={storeUserGames}
                   storeUserAboutMe={storeUserAboutMe}
                 />
-              )} />
-          </Switch>
-        </Router>
-      );
-    }
+              </div>
+            )} />
+        </Switch>
+      </Router>
+    );
   }
 }
+
 export default App;
