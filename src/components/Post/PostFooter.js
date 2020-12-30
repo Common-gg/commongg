@@ -25,7 +25,7 @@ function PostFooter(props) {
     "soulessFF",
     "soulessOhno",
     "thumbsup",
-    "influrUWU"
+    "influrUWU",
     "avnijoPeter"
   ];
 
