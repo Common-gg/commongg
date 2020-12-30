@@ -24,14 +24,14 @@ function SettingsContainer(props) {
     //if selected doesn't have current it means it loaded from setImage
     if (selectedFile.current === undefined) {
       profilePictureUpdated = true;
-      profilePicture = selectedFile;      
+      profilePicture = selectedFile;
     }
     if (profilePictureUpdated) {
       props.storeBlob(props.currentUserInfo.username, profilePicture, aboutMe);
     } else {
       props.storeUserAboutMe(aboutMe);
     }
-    
+
   }
 
   return (
@@ -47,6 +47,7 @@ function SettingsContainer(props) {
       <div className="row col-12">
         <div className="col-4"></div>
         <div className="col-8">
+          <br />
           <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
         </div>
       </div>
@@ -63,8 +64,8 @@ function SettingsContainer(props) {
                 height: "30px",
                 background: "transparent",
                 position: 'relative',
-                top: "-90px",
-                right: "-90px"
+                top: "-82px",
+                right: "-105px"
               }}>
               <img src={edit} style={{ width: "60px", height: "60px" }} />
             </label>
@@ -73,7 +74,7 @@ function SettingsContainer(props) {
       </div>
       <div className="row col-12">
         <div className="row col-12">
-          <div className="col-3"></div>
+          <div className="col-2"></div>
           <div className="col-8">
             <form>
               <div className="form-group" style={{ color: "#FFFFFF" }}>
@@ -86,7 +87,11 @@ function SettingsContainer(props) {
                     backgroundColor: "transparent",
                     color: "#FFFFFF",
                     resize: "none",
-                    maxWidth: "500px"
+                    maxWidth: "500px",
+                    borderStyle: "solid",
+                    borderRadius: "5px",
+                    borderColor: "#BF9AFC",
+                    borderWidth: "1px",
                   }}
                 />
               </div>
@@ -94,7 +99,7 @@ function SettingsContainer(props) {
           </div>
         </div>
         <div className="col-8"></div>
-        <div className="row col-2">
+        <div className="row col-1">
           <button type="button"
             className="btn"
             onClick={() => handleUpdateButtonClick()}

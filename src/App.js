@@ -213,10 +213,11 @@ function App() {
     postRef.set(post);
   }
 
-  const updateNumComments = (postId) => {
+  const updateNumComments = (postId, numIncrement) => {
     const numCommentsRef = database.ref('/content/posts/' + postId + '/numComments')
     if (numCommentsRef === undefined) return;
-    numCommentsRef.set(firebase.database.ServerValue.increment(1));
+    console.log(numIncrement);
+    numCommentsRef.set(firebase.database.ServerValue.increment(numIncrement));
   }
 
   const createComment = (comment) => {
@@ -225,7 +226,17 @@ function App() {
     const commentRef = database.ref('/content/comments/').push();
     commentRef.set(comment);
     //update the number of comments
-    updateNumComments(comment.postId);
+    updateNumComments(comment.postId, 1);
+  }
+
+  const deleteComment = (commentId, postId) => {
+    // Deletes a comment in the DB
+    if (currentUser === undefined) return;
+    if (commentId === undefined || commentId === "") return;
+    const commentRef = database.ref('/content/comments/' + commentId);
+    commentRef.remove();
+    //update the number of comments
+    updateNumComments(postId, -1);
   }
 
   const getUser = (userId, callback) => {
@@ -234,11 +245,6 @@ function App() {
       const userData = snapshot.val();
       if (userData !== null) return callback(userData);
     })
-  }
-
-  const reactToPost = (postId, reaction, value) => {
-    const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
-    reactionRef.set(firebase.database.ServerValue.increment(value));
   }
 
   const updateFollow = (userId, followType, value) => {
@@ -300,6 +306,14 @@ function App() {
     });
   }
 
+  const getPost = (postId, callback) => {
+    // Gets a single post from DB
+    database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
+      const postData = snapshot.val();
+      if (postData !== null) return callback(postData);
+    })
+  }
+
   const getPosts = (filter, sort, callback) => {
     // gets all posts for the DB
     const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
@@ -323,6 +337,49 @@ function App() {
     });
   }
 
+  const reactToPost = (username, postId, reaction, value, setPost) => {
+    //add to list to reacted
+    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    reactedRef.set(reaction).then(() => {
+      //increment the counter for the post
+      const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
+      reactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
+        getPost(postId, setPost);
+      })
+    })
+  }
+
+  //unreact to post and decrement
+  const unreactToPost = (username, postId, reaction, value, setPost) => {
+    //add to list to reacted
+    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    reactedRef.set(null).then(() => {
+      //decrement the counter for the post
+      const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
+      reactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
+        //make sure everything is updated on server before gettingp ost
+        getPost(postId, setPost);
+      })
+    })
+  }
+
+  //change the current reaction, decrement old, increment new
+  const changeReaction = (username, postId, oldReaction, newReaction, value, setPost) => {
+    //set the reaction of user on post to new reaction
+    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    reactedRef.set(newReaction).then(() => {
+      //increment the counter for the new emote
+      const newReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + newReaction);
+      newReactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
+        //decrementr the counter for old emote
+        const oldReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + oldReaction);
+        oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
+          getPost(postId, setPost);
+        })
+      })
+    })
+  }
+
   const existsUsername = (username) => {
     // checks if there is a user with the username already
     // returns true if it exists false if doesn't exist
@@ -338,14 +395,6 @@ function App() {
           return resolve(false);
         }
       });
-    })
-  }
-
-  const getPost = (postId, callback) => {
-    // Gets a single post from DB
-    database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
-      const postData = snapshot.val();
-      if (postData !== null) return callback(postData);
     })
   }
 
@@ -408,34 +457,39 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <PageContainer
-                currentUserId={currentUser.uid}
-                currentUserInfo={currentUserInfo}
+              <div>
+                <PageContainer
+                  currentUserId={currentUser.uid}
+                  currentUserInfo={currentUserInfo}
 
-                allGames={allGames}
-                setAllGames={setAllGames}
+                  allGames={allGames}
+                  setAllGames={setAllGames}
 
-                signOut={signOut}
+                  signOut={signOut}
 
-                getPosts={getPosts}
-                getPost={getPost}
-                reactToPost={reactToPost}
-                createPost={createPost}
-                createComment={createComment}
-                updateNumComments={updateNumComments}
-                getComments={getComments}
-                getComment={getComment}
-                search={search}
+                  getPosts={getPosts}
+                  getPost={getPost}
+                  reactToPost={reactToPost}
+                  unreactToPost={unreactToPost}
+                  changeReaction={changeReaction}
+                  createPost={createPost}
+                  createComment={createComment}
+                  deleteComment={deleteComment}
+                  updateNumComments={updateNumComments}
+                  getComments={getComments}
+                  getComment={getComment}
+                  search={search}
 
-                storeImage={storeImage}
-                storeBlob={storeBlob}
+                  storeImage={storeImage}
+                  storeBlob={storeBlob}
 
-                getUser={getUser}
-                followUser={followUser}
-                unFollowUser={unFollowUser}
-                storeUserGames={storeUserGames}
-                storeUserAboutMe={storeUserAboutMe}
-              />
+                  getUser={getUser}
+                  followUser={followUser}
+                  unFollowUser={unFollowUser}
+                  storeUserGames={storeUserGames}
+                  storeUserAboutMe={storeUserAboutMe}
+                />
+              </div>
             )} />
         </Switch>
       </Router>
