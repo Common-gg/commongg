@@ -64,7 +64,7 @@ function ViewPostContainer(props) {
                     return (
                         <div key={Object.keys(comments).reverse()[i]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} updateRefresh={updateRefresh}/>
+                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} showCommentButton={true} updateRefresh={updateRefresh}/>
                         </div>
                     )
             })}

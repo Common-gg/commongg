@@ -64,8 +64,8 @@ function PostFooter(props) {
     }
   }
 
-  const commentButtonCheck = () => {
-    if (props.postId !== undefined) {
+  const checkCommentButton = () => {
+    if (props.showCommentButton !== true) {
       return (
         <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
           <img src={commentIcon} style={{
