@@ -44,17 +44,12 @@ function SettingsContainer(props) {
       padding: "0px 0px 50px 0px",
       overflow: "hidden"
     }}>
-      <div className="row col-12">
+      <div className="row">
         <div className="col-4"></div>
-        <div className="col-8">
+        <div className="col-4">
           <br />
-          <h2 style={{ color: "#BF9AFC" }}>edit profile</h2>
-        </div>
-      </div>
-      <div className="row col-12">
-        <div className="col-3"></div>
-        <div className="col-8">
-          <div className="container" style={{ cursor: "pointer" }}>
+          <h2 className="text-center" style={{ color: "#BF9AFC" }}>edit profile</h2>
+          <div style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
               currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} />
             <label htmlFor="fileInput"
@@ -64,67 +59,64 @@ function SettingsContainer(props) {
                 height: "30px",
                 background: "transparent",
                 position: 'relative',
-                top: "-82px",
-                right: "-105px"
+                top: "-6rem",
+                right: "-6.5rem"
               }}>
               <img src={edit} style={{ width: "60px", height: "60px" }} />
             </label>
           </div>
         </div>
       </div>
-      <div className="row col-12">
-        <div className="row col-12">
-          <div className="col-2"></div>
-          <div className="col-8">
-            <form>
-              <div className="form-group" style={{ color: "#FFFFFF" }}>
-                <textarea className="form-control"
-                  rows="3"
-                  id="formControlTextarea1"
-                  placeholder="About me..."
-                  ref={aboutMeRef}
-                  style={{
-                    backgroundColor: "transparent",
-                    color: "#FFFFFF",
-                    resize: "none",
-                    maxWidth: "500px",
-                    borderStyle: "solid",
-                    borderRadius: "5px",
-                    borderColor: "#BF9AFC",
-                    borderWidth: "1px",
-                  }}
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-        <div className="col-8"></div>
-        <div className="row col-1">
-          <button type="button"
-            className="btn"
-            onClick={() => handleUpdateButtonClick()}
-            style={{
-              backgroundColor: "transparent",
-              color: "#BF9AFC",
-              border: "solid",
-              borderRadius: "10px",
-              borderColor: "#BF9AFC",
-              borderWidth: "2px",
-            }}>
-            update
-                </button>
-        </div>
-        <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} /></div>
       <div className="row">
         <div className="col-1"></div>
-        <div className="row col-12">
-          <div className="col-1"></div>
-          <div className="col text-center">
-            <Link to="/" style={{ color: "#BF9AFC", textDecoration: "underline", }}>
-              <br /><p onClick={() => props.signOut()}>sign out</p>
-            </Link>
-            <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC", textDecoration: "underline" }}>discord</a></p>
+        <form className="col-10">
+          <div className="form-group" style={{ color: "#FFFFFF" }}>
+            <textarea className="form-control"
+              rows="3"
+              id="formControlTextarea1"
+              placeholder="About me..."
+              maxLength="150"
+              ref={aboutMeRef}
+              style={{
+                backgroundColor: "transparent",
+                color: "#FFFFFF",
+                resize: "none",
+                maxWidth: "100%",
+                borderStyle: "solid",
+                borderRadius: "5px",
+                borderColor: "#BF9AFC",
+                borderWidth: "1px",
+              }}
+            />
           </div>
+        </form>
+      </div>
+      <div className="row">
+        <div className="col-9"></div>
+        <button type="button"
+          className="btn"
+          onClick={() => handleUpdateButtonClick()}
+          style={{
+            backgroundColor: "transparent",
+            color: "#BF9AFC",
+            border: "solid",
+            borderRadius: "10px",
+            borderColor: "#BF9AFC",
+            borderWidth: "2px",
+            width: "15%",
+            padding: "0.6rem"
+          }}>
+          update
+          </button>
+      </div>
+      <br />
+      <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
+      <div className="row">
+        <div className="col text-center">
+          <Link to="/" style={{ color: "#BF9AFC", textDecoration: "underline", }}>
+            <br /><p onClick={() => props.signOut()}>sign out</p>
+          </Link>
+          <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC", textDecoration: "underline" }}>discord</a></p>
         </div>
       </div>
     </div>

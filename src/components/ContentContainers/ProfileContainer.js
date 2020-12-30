@@ -15,12 +15,12 @@ function ProfileContainer(props) {
     const [followBtnStyle, setFollowBtnStyle] = useState({
         visibility: "visible",
         backgroundColor: "transparent",
-        width: "30px",
-        height: "30px",
+        width: "2.5rem",
+        height: "2.5rem",
         borderRadius: "50%",
-        position: "relative", 
-        top: "-1.5vh",
-        left: "-0.5vw"
+        position: "relative",
+        top: "-1.6vh",
+        left: "-1vw"
     });
 
     function followHandler() {
@@ -71,12 +71,12 @@ function ProfileContainer(props) {
 
     const followStyle = {
         color: "#BF9AFC",
-        fontSize: "1.2rem",
+        fontSize: "1.6rem",
         marginRight: "1rem"
     };
 
     const numberStyle = {
-        fontSize: "1.2rem"
+        fontSize: "1.6rem"
     };
 
     return (
@@ -91,15 +91,9 @@ function ProfileContainer(props) {
                 <div className="row p-0">
                     <div className="col-1"></div>
                     <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }} />
-                    <div className="col-5">
-                        <h2>
+                    <div className="col-8">
+                        <h2 style={{ marginTop: "5%" }}>
                             {user.username}
-                            <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
-                                <img src={followBtnState.img} style={{
-                                    width: "30px",
-                                    height: "30px",
-                                }} />
-                            </button>
                         </h2>
                         <div className="d-flex flex-wrap">
                             <span style={numberStyle}>{user.followCounts.following}
@@ -108,15 +102,21 @@ function ProfileContainer(props) {
                             <span style={numberStyle}>{user.followCounts.follower}
                                 <a style={followStyle}> followers</a>
                             </span>
+                            <span>
+                                <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
+                                    <img src={followBtnState.img} style={{
+                                        width: "2.5rem",
+                                        height: "2.5rem",
+                                    }} />
+                                </button>
+                            </span>
                         </div>
                     </div>
-                    <div className="col-2">
-                    </div>
-                    <div className="container text-wrap" style={{ margin: "auto" }}>
+                </div>
+                <div className="container text-wrap row" style={{ margin: "auto" }}>
                         <div className="col-12">
                             <br />{checkAboutMe()}
                         </div></div>
-                </div>
                 <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                 <div className="flex-wrap d-flex flex-row justify-content-center">
                     <div className="flex-wrap d-flex flex-row justify-content-center" style={{ width: "70%" }}>
@@ -130,7 +130,9 @@ function ProfileContainer(props) {
                                     {
                                         width: '22%',
                                         height: 'auto',
-                                        margin: '3%'
+                                        margin: '3%',
+                                        marginBottom: "10%",
+                                        marginTop: "4%"
                                     }}
                             ></img>
                         })}
