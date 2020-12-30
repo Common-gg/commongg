@@ -31,7 +31,7 @@ function ReactionIcon(props) {
 
         }}>
         <label style={{cursor: "pointer",}} htmlFor={props.id}>
-          <div style={{border: (props.reacted?"5px solid #BF9AFC":null),display: "inline-block"}}>
+          <div style={{border: (props.reacted?"3px solid #BF9AFC":null),display: "inline-block", borderRadius: "8px"}}>
             <img style={{
               background:"transparent",
               width: "30px",
