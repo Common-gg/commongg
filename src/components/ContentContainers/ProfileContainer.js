@@ -102,9 +102,9 @@ function ProfileContainer(props) {
                         </button>
                     </div>
                     <div className="container text-wrap" style={{ margin: "auto" }}>
-                        <div className="col-2">
-                        <br />{checkAboutMe()}
-                    </div></div>
+                        <div className="col-12">
+                            <br />{checkAboutMe()}
+                        </div></div>
                 </div>
                 <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                 <div className="flex-wrap d-flex flex-row justify-content-center">
