@@ -26,6 +26,7 @@ function PostFooter(props) {
     "soulessOhno",
     "thumbsup",
     "influrUWU"
+    "avnijoPeter"
   ];
 
   useEffect(() => {
