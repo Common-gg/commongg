@@ -181,7 +181,7 @@ function PostFooter(props) {
           }} />
         </div>
         <div className="col-2">
-          {commentButtonCheck()}
+          {checkCommentButton()}
         </div>
         <div className="col-2">
           <img src={shareIcon} style={{

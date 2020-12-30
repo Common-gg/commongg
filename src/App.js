@@ -247,6 +247,96 @@ function App() {
     })
   }
 
+  const updateFollow = (userId, followType, value) => {
+    const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
+    followRef.set(firebase.database.ServerValue.increment(value));
+  }
+
+  const followUser = (follower, followed) => {
+    // follows the desired user
+    const followerRef = database.ref('/users/' + follower + '/following/').push();
+    const followedRef = database.ref('/users/' + followed + '/followers/').push();
+
+    followerRef.set(followed);
+    followedRef.set(follower);
+    updateFollow(follower, "following", 1);
+    updateFollow(followed, "follower", 1);
+  }
+
+  const unFollowUser = (follower, followed) => {
+    // unfollows the desired user
+    const followerRef = database.ref('/users/' + follower + '/following/');
+    const followedRef = database.ref('/users/' + followed + '/followers/');
+
+    followerRef.once('value').then(function (snapshot) {
+      let followingList = snapshot.val();
+      const followStamp = Object.keys(followingList)[Object.values(followingList).indexOf(followed)];
+      followerRef.set({ ...followingList, [followStamp]: null });
+    });
+    followedRef.once('value').then(function (snapshot) {
+      let followerList = snapshot.val();
+      const followStamp = Object.keys(followerList)[Object.values(followerList).indexOf(follower)];
+      followedRef.set({ ...followerList, [followStamp]: null });
+    });
+    updateFollow(follower, "following", -1);
+    updateFollow(followed, "follower", -1);
+  }
+
+  const getTitleOfGameById = (gameId) => {
+    // Gets the title of a game by it's ID
+    let gameTitle = "";
+
+    database.ref("/games/").once("value").then((snapshot) => {
+      let games = snapshot.val();
+
+      if (games.hasOwnProperty(gameId)) {
+        gameTitle = games[gameId].title;
+      }
+      else {
+        console.log(`Couldnt find game name for game with ID: ${gameId}`);
+      }
+      return gameTitle;
+    });
+  }
+
+  const getAllGames = (callback) => {
+    // gets all games from the db
+    database.ref("/games/").once("value").then((snapshot) => {
+      return callback(snapshot.val());
+    });
+  }
+
+  const getPost = (postId, callback) => {
+    // Gets a single post from DB
+    database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
+      const postData = snapshot.val();
+      if (postData !== null) return callback(postData);
+    })
+  }
+
+  const getPosts = (filter, sort, callback) => {
+    // gets all posts for the DB
+    const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
+    postRef.once('value', function (snapshot) {
+      if (snapshot.val() !== null) {
+        return callback(snapshot.val());
+      } else {
+        return callback({
+          "00000000": {
+            author: "404",
+            caption: "Nothing here",
+            game: "",
+            link: "",
+            text: "There are no posts to see",
+            timestamp: 0,
+            title: "No Content",
+            type: "text"
+          }
+        })
+      }
+    });
+  }
+
   const reactToPost = (username, postId, reaction, value, setPost) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
@@ -286,92 +376,8 @@ function App() {
         oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
           getPost(postId, setPost);
         })
-
       })
-
     })
-
-    const updateFollow = (userId, followType, value) => {
-      const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
-      followRef.set(firebase.database.ServerValue.increment(value));
-    }
-
-    const followUser = (follower, followed) => {
-      // follows the desired user
-      const followerRef = database.ref('/users/' + follower + '/following/').push();
-      const followedRef = database.ref('/users/' + followed + '/followers/').push();
-
-      followerRef.set(followed);
-      followedRef.set(follower);
-      updateFollow(follower, "following", 1);
-      updateFollow(followed, "follower", 1);
-    }
-
-    const unFollowUser = (follower, followed) => {
-      // unfollows the desired user
-      const followerRef = database.ref('/users/' + follower + '/following/');
-      const followedRef = database.ref('/users/' + followed + '/followers/');
-
-      followerRef.once('value').then(function (snapshot) {
-        let followingList = snapshot.val();
-        const followStamp = Object.keys(followingList)[Object.values(followingList).indexOf(followed)];
-        followerRef.set({ ...followingList, [followStamp]: null });
-      });
-      followedRef.once('value').then(function (snapshot) {
-        let followerList = snapshot.val();
-        const followStamp = Object.keys(followerList)[Object.values(followerList).indexOf(follower)];
-        followedRef.set({ ...followerList, [followStamp]: null });
-      });
-      updateFollow(follower, "following", -1);
-      updateFollow(followed, "follower", -1);
-    }
-
-    const getTitleOfGameById = (gameId) => {
-      // Gets the title of a game by it's ID
-      let gameTitle = "";
-
-      database.ref("/games/").once("value").then((snapshot) => {
-        let games = snapshot.val();
-
-        if (games.hasOwnProperty(gameId)) {
-          gameTitle = games[gameId].title;
-        }
-        else {
-          console.log(`Couldnt find game name for game with ID: ${gameId}`);
-        }
-        return gameTitle;
-      });
-    }
-
-    const getAllGames = (callback) => {
-      // gets all games from the db
-      database.ref("/games/").once("value").then((snapshot) => {
-        return callback(snapshot.val());
-      });
-    }
-
-    const getPosts = (filter, sort, callback) => {
-      // gets all posts for the DB
-      const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
-      postRef.once('value', function (snapshot) {
-        if (snapshot.val() !== null) {
-          return callback(snapshot.val());
-        } else {
-          return callback({
-            "00000000": {
-              author: "404",
-              caption: "Nothing here",
-              game: "",
-              link: "",
-              text: "There are no posts to see",
-              timestamp: 0,
-              title: "No Content",
-              type: "text"
-            }
-          })
-        }
-      });
-    }
 
     const existsUsername = (username) => {
       // checks if there is a user with the username already
@@ -388,14 +394,6 @@ function App() {
             return resolve(false);
           }
         });
-      })
-    }
-
-    const getPost = (postId, callback) => {
-      // Gets a single post from DB
-      database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
-        const postData = snapshot.val();
-        if (postData !== null) return callback(postData);
       })
     }
 
