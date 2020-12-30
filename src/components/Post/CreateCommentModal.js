@@ -82,7 +82,7 @@ function CreateCommentModal(props) {
 
     return (
         <div className="CreateCommentModal">
-            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-target="#createCommentModal">
+            <button type="button" style={buttonStyle} id="createCommentButton" className="btn btn-primary" data-toggle="modal" data-target="#createCommentModal">
                 <img src={addcommentIcon} style={buttonStyle}/>
             </button>
             <div className="modal fade" id="createCommentModal" tabIndex="-1" role="dialog" aria-labelledby="createCommentModalLabel" aria-hidden="true">
