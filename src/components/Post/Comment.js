@@ -3,6 +3,7 @@ import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
 import { Link } from "react-router-dom";
 import optionsIcon from '../../images/icons/options.png';
+import { Popover, OverlayTrigger } from 'react-bootstrap'
 
 function Comment(props) {
 
@@ -14,6 +15,14 @@ function Comment(props) {
         postId: ""
     });
     const [commentId, setCommentId] = useState(null);
+
+    const popoverStyle = {
+        backgroundColor: "#292833",
+        boxShadow: "4px 4px 200px 0px #171421 ",
+        borderRadius: "20px",
+        padding: "10px 20px 0px 20px",
+        marginTop: "20px"
+    }
 
     useEffect(() => {
         setCommentId(props.commentId);
@@ -27,8 +36,33 @@ function Comment(props) {
         props.getUser(comment.author, setAuthor);
     }, [comment])
 
-    const handleOptionsClicked = (temp) => {
-        console.log(temp);
+    const popover = (
+        <Popover id={commentId + "OptionsPopover"} style={popoverStyle}>
+            <Popover.Content>
+                <div className="row">
+                    <p onClick={() => handleDeleteClicked(commentId, comment.postId)} style={{color: "#ffffff"}}>Delete</p>
+                </div>
+            </Popover.Content>
+        </Popover>
+    );
+
+    const checkOptions = () => {
+        if (props.currentUserId === comment.author) {
+            return (<OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
+                <img src={optionsIcon} style={{
+                    backgroundColor: "transparent",
+                    position: "relative",
+                    bottom: "-8px",
+                    left: "100px"
+                }} />
+            </OverlayTrigger>)
+        }
+    }
+
+    const handleDeleteClicked = (tempCommentId, tempPostId) => {
+        props.deleteComment(tempCommentId, tempPostId);
+        document.body.click();
+        props.updateRefresh();
     }
 
     return (
@@ -54,12 +88,7 @@ function Comment(props) {
                         </div>
                     </div>
                     <div className="col-4">
-                        <img src={optionsIcon} onClick={() => handleOptionsClicked(commentId)} style={{
-                            backgroundColor: "transparent",
-                            position: "relative",
-                            bottom: "-8px",
-                            left: "100px"
-                        }} />
+                        {checkOptions()}
                     </div>
                 </div>
                 <div className="row">
