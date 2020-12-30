@@ -75,13 +75,13 @@ function App() {
 
   useEffect(() => {
     // Access the Twitch API
-    Twitch.getToken(process.env.GET_TOKEN, (res, err) => {
-      setTwitchToken(res.body.access_token);
-    });
-    setInterval(() => {
-      Twitch.validate(process.env.TWITCH_VALIDATE_URL, twitchToken, (res, err) => {
-      })
-    }, 590000);
+    // Twitch.getToken(process.env.GET_TOKEN, (res, err) => {
+    //   setTwitchToken(res.body.access_token);
+    // });
+    // setInterval(() => {
+    //   Twitch.validate(process.env.TWITCH_VALIDATE_URL, twitchToken, (res, err) => {
+    //   })
+    // }, 590000);
   }, []);
 
   useEffect(() => {
@@ -259,6 +259,17 @@ function App() {
     followedRef.set(follower);
     updateFollow(follower, "following", 1);
     updateFollow(followed, "follower", 1);
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      followCounts: {
+        follower: currentUserInfo.followCounts.follower,
+        following: currentUserInfo.followCounts.following+1
+      },
+      following: {
+        ...currentUserInfo.following,
+        [Date.now()]: followed
+      }
+    })
   }
 
   const unFollowUser = (follower, followed) => {
@@ -278,6 +289,13 @@ function App() {
     });
     updateFollow(follower, "following", -1);
     updateFollow(followed, "follower", -1);
+    setCurrentUserInfo({
+      ...currentUserInfo,
+      followCounts: {
+        follower: currentUserInfo.followCounts.follower+1,
+        following: currentUserInfo.followCounts.following
+      }
+    })
   }
 
   const getTitleOfGameById = (gameId) => {

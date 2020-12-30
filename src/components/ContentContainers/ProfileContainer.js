@@ -37,6 +37,7 @@ function ProfileContainer(props) {
 
     useEffect(() => {
         if (props.currentUserInfo.following) {
+            console.log(props.currentUserInfo.following);
             let temp = Object.values(props.currentUserInfo.following);
             if (temp.includes(props.pageId)) {
                 setFollowBtnState({ ...followBtnState, text: "Following" });
@@ -77,9 +78,6 @@ function ProfileContainer(props) {
                 borderWidth: "2px",
             }}>
                 <br />
-                <div container>
-
-                </div>
                 <div className="row p-0">
                     <div className="col-1"></div>
                     <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }} />

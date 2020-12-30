@@ -32,6 +32,9 @@ function ViewPostContainer(props) {
         let url = window.location.href;
         url = url.split('/');
         setPostId(url[url.length - 1]);
+        if (url[url.length - 2] === "comment") {
+            document.getElementById("createCommentButton").click();
+        }
     }, []);
 
     useEffect(() => {
