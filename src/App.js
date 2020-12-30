@@ -213,11 +213,10 @@ function App() {
     postRef.set(post);
   }
 
-  const updateNumComments = (postId, numIncrement) => {
+  const updateNumComments = (postId) => {
     const numCommentsRef = database.ref('/content/posts/' + postId + '/numComments')
     if (numCommentsRef === undefined) return;
-    console.log(numIncrement);
-    numCommentsRef.set(firebase.database.ServerValue.increment(numIncrement));
+    numCommentsRef.set(firebase.database.ServerValue.increment(1));
   }
 
   const createComment = (comment) => {
@@ -226,17 +225,7 @@ function App() {
     const commentRef = database.ref('/content/comments/').push();
     commentRef.set(comment);
     //update the number of comments
-    updateNumComments(comment.postId, 1);
-  }
-
-  const deleteComment = (commentId, postId) => {
-    // Deletes a comment in the DB
-    if (currentUser === undefined) return;
-    if (commentId === undefined || commentId === "") return;
-    const commentRef = database.ref('/content/comments/' + commentId);
-    commentRef.remove();
-    //update the number of comments
-    updateNumComments(postId, -1);
+    updateNumComments(comment.postId);
   }
 
   const getUser = (userId, callback) => {
@@ -286,10 +275,11 @@ function App() {
         oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() =>{
           getPost(postId, setPost);
         })
-
+        
       })
-
+      
     })
+  }
 
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
@@ -470,9 +460,10 @@ function App() {
                 getPosts={getPosts}
                 getPost={getPost}
                 reactToPost={reactToPost}
+                unreactToPost={unreactToPost}
+                changeReaction={changeReaction}
                 createPost={createPost}
                 createComment={createComment}
-                deleteComment={deleteComment}
                 updateNumComments={updateNumComments}
                 getComments={getComments}
                 getComment={getComment}
