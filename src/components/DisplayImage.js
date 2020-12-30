@@ -11,17 +11,15 @@ function DisplayImage(props) {
       let img = event.target.files[0];
       setImage(URL.createObjectURL(img));
 
-      console.log(img.type);
-
       if ((img.type === "image/png") || (img.type === "image/gif")) {
         props.setImg(img);
       }
       else {
         compress.compress([img], {
-          size: 4,
+          size: 5,
           quality: .9,
-          maxWidth: 150,
-          maxHeight: 100,
+          maxWidth: 1200,
+          maxHeight: 675,
           resize: true
         }).then((data) => {
           const imgToCompress = data[0];
