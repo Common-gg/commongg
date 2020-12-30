@@ -25,7 +25,7 @@ function PostFooter(props) {
     "soulessFF",
     "soulessOhno",
     "thumbsup",
-    "influrUWUW"
+    "influrUWU"
   ];
 
   useEffect(() => {
@@ -181,7 +181,7 @@ function PostFooter(props) {
           }} />
         </div>
         <div className="col-2">
-          {checkCommentButton()}
+          {commentButtonCheck()}
         </div>
         <div className="col-2">
           <img src={shareIcon} style={{
