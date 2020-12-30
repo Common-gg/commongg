@@ -1,13 +1,33 @@
 import React, { useState } from "react";
+import Compress from "compress.js";
 
 function DisplayImage(props) {
   const [image, setImage] = useState(props.currentImg);
 
   const onImageChange = event => {
     if (event.target.files && event.target.files[0]) {
+      const compress = new Compress();
+
       let img = event.target.files[0];
       setImage(URL.createObjectURL(img));
-      props.setImg(img);
+
+      if ((img.type === "image/png") || (img.type === "image/gif")) {
+        props.setImg(img);
+      }
+      else {
+        compress.compress([img], {
+          size: 5,
+          quality: .9,
+          maxWidth: 1200,
+          maxHeight: 675,
+          resize: true
+        }).then((data) => {
+          const imgToCompress = data[0];
+          let compressedImage = Compress.convertBase64ToFile(imgToCompress.data, imgToCompress.ext);
+
+          props.setImg(compressedImage);
+        });
+      }
     }
   };
 

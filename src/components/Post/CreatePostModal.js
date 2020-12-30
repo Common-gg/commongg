@@ -178,17 +178,22 @@ function CreatePostModal(props) {
 
             const compress = new Compress();
 
-            compress.compress([file], {
-                size: 4,
-                quality: .75,
-                maxWidth: 470,
-                maxHeight: 470,
-                resize: true
-            }).then((data) => {
-                const img = data[0];
-                let file = Compress.convertBase64ToFile(img.data, img.ext);
+            if ((file.type === "image/png") || (file.type === "image/gif")) {
                 setSelectedFile(file);
-            });
+            }
+            else {
+                compress.compress([file], {
+                    size: 5,
+                    quality: .9,
+                    maxWidth: 1200,
+                    maxHeight: 675,
+                    resize: true
+                }).then((data) => {
+                    const img = data[0];
+                    let file = Compress.convertBase64ToFile(img.data, img.ext);
+                    setSelectedFile(file);
+                });
+            }
         }
     }
     function setOptions() {
