@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
+import optionsIcon from '../../images/icons/options.png';
 import { Link } from "react-router-dom";
 
 function Post(props) {
@@ -25,6 +26,25 @@ function Post(props) {
       });
     } else {
       return props.style;
+    }
+  }
+
+  function deletePost() {
+    console.log("delete")
+  }
+
+  function checkOptions() {
+    if (props.currentUserId === props.post.author) {
+      return (
+      <div>
+        <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{background:"transparent"}}>
+          <img src={optionsIcon} alt={"options"} style={{backgroundColor: "transparent"}} />        
+        </div>
+        <div class="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <p className="dropdown-item mb-0" onClick={()=>deletePost()} style={{cursor: "pointer"}}>Delete Post</p>
+        </div>
+      </div>
+      )
     }
   }
 
@@ -97,10 +117,13 @@ function Post(props) {
                 </Link>
                 <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US",{hour: '2-digit', minute:'2-digit'}) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
                   style={{ color: '#BF9AFC', fontSize: '12px' }}
-                />
+                />     
               </div>
             </div>
           </div>
+          <div className="ml-auto pr-3 dropdown">
+            {checkOptions()}
+          </div>          
         </div>
         <div className="row">
           <div className="col-12">
