@@ -3,23 +3,33 @@ import { Link } from "react-router-dom";
 import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
 import FeedType from '../FeedType.js';
-// import plus from "../images/icons/followingplus-1.png";
+import plus from "../../images/icons/followingplus-1.png";
+import check from "../../images/icons/followingcheck-1.png";
 
 function ProfileContainer(props) {
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
 
     const [followBtnState, setFollowBtnState] = useState({
-        text: "Follow"
+        text: "Follow", img: plus
     })
-    const [followBtnStyle, setFollowBtnStyle] = useState({ visibility: "visible" });
+    const [followBtnStyle, setFollowBtnStyle] = useState({
+        visibility: "visible",
+        backgroundColor: "transparent",
+        width: "30px",
+        height: "30px",
+        borderRadius: "50%",
+        position: "relative", 
+        top: "-1.5vh",
+        left: "-0.5vw"
+    });
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
             props.followUser(props.currentUserId, props.pageId);
-            setFollowBtnState({ ...followBtnState, text: "Following" });
+            setFollowBtnState({ ...followBtnState, text: "Following", img: check });
         } else {
             props.unFollowUser(props.currentUserId, props.pageId);
-            setFollowBtnState({ ...followBtnState, text: "Follow" });
+            setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
         }
     }
 
@@ -40,7 +50,7 @@ function ProfileContainer(props) {
             console.log(props.currentUserInfo.following);
             let temp = Object.values(props.currentUserInfo.following);
             if (temp.includes(props.pageId)) {
-                setFollowBtnState({ ...followBtnState, text: "Following" });
+                setFollowBtnState({ ...followBtnState, text: "Following", img: check });
             }
         }
     }, [])
@@ -82,7 +92,15 @@ function ProfileContainer(props) {
                     <div className="col-1"></div>
                     <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }} />
                     <div className="col-5">
-                        <h2><Text text={user.username} /></h2>
+                        <h2>
+                            {user.username}
+                            <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
+                                <img src={followBtnState.img} style={{
+                                    width: "30px",
+                                    height: "30px",
+                                }} />
+                            </button>
+                        </h2>
                         <div className="d-flex flex-wrap">
                             <span style={numberStyle}>{user.followCounts.following}
                                 <a style={followStyle}> following</a>
@@ -91,13 +109,8 @@ function ProfileContainer(props) {
                                 <a style={followStyle}> followers</a>
                             </span>
                         </div>
-
                     </div>
                     <div className="col-2">
-                        <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
-                            {followBtnState.text}
-                            {/* <img src={plus} /> */}
-                        </button>
                     </div>
                     <div className="container text-wrap" style={{ margin: "auto" }}>
                         <div className="col-12">
