@@ -183,7 +183,7 @@ function CreatePostModal(props) {
             else {
                 compress.compress([file], {
                     size: 4,
-                    quality: .75,
+                    quality: .9,
                     maxWidth: 470,
                     maxHeight: 470,
                     resize: true

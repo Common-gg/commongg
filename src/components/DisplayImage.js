@@ -19,7 +19,7 @@ function DisplayImage(props) {
       else {
         compress.compress([img], {
           size: 4,
-          quality: .75,
+          quality: .9,
           maxWidth: 150,
           maxHeight: 100,
           resize: true
