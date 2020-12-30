@@ -131,7 +131,7 @@ function Post(props) {
             <div className="d-flex align-items-center flex-wrap">
               <div className="p-2">
               <Link to={"/post/" + props.postId} style={{textDecoration: 'none'}}>
-                <Text text={props.post.title} style={{ fontSize: '32px' }} />
+                <Text text={props.post.title} style={{ fontSize: '25px' }} />
               </Link>
               </div>
               {showCategory()}

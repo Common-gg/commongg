@@ -8,7 +8,8 @@ function ProfilePicture(props) {
       alt={props.currentUserInfo.username + " picture"}
       width={props.width}
       height={props.height}
-      style={{ borderRadius: "50%" }}>
+      style={{ borderRadius: "50%" }}
+      class="img">
     </img>
   );
 }
