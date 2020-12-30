@@ -4,7 +4,7 @@ function ProfilePicture(props) {
   return (
     <img
       src={props.currentUserInfo.profile_picture}
-      onclick="enlargeImg"
+      // onClick="enlargeImg"
       alt={props.currentUserInfo.username + " picture"}
       width={props.width}
       height={props.height}

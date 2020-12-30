@@ -9,14 +9,6 @@ function Post(props) {
   const [author, setAuthor] = useState({ profile: "" });
 
   useEffect(() => {
-    let url = window.location.href;
-    url = url.split('/');
-    if (url[url.length-2] === "comment") {
-      document.getElementById("createCommentButton").click();
-    }
-  }, [])
-
-  useEffect(() => {
     props.getUser(props.post.author, setAuthor)
   }, [props.post]);
 
