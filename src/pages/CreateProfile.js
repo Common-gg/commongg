@@ -5,18 +5,38 @@ import DisplayImage from '../components/DisplayImage.js'
 import add from "../images/icons/Group-104.png";
 import arrow from "../images/icons/arrow-right.png";
 
+const Filter = require('bad-words')
+const filter = new Filter();
+
 function CreateProfile(props) {
   // add categories later
 
   const [displayName, setDisplayName] = useState();
   const [img, setImg] = useState('https://static.zerochan.net/Dango.%28Teamfight.Tactics%29.full.2963102.jpg');
-  const [failed, setFailed] = useState(false);
+  const [failedExists, setFailedExists] = useState(false);
+  const [failedSpace, setFailedSpace] = useState(false);
+  const [failedProfane, setFailedProfane] = useState(false);
 
+  
   function handleSubmit(event) {
     event.preventDefault();
+    setFailedExists(false);
+    setFailedSpace(false);
+    setFailedProfane(false);
+    const username = displayName.current.value;
+    if (filter.isProfane(username)) {
+      setFailedProfane(true);
+      return;
+    }
+    //check if there is space in useername
+    if (username.includes(" ")) {
+      setFailedSpace(true);
+      return;
+    }
+    //check if username exists
     props.existsUsername(displayName.current.value).then((existsUser) => {
       if (existsUser === true) {
-        setFailed(true);
+        setFailedExists(true);
       } else {
         props.storeBlob(displayName.current.value, img);
       }
@@ -45,8 +65,10 @@ function CreateProfile(props) {
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input type="displayName" placeholder="username" track={setDisplayName} style={{ backgroundColor: "#292833" }} />
-        {failed ? <p style={{ color: "red" }}>username already in use</p> : ""}
+        <Input style={{ backgroundColor: "#292833" }} maxLength="30" type="displayName" placeholder="username" track={setDisplayName}/>
+        {failedExists ? <p style={{ color: "red" }}>username already in use</p> : null}
+        {failedSpace ? <p style={{ color: "red" }}>username can't contain space</p> : null}
+        {failedProfane ? <p style={{ color: "red" }}>username contains profanity</p> : null}
         < br />
         add a profile picture
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} />
