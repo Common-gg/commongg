@@ -236,7 +236,6 @@ function App() {
     const commentRef = database.ref('/content/comments/' + commentId);
     commentRef.remove();
     //update the number of comments
-    console.log(postId);
     updateNumComments(postId, -1);
   }
 
@@ -287,11 +286,10 @@ function App() {
         oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() =>{
           getPost(postId, setPost);
         })
-        
+
       })
-      
+
     })
-  }
 
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
