@@ -14,24 +14,26 @@ function ContentContainer(props) {
     let url = window.location.href;
     url = url.split('/');
     setPageState(url[3]);
+    // alpha.common.gg/settings
+    // ['https:', '', 'alpha.common.gg', 'settings']
     if (url.length >= 5) {
       //if page state is games check the id
       if (url[3] === "games"){
         //find current title's id which is its index in the array
-        console.log(url[4])
+        console.log(url[url.length-1])
         const curGameId = props.allGames.findIndex((game) => {
           console.log(game.title.split(" ").join('').toLowerCase());
-          return game.title.split(" ").join('').toLowerCase() === url[4];
+          return game.title.split(" ").join('').toLowerCase() === url[url.length-1];
         });
         //game id is the index
         setPageId(curGameId.toString());
         console.log("the game index is: " + curGameId);
       } else {
-        setPageId(url[4]);
+        setPageId(url[url.length-1]);
       }
     }
     
-    
+
   });
 
   switch (pageState) {

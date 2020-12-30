@@ -4,7 +4,7 @@ import IconButton from '../IconButton';
 import CreateCommentModal from './CreateCommentModal.js';
 import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
-import commentIcon from '../../images/icons/comment.png';
+import commentIcon from '../../images/icons/addcomment.png';
 import shareIcon from '../../images/icons/share.png';
 import Text from '../Text.js';
 
@@ -66,8 +66,8 @@ function PostFooter(props) {
 
   const checkCommentButton = () => {
     if (props.showCommentButton !== true) {
-      return (
-        <Link to={"/post/" + props.postId} style={{ color: "#BF9AFC" }}>
+      return ( 
+        <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
           <img src={commentIcon} style={{
             backgroundColor: "transparent",
             position: "relative",
@@ -88,7 +88,7 @@ function PostFooter(props) {
           if (post.reactions[reaction] > 0) {
             return (
               <div style={{ padding: "10px", bottom: "-20px", left: "-10px", }} key={reaction} className="col-4">
-                <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={post.reactions[reaction]} id={props.postId + reaction} />
+                <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={convertNum(post.reactions[reaction])} id={props.postId + reaction} />
               </div>
             )
           }
