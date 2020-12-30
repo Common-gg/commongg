@@ -134,8 +134,6 @@ function CreatePostModal(props) {
         let gameId = props.allGames.findIndex((element) => {
             return element.title === selectedOption;
         });
-        console.log(selectedOption);
-        console.log(props.allGames);
 
         props.createPost({
             text: postText.current.value,
@@ -195,7 +193,6 @@ function CreatePostModal(props) {
     }
     function setOptions() {
         let tempArr = [];
-        console.log(props.currentUserInfo);
         props.currentUserInfo.games.map((game) => {
             tempArr.push({ label: props.allGames[game].title, value: game });
         });

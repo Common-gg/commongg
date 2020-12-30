@@ -16,22 +16,19 @@ function ContentContainer(props) {
     setPageState(url[3]);
     if (url.length >= 5) {
       //if page state is games check the id
-      if (url[3] === "games"){
+      if (url[3] === "games") {
         //find current title's id which is its index in the array
-        console.log(url[4])
         const curGameId = props.allGames.findIndex((game) => {
-          console.log(game.title.split(" ").join('').toLowerCase());
           return game.title.split(" ").join('').toLowerCase() === url[4];
         });
         //game id is the index
         setPageId(curGameId.toString());
-        console.log("the game index is: " + curGameId);
       } else {
         setPageId(url[4]);
       }
     }
-    
-    
+
+
   });
 
   switch (pageState) {
@@ -47,7 +44,7 @@ function ContentContainer(props) {
       return <FeedContainer {...props} />;
     case "games":
       return <GameFeedContainer {...props} pageId={pageId} />;
-    default: 
+    default:
       return <PageNotFound />;
   }
 }

@@ -76,12 +76,10 @@ function App() {
   useEffect(() => {
     // Access the Twitch API
     Twitch.getToken(process.env.GET_TOKEN, (res, err) => {
-      if (err) console.log(err);
       setTwitchToken(res.body.access_token);
     });
     setInterval(() => {
       Twitch.validate(process.env.TWITCH_VALIDATE_URL, twitchToken, (res, err) => {
-        if (err) console.log(err);
       })
     }, 590000);
   }, []);
@@ -101,7 +99,7 @@ function App() {
     auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      //todo:: implement logic here to tell user they couldnt sign up 
     });
 
   }
@@ -192,7 +190,7 @@ function App() {
     auth.signInWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      //todo:: implement logic here to tell user they couldnt sign in 
     });
   }
 
@@ -202,7 +200,6 @@ function App() {
       // Sign-out successful.
     }).catch(function (error) {
       // An error happened.
-      console.log(error);
     });
   }
 
@@ -215,8 +212,9 @@ function App() {
 
   const updateNumComments = (postId, numIncrement) => {
     const numCommentsRef = database.ref('/content/posts/' + postId + '/numComments')
-    if (numCommentsRef === undefined) return;
-    console.log(numIncrement);
+    if (numCommentsRef === undefined) {
+      return;
+    }
     numCommentsRef.set(firebase.database.ServerValue.increment(numIncrement));
   }
 
@@ -291,9 +289,6 @@ function App() {
 
       if (games.hasOwnProperty(gameId)) {
         gameTitle = games[gameId].title;
-      }
-      else {
-        console.log(`Couldnt find game name for game with ID: ${gameId}`);
       }
       return gameTitle;
     });
@@ -418,8 +413,9 @@ function App() {
     // search the db
     const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
     usersRef.once('value', function (snapshot) {
-      console.log(snapshot.val());
-      if (snapshot.val() !== null) return callback(snapshot.val(), query);
+      if (snapshot.val() !== null) {
+        return callback(snapshot.val(), query);
+      }
     });
   }
 
