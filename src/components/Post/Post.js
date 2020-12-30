@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Linkify from 'react-linkify';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
@@ -136,7 +137,13 @@ function Post(props) {
               </div>
               {showCategory()}
             </div>
-            <Text text={props.post.text} style={{ fontSize: '18px' }} />
+            <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
+              <a target="blank" href={decoratedHref} key={key}>
+                  {decoratedText}
+              </a>
+            )}>
+              <p style={{ fontSize: '18px' }}>{props.post.text}</p>
+            </Linkify>
             {checkType()}
           </div>
         </div>
