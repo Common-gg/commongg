@@ -44,10 +44,6 @@ function ViewPostContainer(props) {
         }
     }, [post, commentRefresh])
 
-    useEffect(() => {
-        //console.log(comments);
-    }, [comments])
-
     return (
         <div className="ViewPostContainer">
             <Post {...props} post={post} postId={postId} showCommentButton={true}
@@ -64,7 +60,7 @@ function ViewPostContainer(props) {
                     return (
                         <div key={Object.keys(comments).reverse()[i]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} showCommentButton={true} updateRefresh={updateRefresh}/>
+                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} showCommentButton={true} updateRefresh={updateRefresh} />
                         </div>
                     )
             })}

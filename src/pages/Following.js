@@ -16,13 +16,8 @@ function Following(props) {
     }, []);
 
     useEffect(() => {
-        console.log(userId);
         props.getUser(userId, setUser);
     }, [userId]);
-
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
 
     function mutualUsers() {
         //return an array of mutual in user and currentUser

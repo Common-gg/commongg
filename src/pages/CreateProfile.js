@@ -16,10 +16,8 @@ function CreateProfile(props) {
     event.preventDefault();
     props.existsUsername(displayName.current.value).then((existsUser) => {
       if (existsUser === true) {
-        console.log(displayName.current.value);
         setFailed(true);
       } else {
-        console.log("success")
         props.storeBlob(displayName.current.value, img);
       }
     })
@@ -43,12 +41,12 @@ function CreateProfile(props) {
         boxShadow: "-1px 10px 250px 1px #171421",
         color: "#BF9AFC"
       }}>
-<br />
+        <br />
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input type="displayName" placeholder="username" track={setDisplayName} style= {{ backgroundColor: "#292833" }} />
-        {failed ? <p style={{ color: "red" }}>username already in use</p>:""}
+        <Input type="displayName" placeholder="username" track={setDisplayName} style={{ backgroundColor: "#292833" }} />
+        {failed ? <p style={{ color: "red" }}>username already in use</p> : ""}
         < br />
         add a profile picture
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} />
@@ -63,7 +61,7 @@ function CreateProfile(props) {
             borderWidth: "2px"
           }}
           onClick={handleSubmit}>
-       <img src={arrow} />
+          <img src={arrow} />
         </button>
       </div>
     </div>

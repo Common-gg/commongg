@@ -22,24 +22,22 @@ function FeedType(props) {
   const postRefresh = props.postRefresh;
 
   useEffect(() => {
-    console.log("filter changed")
-    console.log(filter)
     if (filter !== "") {
       props.getPosts(filter, sort, setPosts);
     } else {
       setPosts([]);
     }
-  }, [filter,sort, postRefresh]);
+  }, [filter, sort, postRefresh]);
 
   return (
     <div>
       {Object.values(posts).reverse().map((post, i) => {
-        if(post.author !== "404")
-        return (
-          <div key={Object.keys(posts).reverse()[i]}>
-            <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} showCommentButton={false}/><br />
-          </div>
-        )
+        if (post.author !== "404")
+          return (
+            <div key={Object.keys(posts).reverse()[i]}>
+              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} showCommentButton={false} /><br />
+            </div>
+          )
       })}
     </div>
   );

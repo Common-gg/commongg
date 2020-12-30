@@ -17,14 +17,14 @@ function SearchBox(props) {
 
   //the users from search results get passed in
   const afterSearch = (users, query) => {
-    let options = [{name: "users", type: "label"}]
+    let options = [{ name: "users", type: "label" }]
     options = options.concat(Object.values(users).map((user, i) => ({
       avatar_url: user.profile_picture,
       id: Object.keys(users)[i],
       name: user.username,
       type: "user"
     })));
-    options.push({name: "games", type: "label"})
+    options.push({ name: "games", type: "label" })
     const gameResult = searchGames(query);
     //might introduce issue when a person's name is same as game's name
     options = options.concat(gameResult.map((game, i) => ({
@@ -38,18 +38,14 @@ function SearchBox(props) {
 
   //search games based on query
   const searchGames = (query) => {
-    console.log("search games");
-    console.log(query)
     let result = props.allGames.filter((game) => {
       //check if query is in the title
       return game.title.toLowerCase().includes(query.toLowerCase());
     });
-    console.log(result)
     return result;
   }
 
   const handleSearch = (query) => {
-    console.log(query);
     setIsLoading(true);
     props.search(query, afterSearch, query);
   };
@@ -69,7 +65,7 @@ function SearchBox(props) {
       style={inputStyle}
       renderMenuItemChildren={(option, props) => (
         <Fragment>
-          {option.type==="user" && <Link to={"/profile/" + option.id }>
+          {option.type === "user" && <Link to={"/profile/" + option.id}>
             <img
               alt={option.name}
               src={option.avatar_url}
@@ -80,9 +76,9 @@ function SearchBox(props) {
                 width: '24px',
               }}
             />
-            <span style={{color: "white"}}>{option.name}</span>
+            <span style={{ color: "white" }}>{option.name}</span>
           </Link>}
-          {option.type==="game" && <Link to={"/games/" + option.name.split(" ").join('').toLowerCase() }>
+          {option.type === "game" && <Link to={"/games/" + option.name.split(" ").join('').toLowerCase()}>
             <img
               alt={option.title}
               src={option.image}
@@ -93,10 +89,10 @@ function SearchBox(props) {
                 width: '24px',
               }}
             />
-            <span style={{color: "white"}}>{option.name}</span>
+            <span style={{ color: "white" }}>{option.name}</span>
           </Link>}
-          {option.type==="label" && 
-            <span style={{color: "white"}}>{option.name}</span>
+          {option.type === "label" &&
+            <span style={{ color: "white" }}>{option.name}</span>
           }
         </Fragment>
       )}
