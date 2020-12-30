@@ -38,7 +38,8 @@ function Post(props) {
   }
 
   function deletePost() {
-    console.log("delete")
+    props.deletePost(props.postId);
+    props.childPostRefresh();
   }
 
   function checkOptions() {

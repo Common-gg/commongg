@@ -16,6 +16,10 @@ function FeedType(props) {
       type: "text"
     }
   });
+  const [childRefresh, setChildRefresh] = useState(0);
+  function childPostRefresh() {
+    setChildRefresh(childRefresh + 1);
+  }
 
   const filter = props.filter;
   const sort = props.sort;
@@ -27,7 +31,7 @@ function FeedType(props) {
     } else {
       setPosts([]);
     }
-  }, [filter, sort, postRefresh]);
+  }, [filter, sort, postRefresh, childRefresh]);
 
   return (
     <div>
@@ -35,7 +39,7 @@ function FeedType(props) {
         if (post.author !== "404")
           return (
             <div key={Object.keys(posts).reverse()[i]}>
-              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} showCommentButton={false} /><br />
+              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} showCommentButton={false} childPostRefresh={childPostRefresh}/><br />
             </div>
           )
       })}

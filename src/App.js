@@ -237,6 +237,15 @@ function App() {
     updateNumComments(postId, -1);
   }
 
+  //delete post with post id
+  const deletePost = (postId) => {
+    // Deletes a post in the DB
+    if (currentUser === undefined) return;
+    if (postId === undefined || postId === "") return;
+    const postRef = database.ref('/content/posts/' + postId);
+    postRef.remove();
+  }
+
   const getUser = (userId, callback) => {
     // Gets user from DB
     database.ref('/users/' + userId).once('value').then(function (snapshot) {
@@ -471,6 +480,7 @@ function App() {
                   createPost={createPost}
                   createComment={createComment}
                   deleteComment={deleteComment}
+                  deletePost={deletePost}
                   updateNumComments={updateNumComments}
                   getComments={getComments}
                   getComment={getComment}
