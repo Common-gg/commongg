@@ -9,6 +9,14 @@ function Post(props) {
   const [author, setAuthor] = useState({ profile: "" });
 
   useEffect(() => {
+    let url = window.location.href;
+    url = url.split('/');
+    if (url[url.length-2] === "comment") {
+      document.getElementById("createCommentButton").click();
+    }
+  }, [])
+
+  useEffect(() => {
     props.getUser(props.post.author, setAuthor)
   }, [props.post]);
 
@@ -92,7 +100,7 @@ function Post(props) {
               <div className="col-10">
                 <br />
                 <br />
-                <Link to={"/profile/" + props.post.author} >
+                <Link to={"/profile/" + props.post.author} style={{textDecoration: 'none'}} >
                   <Text text={author.username} />
                 </Link>
                 <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US",{hour: '2-digit', minute:'2-digit'}) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
@@ -105,7 +113,11 @@ function Post(props) {
         <div className="row">
           <div className="col-12">
             <div className="d-flex align-items-center flex-wrap">
-              <div className="p-2"><Text text={props.post.title} style={{ fontSize: '32px' }} /></div>
+              <div className="p-2">
+              <Link to={"/post/" + props.postId} style={{textDecoration: 'none'}}>
+                <Text text={props.post.title} style={{ fontSize: '32px' }} />
+              </Link>
+              </div>
               {showCategory()}
             </div>
             <Text text={props.post.text} style={{ fontSize: '18px' }} />
