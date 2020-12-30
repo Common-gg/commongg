@@ -470,6 +470,8 @@ function App() {
                 getPosts={getPosts}
                 getPost={getPost}
                 reactToPost={reactToPost}
+                unreactToPost={unreactToPost}
+                changeReaction={changeReaction}
                 createPost={createPost}
                 createComment={createComment}
                 deleteComment={deleteComment}
