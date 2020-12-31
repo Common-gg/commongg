@@ -122,6 +122,7 @@ function CreatePostModal(props) {
         setLoading(false);
         setBtnText("Post");
         setSelectedFile(null);
+        setIsFileTooLarge(null);
     };
 
     function handlePostClick() {
