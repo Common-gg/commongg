@@ -37,9 +37,9 @@ function ReactionIcon(props) {
               width: "30px",
               height: "30px",
               
-            }} src={image} alt={"reaction: " + props.text + props.reaction} />
+            }} src={image} alt=" " />
           </div>  
-          {props.text}      
+          {" " + props.text}      
         </label>
       </button>
     </div>

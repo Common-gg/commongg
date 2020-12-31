@@ -42,13 +42,15 @@ function PostFooter(props) {
 
   function convertNum(val) {
     let editedVal = val;
-    if (editedVal > 1000000) {
+    if (editedVal > 1000000000) {
+      editedVal = Math.round(val / 100000000) / 10;
+      return (editedVal + "b");
+    } else if (editedVal > 1000000) {
       editedVal = Math.round(val / 100000) / 10;
-      return (editedVal + "M");
-    }
-    if (editedVal > 1000) {
+      return (editedVal + "m");
+    } else if (editedVal > 1000) {
       editedVal = Math.round(val / 100) / 10;
-      return (editedVal + "K");
+      return (editedVal + "k");
     } else {
       return editedVal;
     }
@@ -84,11 +86,15 @@ function PostFooter(props) {
 
   const checkReactions = () => {
     if (post.reactions !== undefined) {
+      let reactArr = Object.keys(post.reactions);
+      const sortable = Object.fromEntries(
+        Object.entries(post.reactions).sort(([,a],[,b]) => a-b)
+      );
       return (
-        Object.keys(post.reactions).map(reaction => {
+        Object.keys(sortable).reverse().map(reaction => {
           if (post.reactions[reaction] > 0) {
             return (
-              <div style={{ padding: "10px", bottom: "-20px", left: "-10px", }} key={reaction} className="col-4">
+              <div style={{ padding: ".8rem", marginRight: "1rem", position: "relative", bottom: "-1rem", left: "-.7rem" }} key={reaction}>
                 <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={convertNum(post.reactions[reaction])} id={props.postId + reaction} />
               </div>
             )
@@ -148,7 +154,7 @@ function PostFooter(props) {
         <div className="row">
           {popoverReactions.map(reaction => {
             return (
-              <div style={{ padding: "5px", }} key={reaction} className="col-3">
+              <div style={{ padding: ".8rem", marginRight: ".3vw"}} key={reaction} className="col-2">
                 <ReactionIcon reaction={reaction} react={react} text="" id={props.postId + reaction} />
               </div>
             )
@@ -159,23 +165,21 @@ function PostFooter(props) {
   );
 
   return (
-    <div className="row" style={{
+    <div className="row justify-content-between" style={{
       paddingBottom: "20px"
     }}>
-      <div className="col-8 row">
+      <div className="col-8 row justify-content-start" style={{marginLeft: ".1rem"}}>
         {checkReactions()}
         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
           <div>
-            <div style={{ padding: "10px", bottom: "-20px", }} className="col-1">
+            <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
               <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
             </div>
           </div>
         </OverlayTrigger>
       </div>
-      <div className="col-4 row" style={{ position: 'relative', bottom: '-20px'}}>
-        {checkReactionLines()}
-        <div className="col-2" />
-        <div className="col-2">
+      <div className="col-4 row justify-content-end" style={{ position: 'relative', bottom: '-20px'}}>
+        <div className="col-1">
           <Text text={convertNum(props.post.numComments)} style={{
             position: "relative",
             bottom: "-12px"
@@ -189,9 +193,11 @@ function PostFooter(props) {
             backgroundColor: "transparent",
             position: "relative",
             bottom: "-8px",
-            left: "10px"
+            width: "2.5rem",
+            height: "2.5rem"
           }} />
         </div>
+        <div className="col-1"></div>
       </div>
     </div>
   );

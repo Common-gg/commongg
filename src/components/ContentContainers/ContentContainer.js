@@ -14,8 +14,6 @@ function ContentContainer(props) {
     let url = window.location.href;
     url = url.split('/');
     setPageState(url[3]);
-    // alpha.common.gg/settings
-    // ['https:', '', 'alpha.common.gg', 'settings']
     if (url.length >= 5) {
       //if page state is games check the id
       if (url[3] === "games") {

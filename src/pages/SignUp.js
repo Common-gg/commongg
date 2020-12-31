@@ -8,8 +8,16 @@ function SignUp(props) {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [failedPassword, setFailedPassword] = useState(false);
 
   const signUp = () => {
+    setFailedPassword(false);
+    //first check the validity of the password
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/
+    //password faield to match regex
+    if (password.current.value.match(regex) === null) {
+      setFailedPassword(true);
+    }
     props.signUpUser(email.current.value, password.current.value);
   }
 
@@ -55,7 +63,7 @@ function SignUp(props) {
                         style={{ backgroundColor: "#292833", }} />
                     </div></div></div></div></div></div>
           <div className="form-group">
-            <div className="row">
+            <div className="row col-12">
               <div className="col-1"></div>
               <div className="row">
                 <div className="col-1"></div>
@@ -65,14 +73,15 @@ function SignUp(props) {
                     <div className="col-1"></div>
                     <div className="row">
                       <div className="col-1"></div>
-                      <div className="row">
-                        <div className="col-1"></div>
-                        <Input type="password"
-                          bootstrap="border border-secondary"
-                          placeholder="password"
-                          track={setPassword}
-                          style={{ backgroundColor: "#292833", }} />
-                      </div></div></div></div></div></div></div>
+                      <Input type="password"
+                        bootstrap="border border-secondary"
+                        placeholder="password"
+                        track={setPassword}
+                        style={{ backgroundColor: "#292833", }} />
+                    </div></div></div></div></div></div>
+          <div className="d-flex justify-content-center">
+            {failedPassword ? <p style={{ color: "red" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number.</p> : null}
+          </div>
           <div className="row col-12">
             <div className="col-5"></div>
             <div className="form-group">

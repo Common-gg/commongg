@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Linkify from 'react-linkify';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
+import optionsIcon from '../../images/icons/options.png';
 import { Link } from "react-router-dom";
 
 function Post(props) {
@@ -25,6 +27,26 @@ function Post(props) {
       });
     } else {
       return props.style;
+    }
+  }
+
+  function deletePost() {
+    props.deletePost(props.postId);
+    props.childPostRefresh();
+  }
+
+  function checkOptions() {
+    if (props.currentUserId === props.post.author) {
+      return (
+      <div>
+        <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{background:"transparent"}}>
+          <img src={optionsIcon} alt={"options"} style={{backgroundColor: "transparent"}} />        
+        </div>
+        <div class="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <p className="dropdown-item mb-0" onClick={()=>deletePost()} style={{cursor: "pointer"}}>Delete Post</p>
+        </div>
+      </div>
+      )
     }
   }
 
@@ -83,36 +105,44 @@ function Post(props) {
       <div className="container">
         <br />
         <div className="row">
-          <div className="col-8 row">
-            <div className="col-1">
+          <div className="col-12 row">
+            <div className="col-2">
               <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
             </div>
-            <div className="col-11 row" style={{ marginBottom: '5px', lineHeight: '4px' }}>
-              <div className="col-1"></div>
-              <div className="col-10">
+            <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
+              <div className="col-12">
                 <br />
                 <br />
                 <Link to={"/profile/" + props.post.author} style={{textDecoration: 'none'}} >
                   <Text text={author.username} />
                 </Link>
                 <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US",{hour: '2-digit', minute:'2-digit'}) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
-                  style={{ color: '#BF9AFC', fontSize: '12px' }}
-                />
+                  style={{ color: '#BF9AFC', fontSize: '.9rem' }}
+                />     
               </div>
             </div>
           </div>
+          <div className="ml-auto pr-3 dropdown">
+            {checkOptions()}
+          </div>          
         </div>
         <div className="row">
           <div className="col-12">
-            <div className="d-flex align-items-center flex-wrap">
+            <div style={{position: "relative", left: "-.5rem"}}>
               <div className="p-2">
               <Link to={"/post/" + props.postId} style={{textDecoration: 'none'}}>
-                <Text text={props.post.title} style={{ fontSize: '32px' }} />
+                <Text text={props.post.title} style={{ fontSize: '25px' }} />
               </Link>
               </div>
               {showCategory()}
             </div>
-            <Text text={props.post.text} style={{ fontSize: '18px' }} />
+            <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
+              <a target="blank" href={decoratedHref} key={key}>
+                  <p style={{overflowWrap: 'break-word'}}>{decoratedText}</p>
+              </a>
+            )}>
+              <p style={{ fontSize: '18px' }}>{props.post.text}</p>
+            </Linkify>
             {checkType()}
           </div>
         </div>

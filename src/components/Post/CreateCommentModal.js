@@ -8,8 +8,7 @@ function CreateCommentModal(props) {
     let buttonStyle = {
         backgroundColor: "transparent",
         position: "relative",
-        bottom: "0px",
-        left: "-8px"
+        left: "-.5rem"
       }
     const modalContentStyle = {
         color: "#BF9AFC",
@@ -43,20 +42,12 @@ function CreateCommentModal(props) {
         if (props.showCommentButton === true) {
             buttonStyle = {
                 backgroundColor: "transparent",
-                padding: "0 0 0 0",
-                position: "relative",
-                bottom: "-20px",
-                left: "-10px",
-                visibility: "visible"
+                visibility: "visible",
             }
         } else if (props.showCommentButton === false) {
             buttonStyle = {
                 backgroundColor: "transparent",
-                padding: "0 0 0 0",
-                position: "relative",
-                bottom: "-20px",
-                left: "-10px",
-                visibility: "hidden"
+                visibility: "hidden",
             }
         }
     }
@@ -82,8 +73,13 @@ function CreateCommentModal(props) {
 
     return (
         <div className="CreateCommentModal">
-            <button type="button" style={buttonStyle} id="createCommentButton" className="btn btn-primary" data-toggle="modal" data-target="#createCommentModal">
-                <img src={addcommentIcon} style={buttonStyle}/>
+            <button type="button" style={{background: "transparent"}} id="createCommentButton" className="btn btn-primary" data-toggle="modal" data-target="#createCommentModal">
+                <img src={addcommentIcon} 
+                style={{
+                    ...buttonStyle, 
+                    width: "2rem",
+                    height: "2rem"
+                }}/>
             </button>
             <div className="modal fade" id="createCommentModal" tabIndex="-1" role="dialog" aria-labelledby="createCommentModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
