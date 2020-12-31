@@ -119,22 +119,47 @@ function ProfileContainer(props) {
                         </div></div>
                 <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                 <div className="flex-wrap d-flex flex-row justify-content-center">
-                    <div className="flex-wrap d-flex flex-row justify-content-center" style={{ width: "70%" }}>
+                    <div className="row justify-content-center" style={{ width: "70%" , paddingBottom: '20px'}}>
                         {user.games.map(index => {
-                            return <img
-                                src={props.allGames[index].image}
-                                key={"game-image2" + index}
-                                alt={props.allGames[index].title}
-                                className="rounded"
-                                style={
-                                    {
-                                        width: '22%',
-                                        height: 'auto',
-                                        margin: '3%',
-                                        marginBottom: "10%",
-                                        marginTop: "4%"
-                                    }}
-                            ></img>
+                            if (props.currentUserInfo.games.includes(index)) {
+                                return (
+                                    <div className="col-4">
+                                        <Link to={"/games/" + (props.allGames[index].title.split(" ")).join('').toLowerCase()}>
+                                            <img
+                                                src={props.allGames[index].image}
+                                                key={"game-image2" + index}
+                                                alt={props.allGames[index].title}
+                                                className="rounded"
+                                                style={{
+                                                  width: '22%',
+                                                  height: 'auto',
+                                                  margin: '3%',
+                                                  marginBottom: "10%",
+                                                  marginTop: "4%"
+                                                }}
+                                            />
+                                        </Link>
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    <div className="col-4">
+                                        <img
+                                            src={props.allGames[index].image}
+                                            key={"game-image2" + index}
+                                            alt={props.allGames[index].title}
+                                            className="rounded"
+                                            style={{
+                                              width: '22%',
+                                              height: 'auto',
+                                              margin: '3%',
+                                              marginBottom: "10%",
+                                              marginTop: "4%"
+                                             }}
+                                        />
+                                    </div>
+                                )
+                            }
                         })}
                     </div>
                 </div>
