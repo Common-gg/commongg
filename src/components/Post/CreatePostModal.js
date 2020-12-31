@@ -224,6 +224,10 @@ function CreatePostModal(props) {
         }
     }
 
+    function removeImage() {
+        setSelectedFile(null);
+    }
+
     //component for image preview when selectedFile is not null
     function imagePreview() {   
         if (selectedFile !== null) {
@@ -231,10 +235,15 @@ function CreatePostModal(props) {
                 <div>
                     <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                     <div className="d-flex justify-content-center">
-                        <img src={URL.createObjectURL(selectedFile)} alt="preview" 
-                        style={{maxHeight: "200px"}}/>
-                    </div>
-                    
+                        <div>
+                            <button type="button" style={{color: "#BF9AFC" }} className="close"
+                                    aria-label="Close" onClick={() => removeImage()}>
+                                <span  aria-hidden="true">&times;</span>
+                            </button>
+                            <img src={URL.createObjectURL(selectedFile)} alt="preview" 
+                            style={{maxHeight: "200px"}}/>
+                        </div>
+                    </div>                    
                 </div>
             )
         }
