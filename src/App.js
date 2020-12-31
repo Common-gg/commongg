@@ -8,6 +8,8 @@ import PageContainer from './pages/PageContainer';
 import firebase from "firebase/app";
 import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
 import CommonChat from "./images/games/Common Chat.png";
+import ForgotPassword from './pages/ForgotPassword.js';
+import ChangePassword from './pages/ChangePassword.js';
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -272,7 +274,7 @@ function App() {
       ...currentUserInfo,
       followCounts: {
         follower: currentUserInfo.followCounts.follower,
-        following: currentUserInfo.followCounts.following+1
+        following: currentUserInfo.followCounts.following + 1
       },
       following: {
         ...currentUserInfo.following,
@@ -301,7 +303,7 @@ function App() {
     setCurrentUserInfo({
       ...currentUserInfo,
       followCounts: {
-        follower: currentUserInfo.followCounts.follower+1,
+        follower: currentUserInfo.followCounts.follower + 1,
         following: currentUserInfo.followCounts.following
       }
     })
@@ -446,6 +448,29 @@ function App() {
     });
   }
 
+  const resetPasswordEmail = (userEmail, callback) => {
+    auth.sendPasswordResetEmail(userEmail).then(() => {
+      return callback(true);
+    }).catch(function () {
+      return callback(false);
+    });
+  }
+
+  const handleResetPassword = (oobCode, newPassword, isSuccess) => {
+    auth.verifyPasswordResetCode(oobCode).then((email) => {
+      auth.confirmPasswordReset(oobCode, newPassword).then((resp) => {
+        // Enter this block if reset was successful
+        return isSuccess(true);
+      }).catch(() => {
+        // Enter this block if password is too weak
+        return isSuccess(false);
+      });
+    }).catch(() => {
+      // Enter this block if the action code is invalid or expired
+      return isSuccess(false);
+    });
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -455,6 +480,14 @@ function App() {
           <Route exact path="/SignUp" render={
             (props) => (
               <SignUp signUpUser={signUpUser} />
+            )} />
+          <Route path="/forgotpassword" render={
+            (props) => (
+              <ForgotPassword resetPasswordEmail={resetPasswordEmail} />
+            )} />
+          <Route path="/changepassword" render={
+            (props) => (
+              <ChangePassword handleResetPassword={handleResetPassword} />
             )} />
           <Route path="/" render={
             (props) => (
