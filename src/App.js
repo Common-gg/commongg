@@ -210,6 +210,7 @@ function App() {
     if (currentUser === undefined) return;
     const postRef = database.ref('/content/posts/').push();
     postRef.set(post);
+    document.getElementById("createPostX").click();
   }
 
   const updateNumComments = (postId, numIncrement) => {
