@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Linkify from 'react-linkify';
+import { ReactTinyLink } from 'react-tiny-link';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
 import optionsIcon from '../../images/icons/options.png';
+import TwitchEmbed from './TwitchEmbed.js'
 import { Link } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
+
 
 function Post(props) {
 
@@ -14,6 +17,7 @@ function Post(props) {
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
   }, [props.post]);
+
 
   function getStyle() {
     if (props.style === undefined) {
@@ -51,6 +55,29 @@ function Post(props) {
     }
   }
 
+  //creating twitch embedding if twitch clips are found
+  function checkTwitchClips(preview) {
+    //parse all twitch clips with regular expression and map the results
+    const regexp = /https:\/\/www\.twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+)/g;
+    const matches = props.post.text.matchAll(regexp);
+    var clips = [];
+    for (const match of matches) {
+      clips.push(match[1]);
+    }
+    if (clips.length === 0) {
+      return preview;
+    } else {
+      return(
+        <div>
+          {clips.map((clip) => {
+            return <TwitchEmbed clip={clip}></TwitchEmbed>
+          })}
+        </div>
+      )
+    }
+    
+  }
+
   const checkType = () => {
 
     if (props.post.type === "text") {
@@ -82,71 +109,78 @@ function Post(props) {
   }
 
   const checkPostNum = isVisible => {
-    if(isVisible && props.postNum >= props.numPostsLoaded - 3) {
+    if (isVisible && props.postNum >= props.numPostsLoaded - 3) {
       props.setNumPostsLoaded(props.numPostsLoaded + 5);
     }
   }
 
   return (
-    <TrackVisibility once>
+    <TrackVisibility>
       {({ isVisible }) => {
         checkPostNum(isVisible);
         return (
-        <div className="Post" style={getStyle()}>
-          <div className="container">
-            <br />
-            <div className="row">
-              <div className="col-12 row">
-                <div className="col-2">
-                  <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
-                </div>
-                <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
-                  <div className="col-12">
-                    <br />
-                    <br />
-                    <Link to={"/profile/" + props.post.author} style={{ textDecoration: 'none' }} >
-                      <Text text={author.username} />
-                    </Link>
-                    <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
-                      style={{ color: '#BF9AFC', fontSize: '.9rem' }}
-                    />
+          <div className="Post" style={getStyle()}>
+            <div className="container">
+              <br />
+              <div className="row">
+                <div className="col-12 row">
+                  <div className="col-2">
+                    <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
+                  </div>
+                  <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
+                    <div className="col-12">
+                      <br />
+                      <br />
+                      <Link to={"/profile/" + props.post.author} style={{ textDecoration: 'none' }} >
+                        <Text text={author.username} />
+                      </Link>
+                      <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
+                        style={{ color: '#BF9AFC', fontSize: '.9rem' }}
+                      />
+                    </div>
                   </div>
                 </div>
+                <div className="ml-auto pr-3 dropdown">
+                  {checkOptions()}
+                </div>
               </div>
-              <div className="ml-auto pr-3 dropdown">
-                {checkOptions()}
+              <div className="row">
+                <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
+                  <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+                    <Text text={props.post.title} style={{ fontSize: '25px' }} />
+                  </Link>
+                </div>
+                <div className="col-auto" style={{ paddingTop: '.2rem' }}>
+                  <Text text={props.post.category}
+                    style={{
+                      borderStyle: 'solid',
+                      borderWidth: '1px',
+                      borderRadius: '5px',
+                      height: '25px',
+                      color: '#BF9AFC',
+                      borderColor: '#BF9AFC'
+                    }} />
+                </div>
               </div>
+              <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
+                <a target="blank" href={decoratedHref} key={key} style={{color: "#BF9AFC"}}>
+                  <p style={{ overflowWrap: 'break-word' }}>{decoratedText}</p>
+                  {checkTwitchClips(<ReactTinyLink
+                    cardSize="large"
+                    showGraphic={true}
+                    maxLine={2}
+                    minLine={1}
+                    url={decoratedHref}
+                  />)}
+                </a>
+              )}>
+                <p style={{ fontSize: '18px' }}>{props.post.text}</p>
+              </Linkify>
+              {checkType()}
+              <PostFooter {...props} />
             </div>
-            <div className="row">
-              <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
-                <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
-                  <Text text={props.post.title} style={{ fontSize: '25px' }} />
-                </Link>
-              </div>
-              <div className="col-auto" style={{ paddingTop: '.2rem' }}>
-                <Text text={props.post.category}
-                  style={{
-                    borderStyle: 'solid',
-                    borderWidth: '1px',
-                    borderRadius: '5px',
-                    height: '25px',
-                    color: '#BF9AFC',
-                    borderColor: '#BF9AFC'
-                  }} />
-              </div>
-            </div>
-            <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-              <a target="blank" href={decoratedHref} key={key}>
-                <p style={{ overflowWrap: 'break-word' }}>{decoratedText}</p>
-              </a>
-            )}>
-              <p style={{ fontSize: '18px' }}>{props.post.text}</p>
-            </Linkify>
-            {checkType()}
-            <PostFooter {...props} />
-          </div>
-          <br />
-        </div >
+            <br />
+          </div >
         )
       }}
     </TrackVisibility>

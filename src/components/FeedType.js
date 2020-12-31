@@ -4,7 +4,7 @@ import 'react-on-screen';
 
 function FeedType(props) {
 
-  const [numPostsLoaded, setNumPostsLoaded] = useState(5);
+  const [numPostsLoaded, setNumPostsLoaded] = useState(10);
 
   const [posts, setPosts] = useState({
     "00000000": {
