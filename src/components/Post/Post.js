@@ -47,7 +47,7 @@ function Post(props) {
           <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
             <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
           </div>
-          <div class="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
             <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p>
           </div>
         </div>
@@ -56,26 +56,20 @@ function Post(props) {
   }
 
   //creating twitch embedding if twitch clips are found
-  function checkTwitchClips(preview) {
+  function checkTwitchClips(link, preview) {
     //parse all twitch clips with regular expression and map the results
+    if(typeof link !== "string") return
     const regexp = /https:\/\/www\.twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+)/g;
-    const matches = props.post.text.matchAll(regexp);
-    var clips = [];
+    const matches = link.matchAll(regexp);
+    let clips = [];
     for (const match of matches) {
       clips.push(match[1]);
     }
     if (clips.length === 0) {
       return preview;
     } else {
-      return(
-        <div>
-          {clips.map((clip) => {
-            return <TwitchEmbed clip={clip}></TwitchEmbed>
-          })}
-        </div>
-      )
+      return <div><TwitchEmbed clip={clips[0]}></TwitchEmbed></div>
     }
-    
   }
 
   const checkType = () => {
@@ -165,7 +159,7 @@ function Post(props) {
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
                 <a target="blank" href={decoratedHref} key={key} style={{color: "#BF9AFC"}}>
                   <p style={{ overflowWrap: 'break-word' }}>{decoratedText}</p>
-                  {checkTwitchClips(<ReactTinyLink
+                  {checkTwitchClips(decoratedHref, <ReactTinyLink
                     cardSize="large"
                     showGraphic={true}
                     maxLine={2}
