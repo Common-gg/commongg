@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap'
 import IconButton from '../IconButton';
 import CreateCommentModal from './CreateCommentModal.js';
+import CreateShareModal from './CreateShareModal.js';
 import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
 import commentIcon from '../../images/icons/addcomment.png';
@@ -71,7 +72,7 @@ function PostFooter(props) {
     if (props.showCommentButton !== true) {
       return (
         <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
-          <img src={commentIcon} style={{
+          <img src={commentIcon} alt="" style={{
             backgroundColor: "transparent",
             position: "relative",
             bottom: "-12px"
@@ -82,6 +83,12 @@ function PostFooter(props) {
         <CreateCommentModal {...props} post={post} postId={props.postId} showCommentButton={props.showCommentButton} />
       )
     }
+  }
+
+  const checkShareButton = () => {
+    return (
+      <CreateShareModal {...props} post={post} postId={props.postId} />
+    )
   }
 
   const checkReactions = () => {
@@ -190,13 +197,15 @@ function PostFooter(props) {
             {checkCommentButton()}
           </div>
           <div className="col-3" style={{padding: "0px 0px"}}>
-            <img src={shareIcon} style={{
+            <img src={shareIcon} alt="" style={{
               backgroundColor: "transparent",
               position: "relative",
               bottom: "-6px",
               width: "2.5rem",
               height: "2.5rem"
-            }} />
+            }} 
+            onClick = {() => checkShareButton()}
+            />
           </div>
         </div>
       </div>

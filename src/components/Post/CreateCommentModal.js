@@ -74,7 +74,7 @@ function CreateCommentModal(props) {
     return (
         <div className="CreateCommentModal">
             <button type="button" style={{background: "transparent"}} id="createCommentButton" className="btn btn-primary" data-toggle="modal" data-target="#createCommentModal">
-                <img src={addcommentIcon} 
+                <img src={addcommentIcon} alt=""
                 style={{
                     ...buttonStyle, 
                     width: "1.813rem",
