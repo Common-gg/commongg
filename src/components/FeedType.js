@@ -39,7 +39,7 @@ function FeedType(props) {
         if (post.author !== "404")
           return (
             <div key={Object.keys(posts).reverse()[i]}>
-              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} showCommentButton={false} childPostRefresh={childPostRefresh}/><br />
+              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} childPostRefresh={childPostRefresh}/><br />
             </div>
           )
       })}
