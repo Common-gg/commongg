@@ -8,7 +8,7 @@ function CreateCommentModal(props) {
     let buttonStyle = {
         backgroundColor: "transparent",
         position: "relative",
-        left: "-.5rem"
+        left: "-.74rem"
       }
     const modalContentStyle = {
         color: "#BF9AFC",
@@ -77,8 +77,8 @@ function CreateCommentModal(props) {
                 <img src={addcommentIcon} 
                 style={{
                     ...buttonStyle, 
-                    width: "2rem",
-                    height: "2rem"
+                    width: "1.813rem",
+                    height: "1.625rem"
                 }}/>
             </button>
             <div className="modal fade" id="createCommentModal" tabIndex="-1" role="dialog" aria-labelledby="createCommentModalLabel" aria-hidden="true">
