@@ -20,7 +20,7 @@ function TwitchEmbed(props) {
   return (
     <div style={parent}>
       <div style={child}>
-      <TwitchClip clip={props.clip} parent={['localhost', 'common.gg']} width="100%" height="100%"/>
+      <TwitchClip clip={props.clip} parent={['localhost', 'common.gg']} width="100%" height="100%" autoplay={false}/>
       </div>
     </div>
   );

@@ -226,7 +226,7 @@ function CreatePostModal(props) {
                     <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                     <div className="d-flex justify-content-center">
                         <img src={URL.createObjectURL(selectedFile)} alt="preview" 
-                        style={{maxHeight: "50px"}}/>
+                        style={{maxHeight: "200px"}}/>
                     </div>
                     
                 </div>
