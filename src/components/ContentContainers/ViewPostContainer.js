@@ -14,7 +14,6 @@ function ViewPostContainer(props) {
         title: "No Content",
         type: "text"
     });
-    const [postId, setPostId] = useState();
     const [comments, setComments] = useState({
         "00000000": {
             author: "404",
@@ -31,25 +30,24 @@ function ViewPostContainer(props) {
     useEffect(() => {
         let url = window.location.href;
         url = url.split('/');
-        setPostId(url[url.length - 1]);
         if (url[url.length - 2] === "comment") {
             document.getElementById("createCommentButton").click();
         }
     }, []);
 
     useEffect(() => {
-        props.getPost(postId, setPost);
-    }, [postId, commentRefresh])
+        props.getPost(props.pageId, setPost);
+    }, [props.pageId, commentRefresh])
 
     useEffect(() => {
         if (post.author !== "404") {
-            props.getComments(postId, "postId", setComments);
+            props.getComments(props.pageId, "postId", setComments);
         }
     }, [post, commentRefresh])
 
     return (
         <div className="ViewPostContainer">
-            <Post {...props} post={post} postId={postId}
+            <Post {...props} post={post} postId={props.pageId}
                 updateRefresh={updateRefresh}
                 style={{
                     paddingBottom: '0px',
