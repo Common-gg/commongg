@@ -89,7 +89,7 @@ function Post(props) {
   }
 
   return (
-    <TrackVisibility once>
+    <TrackVisibility>
       {({ isVisible }) => {
         checkPostNum(isVisible);
         return (
