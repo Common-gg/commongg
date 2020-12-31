@@ -32,9 +32,9 @@ function PostFooter(props) {
   useEffect(() => {
     setAllowClick(true);
     if (post.reactions !== undefined) {
-      setPopoverReactions(reactions.filter(reaction => 
-        (!Object.keys(post.reactions).includes(reaction) ||
-        post.reactions[reaction]  <= 0)));
+      setPopoverReactions(reactions.filter(reaction =>
+      (!Object.keys(post.reactions).includes(reaction) ||
+        post.reactions[reaction] <= 0)));
     } else {
       setPopoverReactions(reactions);
     }
@@ -69,7 +69,7 @@ function PostFooter(props) {
 
   const checkCommentButton = () => {
     if (props.showCommentButton !== true) {
-      return ( 
+      return (
         <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
           <img src={commentIcon} style={{
             backgroundColor: "transparent",
@@ -88,7 +88,7 @@ function PostFooter(props) {
     if (post.reactions !== undefined) {
       let reactArr = Object.keys(post.reactions);
       const sortable = Object.fromEntries(
-        Object.entries(post.reactions).sort(([,a],[,b]) => a-b)
+        Object.entries(post.reactions).sort(([, a], [, b]) => a - b)
       );
       return (
         Object.keys(sortable).reverse().map(reaction => {
@@ -145,7 +145,7 @@ function PostFooter(props) {
         props.unreactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost);
       }
     }
-    
+
   }
 
   const popover = (
@@ -154,7 +154,7 @@ function PostFooter(props) {
         <div className="row">
           {popoverReactions.map(reaction => {
             return (
-              <div style={{ padding: ".8rem", marginRight: ".3vw"}} key={reaction} className="col-2">
+              <div style={{ padding: ".8rem", marginRight: ".3vw" }} key={reaction} className="col-2">
                 <ReactionIcon reaction={reaction} react={react} text="" id={props.postId + reaction} />
               </div>
             )
@@ -168,7 +168,7 @@ function PostFooter(props) {
     <div className="row justify-content-between" style={{
       paddingBottom: "20px"
     }}>
-      <div className="col-8 row justify-content-start" style={{marginLeft: ".1rem"}}>
+      <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
           <div>
@@ -178,26 +178,27 @@ function PostFooter(props) {
           </div>
         </OverlayTrigger>
       </div>
-      <div className="col-4 row justify-content-end" style={{ position: 'relative', bottom: '-20px'}}>
-        <div className="col-1">
-          <Text text={convertNum(props.post.numComments)} style={{
-            position: "relative",
-            bottom: "-12px"
-          }} />
+      <div className="col-4 text-right" style={{ position: 'relative', bottom: '-20px' }}>
+        <div className="row justify-content-end">
+          <div className="col-3" style={{padding: "0px 0px"}}>
+            <Text text={convertNum(props.post.numComments)} style={{
+              position: "relative",
+              bottom: "-12px"
+            }} />
+          </div>
+          <div className="col-3" style={{padding: "0px 0px 0px 12px"}}>
+            {checkCommentButton()}
+          </div>
+          <div className="col-3" style={{padding: "0px 0px"}}>
+            <img src={shareIcon} style={{
+              backgroundColor: "transparent",
+              position: "relative",
+              bottom: "-6px",
+              width: "2.5rem",
+              height: "2.5rem"
+            }} />
+          </div>
         </div>
-        <div className="col-2">
-          {checkCommentButton()}
-        </div>
-        <div className="col-2">
-          <img src={shareIcon} style={{
-            backgroundColor: "transparent",
-            position: "relative",
-            bottom: "-8px",
-            width: "2.5rem",
-            height: "2.5rem"
-          }} />
-        </div>
-        <div className="col-1"></div>
       </div>
     </div>
   );

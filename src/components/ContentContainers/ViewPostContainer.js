@@ -50,11 +50,11 @@ function ViewPostContainer(props) {
     return (
         <div className="ViewPostContainer">
             <Post {...props} post={post} postId={postId} showCommentButton={true}
-                updateRefresh={updateRefresh} showCategory={true}
+                updateRefresh={updateRefresh}
                 style={{
                     paddingBottom: '0px',
-                    paddingLeft: '0px',
-                    paddingRight: '0px'
+                    paddingLeft: '20px',
+                    paddingRight: '20px'
                 }}
             />
             <br />
