@@ -131,9 +131,10 @@ function ProfileContainer(props) {
                                                 alt={props.allGames[index].title}
                                                 className="rounded"
                                                 style={{
-                                                  width: '22%',
+                                                  width: '8rem',
                                                   height: 'auto',
                                                   margin: '3%',
+                                                  padding: '.3rem',
                                                   marginBottom: "10%",
                                                   marginTop: "4%"
                                                 }}
@@ -150,12 +151,13 @@ function ProfileContainer(props) {
                                             alt={props.allGames[index].title}
                                             className="rounded"
                                             style={{
-                                              width: '22%',
-                                              height: 'auto',
-                                              margin: '3%',
-                                              marginBottom: "10%",
-                                              marginTop: "4%"
-                                             }}
+                                                width: '8rem',
+                                                height: 'auto',
+                                                margin: '3%',
+                                                padding: '.3rem',
+                                                marginBottom: "10%",
+                                                marginTop: "4%"
+                                              }}
                                         />
                                     </div>
                                 )
