@@ -66,30 +66,34 @@ function SearchBox(props) {
       renderMenuItemChildren={(option, props) => (
         <Fragment>
           {option.type === "user" && <Link to={"/profile/" + option.id}>
-            <img
-              alt={option.name}
-              src={option.avatar_url}
-              style={{
-                borderRadius: '25px',
-                height: '24px',
-                marginRight: '10px',
-                width: '24px',
-              }}
-            />
-            <span style={{ color: "white" }}>{option.name}</span>
+            <div className="row" style={{ width: "100%" }}>
+              <img
+                alt={option.name}
+                src={option.avatar_url}
+                style={{
+                  borderRadius: '50%',
+                  height: '1.8rem',
+                  marginRight: '.8rem',
+                  width: '1.8rem',
+                }}
+              />
+              <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{option.name}</span>
+            </div>
           </Link>}
           {option.type === "game" && <Link to={"/games/" + option.name.split(" ").join('').toLowerCase()}>
-            <img
-              alt={option.title}
-              src={option.image}
-              style={{
-                borderRadius: '25px',
-                height: '24px',
-                marginRight: '10px',
-                width: '24px',
-              }}
-            />
-            <span style={{ color: "white" }}>{option.name}</span>
+            <div className="row" style={{ width: "100%" }}>
+              <img
+                alt={option.title}
+                src={option.image}
+                style={{
+                  borderRadius: '50%',
+                  height: '1.8rem',
+                  marginRight: '.8rem',
+                  width: '1.8rem',
+                }}
+              />
+              <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{option.name}</span>
+            </div>
           </Link>}
           {option.type === "label" &&
             <span style={{ color: "white" }}>{option.name}</span>

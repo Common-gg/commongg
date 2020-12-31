@@ -60,7 +60,7 @@ function Post(props) {
           src={props.post.link}
           alt="posted image"
           style={{
-            width: "100%"
+            maxWidth: "100%"
           }}
         />
       )
