@@ -13,6 +13,8 @@ function CreatePostModal(props) {
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(setOptions()[0].label);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [btnText, setBtnText] = useState("Post");
 
     const buttonStyle = {
         color: "#BF9AFC",
@@ -116,10 +118,14 @@ function CreatePostModal(props) {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";
         fileInputRef.current.value = "";
+        setLoading(false);
+        setBtnText("Post");
         setSelectedFile(null);
     };
 
     function handlePostClick() {
+        setLoading(true);
+        setBtnText("Posting...")
         if (selectedFile !== null) {
             props.storeImage(selectedFile, createPost);
         } else {
@@ -237,9 +243,7 @@ function CreatePostModal(props) {
                             <img src={URL.createObjectURL(selectedFile)} alt="preview" 
                             style={{maxHeight: "200px"}}/>
                         </div>
-                        
-                    </div>
-                    
+                    </div>                    
                 </div>
             )
         }
@@ -274,7 +278,7 @@ function CreatePostModal(props) {
                                 />
                                 <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close" data-dismiss="modal"
                                     aria-label="Close" onClick={() => clearFields()}>
-                                    <span onClick={toggleModalState} aria-hidden="true">&times;</span>
+                                    <span id="createPostX" onClick={toggleModalState} aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                         </div>
@@ -309,7 +313,7 @@ function CreatePostModal(props) {
                                     defaultValue={setOptions()[0]}
                                 />
                             </div>
-                            <button type="button" className="btn btn-primary" onClick={() => handlePostClick()} data-dismiss="modal" style={postButtonStyle}>Post</button>
+                            <button disabled={loading} type="button" className="btn btn-primary" onClick={() => handlePostClick()} style={postButtonStyle}>{btnText}</button>
                         </div>
                         <br />
                     </div>
