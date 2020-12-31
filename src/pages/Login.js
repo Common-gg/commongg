@@ -16,6 +16,11 @@ function Login(props) {
     top: "179px"
   }
 
+  const linkStyle = {
+    color: "#BF9AFC",
+    textDecoration: "underline"
+  }
+
   function handleSignIn(e) {
     if (e.key === "Enter") {
       props.signInUser(emailRef.current.value, passwordRef.current.value);
@@ -99,14 +104,15 @@ function Login(props) {
         <div className="col-4"></div>
         <div className="text-center col-4">
           <Link to="/signup">
-            <p className="col" style={{ color: "#BF9AFC", textDecoration: "underline" }}>
+            <p className="col" style={linkStyle}>
               new? sign up
               </p>
           </Link>
-          <a href="" style={{ color: "#BF9AFC", textDecoration: "underline" }}>
-            <p className="col">
-              forgot password?</p>
-          </a>
+          <Link to="/forgotpassword">
+            <p className="col" style={linkStyle}>
+              forgot password?
+              </p>
+          </Link>
         </div>
         <div className="col-4"></div>
       </div>
