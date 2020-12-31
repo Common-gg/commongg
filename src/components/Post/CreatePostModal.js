@@ -13,6 +13,7 @@ function CreatePostModal(props) {
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(setOptions()[0].label);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("Post");
 
@@ -121,6 +122,7 @@ function CreatePostModal(props) {
         setLoading(false);
         setBtnText("Post");
         setSelectedFile(null);
+        setIsFileTooLarge(null);
     };
 
     function handlePostClick() {
@@ -185,7 +187,16 @@ function CreatePostModal(props) {
             const compress = new Compress();
 
             if ((file.type === "image/png") || (file.type === "image/gif")) {
-                setSelectedFile(file);
+                const MAX_SIZE_FOR_FILE = (5 * 1024 * 1024);
+
+                if (file.size > MAX_SIZE_FOR_FILE) {
+                    setSelectedFile(null);
+                    setIsFileTooLarge(true);
+                }
+                else {
+                    setSelectedFile(file);
+                    setIsFileTooLarge(false);
+                }
             }
             else {
                 compress.compress([file], {
@@ -199,9 +210,21 @@ function CreatePostModal(props) {
                     let file = Compress.convertBase64ToFile(img.data, img.ext);
                     setSelectedFile(file);
                 });
+                setIsFileTooLarge(false);
             }
+            handleFileTooLargeMessage();
         }
     }
+
+    function handleFileTooLargeMessage() {
+        if (isFileTooLarge === null || isFileTooLarge === false) {
+            return (<div></div>);
+        }
+        else if (isFileTooLarge === true) {
+            return (<p style={{ color: "red" }}>Image cannot exceed 5MB. Select a different image or shrink the currently selected image.</p>);
+        }
+    }
+
     function setOptions() {
         let tempArr = [];
         props.currentUserInfo.games.map((game) => {
@@ -229,21 +252,21 @@ function CreatePostModal(props) {
     }
 
     //component for image preview when selectedFile is not null
-    function imagePreview() {   
+    function imagePreview() {
         if (selectedFile !== null) {
             return (
                 <div>
                     <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                     <div className="d-flex justify-content-center">
                         <div>
-                            <button type="button" style={{color: "#BF9AFC" }} className="close"
-                                    aria-label="Close" onClick={() => removeImage()}>
-                                <span  aria-hidden="true">&times;</span>
+                            <button type="button" style={{ color: "#BF9AFC" }} className="close"
+                                aria-label="Close" onClick={() => removeImage()}>
+                                <span aria-hidden="true">&times;</span>
                             </button>
-                            <img src={URL.createObjectURL(selectedFile)} alt="preview" 
-                            style={{maxHeight: "200px"}}/>
+                            <img src={URL.createObjectURL(selectedFile)} alt="preview"
+                                style={{ maxHeight: "200px" }} />
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             )
         }
@@ -292,8 +315,11 @@ function CreatePostModal(props) {
                                 rows="5"
                                 style={textAreaStyle}
                             />
-                        </div>     
-                        {imagePreview()}                   
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            {handleFileTooLargeMessage()}
+                        </div>
+                        {imagePreview()}
                         <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
                         <div style={{ display: "flex" }}>
                             <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
