@@ -20,19 +20,19 @@ function PageContainer(props) {
         <br /><br />
         <div className="row">
         <div className="col-xl-2 col-lg-1 col-md-0 col-sm-0"></div>
-          <div className="col-xl-2 col-lg-2 col-md-2 col-sm-1 col-4">
+          <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-4">
             <div style={sticky}>
               <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
             </div>
           </div>
-          <div className="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-8">
+          <div className="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-8">
             <div className="text-center">
               <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames}/>
               <br />
             </div>
             <ContentContainer {...props} />
           </div>
-          <div className="col-xl-4 col-lg-3 col-md-2 col-sm-1 col-0">
+          <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>
               <Text text="ADS GO HERE TO MAKE $$ YEP" />
             </div>
