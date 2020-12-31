@@ -105,20 +105,19 @@ function Post(props) {
       <div className="container">
         <br />
         <div className="row">
-          <div className="col-8 row">
-            <div className="col-1">
+          <div className="col-12 row">
+            <div className="col-2">
               <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
             </div>
-            <div className="col-11 row" style={{ marginBottom: '5px', lineHeight: '4px' }}>
-              <div className="col-1"></div>
-              <div className="col-10">
+            <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
+              <div className="col-12">
                 <br />
                 <br />
                 <Link to={"/profile/" + props.post.author} style={{textDecoration: 'none'}} >
                   <Text text={author.username} />
                 </Link>
                 <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US",{hour: '2-digit', minute:'2-digit'}) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
-                  style={{ color: '#BF9AFC', fontSize: '12px' }}
+                  style={{ color: '#BF9AFC', fontSize: '.9rem' }}
                 />     
               </div>
             </div>
@@ -129,7 +128,7 @@ function Post(props) {
         </div>
         <div className="row">
           <div className="col-12">
-            <div className="d-flex align-items-center flex-wrap">
+            <div style={{position: "relative", left: "-.5rem"}}>
               <div className="p-2">
               <Link to={"/post/" + props.postId} style={{textDecoration: 'none'}}>
                 <Text text={props.post.title} style={{ fontSize: '25px' }} />
@@ -139,7 +138,7 @@ function Post(props) {
             </div>
             <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
               <a target="blank" href={decoratedHref} key={key}>
-                  {decoratedText}
+                  <p style={{overflowWrap: 'break-word'}}>{decoratedText}</p>
               </a>
             )}>
               <p style={{ fontSize: '18px' }}>{props.post.text}</p>
