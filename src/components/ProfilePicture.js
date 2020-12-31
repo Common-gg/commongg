@@ -9,7 +9,7 @@ function ProfilePicture(props) {
       width={props.width}
       height={props.height}
       style={{ borderRadius: "50%" }}
-      class="img">
+      className="img">
     </img>
   );
 }

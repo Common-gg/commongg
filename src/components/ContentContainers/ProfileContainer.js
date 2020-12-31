@@ -47,7 +47,6 @@ function ProfileContainer(props) {
 
     useEffect(() => {
         if (props.currentUserInfo.following) {
-            console.log(props.currentUserInfo.following);
             let temp = Object.values(props.currentUserInfo.following);
             if (temp.includes(props.pageId)) {
                 setFollowBtnState({ ...followBtnState, text: "Following", img: check });

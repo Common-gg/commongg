@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Post from './Post/Post.js';
-
+import 'react-on-screen';
 
 function FeedType(props) {
+
+  const [numPostsLoaded, setNumPostsLoaded] = useState(5);
 
   const [posts, setPosts] = useState({
     "00000000": {
@@ -36,10 +38,10 @@ function FeedType(props) {
   return (
     <div>
       {Object.values(posts).reverse().map((post, i) => {
-        if (post.author !== "404")
+        if (post.author !== "404" && i < numPostsLoaded)
           return (
             <div key={Object.keys(posts).reverse()[i]}>
-              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} childPostRefresh={childPostRefresh}/><br />
+              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} postNum={i + 1} numPostsLoaded={numPostsLoaded} setNumPostsLoaded={setNumPostsLoaded} childPostRefresh={childPostRefresh} /><br />
             </div>
           )
       })}
