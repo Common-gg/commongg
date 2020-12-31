@@ -5,11 +5,12 @@ import ViewPostContainer from './ViewPostContainer.js';
 import SettingsContainer from './SettingsContainer.js';
 import GamesContainer from './GamesContainer.js';
 import PageNotFound from './PageNotFound.js';
-import GameFeedContainer from './GameFeedContainer.js'
+import GameFeedContainer from './GameFeedContainer.js';
 
 function ContentContainer(props) {
   const [pageState, setPageState] = useState();
   const [pageId, setPageId] = useState();
+  
   useEffect(() => {
     let url = window.location.href;
     url = url.split('/');

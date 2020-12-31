@@ -5,6 +5,7 @@ import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
 import optionsIcon from '../../images/icons/options.png';
 import { Link } from "react-router-dom";
+import TrackVisibility from "react-on-screen";
 
 function Post(props) {
 
@@ -80,62 +81,75 @@ function Post(props) {
     // }
   }
 
+  const checkPostNum = isVisible => {
+    if(isVisible && props.postNum >= props.numPostsLoaded - 3) {
+      props.setNumPostsLoaded(props.numPostsLoaded + 5);
+    }
+  }
+
   return (
-    <div className="Post" style={getStyle()}>
-      <div className="container">
-        <br />
-        <div className="row">
-          <div className="col-12 row">
-            <div className="col-2">
-              <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
-            </div>
-            <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
-              <div className="col-12">
-                <br />
-                <br />
-                <Link to={"/profile/" + props.post.author} style={{ textDecoration: 'none' }} >
-                  <Text text={author.username} />
-                </Link>
-                <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
-                  style={{ color: '#BF9AFC', fontSize: '.9rem' }}
-                />
+    <TrackVisibility once>
+      {({ isVisible }) => {
+        checkPostNum(isVisible);
+        return (
+        <div className="Post" style={getStyle()}>
+          <div className="container">
+            <br />
+            <div className="row">
+              <div className="col-12 row">
+                <div className="col-2">
+                  <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
+                </div>
+                <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
+                  <div className="col-12">
+                    <br />
+                    <br />
+                    <Link to={"/profile/" + props.post.author} style={{ textDecoration: 'none' }} >
+                      <Text text={author.username} />
+                    </Link>
+                    <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
+                      style={{ color: '#BF9AFC', fontSize: '.9rem' }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="ml-auto pr-3 dropdown">
+                {checkOptions()}
               </div>
             </div>
+            <div className="row">
+              <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
+                <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+                  <Text text={props.post.title} style={{ fontSize: '25px' }} />
+                </Link>
+              </div>
+              <div className="col-auto" style={{ paddingTop: '.2rem' }}>
+                <Text text={props.post.category}
+                  style={{
+                    borderStyle: 'solid',
+                    borderWidth: '1px',
+                    borderRadius: '5px',
+                    height: '25px',
+                    color: '#BF9AFC',
+                    borderColor: '#BF9AFC'
+                  }} />
+              </div>
+            </div>
+            <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
+              <a target="blank" href={decoratedHref} key={key}>
+                <p style={{ overflowWrap: 'break-word' }}>{decoratedText}</p>
+              </a>
+            )}>
+              <p style={{ fontSize: '18px' }}>{props.post.text}</p>
+            </Linkify>
+            {checkType()}
+            <PostFooter {...props} />
           </div>
-          <div className="ml-auto pr-3 dropdown">
-            {checkOptions()}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px'}}>
-            <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
-              <Text text={props.post.title} style={{ fontSize: '25px' }} />
-            </Link>
-          </div>
-          <div className="col-auto" style={{ paddingTop: '.2rem' }}>
-            <Text text={props.post.category}
-              style={{
-                borderStyle: 'solid',
-                borderWidth: '1px',
-                borderRadius: '5px',
-                height: '25px',
-                color: '#BF9AFC',
-                borderColor: '#BF9AFC'
-              }} />
-          </div>
-        </div>
-        <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-          <a target="blank" href={decoratedHref} key={key}>
-            <p style={{ overflowWrap: 'break-word' }}>{decoratedText}</p>
-          </a>
-        )}>
-          <p style={{ fontSize: '18px' }}>{props.post.text}</p>
-        </Linkify>
-        {checkType()}
-        <PostFooter {...props} />
-      </div>
-      <br />
-    </div >
+          <br />
+        </div >
+        )
+      }}
+    </TrackVisibility>
   );
 }
 
