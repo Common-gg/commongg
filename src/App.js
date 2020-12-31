@@ -471,6 +471,19 @@ function App() {
     });
   }
 
+  const changePasswordFromSettingsPage = (oldPassword, newPassword, isSuccess) => {
+    auth.signInWithEmailAndPassword(currentUser.email, oldPassword).then((user) => {
+      auth.currentUser.updatePassword(newPassword).then(() => {
+        // password reset successful
+        return isSuccess(true);
+      }).catch((err) => {
+        return isSuccess(false);
+      });
+    }).catch((err) => {
+      return isSuccess(false);
+    });
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -545,6 +558,8 @@ function App() {
                   unFollowUser={unFollowUser}
                   storeUserGames={storeUserGames}
                   storeUserAboutMe={storeUserAboutMe}
+
+                  changePasswordFromSettingsPage={changePasswordFromSettingsPage}
                 />
               </div>
             )} />
