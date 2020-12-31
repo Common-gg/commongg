@@ -158,7 +158,7 @@ function Post(props) {
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
                 <a target="blank" href={decoratedHref} key={key} style={{color: "#BF9AFC"}}>
-                  <p maxLength="50" style={{ overflowWrap: 'break-word' }}>{decoratedText}</p>
+                  <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
                   {checkTwitchClips(decoratedHref, <ReactTinyLink
                     cardSize="large"
                     showGraphic={true}
