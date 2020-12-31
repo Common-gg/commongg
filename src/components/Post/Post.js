@@ -4,8 +4,10 @@ import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
 import optionsIcon from '../../images/icons/options.png';
+import TwitchEmbed from './TwitchEmbed.js'
 import { Link } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
+
 
 function Post(props) {
 
@@ -14,6 +16,7 @@ function Post(props) {
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
   }, [props.post]);
+
 
   function getStyle() {
     if (props.style === undefined) {
@@ -49,6 +52,29 @@ function Post(props) {
         </div>
       )
     }
+  }
+
+  //creating twitch embedding if twitch clips are found
+  function checkTwitchClips() {
+    //parse all twitch clips with regular expression and map the results
+    const regexp = /https:\/\/www\.twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+)/g;
+    const matches = props.post.text.matchAll(regexp);
+    var clips = [];
+    for (const match of matches) {
+      clips.push(match[1]);
+    }
+    if (clips.length === 0) {
+      return null;
+    } else {
+      return(
+        <div>
+          {clips.map((clip) => {
+            return <TwitchEmbed clip={clip}></TwitchEmbed>
+          })}
+        </div>
+      )
+    }
+    
   }
 
   const checkType = () => {
@@ -142,6 +168,7 @@ function Post(props) {
             )}>
               <p style={{ fontSize: '18px' }}>{props.post.text}</p>
             </Linkify>
+            {checkTwitchClips()}
             {checkType()}
             <PostFooter {...props} />
           </div>
