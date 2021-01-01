@@ -122,7 +122,7 @@ function ProfileContainer(props) {
                         {user.games.map(index => {
                             if (props.currentUserInfo.games.includes(index)) {
                                 return (
-                                    <div className="col-4">
+                                    <div key={index} className="col-4">
                                         <Link to={"/games/" + (props.allGames[index].title.split(" ")).join('').toLowerCase()}>
                                             <img
                                                 src={props.allGames[index].image}

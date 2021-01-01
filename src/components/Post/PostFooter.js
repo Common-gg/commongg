@@ -85,6 +85,7 @@ function PostFooter(props) {
   }
 
   const usersReacted = reaction => {
+    if(!post.reacted) return;
     return Object.keys(post.reacted).filter((user, i) => Object.values(post.reacted)[i] === reaction);
   }
 
