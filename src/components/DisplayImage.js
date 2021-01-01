@@ -29,6 +29,7 @@ function DisplayImage(props) {
         });
       }
     }
+    props.changedInfo();
   };
 
   return (
