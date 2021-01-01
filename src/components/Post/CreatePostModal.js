@@ -11,7 +11,7 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
-    const [selectedOption, setSelectedOption] = useState(setOptions()[0].label);
+    const [selectedOption, setSelectedOption] = useState(getOptions()[0].label);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -224,11 +224,21 @@ function CreatePostModal(props) {
         }
     }
 
-    function setOptions() {
+    function getOptions() {
         let tempArr = [];
-        props.currentUserInfo.games.map((game) => {
-            tempArr.push({ label: props.allGames[game].title, value: game });
-        });
+        if (props.default === undefined) {
+            props.currentUserInfo.games.map((game) => {
+                tempArr.push({ label: props.allGames[game].title, value: game });
+            });
+        } else {
+            tempArr.push({ label: props.allGames[props.default].title, value: props.default})
+            props.currentUserInfo.games.map((game) => {
+                if (game !== props.default) {
+                    tempArr.push({ label: props.allGames[game].title, value: game });
+                }
+            });
+        }
+        
         return tempArr;
     }
 
@@ -335,9 +345,9 @@ function CreatePostModal(props) {
                                     },
                                 })}
                                     styles={dropdownStyle} onChange={handleOnChangeDropdown}
-                                    options={setOptions()}
+                                    options={getOptions()}
                                     components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
-                                    defaultValue={setOptions()[0]}
+                                    value={getOptions()[0]}
                                 />
                             </div>
                             <button disabled={loading} type="button" className="btn btn-primary" onClick={() => handlePostClick()} style={postButtonStyle}>{btnText}</button>
