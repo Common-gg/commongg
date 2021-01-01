@@ -107,7 +107,7 @@ Input{
 }
 
 .tooltip {
-  width: 12%;
+  max-width: 12%;
   word-break: normal;
   overflow-wrap: break-word;
   display: block;
