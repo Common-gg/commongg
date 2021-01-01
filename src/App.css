@@ -105,3 +105,10 @@ background-color: #292833;
 Input{
   background-color: #292833;
 }
+
+.tooltip {
+  width: 12%;
+  word-break: normal;
+  overflow-wrap: break-word;
+  display: block;
+}
