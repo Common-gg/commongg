@@ -22,6 +22,7 @@ function ViewPostContainer(props) {
             postId: ""
         }
     });
+    const [sortedComments, setSortedComments] = useState([]);
     const [commentRefresh, setCommentRefresh] = useState(0)
     const updateRefresh = function () {
         setCommentRefresh(commentRefresh + 1);
@@ -45,6 +46,22 @@ function ViewPostContainer(props) {
         }
     }, [post, commentRefresh])
 
+    useEffect(() => {
+        let tempComments = Object.entries(comments).reverse();
+        tempComments.sort((a, b) => (getNumReactions(b[1]) - getNumReactions(a[1])));
+        setSortedComments(tempComments);
+    }, [comments])
+
+    const getNumReactions = (comment) => {
+        let num = 0;
+        if (comment.reacted !== undefined) {
+            for (var element in comment.reacted) {
+                num++;
+            }
+        }
+        return num;
+    }
+
     return (
         <div className="ViewPostContainer">
             <Post {...props} post={post} postId={props.pageId}
@@ -56,14 +73,15 @@ function ViewPostContainer(props) {
                 }}
             />
             <br />
-            {Object.values(comments).reverse().map((comment, i) => {
-                if (comment.author !== "404")
+            {sortedComments.map((comment) => {
+                if(comment[1].author !== "404"){
                     return (
-                        <div key={Object.keys(comments).reverse()[i]}>
+                        <div key={comment[0]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment {...props} commentId={Object.keys(comments).reverse()[i]} showCommentButton={true} updateRefresh={updateRefresh} />
+                            <Comment {...props} commentId={comment[0]} showCommentButton={true} updateRefresh={updateRefresh} />
                         </div>
                     )
+                }
             })}
         </div>
     );
