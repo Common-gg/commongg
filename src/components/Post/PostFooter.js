@@ -84,6 +84,10 @@ function PostFooter(props) {
     }
   }
 
+  const usersReacted = reaction => {
+    return Object.keys(post.reacted).filter((user, i) => Object.values(post.reacted)[i] === reaction);
+  }
+
   const checkReactions = () => {
     if (post.reactions !== undefined) {
       let reactArr = Object.keys(post.reactions);
@@ -95,7 +99,7 @@ function PostFooter(props) {
           if (post.reactions[reaction] > 0) {
             return (
               <div style={{ padding: ".8rem", marginRight: "1rem", position: "relative", bottom: "-1rem", left: "-.7rem" }} key={reaction}>
-                <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={convertNum(post.reactions[reaction])} id={props.postId + reaction} />
+                <ReactionIcon reaction={reaction} usersReacted={usersReacted(reaction)} reacted={reacted(reaction)} react={react} text={convertNum(post.reactions[reaction])} id={props.postId + reaction} />
               </div>
             )
           }

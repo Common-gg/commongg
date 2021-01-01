@@ -34,7 +34,6 @@ function CommentFooter(props) {
   }, [props.comment])
 
   useEffect(() => {
-    console.log(comment);
     setAllowClick(true);
     if (comment.reactions !== undefined) {
       setPopoverReactions(reactions.filter(reaction =>
@@ -72,6 +71,10 @@ function CommentFooter(props) {
     }
   }
 
+  const usersReacted = reaction => {
+    return Object.keys(comment.reacted).filter((user, i) => Object.values(comment.reacted)[i] === reaction);
+  }
+
   const checkReactions = () => {
     if (comment.reactions !== undefined) {
       let reactArr = Object.keys(comment.reactions);
@@ -83,7 +86,7 @@ function CommentFooter(props) {
           if (comment.reactions[reaction] > 0) {
             return (
               <div style={{ padding: ".8rem", marginRight: "1rem", position: "relative", bottom: "-1rem", left: "-.7rem" }} key={reaction}>
-                <ReactionIcon reaction={reaction} reacted={reacted(reaction)} react={react} text={convertNum(comment.reactions[reaction])} id={props.commentId + reaction} />
+                <ReactionIcon reaction={reaction} usersReacted={usersReacted(reaction)} reacted={reacted(reaction)} react={react} text={convertNum(comment.reactions[reaction])} id={props.commentId + reaction} />
               </div>
             )
           }
