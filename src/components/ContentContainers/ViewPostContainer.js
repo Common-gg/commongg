@@ -36,7 +36,7 @@ function ViewPostContainer(props) {
     }, []);
 
     useEffect(() => {
-        props.getPost(props.pageId, setPost);
+        props.getPost(props.pageId, setPost, "posts");
     }, [props.pageId, commentRefresh])
 
     useEffect(() => {

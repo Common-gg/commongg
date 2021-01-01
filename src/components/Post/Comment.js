@@ -4,6 +4,7 @@ import ProfilePicture from '../ProfilePicture.js';
 import { Link } from "react-router-dom";
 import optionsIcon from '../../images/icons/options.png';
 import { Popover, OverlayTrigger } from 'react-bootstrap'
+import CommentFooter from './CommentFooter.js';
 
 function Comment(props) {
 
@@ -98,14 +99,7 @@ function Comment(props) {
                 </div>
                 <div className="row">
                     <div className="col-10">
-                        {/*put nested comments here*/}
-                        {/*comment.comments.map(comment => {
-                            return (
-                                <div className="commentBorder">
-                                    <Comment comment={comment} getUser={props.getUser}/>
-                                </div>
-                            );
-                        })*/}
+                        <CommentFooter {...props} comment={comment} commentId={commentId} />
                     </div>
                 </div>
             </div>
