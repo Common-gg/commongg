@@ -12,11 +12,19 @@ function SettingsContainer(props) {
   const [newPassword, setNewPassword] = useState();
   const [confirmNewPassword, setConfirmNewPassword] = useState();
   const [passwordChangeIsSuccessful, setPasswordChangeIsSuccessful] = useState(null);
+  const [loadChangePasswordFields, setLoadChangePasswordFields] = useState(null);
+  const [errorString, setErrorString] = useState("");
 
   useEffect(() => {
     aboutMeRef.current.value = props.currentUserInfo.about_me;
     setSelectedFile({ current: { value: props.currentUserInfo.profile_picture } });
+    setLoadChangePasswordFields(false);
+    setPasswordChangeIsSuccessful(false);
   }, []);
+
+  useEffect(() => {
+    setLoadChangePasswordFields(loadChangePasswordFields);
+  }, loadChangePasswordFields)
 
   const settingsContainerStyle = {
     border: "solid",
@@ -60,27 +68,37 @@ function SettingsContainer(props) {
 
   function handlePasswordMessageChange() {
     if (passwordChangeIsSuccessful === null) {
-      return (<div></div>);
+      return setErrorString(<div></div>);
     }
     else if (passwordChangeIsSuccessful === false) {
-      return (<p style={{ color: "red" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
+      return setErrorString(<p style={{ color: "red" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
     }
     else {
-      return (<p style={{ color: "green" }}>password changed successfully!</p>);
+      return setErrorString(<p style={{ color: "green" }}>password changed successfully!</p>);
     }
   }
 
-  function handlePasswordButtonClick() {
-    let newPass = newPassword.current.value;
-    let confirmNew = confirmNewPassword.current.value;
-
-    if (newPass !== confirmNew) {
-      setPasswordChangeIsSuccessful(false);
+  async function handlePasswordButtonClick() {
+    if (loadChangePasswordFields === false || loadChangePasswordFields === null) {
+      setLoadChangePasswordFields(true);
+      return;
     }
     else {
-      props.changePasswordFromSettingsPage(currentPassword.current.value, confirmNewPassword.current.value, setPasswordChangeIsSuccessful);
+      try {
+        let newPass = newPassword.current === undefined ? "" : confirmNewPassword.current.value;
+        let confirmNew = confirmNewPassword.current === undefined ? "" : confirmNewPassword.current.value;
+
+        if (newPass !== confirmNew) {
+          setPasswordChangeIsSuccessful(false);
+          return;
+        }
+        else {
+          await props.changePasswordFromSettingsPage(currentPassword.current.value, confirmNewPassword.current.value, setPasswordChangeIsSuccessful);
+          handlePasswordMessageChange();
+        }
+      }
+      catch { }
     }
-    handlePasswordMessageChange();
   }
 
   return (
@@ -143,37 +161,39 @@ function SettingsContainer(props) {
       </div>
       <br />
       <div className="d-flex justify-content-center">
-        {handlePasswordMessageChange()}
+        {errorString}
       </div>
       <div className="row">
         <div className="col-4"></div>
         <form className="col-4">
-          <div className="form-group">
-            <Label htmlFor="currentPassword" text="current password" />
-            <Input type="password"
-              bootstrap="border border-secondary"
-              style={{ backgroundColor: "#292833", }}
-              track={setCurrentPassword}
-              id="currentPassword"
-            />
-            <br />
-            <Label htmlFor="newPassword" text="new password" />
-            <Input type="password"
-              bootstrap="border border-secondary"
-              style={{ backgroundColor: "#292833" }}
-              track={setNewPassword}
-              id="newPassword"
-            />
-            <br />
-            <Label htmlFor="confirmNewPassword" text="confirm new password" />
-            <Input type="password"
-              bootstrap="border border-secondary"
-              style={{ backgroundColor: "#292833", }}
-              track={setConfirmNewPassword}
-              id="confirmNewPassword"
-            />
-            <br />
-          </div>
+          {loadChangePasswordFields ? (
+            <div className="form-group">
+              <Label htmlFor="currentPassword" text="current password" />
+              <Input type="password"
+                bootstrap="border border-secondary"
+                style={{ backgroundColor: "#292833", }}
+                track={setCurrentPassword}
+                id="currentPassword"
+              />
+              <br />
+              <Label htmlFor="newPassword" text="new password" />
+              <Input type="password"
+                bootstrap="border border-secondary"
+                style={{ backgroundColor: "#292833" }}
+                track={setNewPassword}
+                id="newPassword"
+              />
+              <br />
+              <Label htmlFor="confirmNewPassword" text="confirm new password" />
+              <Input type="password"
+                bootstrap="border border-secondary"
+                style={{ backgroundColor: "#292833", }}
+                track={setConfirmNewPassword}
+                id="confirmNewPassword"
+              />
+              <br />
+            </div>
+          ) : null}
           <div className="col-12">
             <button type="button"
               className="btn"
