@@ -111,10 +111,6 @@ function CreatePostModal(props) {
             backgroundColor: "#292833",
         })
     }
-    const modalStyle = {
-        position: "absolute",
-        top: "170px"
-    };
     function clearFields() {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";
@@ -122,10 +118,13 @@ function CreatePostModal(props) {
         setLoading(false);
         setBtnText("Post");
         setSelectedFile(null);
-        setIsFileTooLarge(null);
     };
 
     function handlePostClick() {
+        if ((postTitleRef.current.value === "") && (postTextRef.current.value === "")
+            && (selectedFile === null)) {
+            return;
+        }
         setLoading(true);
         setBtnText("Posting...")
         if (selectedFile !== null) {
@@ -212,13 +211,13 @@ function CreatePostModal(props) {
                 });
                 setIsFileTooLarge(false);
             }
-            handleFileTooLargeMessage();
         }
+        handleErrorString();
     }
 
-    function handleFileTooLargeMessage() {
+    function handleErrorString() {
         if (isFileTooLarge === null || isFileTooLarge === false) {
-            return (<div></div>);
+            return null;
         }
         else if (isFileTooLarge === true) {
             return (<p style={{ color: "red" }}>Image cannot exceed 5MB. Select a different image or shrink the currently selected image.</p>);
@@ -316,8 +315,10 @@ function CreatePostModal(props) {
                                 style={textAreaStyle}
                             />
                         </div>
-                        <div className="d-flex justify-content-center">
-                            {handleFileTooLargeMessage()}
+                        <div>
+                            <div className="d-flex justify-content-center">
+                                {handleErrorString()}
+                            </div>
                         </div>
                         {imagePreview()}
                         <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
