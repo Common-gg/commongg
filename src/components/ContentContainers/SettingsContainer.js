@@ -14,6 +14,7 @@ function SettingsContainer(props) {
   const [passwordChangeIsSuccessful, setPasswordChangeIsSuccessful] = useState(null);
   const [loadChangePasswordFields, setLoadChangePasswordFields] = useState(null);
   const [errorString, setErrorString] = useState("");
+  const [updateButtonText, setUpdateButtonText] = useState("update");
 
   useEffect(() => {
     aboutMeRef.current.value = props.currentUserInfo.about_me;
@@ -64,6 +65,15 @@ function SettingsContainer(props) {
     } else {
       props.storeUserAboutMe(aboutMe);
     }
+    setUpdateButtonText("saved");
+  }
+
+  const changedInfo = () => {
+    if (updateButtonText === "saved") {
+      console.log("saved to update");
+      setUpdateButtonText("update");
+    }
+    console.log("event registered");
   }
 
   function handlePasswordMessageChange() {
@@ -110,7 +120,7 @@ function SettingsContainer(props) {
           <h2 className="text-center" style={{ color: "#BF9AFC" }}>edit profile</h2>
           <div style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
-              currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} />
+              currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} changedInfo={changedInfo} />
             <label htmlFor="fileInput"
               className="btn"
               style={{
@@ -136,16 +146,17 @@ function SettingsContainer(props) {
               placeholder="About me..."
               maxLength="150"
               ref={aboutMeRef}
+              onClick={changedInfo}
               style={{
-                backgroundColor: "transparent",
-                color: "#FFFFFF",
-                resize: "none",
-                maxWidth: "100%",
-                borderStyle: "solid",
-                borderRadius: "5px",
-                borderColor: "#BF9AFC",
-                borderWidth: "1px",
-              }}
+              backgroundColor: "transparent",
+              color: "#FFFFFF",
+              resize: "none",
+              maxWidth: "100%",
+              borderStyle: "solid",
+              borderRadius: "5px",
+              borderColor: "#BF9AFC",
+              borderWidth: "1px",
+            }}
             />
           </div>
         </form>
@@ -156,8 +167,8 @@ function SettingsContainer(props) {
           className="btn"
           onClick={() => handleUpdateButtonClick()}
           style={buttonStyle}>
-          update
-          </button>
+          {updateButtonText}
+        </button>
       </div>
       <br />
       <div className="d-flex justify-content-center">
