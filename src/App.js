@@ -331,9 +331,9 @@ function App() {
     });
   }
 
-  const getPost = (postId, callback) => {
+  const getPost = (postId, callback, postType) => {
     // Gets a single post from DB
-    database.ref('/content/posts/' + postId).once('value').then((snapshot) => {
+    database.ref('/content/' + postType + '/' + postId).once('value').then((snapshot) => {
       const postData = snapshot.val();
       if (postData !== null) return callback(postData);
     })
@@ -362,44 +362,44 @@ function App() {
     });
   }
 
-  const reactToPost = (username, postId, reaction, value, setPost) => {
+  const reactToPost = (username, postId, reaction, value, setPost, postType) => {
     //add to list to reacted
-    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
     reactedRef.set(reaction).then(() => {
       //increment the counter for the post
-      const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
+      const reactionRef = database.ref('/content/' + postType + '/' + postId + '/reactions/' + reaction);
       reactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
-        getPost(postId, setPost);
+        getPost(postId, setPost, postType);
       })
     })
   }
 
   //unreact to post and decrement
-  const unreactToPost = (username, postId, reaction, value, setPost) => {
+  const unreactToPost = (username, postId, reaction, value, setPost, postType) => {
     //add to list to reacted
-    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
     reactedRef.set(null).then(() => {
       //decrement the counter for the post
-      const reactionRef = database.ref('/content/posts/' + postId + '/reactions/' + reaction);
+      const reactionRef = database.ref('/content/' + postType + '/' + postId + '/reactions/' + reaction);
       reactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
         //make sure everything is updated on server before gettingp ost
-        getPost(postId, setPost);
+        getPost(postId, setPost, postType);
       })
     })
   }
 
   //change the current reaction, decrement old, increment new
-  const changeReaction = (username, postId, oldReaction, newReaction, value, setPost) => {
+  const changeReaction = (username, postId, oldReaction, newReaction, value, setPost, postType) => {
     //set the reaction of user on post to new reaction
-    const reactedRef = database.ref('/content/posts/' + postId + '/reacted/' + username);
+    const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
     reactedRef.set(newReaction).then(() => {
       //increment the counter for the new emote
-      const newReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + newReaction);
+      const newReactionRef = database.ref('/content/' + postType + '/' + postId + '/reactions/' + newReaction);
       newReactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
         //decrementr the counter for old emote
-        const oldReactionRef = database.ref('/content/posts/' + postId + '/reactions/' + oldReaction);
+        const oldReactionRef = database.ref('/content/' + postType + '/' + postId + '/reactions/' + oldReaction);
         oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
-          getPost(postId, setPost);
+          getPost(postId, setPost, postType);
         })
       })
     })
