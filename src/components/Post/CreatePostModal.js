@@ -3,8 +3,10 @@ import excludeIcon from "../../images/icons/exclude-1.png";
 import Select from 'react-select';
 import ImageIcon from "../../images/icons/image22.png";
 import Compress from "compress.js";
+import { Modal } from "react-bootstrap";
 
 function CreatePostModal(props) {
+    const [show, setShow] = useState(false);
     const postTextRef = useRef();
     const postTitleRef = useRef();
     const fileInputRef = useRef();
@@ -16,6 +18,9 @@ function CreatePostModal(props) {
     const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("Post");
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const buttonStyle = {
         color: "#BF9AFC",
@@ -118,6 +123,7 @@ function CreatePostModal(props) {
         setLoading(false);
         setBtnText("Post");
         setSelectedFile(null);
+        setShow(false);
     };
 
     function handlePostClick() {
@@ -132,7 +138,6 @@ function CreatePostModal(props) {
         } else {
             createPost("");
         }
-        setIsModalOpen(false);
     }
 
     function createPost(url) {
@@ -246,16 +251,6 @@ function CreatePostModal(props) {
         setSelectedOption(e.label);
     }
 
-    function toggleModalState() {
-        if (isModalOpen === false) {
-            setIsModalOpen(true);
-        }
-        else {
-            setIsModalOpen(false);
-            clearFields();
-        }
-    }
-
     function removeImage() {
         setSelectedFile(null);
     }
@@ -283,7 +278,7 @@ function CreatePostModal(props) {
 
     return (
         <div className="CreatePostModal">
-            <button type="button" style={buttonStyle} className="btn btn-primary" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#createPostModal" onClick={toggleModalState}>
+            <button type="button" style={buttonStyle} className="btn btn-primary" onClick={handleShow}>
                 <img
                     src={excludeIcon}
                     alt="post button"
@@ -294,68 +289,66 @@ function CreatePostModal(props) {
                     }} />
                     make a post
                 </button>
-            <div className="modal fade" id="createPostModal" tabIndex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content" style={modalContentStyle}>
-                        <br />
-                        <div className="col-12">
-                            <div className="input-group">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="title..."
-                                    onChange={() => setPostTitle(postTitleRef)}
-                                    ref={postTitleRef}
-                                    style={titleInputStyle}
-                                />
-                                <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close" data-dismiss="modal"
-                                    aria-label="Close" onClick={() => clearFields()}>
-                                    <span id="createPostX" onClick={toggleModalState} aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                        <hr style={{ padding: "0", backgroundColor: '#BF9AFC', width: '90%' }} />
-                        <div className="col-12">
-                            <textarea
+            <Modal show={show} onHide={handleClose} onEntered={() => postTitleRef.current.focus()}>
+                <div className="modal-content" style={modalContentStyle}>
+                    <br />
+                    <div className="col-12">
+                        <div className="input-group">
+                            <input
+                                type="text"
                                 className="form-control"
-                                onChange={() => setPostText(postTextRef)}
-                                ref={postTextRef}
-                                placeholder="type your body here..."
-                                rows="5"
-                                style={textAreaStyle}
+                                placeholder="title..."
+                                onChange={() => setPostTitle(postTitleRef)}
+                                ref={postTitleRef}
+                                style={titleInputStyle}
+                            />
+                            <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close"
+                                aria-label="Close" onClick={() => clearFields()}>
+                                <span id="createPostX" aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr style={{ padding: "0", backgroundColor: '#BF9AFC', width: '90%' }} />
+                    <div className="col-12">
+                        <textarea
+                            className="form-control"
+                            onChange={() => setPostText(postTextRef)}
+                            ref={postTextRef}
+                            placeholder="type your body here..."
+                            rows="5"
+                            style={textAreaStyle}
+                        />
+                    </div>
+                    <div>
+                        <div className="d-flex justify-content-center">
+                            {handleErrorString()}
+                        </div>
+                    </div>
+                    {imagePreview()}
+                    <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
+                    <div style={{ display: "flex" }}>
+                        <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
+                        <label htmlFor="fileInput"><img style={fileInputImageStyle} src={ImageIcon}></img></label>
+                        <div>
+                            <Select theme={(theme) => ({
+                                ...theme,
+                                colors: {
+                                    ...theme.colors,
+                                    text: "#292833",
+                                    primary: '#BF9AFC',
+                                },
+                            })}
+                                styles={dropdownStyle} onChange={handleOnChangeDropdown}
+                                options={getOptions()}
+                                components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+                                defaultValue={getOptions()[0]}
                             />
                         </div>
-                        <div>
-                            <div className="d-flex justify-content-center">
-                                {handleErrorString()}
-                            </div>
-                        </div>
-                        {imagePreview()}
-                        <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
-                        <div style={{ display: "flex" }}>
-                            <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
-                            <label htmlFor="fileInput"><img style={fileInputImageStyle} src={ImageIcon}></img></label>
-                            <div>
-                                <Select theme={(theme) => ({
-                                    ...theme,
-                                    colors: {
-                                        ...theme.colors,
-                                        text: "#292833",
-                                        primary: '#BF9AFC',
-                                    },
-                                })}
-                                    styles={dropdownStyle} onChange={handleOnChangeDropdown}
-                                    options={getOptions()}
-                                    components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
-                                    value={getOptions()[0]}
-                                />
-                            </div>
-                            <button disabled={loading} type="button" className="btn btn-primary" onClick={() => handlePostClick()} style={postButtonStyle}>{btnText}</button>
-                        </div>
-                        <br />
+                        <button disabled={loading} type="button" className="btn btn-primary" onClick={() => handlePostClick()} style={postButtonStyle}>{btnText}</button>
                     </div>
+                    <br />
                 </div>
-            </div>
+            </Modal>
         </div>
     );
 }
