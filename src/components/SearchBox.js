@@ -14,24 +14,31 @@ function SearchBox(props) {
     border: "none",
     width: "100%"
   }
-
+  
   //the users from search results get passed in
   const afterSearch = (users, query) => {
-    let options = [{ name: "users", type: "label" }]
+
+    let options = []
+    //try find games first
+    const gameResult = searchGames(query);
+    if (gameResult.length > 0) {
+      options.push({ name: "games", type: "label" });
+      //might introduce issue when a person's name is same as game's name
+      options = options.concat(gameResult.map((game, i) => ({
+        image: game.image,
+        name: game.title,
+        type: "game"
+      })));
+    }
+
+    options.push({ name: "users", type: "label" });
     options = options.concat(Object.values(users).map((user, i) => ({
       avatar_url: user.profile_picture,
       id: Object.keys(users)[i],
       name: user.username,
       type: "user"
     })));
-    options.push({ name: "games", type: "label" })
-    const gameResult = searchGames(query);
-    //might introduce issue when a person's name is same as game's name
-    options = options.concat(gameResult.map((game, i) => ({
-      image: game.image,
-      name: game.title,
-      type: "game"
-    })));
+  
     setOptions(options);
     setIsLoading(false);
   }
