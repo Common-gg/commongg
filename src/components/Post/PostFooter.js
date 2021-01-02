@@ -85,7 +85,7 @@ function PostFooter(props) {
   }
 
   const usersReacted = reaction => {
-    if(!post.reacted) return;
+    if (!post.reacted) return;
     return Object.keys(post.reacted).filter((user, i) => Object.values(post.reacted)[i] === reaction);
   }
 
@@ -115,11 +115,19 @@ function PostFooter(props) {
     return <div className={`col-${12 * times}`}></div>;
   }
 
-  const popoverStyle = {
+  const reactionsPopoverStyle = {
     backgroundColor: "#292833",
     boxShadow: "4px 4px 200px 0px #171421 ",
     borderRadius: "20px",
     padding: "10px 0px 10px 20px",
+    marginTop: "20px"
+  }
+
+  const sharePopoverStyle = {
+    backgroundColor: "#292833",
+    boxShadow: "4px 4px 200px 0px #171421 ",
+    borderRadius: "20px",
+    padding: "10px 20px 0px 20px",
     marginTop: "20px"
   }
 
@@ -153,8 +161,8 @@ function PostFooter(props) {
 
   }
 
-  const popover = (
-    <Popover id={props.postId + "popvoer"} style={popoverStyle}>
+  const reactionsPopover = (
+    <Popover id={props.postId + "popvoer"} style={reactionsPopoverStyle}>
       <Popover.Content>
         <div className="row">
           {popoverReactions.map(reaction => {
@@ -169,13 +177,40 @@ function PostFooter(props) {
     </Popover>
   );
 
+  const getPostUrl = () => {
+    let url = window.location.origin;
+    url += "/post/" + props.postId;
+    console.log(url);
+    return url;
+  }
+
+  const sharePopover = (
+    <Popover id={props.postId + "SharePopover"} style={sharePopoverStyle}>
+      <Popover.Content>
+        <div className="row">
+          <p onClick={() => handleShareClicked()} style={{ color: "#ffffff" }}>Copy Link to Clipboard</p>
+        </div>
+      </Popover.Content>
+    </Popover>
+  )
+
+  const handleShareClicked = () => {
+    let tempInput = document.createElement("input");
+    tempInput.value = getPostUrl();
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    document.body.click();
+  }
+
   return (
     <div className="row justify-content-between" style={{
       paddingBottom: "20px"
     }}>
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
-        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
+        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={reactionsPopover}>
           <div>
             <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
               <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
@@ -185,23 +220,25 @@ function PostFooter(props) {
       </div>
       <div className="col-4 text-right" style={{ position: 'relative', bottom: '-20px' }}>
         <div className="row justify-content-end">
-          <div className="col-3" style={{padding: "0px 0px"}}>
+          <div className="col-3" style={{ padding: "0px 0px" }}>
             <Text text={convertNum(props.post.numComments)} style={{
               position: "relative",
               bottom: "-12px"
             }} />
           </div>
-          <div className="col-3" style={{padding: "0px 0px 0px 12px"}}>
+          <div className="col-3" style={{ padding: "0px 0px 0px 12px" }}>
             {checkCommentButton()}
           </div>
-          <div className="col-3" style={{padding: "0px 0px"}}>
-            <img src={shareIcon} style={{
-              backgroundColor: "transparent",
-              position: "relative",
-              bottom: "-6px",
-              width: "2.5rem",
-              height: "2.5rem"
-            }} />
+          <div className="col-3" style={{ padding: "0px 0px" }}>
+            <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={sharePopover}>
+              <img src={shareIcon} style={{
+                backgroundColor: "transparent",
+                position: "relative",
+                bottom: "-6px",
+                width: "2.5rem",
+                height: "2.5rem"
+              }} />
+            </OverlayTrigger>
           </div>
         </div>
       </div>
