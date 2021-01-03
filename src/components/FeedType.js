@@ -41,9 +41,13 @@ function FeedType(props) {
         if (post.author !== "404" && i < numPostsLoaded)
           return (
             <div key={Object.keys(posts).reverse()[i]}>
-              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]} postNum={i + 1} numPostsLoaded={numPostsLoaded} setNumPostsLoaded={setNumPostsLoaded} childPostRefresh={childPostRefresh} /><br />
+              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]}
+                postNum={i + 1} numPostsLoaded={numPostsLoaded} setNumPostsLoaded={setNumPostsLoaded}
+                childPostRefresh={childPostRefresh} setModalImage={props.setModalImage}
+              />
+              <br />
             </div>
-          )
+          );
       })}
     </div>
   );
