@@ -12,7 +12,6 @@ function ViewPostContainer(props) {
             {props.post.comments.map(comment => {
                 return (
                     <div className="commentBorder">
-                        {console.log(comment)}
                         <Comment comment={comment} />
                     </div>
                 );

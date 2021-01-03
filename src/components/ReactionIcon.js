@@ -60,7 +60,7 @@ function ReactionIcon(props) {
           <div style={{ border: (props.reacted ? "3px solid #BF9AFC" : null), display: "inline-block", borderRadius: "8px" }}>
             <img
               data-tip={toolTipText}
-              data-for={props.id+"tt"}
+              data-for={props.id + "tt"}
               style={{
                 background: "transparent",
                 width: "30px",
@@ -72,7 +72,7 @@ function ReactionIcon(props) {
           {" " + props.text}
         </label>
       </button>
-      <ReactToolTip id={props.id+"tt"} afterShow={()=>console.log("sadge")} className="tooltip" />
+      <ReactToolTip id={props.id + "tt"} className="tooltip" />
     </div>
   );
 }
