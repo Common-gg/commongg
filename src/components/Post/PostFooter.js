@@ -180,7 +180,6 @@ function PostFooter(props) {
   const getPostUrl = () => {
     let url = window.location.origin;
     url += "/post/" + props.postId;
-    console.log(url);
     return url;
   }
 

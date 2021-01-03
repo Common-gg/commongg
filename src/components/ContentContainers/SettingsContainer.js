@@ -70,10 +70,8 @@ function SettingsContainer(props) {
 
   const changedInfo = () => {
     if (updateButtonText === "saved") {
-      console.log("saved to update");
       setUpdateButtonText("update");
     }
-    console.log("event registered");
   }
 
   function handlePasswordMessageChange() {
@@ -148,15 +146,15 @@ function SettingsContainer(props) {
               ref={aboutMeRef}
               onClick={changedInfo}
               style={{
-              backgroundColor: "transparent",
-              color: "#FFFFFF",
-              resize: "none",
-              maxWidth: "100%",
-              borderStyle: "solid",
-              borderRadius: "5px",
-              borderColor: "#BF9AFC",
-              borderWidth: "1px",
-            }}
+                backgroundColor: "transparent",
+                color: "#FFFFFF",
+                resize: "none",
+                maxWidth: "100%",
+                borderStyle: "solid",
+                borderRadius: "5px",
+                borderColor: "#BF9AFC",
+                borderWidth: "1px",
+              }}
             />
           </div>
         </form>
