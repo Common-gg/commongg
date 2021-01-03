@@ -67,8 +67,14 @@ function PostFooter(props) {
     }
   }
 
+  /*
+    post footer checks for functionality of comment button
+    if comment button is in a page of its own it can create modal
+    in all other cases it redirect
+  */ 
   const checkCommentButton = () => {
-    if (props.pageId === undefined) {
+    //if you are in some feed redirect
+    if (props.isPostPage !== true) {
       return (
         <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
           <img src={commentIcon} style={{
@@ -78,6 +84,7 @@ function PostFooter(props) {
           }} />
         </Link>)
     } else {
+      //we are in the post page so we create modal
       return (
         <CreateCommentModal {...props} post={post} postId={props.postId} showCommentButton={props.showCommentButton} />
       )

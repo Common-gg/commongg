@@ -1,11 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import addcommentIcon from '../../images/icons/addcomment.png';
 import { Modal } from "react-bootstrap";
 
 function CreateCommentModal(props) {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const commentTextRef = useRef();
     const [commentText, setCommentText] = useState({ current: { value: "" } });
+    useEffect(() => {
+        //if parent want the modal to show directly do it
+        if (props.show === true) {
+            setShow(true);
+        };
+    }, [props.show])
 
     const handleClose = () => setShow(false);
 
