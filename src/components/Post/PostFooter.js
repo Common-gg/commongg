@@ -79,7 +79,7 @@ function PostFooter(props) {
         </Link>)
     } else {
       return (
-        <CreateCommentModal {...props} post={post} postId={props.postId} showCommentButton={props.showCommentButton} />
+        <CreateCommentModal {...props} post={post} postId={props.postId} />
       )
     }
   }

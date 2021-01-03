@@ -3,17 +3,17 @@ import addcommentIcon from '../../images/icons/addcomment.png';
 import { Modal } from "react-bootstrap";
 
 function CreateCommentModal(props) {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const commentTextRef = useRef();
     const [commentText, setCommentText] = useState({ current: { value: "" } });
-
+    const openModel = () => setShow(true);
     const handleClose = () => setShow(false);
 
     let buttonStyle = {
         backgroundColor: "transparent",
         position: "relative",
         left: "-.74rem"
-      }
+    }
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
@@ -42,20 +42,6 @@ function CreateCommentModal(props) {
         borderWidth: "2px",
     }
 
-    function showCommentButton() {
-        if (props.showCommentButton === true) {
-            buttonStyle = {
-                backgroundColor: "transparent",
-                visibility: "visible",
-            }
-        } else if (props.showCommentButton === false) {
-            buttonStyle = {
-                backgroundColor: "transparent",
-                visibility: "hidden",
-            }
-        }
-    }
-
     function clearFields() {
         commentTextRef.current.value = "";
         setShow(false);
@@ -78,15 +64,15 @@ function CreateCommentModal(props) {
 
     return (
         <div className="CreateCommentModal">
-            <button type="button" style={{background: "transparent"}} id="createCommentButton" className="btn btn-primary" data-target="#createCommentModal">
-                <img src={addcommentIcon} 
-                style={{
-                    ...buttonStyle, 
-                    width: "1.813rem",
-                    height: "1.625rem"
-                }}/>
+            <button type="button" style={{ background: "transparent" }} id="createCommentButton" onClick={openModel} className="btn btn-primary" data-target="#createCommentModal">
+                <img src={addcommentIcon}
+                    style={{
+                        ...buttonStyle,
+                        width: "1.813rem",
+                        height: "1.625rem"
+                    }} />
             </button>
-           <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
+            <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
                 <div className="modal-content" style={modalContentStyle}>
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
