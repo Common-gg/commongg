@@ -257,6 +257,22 @@ function App() {
     })
   }
 
+  const getUserWithId = (id) => {
+    // checks if there is a user with the username already
+    // returns true if it exists false if doesn't exist
+    return new Promise(function (resolve, reject) {
+      database.ref('/users/' + id).once('value').then(function (snapshot) {
+        const userData = snapshot.val();
+        //if it's not null, there is some user with the username 
+        if (userData !== null) {
+          return resolve(userData);
+        } else {
+          return resolve(null);
+        }
+      })
+    })
+  }
+
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
     followRef.set(firebase.database.ServerValue.increment(value));
@@ -555,6 +571,7 @@ function App() {
                   storeBlob={storeBlob}
 
                   getUser={getUser}
+                  getUserWithId={getUserWithId}
                   followUser={followUser}
                   unFollowUser={unFollowUser}
                   storeUserGames={storeUserGames}
