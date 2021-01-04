@@ -12,7 +12,6 @@ function ContentContainer(props) {
   const [pageId, setPageId] = useState();
 
   useEffect(() => {
-    console.log(props.currentUserInfo.games);
     if(props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
       setPageState("editgames");
       return;
