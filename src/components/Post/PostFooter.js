@@ -28,6 +28,11 @@ function PostFooter(props) {
   ];
 
   useEffect(() => {
+    setPost(props.post);
+  }, [props.post])
+
+  useEffect(() => {
+    console.log(post);
     setAllowClick(true);
     if (post.reactions !== undefined) {
       setPopoverReactions(reactions.filter(reaction =>

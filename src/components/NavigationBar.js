@@ -48,12 +48,12 @@ function NavigationBar(props) {
             <Link to="/" style={linkStyle}>
                 <p><img src={home} style={iconStyle} alt="" /> home</p>
             </Link>
-            <Link to="/following" style={linkStyle}>
+            {/*<Link to="/following" style={linkStyle}>
                 <p><img src={follow} style={iconStyle} alt="" /> following</p>
             </Link>
             <Link to="/trending" style={linkStyle}>
                 <p><img src={trend} style={iconStyle} alt="" /> trending</p>
-            </Link>
+                </Link>*/}
             {gamesArr.map((game) => {
                 return <Link to={"/games/" + (props.allGames[game].title.split(" ")).join('').toLowerCase()} key={props.allGames[game].title} style={linkStyle}>
                     <p>{props.allGames[game].title}</p>
