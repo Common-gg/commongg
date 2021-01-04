@@ -32,6 +32,7 @@ function ViewPostContainer(props) {
     useEffect(() => {
         let url = window.location.href;
         url = url.split('/');
+        console.log(props.pageId);
         if (url[url.length - 2] === "comment") {
             setShowComment(true);
         }

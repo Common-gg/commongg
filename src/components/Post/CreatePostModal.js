@@ -74,6 +74,7 @@ function CreatePostModal(props) {
         backgroundColor: "#202020",
         border: "none",
         marginTop: 0,
+        whiteSpace: "pre-wrap"
     };
     const dropdownStyle = {
         control: (base) => ({

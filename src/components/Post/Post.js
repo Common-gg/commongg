@@ -13,11 +13,15 @@ import TrackVisibility from "react-on-screen";
 function Post(props) {
 
   const [author, setAuthor] = useState({ profile: "" });
+  const [expand, setExpand] = useState(false);
   const history = useHistory();
   const postImageRef = useRef();
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
+    if (props.post.text.length <= 800) {
+      setExpand(true);
+    }
   }, [props.post]);
 
   useEffect(() => {
@@ -127,9 +131,49 @@ function Post(props) {
     // }
   }
 
+  const expandButtonStyle = {
+    height: 32,
+    marginLeft: "auto",
+    backgroundColor: "transparent",
+    color: "#BF9AFC",
+    border: "solid",
+    borderRadius: "10px",
+    borderColor: "#BF9AFC",
+    borderWidth: "2px",
+}
+
   const checkPostNum = isVisible => {
     if (isVisible && props.postNum >= props.numPostsLoaded - 3) {
       props.setNumPostsLoaded(props.numPostsLoaded + 5);
+    }
+  }
+
+  const checkExpandText = () => {
+    if (expand === false) {
+      let str = props.post.text.substring(0, 800);
+      return (str += "...");
+    } else {
+      return (props.post.text);
+    }
+  }
+
+  const checkExpandButton = () => {
+    if (props.post.text.length > 800) {
+      if (expand === false) {
+        return (
+          <button onClick={toggleExpand} style={expandButtonStyle}>
+            expand
+          </button>
+        )
+      }
+    }
+  }
+
+  const toggleExpand = () => {
+    if (expand === false){
+      setExpand(true);
+    } else {
+      setExpand(false);
     }
   }
 
@@ -193,8 +237,9 @@ function Post(props) {
                   />)}
                 </a>
               )}>
-                <p style={{ fontSize: '18px' }}>{props.post.text}</p>
+                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap"}}>{checkExpandText()}</p>
               </Linkify>
+              {checkExpandButton()}
               {checkType()}
               <PostFooter {...props} />
             </div>
