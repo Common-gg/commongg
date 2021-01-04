@@ -48,9 +48,9 @@ function PageContainer(props) {
             <div className="modal fade show" id="enlargedImageModal" tabIndex="-1" role="dialog"
               aria-labelledby="chooseGameModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document" style={{
-                marginTop: (window.innerHeight - modalImage.height) / 2,
-                width: modalImage.width * 1.5,
-                height: modalImage.height * 1.5,
+                marginTop: (window.innerHeight - modalImage.height) / 2 + "px",
+                width: modalImage.width * 1.5 + "px",
+                height: modalImage.height * 1.5 + "px",
                 background: "rgba(0, 0, 0, 0) !important"
               }}>
                 <div className="modal-content" style={modalContentStyle}>
@@ -58,8 +58,8 @@ function PageContainer(props) {
                     src={modalImage.link}
                     alt="no image"
                     style={{
-                      width: modalImage.width * 1.5,
-                      height: modalImage.height * 1.5,
+                      width: modalImage.width * 1.5 + "px",
+                      height: modalImage.height * 1.5 + "px",
                     }}
                   />
                 </div>

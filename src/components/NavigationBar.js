@@ -1,4 +1,4 @@
-import React, { useEffect , useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import ProfilePicture from './ProfilePicture.js';
 
@@ -10,15 +10,15 @@ import editGame from "../images/icons/editgameaccent-1.png"
 
 function NavigationBar(props) {
     const iconStyle = {
-        width: "35px",
-        height: "35px",
+        width: "40px",
+        height: "40px",
         marginRight: ".5rem"
     };
 
     const linkStyle = {
         color: "#BF9AFC",
         textDecoration: 'none',
-        fontSize: "20px"
+        fontSize: "25px"
     };
 
     useEffect(() => {
@@ -30,7 +30,16 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p><ProfilePicture currentUserInfo={props.currentUserInfo} width="35px" height="35px" />  profile</p>
+                <p><img
+                    src={props.currentUserInfo.profile_picture}
+                    alt={""}
+                    style={{
+                        borderRadius: "50%",
+                        width: "40px",
+                        height: "40px"
+                    }}
+                    className="img">
+                </img> profile</p>
             </Link>
             <Link to="/" style={linkStyle}>
                 <p><img src={home} style={iconStyle} alt="" /> home</p>
@@ -43,8 +52,8 @@ function NavigationBar(props) {
             </Link>
             {props.currentUserInfo.games.map((game) => {
                 return <Link to={"/games/" + (props.allGames[game].title.split(" ")).join('').toLowerCase()} key={props.allGames[game].title} style={linkStyle}>
-                            <p>{props.allGames[game].title}</p>
-                        </Link>
+                    <p>{props.allGames[game].title}</p>
+                </Link>
             })}
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
                 <p style={linkStyle}>

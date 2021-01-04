@@ -87,6 +87,10 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log(currentUser);
+  }, [currentUser]);
+
+  useEffect(() => {
     // Sets currentUser to the logged in user
     auth.onAuthStateChanged(function (user) {
       if (startUp && user === auth.currentUser) return;
@@ -122,7 +126,19 @@ function App() {
           following: 0
         }
       });
-      setCurrentUserInfo({ email: email });
+      setCurrentUserInfo({ 
+        email: email,
+        username: "",
+        profile_picture: "",
+        about_me: "",
+        games: { "0": 0 },
+        followers: [],
+        following: [],
+        followCounts: {
+          follower: 0,
+          following: 0
+        }
+      });
     }
   }
 
@@ -425,15 +441,19 @@ function App() {
     // checks if there is a user with the username already
     // returns true if it exists false if doesn't exist
     return new Promise(function (resolve, reject) {
-      const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
-      postRef.once('value').then((snapshot) => {
+      const userRef = database.ref('/users/').orderByChild("username").equalTo(username);
+      userRef.once('value').then((snapshot) => {
         const usersWithUsername = snapshot.val();
 
         //if it's not null, there is some user with the username 
         if (usersWithUsername !== null) {
-          return resolve(true);
+            return resolve(true);
         } else {
-          return resolve(false);
+          const reservedRef = database.ref('/reservedNames/' + username);
+          reservedRef.once('value').then((snap2) => {
+            if(snap2.val() !== null) return resolve(true)
+            return resolve(false);
+        })
         }
       });
     })

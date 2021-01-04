@@ -65,13 +65,13 @@ function CreateProfile(props) {
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input style={{ backgroundColor: "#292833" }} maxLength="30" type="displayName" placeholder="username" track={setDisplayName}/>
+        <Input style={{ backgroundColor: "#292833" }} minLength="4" maxLength="15" type="displayName" placeholder="username" track={setDisplayName}/>
         {failedExists ? <p style={{ color: "red" }}>username already in use</p> : null}
         {failedSpace ? <p style={{ color: "red" }}>username can't contain space</p> : null}
         {failedProfane ? <p style={{ color: "red" }}>username contains profanity</p> : null}
         < br />
         add a profile picture
-        <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} />
+        <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => {}} />
         <button type="submit" className="btn btn-outline-dark"
           style={{
             marginBottom: "20px",
