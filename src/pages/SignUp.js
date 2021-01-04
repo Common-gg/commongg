@@ -13,12 +13,13 @@ function SignUp(props) {
   const signUp = () => {
     setFailedPassword(false);
     //first check the validity of the password
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
     //password faield to match regex
     if (password.current.value.match(regex) === null) {
       setFailedPassword(true);
+    } else {
+      props.signUpUser(email.current.value, password.current.value);
     }
-    props.signUpUser(email.current.value, password.current.value);
   }
 
   const logoCSS = {

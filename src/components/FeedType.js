@@ -26,14 +26,20 @@ function FeedType(props) {
   const filter = props.filter;
   const sort = props.sort;
   const postRefresh = props.postRefresh;
+  const getPosts = props.getPosts;
 
   useEffect(() => {
     if (filter !== "") {
-      props.getPosts(filter, sort, setPosts);
+      getPosts(filter, sort, setPosts);
     } else {
       setPosts([]);
     }
-  }, [filter, sort, postRefresh, childRefresh]);
+  }, [filter, sort, postRefresh, childRefresh, getPosts]);
+
+  //when the filter changes make the page go back to top
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [filter])
 
   return (
     <div>
