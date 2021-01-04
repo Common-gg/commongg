@@ -54,7 +54,7 @@ function ProfilePicture(props) {
             alt="no image"
             width="250px"
             height="200px"
-            style={{ borderRadius: "50%", cursor: "pointer" }}
+            style={{ cursor: "pointer" }}
           />
         </dialog>
       )}
