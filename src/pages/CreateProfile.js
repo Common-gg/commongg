@@ -17,6 +17,8 @@ function CreateProfile(props) {
   const [failedExists, setFailedExists] = useState(false);
   const [failedSpace, setFailedSpace] = useState(false);
   const [failedProfane, setFailedProfane] = useState(false);
+  const [failedLength, setFailedLength] = useState(false);
+
 
   
   function handleSubmit(event) {
@@ -24,6 +26,7 @@ function CreateProfile(props) {
     setFailedExists(false);
     setFailedSpace(false);
     setFailedProfane(false);
+    setFailedLength(false);
     const username = displayName.current.value;
     if (filter.isProfane(username)) {
       setFailedProfane(true);
@@ -34,6 +37,13 @@ function CreateProfile(props) {
       setFailedSpace(true);
       return;
     }
+
+    //check if useername is too short
+    if (username.length < 4) {
+      setFailedLength(true);
+      return;
+    }
+
     //check if username exists
     props.existsUsername(displayName.current.value).then((existsUser) => {
       if (existsUser === true) {
@@ -66,10 +76,11 @@ function CreateProfile(props) {
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input style={{ backgroundColor: "#292833" }} minLength="4" maxLength="15" type="displayName" placeholder="username" track={setDisplayName}/>
+        <Input style={{ backgroundColor: "#292833" }} maxLength="15" type="displayName" placeholder="username" track={setDisplayName}/>
         {failedExists ? <p style={{ color: "red" }}>username already in use</p> : null}
         {failedSpace ? <p style={{ color: "red" }}>username can't contain space</p> : null}
         {failedProfane ? <p style={{ color: "red" }}>username contains profanity</p> : null}
+        {failedLength ? <p style={{ color: "red" }}>username is too short</p> : null}
         < br />
         add a profile picture
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => {}} />
