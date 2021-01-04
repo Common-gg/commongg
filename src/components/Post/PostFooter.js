@@ -22,8 +22,6 @@ function PostFooter(props) {
     "pepelaugh",
     "pog",
     "sadge",
-    "soulessFF",
-    "soulessOhno",
     "thumbsup",
     "influrUWU",
     "avnijoPeter"
