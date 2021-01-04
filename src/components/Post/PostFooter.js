@@ -86,7 +86,7 @@ function PostFooter(props) {
     } else {
       //we are in the post page so we create modal
       return (
-        <CreateCommentModal {...props} post={post} postId={props.postId} showCommentButton={props.showCommentButton} />
+        <CreateCommentModal {...props} post={post} postId={props.postId} />
       )
     }
   }

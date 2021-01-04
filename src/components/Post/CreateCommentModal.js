@@ -6,6 +6,7 @@ function CreateCommentModal(props) {
     const [show, setShow] = useState(false);
     const commentTextRef = useRef();
     const [commentText, setCommentText] = useState({ current: { value: "" } });
+
     useEffect(() => {
         //if parent want the modal to show directly do it
         if (props.show === true) {
@@ -19,7 +20,7 @@ function CreateCommentModal(props) {
         backgroundColor: "transparent",
         position: "relative",
         left: "-.74rem"
-      }
+    }
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
@@ -46,20 +47,6 @@ function CreateCommentModal(props) {
         borderRadius: "10px",
         borderColor: "#BF9AFC",
         borderWidth: "2px",
-    }
-
-    function showCommentButton() {
-        if (props.showCommentButton === true) {
-            buttonStyle = {
-                backgroundColor: "transparent",
-                visibility: "visible",
-            }
-        } else if (props.showCommentButton === false) {
-            buttonStyle = {
-                backgroundColor: "transparent",
-                visibility: "hidden",
-            }
-        }
     }
 
     function clearFields() {
@@ -92,7 +79,7 @@ function CreateCommentModal(props) {
                     height: "1.625rem"
                 }}/>
             </button>
-           <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
+            <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
                 <div className="modal-content" style={modalContentStyle}>
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>

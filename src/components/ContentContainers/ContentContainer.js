@@ -10,7 +10,7 @@ import GameFeedContainer from './GameFeedContainer.js';
 function ContentContainer(props) {
   const [pageState, setPageState] = useState();
   const [pageId, setPageId] = useState();
-  
+
   useEffect(() => {
     let url = window.location.href;
     url = url.split('/');
@@ -20,12 +20,12 @@ function ContentContainer(props) {
       if (url[3] === "games") {
         //find current title's id which is its index in the array
         const curGameId = props.allGames.findIndex((game) => {
-          return game.title.split(" ").join('').toLowerCase() === url[url.length-1];
+          return game.title.split(" ").join('').toLowerCase() === url[url.length - 1];
         });
         //game id is the index
         setPageId(curGameId.toString());
       } else {
-        setPageId(url[url.length-1]);
+        setPageId(url[url.length - 1]);
       }
     }
   });
@@ -40,7 +40,7 @@ function ContentContainer(props) {
     case "editgames":
       return <GamesContainer {...props} />;
     case "":
-      return <FeedContainer {...props} />;
+      return <FeedContainer {...props} setModalImage={props.setModalImage} />;
     case "games":
       return <GameFeedContainer {...props} pageId={pageId} />;
     default:

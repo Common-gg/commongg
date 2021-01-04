@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Linkify from 'react-linkify';
 import { ReactTinyLink } from 'react-tiny-link';
 import Text from '../Text.js';
@@ -14,10 +14,16 @@ function Post(props) {
 
   const [author, setAuthor] = useState({ profile: "" });
   const history = useHistory();
+  const postImageRef = useRef();
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
   }, [props.post]);
+
+  useEffect(() => {
+    if (postImageRef.current === undefined)
+      return;
+  }, [postImageRef])
 
 
   function getStyle() {
@@ -65,7 +71,7 @@ function Post(props) {
   //creating twitch embedding if twitch clips are found
   function checkTwitchClips(link, preview) {
     //parse all twitch clips with regular expression and map the results
-    if(typeof link !== "string") return
+    if (typeof link !== "string") return
     const regexp = /https:\/\/www\.twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+)/g;
     const matches = link.matchAll(regexp);
     let clips = [];
@@ -79,19 +85,31 @@ function Post(props) {
     }
   }
 
-  const checkType = () => {
+  function handleImageClick() {
+    props.setModalImage({
+      link: postImageRef.current.currentSrc,
+      height: postImageRef.current.height,
+      width: postImageRef.current.width
+    })
+  }
 
+  const checkType = () => {
     if (props.post.type === "text") {
-      return
+      return;
     } else if (props.post.type === "image") {
       return (
         <img
+          data-toggle="modal"
+          data-target="#enlargedImageModal"
+          ref={postImageRef}
           src={props.post.link}
+          onClick={handleImageClick}
           alt="posted image"
           style={{
-            maxWidth: "100%"
-          }}
-        />
+            maxWidth: "100%",
+            cursor: "pointer"
+          }}>
+        </img>
       )
     }
     // Code to turn on video later!
@@ -164,7 +182,7 @@ function Post(props) {
                 </div>
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-                <a target="blank" href={decoratedHref} key={key} style={{color: "#BF9AFC"}}>
+                <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
                   <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
                   {checkTwitchClips(decoratedHref, <ReactTinyLink
                     cardSize="large"
@@ -181,7 +199,7 @@ function Post(props) {
               <PostFooter {...props} />
             </div>
             <br />
-          </div >
+          </div>
         )
       }}
     </TrackVisibility>
