@@ -58,8 +58,7 @@ function NavigationBar(props) {
     };
 
     const selectedStyle = {
-        backgroundColor: "white",
-        color: "#BF9AFC",
+        color: "white",
         textDecoration: 'none',
         fontSize: "25px"
     }
