@@ -42,10 +42,22 @@ function ProfileContainer(props) {
         if (props.currentUserId) {
             if (props.currentUserId === props.pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
+            } else {
+                setFollowBtnStyle({
+                    visibility: "visible",
+                    backgroundColor: "transparent",
+                    width: "2.5rem",
+                    height: "2.5rem",
+                    borderRadius: "50%",
+                    position: "relative",
+                    top: "-1.6vh",
+                    left: "-1vw"
+                });
             }
         }
     }, [props.pageId]);
 
+    //update the following icon when switching pages
     useEffect(() => {
         if (props.currentUserInfo.following) {
             let temp = Object.values(props.currentUserInfo.following);
@@ -53,7 +65,7 @@ function ProfileContainer(props) {
                 setFollowBtnState({ ...followBtnState, text: "Following", img: check });
             }
         }
-    }, [])
+    }, [props.pageId])
 
     const checkId = () => {
         if (props.pageId !== undefined) {
