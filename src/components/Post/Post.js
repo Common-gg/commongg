@@ -6,13 +6,14 @@ import PostFooter from './PostFooter.js'
 import ProfilePicture from '../ProfilePicture.js';
 import optionsIcon from '../../images/icons/options.png';
 import TwitchEmbed from './TwitchEmbed.js'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 
 
 function Post(props) {
 
   const [author, setAuthor] = useState({ profile: "" });
+  const history = useHistory();
   const postImageRef = useRef();
 
   useEffect(() => {
@@ -43,7 +44,13 @@ function Post(props) {
 
   function deletePost() {
     props.deletePost(props.postId);
-    props.childPostRefresh();
+    if (props.isPostPage !== true) {
+      props.childPostRefresh();
+    } else {
+      //we deleted and redirect to home
+      history.goBack();
+      
+    }
   }
 
   function checkOptions() {

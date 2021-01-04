@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import addcommentIcon from '../../images/icons/addcomment.png';
 import { Modal } from "react-bootstrap";
 
@@ -6,7 +6,14 @@ function CreateCommentModal(props) {
     const [show, setShow] = useState(false);
     const commentTextRef = useRef();
     const [commentText, setCommentText] = useState({ current: { value: "" } });
-    const openModel = () => setShow(true);
+
+    useEffect(() => {
+        //if parent want the modal to show directly do it
+        if (props.show === true) {
+            setShow(true);
+        };
+    }, [props.show])
+
     const handleClose = () => setShow(false);
 
     let buttonStyle = {
@@ -64,13 +71,13 @@ function CreateCommentModal(props) {
 
     return (
         <div className="CreateCommentModal">
-            <button type="button" style={{ background: "transparent" }} id="createCommentButton" onClick={openModel} className="btn btn-primary" data-target="#createCommentModal">
-                <img src={addcommentIcon}
-                    style={{
-                        ...buttonStyle,
-                        width: "1.813rem",
-                        height: "1.625rem"
-                    }} />
+            <button type="button" style={{background: "transparent"}} id="createCommentButton" className="btn btn-primary" data-target="#createCommentModal" onClick={() => {setShow(true)}}>
+                <img src={addcommentIcon} 
+                style={{
+                    ...buttonStyle, 
+                    width: "1.813rem",
+                    height: "1.625rem"
+                }}/>
             </button>
             <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
                 <div className="modal-content" style={modalContentStyle}>
