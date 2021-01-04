@@ -22,6 +22,7 @@ function ViewPostContainer(props) {
             postId: ""
         }
     });
+    const [showComment, setShowComment] = useState(false);
     const [sortedComments, setSortedComments] = useState([]);
     const [commentRefresh, setCommentRefresh] = useState(0)
     const updateRefresh = function () {
@@ -32,7 +33,7 @@ function ViewPostContainer(props) {
         let url = window.location.href;
         url = url.split('/');
         if (url[url.length - 2] === "comment") {
-            document.getElementById("createCommentButton").click();
+            setShowComment(true);
         }
     }, []);
 
@@ -65,7 +66,8 @@ function ViewPostContainer(props) {
     return (
         <div className="ViewPostContainer">
             <Post {...props} post={post} postId={props.pageId}
-                updateRefresh={updateRefresh}
+                updateRefresh={updateRefresh} show={showComment}
+                isPostPage={true}
                 style={{
                     paddingBottom: '0px',
                     paddingLeft: '20px',
@@ -78,7 +80,7 @@ function ViewPostContainer(props) {
                     return (
                         <div key={comment[0]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment {...props} commentId={comment[0]} showCommentButton={true} updateRefresh={updateRefresh} />
+                            <Comment {...props} commentId={comment[0]} updateRefresh={updateRefresh} />
                         </div>
                     )
                 }
