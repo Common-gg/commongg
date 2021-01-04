@@ -9,6 +9,16 @@ import setting from "../images/icons/settingsaccent-1.png";
 import editGame from "../images/icons/editgameaccent-1.png"
 
 function NavigationBar(props) {
+
+    const [gamesArr, setGamesArr] = useState([0]);
+
+    useEffect(() => {
+        console.log(props.currentUserInfo.games);
+        if (props.currentUserInfo.games === undefined) {
+            document.getElementById("editGamesToggle").click();
+        } else setGamesArr(props.currentUserInfo.games);
+    }, []);
+
     const iconStyle = {
         width: "40px",
         height: "40px",
@@ -20,12 +30,6 @@ function NavigationBar(props) {
         textDecoration: 'none',
         fontSize: "25px"
     };
-
-    useEffect(() => {
-        if (props.currentUserInfo.games === undefined) {
-            document.getElementById("editGamesToggle").click();
-        }
-    }, []);
 
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
@@ -50,7 +54,7 @@ function NavigationBar(props) {
             <Link to="/trending" style={linkStyle}>
                 <p><img src={trend} style={iconStyle} alt="" /> trending</p>
             </Link>
-            {props.currentUserInfo.games.map((game) => {
+            {gamesArr.map((game) => {
                 return <Link to={"/games/" + (props.allGames[game].title.split(" ")).join('').toLowerCase()} key={props.allGames[game].title} style={linkStyle}>
                     <p>{props.allGames[game].title}</p>
                 </Link>

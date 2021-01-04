@@ -8,10 +8,15 @@ import PageNotFound from './PageNotFound.js';
 import GameFeedContainer from './GameFeedContainer.js';
 
 function ContentContainer(props) {
-  const [pageState, setPageState] = useState();
+  const [pageState, setPageState] = useState("editgames");
   const [pageId, setPageId] = useState();
 
   useEffect(() => {
+    console.log(props.currentUserInfo.games);
+    if(props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
+      setPageState("editgames");
+      return;
+    }
     let url = window.location.href;
     url = url.split('/');
     setPageState(url[3]);

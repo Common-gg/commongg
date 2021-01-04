@@ -68,6 +68,7 @@ function App() {
         } else {
           // Existing user
           if (JSON.stringify(currentUserInfo) !== JSON.stringify(userData)) {
+            console.log(userData)
             setCurrentUserInfo(userData);
           }
         };
@@ -114,7 +115,6 @@ function App() {
         username: "",
         profile_picture: "",
         about_me: "",
-        games: { "0": 0 },
         followers: [],
         following: [],
         followCounts: {
@@ -127,7 +127,6 @@ function App() {
         username: "",
         profile_picture: "",
         about_me: "",
-        games: { "0": 0 },
         followers: [],
         following: [],
         followCounts: {
@@ -151,8 +150,7 @@ function App() {
       ...currentUserInfo,
       username: username,
       profile_picture: url,
-      about_me: aboutMe,
-      games: [0]
+      about_me: aboutMe
     });
   }
 
