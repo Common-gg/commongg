@@ -78,7 +78,7 @@ function ViewPostContainer(props) {
                     return (
                         <div key={comment[0]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment {...props} commentId={comment[0]} showCommentButton={true} updateRefresh={updateRefresh} />
+                            <Comment {...props} commentId={comment[0]} updateRefresh={updateRefresh} />
                         </div>
                     )
                 }
