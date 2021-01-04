@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
+import UsersModal from '../UsersModal.js';
 import FeedType from '../FeedType.js';
 import plus from "../../images/icons/followingplus-1.png";
 import check from "../../images/icons/followingcheck-1.png";
@@ -95,12 +96,10 @@ function ProfileContainer(props) {
                             {user.username}
                         </h2>
                         <div className="d-flex flex-wrap">
-                            <span style={numberStyle}>{user.followCounts.following}
-                                <a style={followStyle}> following</a>
-                            </span>
-                            <span style={numberStyle}>{user.followCounts.follower}
-                                <a style={followStyle}> followers</a>
-                            </span>
+                            
+                            <UsersModal {...props} user={user} type="followers"></UsersModal>
+                            <UsersModal {...props} user={user} type="following"></UsersModal>
+                            
                             <span>
                                 <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
                                     <img src={followBtnState.img} style={{
