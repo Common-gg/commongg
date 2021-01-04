@@ -87,10 +87,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
-
-  useEffect(() => {
     // Sets currentUser to the logged in user
     auth.onAuthStateChanged(function (user) {
       if (startUp && user === auth.currentUser) return;
@@ -156,7 +152,8 @@ function App() {
       username: username,
       profile_picture: url,
       about_me: aboutMe,
-    })
+      games: [0]
+    });
   }
 
   const storeUserAboutMe = (aboutMe) => {
@@ -179,7 +176,7 @@ function App() {
     })
   }
 
-  const storeBlob = (username, blob, aboutMe = "") => {
+  const storeBlob = (username, blob, aboutMe) => {
     // Stores the user's profile picture
     const storageRef = storage.ref();
     const ref = storageRef.child("users/" + currentUser.uid);

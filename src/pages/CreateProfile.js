@@ -4,6 +4,7 @@ import Input from '../components/Input.js';
 import DisplayImage from '../components/DisplayImage.js'
 import add from "../images/icons/Group-104.png";
 import arrow from "../images/icons/arrow-right.png";
+import blankPfp from '../images/icons/empty-pfp-1.png';
 
 const Filter = require('bad-words')
 const filter = new Filter();
@@ -12,7 +13,7 @@ function CreateProfile(props) {
   // add categories later
 
   const [displayName, setDisplayName] = useState();
-  const [img, setImg] = useState('https://static.zerochan.net/Dango.%28Teamfight.Tactics%29.full.2963102.jpg');
+  const [img, setImg] = useState(blankPfp);
   const [failedExists, setFailedExists] = useState(false);
   const [failedSpace, setFailedSpace] = useState(false);
   const [failedProfane, setFailedProfane] = useState(false);
@@ -38,7 +39,7 @@ function CreateProfile(props) {
       if (existsUser === true) {
         setFailedExists(true);
       } else {
-        props.storeBlob(displayName.current.value, img);
+        props.storeBlob(displayName.current.value, img, "");
       }
     })
   }
