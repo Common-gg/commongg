@@ -279,7 +279,7 @@ function App() {
       },
       following: {
         ...currentUserInfo.following,
-        [Date.now()]: followed
+        [firebase.database.ServerValue.TIMESTAMP]: followed
       }
     })
   }
@@ -485,6 +485,10 @@ function App() {
     });
   }
 
+  const firebaseTimeStamp = () => {
+    return firebase.database.ServerValue.TIMESTAMP;
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -561,6 +565,7 @@ function App() {
                   storeUserAboutMe={storeUserAboutMe}
 
                   changePasswordFromSettingsPage={changePasswordFromSettingsPage}
+                  firebaseTimeStamp={firebaseTimeStamp}
                 />
               </div>
             )} />

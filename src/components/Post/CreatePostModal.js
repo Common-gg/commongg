@@ -153,7 +153,7 @@ function CreatePostModal(props) {
             caption: "CAPTION_TEXT",
             game: gameId.toString(),
             link: url,
-            timestamp: Date.now(),
+            timestamp: props.firebaseTimeStamp(),
             title: postTitle.current.value,
             type: postType,
             numComments: 0,
@@ -236,14 +236,14 @@ function CreatePostModal(props) {
                 tempArr.push({ label: props.allGames[game].title, value: game });
             });
         } else {
-            tempArr.push({ label: props.allGames[props.default].title, value: props.default})
+            tempArr.push({ label: props.allGames[props.default].title, value: props.default })
             props.currentUserInfo.games.map((game) => {
                 if (game !== props.default) {
                     tempArr.push({ label: props.allGames[game].title, value: game });
                 }
             });
         }
-        
+
         return tempArr;
     }
 

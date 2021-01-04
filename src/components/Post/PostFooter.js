@@ -71,7 +71,7 @@ function PostFooter(props) {
     post footer checks for functionality of comment button
     if comment button is in a page of its own it can create modal
     in all other cases it redirect
-  */ 
+  */
   const checkCommentButton = () => {
     //if you are in some feed redirect
     if (props.isPostPage !== true) {
@@ -86,7 +86,8 @@ function PostFooter(props) {
     } else {
       //we are in the post page so we create modal
       return (
-        <CreateCommentModal {...props} post={post} postId={props.postId} />
+        <CreateCommentModal {...props} post={post} postId={props.postId}
+          firebaseTimeStamp={props.firebaseTimeStamp} />
       )
     }
   }

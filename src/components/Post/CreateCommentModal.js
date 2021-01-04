@@ -63,7 +63,7 @@ function CreateCommentModal(props) {
             author: props.currentUserId,
             commentText: commentText.current.value,
             postId: props.postId,
-            timestamp: Date.now()
+            timestamp: props.firebaseTimeStamp()
         });
         props.updateRefresh();
         clearFields();
@@ -71,13 +71,13 @@ function CreateCommentModal(props) {
 
     return (
         <div className="CreateCommentModal">
-            <button type="button" style={{background: "transparent"}} id="createCommentButton" className="btn btn-primary" data-target="#createCommentModal" onClick={() => {setShow(true)}}>
-                <img src={addcommentIcon} 
-                style={{
-                    ...buttonStyle, 
-                    width: "1.813rem",
-                    height: "1.625rem"
-                }}/>
+            <button type="button" style={{ background: "transparent" }} id="createCommentButton" className="btn btn-primary" data-target="#createCommentModal" onClick={() => { setShow(true) }}>
+                <img src={addcommentIcon}
+                    style={{
+                        ...buttonStyle,
+                        width: "1.813rem",
+                        height: "1.625rem"
+                    }} />
             </button>
             <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
                 <div className="modal-content" style={modalContentStyle}>
