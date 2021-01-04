@@ -265,7 +265,7 @@ function App() {
         const userData = snapshot.val();
         //if it's not null, there is some user with the username 
         if (userData !== null) {
-          return resolve(userData);
+          return resolve({...userData, id: id});
         } else {
           return resolve(null);
         }

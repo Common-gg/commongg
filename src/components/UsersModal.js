@@ -10,25 +10,28 @@ function UsersModal(props) {
     useEffect(() => {
         handleClose();
         setUsersList([]);
-        var tempList = [];
+        const tempList = [];
+        const promises = [];
         //fetch the usersList
         if (props.type === "following") {
             if (props.user.following != null) {
                 Object.values(props.user.following).forEach((user) => {
                     //retrieve the users one by onbe
-                    props.getUserWithId(user).then((curUser) => {
-                        tempList.push({...curUser, id: user});
-                    })
+                    promises.push(props.getUserWithId(user));
                 });
+                Promise.all(promises).then((result) => {
+                    setUsersList(result);
+                })
             }
         } else if (props.type === "followers") {
             if (props.user.followers != null) {
                 Object.values(props.user.followers).forEach((user) => {
                     //retrieve the users one by onbe
-                    props.getUserWithId(user).then((curUser) => {
-                        tempList.push({...curUser, id: user});
-                    })
+                    promises.push(props.getUserWithId(user));
                 });
+                Promise.all(promises).then((result) => {
+                    setUsersList(result);
+                })
             }
         }
         setUsersList(tempList);
