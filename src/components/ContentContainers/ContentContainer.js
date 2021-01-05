@@ -36,7 +36,7 @@ function ContentContainer(props) {
 
   switch (pageState) {
     case "profile":
-      return <ProfileContainer {...props} pageId={pageId} setProfilePictureImage={props.setProfilePictureImage} />;
+      return <ProfileContainer {...props} pageId={pageId} />;
     case "post":
       return <ViewPostContainer {...props} pageId={pageId} />;
     case "settings":
@@ -44,7 +44,7 @@ function ContentContainer(props) {
     case "editgames":
       return <GamesContainer {...props} />;
     case "":
-      return <FeedContainer {...props} setModalImage={props.setModalImage} />;
+      return <FeedContainer {...props} />;
     case "games":
       return <GameFeedContainer {...props} pageId={pageId} />;
     default:

@@ -10,7 +10,7 @@ function ProfilePicture(props) {
   }, [profileImageRef])
 
   function handleClick() {
-    const img = document.getElementsByClassName("ProfilePicture");
+    const img = document.getElementById("ProfilePictureImage");
     const natWidth = img.naturalWidth;
     const natHeight = img.naturalHeight;
 
@@ -23,7 +23,7 @@ function ProfilePicture(props) {
 
   return (
     <img
-      className="ProfilePicture"
+      id="ProfilePictureImage"
       data-toggle="modal"
       data-target="#enlargedProfilePicture"
       onClick={handleClick}
