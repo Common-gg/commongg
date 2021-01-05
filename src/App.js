@@ -122,7 +122,7 @@ function App() {
           following: 0
         }
       });
-      setCurrentUserInfo({ 
+      setCurrentUserInfo({
         email: email,
         username: "",
         profile_picture: "",
@@ -198,12 +198,12 @@ function App() {
     });
   }
 
-  const signInUser = (email, password) => {
+  const signInUser = (email, password, callback) => {
     // logs the user in
-    auth.signInWithEmailAndPassword(email, password).catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      //todo:: implement logic here to tell user they couldnt sign in 
+    auth.signInWithEmailAndPassword(email, password).then(() => {
+      return callback(true);
+    }).catch((error) => {
+      return callback(false);
     });
   }
 
@@ -276,7 +276,7 @@ function App() {
         const userData = snapshot.val();
         //if it's not null, there is some user with the username 
         if (userData !== null) {
-          return resolve({...userData, id: id});
+          return resolve({ ...userData, id: id });
         } else {
           return resolve(null);
         }
@@ -442,13 +442,13 @@ function App() {
 
         //if it's not null, there is some user with the username 
         if (usersWithUsername !== null) {
-            return resolve(true);
+          return resolve(true);
         } else {
           const reservedRef = database.ref('/reservedNames/' + username);
           reservedRef.once('value').then((snap2) => {
-            if(snap2.val() !== null) return resolve(true)
+            if (snap2.val() !== null) return resolve(true)
             return resolve(false);
-        })
+          })
         }
       });
     })
