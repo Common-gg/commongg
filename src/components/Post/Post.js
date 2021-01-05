@@ -215,40 +215,41 @@ function Post(props) {
                   {checkOptions()}
                 </div>
               </div>
-              <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
-                <div className="row">
+             
+              <div className="row">
+                <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
                     <Text text={props.post.title} style={{ fontSize: '25px' }} />
                   </div>
-                  <Link to={"/games/" + props.post.category}>
-                    <div className="col-auto" style={{ paddingTop: '.2rem' }}>
-                      <Text text={props.post.category}
-                        style={{
-                          borderStyle: 'solid',
-                          borderWidth: '1px',
-                          borderRadius: '5px',
-                          height: '25px',
-                          color: '#BF9AFC',
-                          borderColor: '#BF9AFC'
-                        }} />
-                    </div>
-                  </Link>
-                </div>
-                <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-                  <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
-                    <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
-                    {checkTwitchClips(decoratedHref, <ReactTinyLink
-                      cardSize="large"
-                      showGraphic={true}
-                      maxLine={2}
-                      minLine={1}
-                      url={decoratedHref}
-                    />)}
-                  </a>
-                )}>
-                  <p style={{ fontSize: '18px', whiteSpace: "pre-wrap" }}>{checkExpandText()}</p>
-                </Linkify>
-              </Link>
+                </Link>
+                <Link to={"/games/" + props.post.category}>
+                  <div className="col-auto" style={{ paddingTop: '.2rem' }}>
+                    <Text text={props.post.category}
+                      style={{
+                        borderStyle: 'solid',
+                        borderWidth: '1px',
+                        borderRadius: '5px',
+                        height: '25px',
+                        color: '#BF9AFC',
+                        borderColor: '#BF9AFC'
+                      }} />
+                  </div>
+                </Link>
+              </div>
+              <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
+                <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
+                  <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
+                  {checkTwitchClips(decoratedHref, <ReactTinyLink
+                    cardSize="large"
+                    showGraphic={true}
+                    maxLine={2}
+                    minLine={1}
+                    url={decoratedHref}
+                  />)}
+                </a>
+              )}>
+                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap" }}>{checkExpandText()}</p>
+              </Linkify>
               {checkExpandButton()}
               {checkType()}
               <PostFooter {...props} />
