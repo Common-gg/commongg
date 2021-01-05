@@ -94,8 +94,8 @@ function PageContainer(props) {
       </div>
       <div className="modal fade show" id="enlargedProfilePicture" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document" style={{
-          marginTop: (window.innerHeight - profilePictureImage.height) / 2 + "px",
-          marginLeft: (window.innerWidth - profilePictureImage.width) / 2 + "px",
+          marginTop: (window.innerHeight - (profilePictureImage.height * 1.5)) / 2 + "px",
+          marginLeft: (window.innerWidth - (profilePictureImage.width * 1.5)) / 2 + "px",
           background: "rgba(0, 0, 0, 0) !important"
         }}>
           <div className="modal-content" style={modalContentStyle}>
@@ -104,8 +104,8 @@ function PageContainer(props) {
               src={profilePictureImage.link}
               alt="no image"
               style={{
-                width: profilePictureImage.width + "px",
-                height: profilePictureImage.height + "px",
+                width: profilePictureImage.width * 1.5 + "px",
+                height: profilePictureImage.height * 1.5 + "px",
                 objectFit: "scale-down"
               }}
             />
