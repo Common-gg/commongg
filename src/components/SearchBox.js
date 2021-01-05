@@ -31,13 +31,21 @@ function SearchBox(props) {
       })));
     }
 
-    options.push({ name: "users", type: "label" });
-    options = options.concat(Object.values(users).map((user, i) => ({
-      avatar_url: user.profile_picture,
-      id: Object.keys(users)[i],
-      name: user.username,
-      type: "user"
-    })));
+    if (Object.values(users).length > 0) {
+      options.push({ name: "users", type: "label" });
+      options = options.concat(Object.values(users).map((user, i) => ({
+        avatar_url: user.profile_picture,
+        id: Object.keys(users)[i],
+        name: user.username,
+        type: "user"
+      })));
+    }
+
+    //if no result is found let users know
+    if (options.length === 0) {
+      options.push({ name: "No Result Found", type: "label" });
+    }
+    
   
     setOptions(options);
     setIsLoading(false);
@@ -54,7 +62,7 @@ function SearchBox(props) {
 
   const handleSearch = (query) => {
     setIsLoading(true);
-    props.search(query, afterSearch, query);
+    props.search(query, afterSearch, query);  
   };
 
   const filterBy = () => true;

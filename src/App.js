@@ -471,10 +471,13 @@ function App() {
 
   const search = (value, callback, query) => {
     // search the db
-    const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
+    const usersRef = database.ref('/users/').orderByChild('username').startAt(value).endAt(value + "\uf8ff");
     usersRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) {
         return callback(snapshot.val(), query);
+      } else {
+        //return empty object since no result
+        return callback({}, query);
       }
     });
   }
