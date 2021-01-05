@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Text from '../components/Text.js'
 import NavigationBar from '../components/NavigationBar.js';
 import ContentContainer from '../components/ContentContainers/ContentContainer.js';
@@ -14,6 +14,8 @@ function PageContainer(props) {
     width: "0px"
   });
 
+  const modalImageRef = useRef();
+
   const sticky = {
     position: "fixed"
   }
@@ -24,7 +26,22 @@ function PageContainer(props) {
   };
 
   useEffect(() => {
-    setModalImage(modalImage);
+    const wRatio = (window.innerWidth * .9) / modalImage.width;
+    const hRatio = (window.innerHeight * .9) / modalImage.height;
+    if(wRatio >= 1 && hRatio >= 1) return;
+    if(wRatio <= hRatio) {
+      setModalImage({
+        ...modalImage,
+        width: modalImage.width * wRatio,
+        height: modalImage.height * wRatio
+      })
+    } else {
+      setModalImage({
+        ...modalImage,
+        width: modalImage.width * hRatio,
+        height: modalImage.height * hRatio
+      })
+    }
   }, [modalImage])
 
   return (
@@ -33,19 +50,20 @@ function PageContainer(props) {
       <div className="modal fade show" id="enlargedImageModal" tabIndex="-1" role="dialog"
               aria-labelledby="chooseGameModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document" style={{
-                marginTop: (window.innerHeight - (modalImage.height * 1.5)) / 2 + "px",
-                marginLeft: (window.innerWidth - (modalImage.width * 1.5)) / 2 + "px",
-                width: modalImage.width * 1.5 + "px",
-                height: modalImage.height * 1.5 + "px",
+                marginTop: (window.innerHeight - modalImage.height)/2 + "px",
+                marginLeft: (window.innerWidth - modalImage.width)/2 + "px",
                 background: "rgba(0, 0, 0, 0) !important"
               }}>
                 <div className="modal-content" style={modalContentStyle}>
+                {console.log(modalImage)}
                   <img
+                    id="modalImage"
                     src={modalImage.link}
                     alt="no image"
                     style={{
-                      width: modalImage.width * 1.5 + "px",
-                      height: modalImage.height * 1.5 + "px",
+                      width: modalImage.width,
+                      height: modalImage.height,
+                      objectFit: "scale-down"  
                     }}
                   />
                 </div>
