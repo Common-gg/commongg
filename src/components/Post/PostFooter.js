@@ -196,7 +196,7 @@ function PostFooter(props) {
     <Popover id={props.postId + "SharePopover"} style={sharePopoverStyle}>
       <Popover.Content>
         <div className="row">
-          <p onClick={() => handleShareClicked()} style={{ color: "#ffffff" }}>Copy Link to Clipboard</p>
+          <p onClick={() => handleShareClicked()} style={{ color: "#ffffff", cursor: "pointer" }}>Copy Link to Clipboard</p>
         </div>
       </Popover.Content>
     </Popover>
@@ -244,7 +244,8 @@ function PostFooter(props) {
                 position: "relative",
                 bottom: "-6px",
                 width: "2.5rem",
-                height: "2.5rem"
+                height: "2.5rem",
+                cursor: "pointer"
               }} />
             </OverlayTrigger>
           </div>
