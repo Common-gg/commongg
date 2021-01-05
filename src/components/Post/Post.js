@@ -89,11 +89,14 @@ function Post(props) {
   }
 
   function handleImageClick() {
+    const img = document.getElementById(`${props.postId}img`);
+    const natWidth = img.naturalWidth;
+    const natHeight = img.naturalHeight;
     props.setModalImage({
       link: postImageRef.current.currentSrc,
-      height: postImageRef.current.height,
-      width: postImageRef.current.width
-    })
+      width: natWidth,
+      height: natHeight
+    });
   }
 
   const checkType = () => {
@@ -102,6 +105,7 @@ function Post(props) {
     } else if (props.post.type === "image") {
       return (
         <img
+          id={props.postId + "img"}
           data-toggle="modal"
           data-target="#enlargedImageModal"
           ref={postImageRef}

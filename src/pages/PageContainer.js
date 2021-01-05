@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Text from '../components/Text.js'
 import NavigationBar from '../components/NavigationBar.js';
 import ContentContainer from '../components/ContentContainers/ContentContainer.js';
@@ -18,6 +18,8 @@ function PageContainer(props) {
     height: "0px",
     width: "0px"
   });
+
+  const modalImageRef = useRef();
 
   const sticky = {
     position: "fixed"
