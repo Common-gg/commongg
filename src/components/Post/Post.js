@@ -189,7 +189,7 @@ function Post(props) {
             <div className="container">
               <br />
               <div className="row">
-                <div className="col-12 row">
+                <Link to={"/profile/" + props.post.author} className="col-12 row" style={{ textDecoration: 'none' }} >
                   <div className="col-2">
                     <img
                       src={author.profile_picture}
@@ -204,51 +204,51 @@ function Post(props) {
                     <div className="col-12">
                       <br />
                       <br />
-                      <Link to={"/profile/" + props.post.author} style={{ textDecoration: 'none' }} >
-                        <Text text={author.username} />
-                      </Link>
+                      <Text text={author.username} />
                       <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
                         style={{ color: '#BF9AFC', fontSize: '.9rem' }}
                       />
                     </div>
                   </div>
-                </div>
+                </Link>
                 <div className="ml-auto pr-3 dropdown">
                   {checkOptions()}
                 </div>
               </div>
-              <div className="row">
-                <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
-                  <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+              <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+                <div className="row">
+                  <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
                     <Text text={props.post.title} style={{ fontSize: '25px' }} />
+                  </div>
+                  <Link to={"/games/" + props.post.category}>
+                    <div className="col-auto" style={{ paddingTop: '.2rem' }}>
+                      <Text text={props.post.category}
+                        style={{
+                          borderStyle: 'solid',
+                          borderWidth: '1px',
+                          borderRadius: '5px',
+                          height: '25px',
+                          color: '#BF9AFC',
+                          borderColor: '#BF9AFC'
+                        }} />
+                    </div>
                   </Link>
                 </div>
-                <div className="col-auto" style={{ paddingTop: '.2rem' }}>
-                  <Text text={props.post.category}
-                    style={{
-                      borderStyle: 'solid',
-                      borderWidth: '1px',
-                      borderRadius: '5px',
-                      height: '25px',
-                      color: '#BF9AFC',
-                      borderColor: '#BF9AFC'
-                    }} />
-                </div>
-              </div>
-              <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-                <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
-                  <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
-                  {checkTwitchClips(decoratedHref, <ReactTinyLink
-                    cardSize="large"
-                    showGraphic={true}
-                    maxLine={2}
-                    minLine={1}
-                    url={decoratedHref}
-                  />)}
-                </a>
-              )}>
-                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap" }}>{checkExpandText()}</p>
-              </Linkify>
+                <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
+                  <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
+                    <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
+                    {checkTwitchClips(decoratedHref, <ReactTinyLink
+                      cardSize="large"
+                      showGraphic={true}
+                      maxLine={2}
+                      minLine={1}
+                      url={decoratedHref}
+                    />)}
+                  </a>
+                )}>
+                  <p style={{ fontSize: '18px', whiteSpace: "pre-wrap" }}>{checkExpandText()}</p>
+                </Linkify>
+              </Link>
               {checkExpandButton()}
               {checkType()}
               <PostFooter {...props} />
