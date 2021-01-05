@@ -142,12 +142,14 @@ function App() {
     database.ref('users/' + currentUser.uid).set({
       ...currentUserInfo,
       username: username,
+      lower: username.toLowerCase(),
       profile_picture: url,
       about_me: aboutMe,
     });
     setCurrentUserInfo({
       ...currentUserInfo,
       username: username,
+      lower: username.toLowerCase(),
       profile_picture: url,
       about_me: aboutMe
     });
@@ -471,7 +473,7 @@ function App() {
 
   const search = (value, callback, query) => {
     // search the db
-    const usersRef = database.ref('/users/').orderByChild('username').startAt(value).endAt(value + "\uf8ff");
+    const usersRef = database.ref('/users/').orderByChild('lower').startAt(value.toLowerCase()).endAt(value.toLowerCase() + "\uf8ff");
     usersRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) {
         return callback(snapshot.val(), query);
