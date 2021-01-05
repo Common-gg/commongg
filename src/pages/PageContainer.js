@@ -4,19 +4,20 @@ import NavigationBar from '../components/NavigationBar.js';
 import ContentContainer from '../components/ContentContainers/ContentContainer.js';
 import GamesContainer from '../components/ContentContainers/GamesContainer.js';
 import SearchBar from '../components/SearchBar.js';
+import ProfilePicture from '../components/ProfilePicture.js';
 
 function PageContainer(props) {
 
   const [search, setSearch] = useState();
   const [modalImage, setModalImage] = useState({
     link: "",
-    height: "0px",
-    width: "0px"
+    height: 1,
+    width: 1
   });
   const [profilePictureImage, setProfilePictureImage] = useState({
     link: "",
-    height: "0px",
-    width: "0px"
+    height: 1,
+    width: 1
   });
 
   const modalImageRef = useRef();
@@ -31,53 +32,33 @@ function PageContainer(props) {
   };
 
   useEffect(() => {
-    const wRatio = (window.innerWidth * .9) / modalImage.width;
-    const hRatio = (window.innerHeight * .9) / modalImage.height;
-    if (wRatio >= 1 && hRatio >= 1) return;
-    if (wRatio <= hRatio) {
-      setModalImage({
-        ...modalImage,
-        width: modalImage.width * wRatio,
-        height: modalImage.height * wRatio
-      })
-    } else {
-      setModalImage({
-        ...modalImage,
-        width: modalImage.width * hRatio,
-        height: modalImage.height * hRatio
-      })
-    }
-  }, modalImage)
+    checkRatio(modalImage, setModalImage);
+  }, [modalImage])
 
   useEffect(() => {
-    const wRatio = (window.innerWidth * .9) / profilePictureImage.width;
-    const hRatio = (window.innerHeight * .9) / profilePictureImage.height;
+    checkRatio(profilePictureImage, setProfilePictureImage);
+  }, [profilePictureImage]);
 
-    if (wRatio >= 1 && hRatio >= 1) return;
-    if (wRatio <= hRatio) {
-      setProfilePictureImage({
-        ...profilePictureImage,
-        width: profilePictureImage.width * wRatio,
-        height: profilePictureImage.height * wRatio
-      })
-    } else {
-      setProfilePictureImage({
-        ...profilePictureImage,
-        width: profilePictureImage.width * hRatio,
-        height: profilePictureImage.height * hRatio
-      })
-    }
-  }, profilePictureImage)
+  const checkRatio = (image, setImage) => {
+    const wRatio = (window.innerWidth * .9) / image.width;
+    const hRatio = (window.innerHeight * .9) / image.height;
+    console.log(image);
+    console.log(wRatio, hRatio);
+    if (Math.min(wRatio, hRatio) >= 1) return;
+    setImage({
+      ...image,
+      width: image.width * Math.min(wRatio, hRatio),
+      height: image.height * Math.min(wRatio, hRatio)
+    });
+  }
 
   return (
     <div className="PageContainer">
       <GamesContainer {...props} />
       <div className="modal fade show" id="enlargedImageModal" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document" style={{
-          marginTop: (window.innerHeight - (modalImage.height * 1.5)) / 2 + "px",
-          marginLeft: (window.innerWidth - (modalImage.width * 1.5)) / 2 + "px",
-          width: modalImage.width * 1.5 + "px",
-          height: modalImage.height * 1.5 + "px",
+          marginTop: (window.innerHeight - modalImage.height) / 2 + "px",
+          marginLeft: (window.innerWidth - modalImage.width) / 2 + "px",
           background: "rgba(0, 0, 0, 0) !important"
         }}>
           <div className="modal-content" style={modalContentStyle}>
@@ -85,8 +66,8 @@ function PageContainer(props) {
               src={modalImage.link}
               alt="no image"
               style={{
-                width: modalImage.width * 1.5 + "px",
-                height: modalImage.height * 1.5 + "px",
+                width: modalImage.width + "px",
+                height: modalImage.height + "px",
               }}
             />
           </div>
@@ -94,8 +75,8 @@ function PageContainer(props) {
       </div>
       <div className="modal fade show" id="enlargedProfilePicture" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document" style={{
-          marginTop: (window.innerHeight - (profilePictureImage.height * 1.5)) / 2 + "px",
-          marginLeft: (window.innerWidth - (profilePictureImage.width * 1.5)) / 2 + "px",
+          marginTop: (window.innerHeight - profilePictureImage.height) / 2 + "px",
+          marginLeft: (window.innerWidth - profilePictureImage.width) / 2 + "px",
           background: "rgba(0, 0, 0, 0) !important"
         }}>
           <div className="modal-content" style={modalContentStyle}>
@@ -104,8 +85,9 @@ function PageContainer(props) {
               src={profilePictureImage.link}
               alt="no image"
               style={{
-                width: profilePictureImage.width * 1.5 + "px",
-                height: profilePictureImage.height * 1.5 + "px",
+                width: profilePictureImage.width + "px",
+                height: profilePictureImage.height + "px",
+                borderRadius: "100%",
                 objectFit: "scale-down"
               }}
             />
