@@ -102,16 +102,17 @@ function ProfileContainer(props) {
                 <br />
                 <div className="row p-0">
                     <div className="col-1"></div>
-                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }} />
+                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+                        setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
                         <h2 style={{ marginTop: "5%" }}>
                             {user.username}
                         </h2>
                         <div className="d-flex flex-wrap">
-                            
+
                             <UsersModal {...props} user={user} type="followers"></UsersModal>
                             <UsersModal {...props} user={user} type="following"></UsersModal>
-                            
+
                             <span>
                                 <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
                                     <img src={followBtnState.img} style={{
@@ -124,12 +125,12 @@ function ProfileContainer(props) {
                     </div>
                 </div>
                 <div className="container text-wrap row" style={{ margin: "auto" }}>
-                        <div className="col-12">
-                            <br />{checkAboutMe()}
-                        </div></div>
+                    <div className="col-12">
+                        <br />{checkAboutMe()}
+                    </div></div>
                 <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                 <div className="flex-wrap d-flex flex-row justify-content-center">
-                    <div className="row justify-content-center" style={{ width: "70%" , paddingBottom: '20px'}}>
+                    <div className="row justify-content-center" style={{ width: "70%", paddingBottom: '20px' }}>
                         {user.games.map(index => {
                             if (props.currentUserInfo.games.includes(index)) {
                                 return (
@@ -141,12 +142,12 @@ function ProfileContainer(props) {
                                                 alt={props.allGames[index].title}
                                                 className="rounded"
                                                 style={{
-                                                  width: '8rem',
-                                                  height: 'auto',
-                                                  margin: '3%',
-                                                  padding: '.3rem',
-                                                  marginBottom: "10%",
-                                                  marginTop: "4%"
+                                                    width: '8rem',
+                                                    height: 'auto',
+                                                    margin: '3%',
+                                                    padding: '.3rem',
+                                                    marginBottom: "10%",
+                                                    marginTop: "4%"
                                                 }}
                                             />
                                         </Link>
@@ -167,7 +168,7 @@ function ProfileContainer(props) {
                                                 padding: '.3rem',
                                                 marginBottom: "10%",
                                                 marginTop: "4%"
-                                              }}
+                                            }}
                                         />
                                     </div>
                                 )

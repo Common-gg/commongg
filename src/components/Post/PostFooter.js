@@ -32,7 +32,6 @@ function PostFooter(props) {
   }, [props.post])
 
   useEffect(() => {
-    console.log(post);
     setAllowClick(true);
     if (post.reactions !== undefined) {
       setPopoverReactions(reactions.filter(reaction =>
@@ -74,7 +73,7 @@ function PostFooter(props) {
     post footer checks for functionality of comment button
     if comment button is in a page of its own it can create modal
     in all other cases it redirect
-  */ 
+  */
   const checkCommentButton = () => {
     //if you are in some feed redirect
     if (props.isPostPage !== true) {

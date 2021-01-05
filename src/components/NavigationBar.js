@@ -14,32 +14,30 @@ function NavigationBar(props) {
     const [pageState, setPageState] = useState("editgames");
     const [pageId, setPageId] = useState();
 
-  useEffect(() => {
-    console.log(props.currentUserInfo.games);
-    if(props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
-      setPageState("editgames");
-      return;
-    }
-    let url = window.location.href;
-    url = url.split('/');
-    setPageState(url[3]);
-    if (url.length >= 5) {
-      //if page state is games check the id
-      if (url[3] === "games") {
-        //find current title's id which is its index in the array
-        const curGameId = props.allGames.findIndex((game) => {
-          return game.title.split(" ").join('').toLowerCase() === url[url.length - 1];
-        });
-        //game id is the index
-        setPageId(curGameId);
-      } else {
-        setPageId(url[url.length - 1]);
-      }
-    }
-  });
+    useEffect(() => {
+        if (props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
+            setPageState("editgames");
+            return;
+        }
+        let url = window.location.href;
+        url = url.split('/');
+        setPageState(url[3]);
+        if (url.length >= 5) {
+            //if page state is games check the id
+            if (url[3] === "games") {
+                //find current title's id which is its index in the array
+                const curGameId = props.allGames.findIndex((game) => {
+                    return game.title.split(" ").join('').toLowerCase() === url[url.length - 1];
+                });
+                //game id is the index
+                setPageId(curGameId);
+            } else {
+                setPageId(url[url.length - 1]);
+            }
+        }
+    });
 
     useEffect(() => {
-        console.log(props.currentUserInfo.games);
         if (props.currentUserInfo.games === undefined) {
             document.getElementById("editGamesToggle").click();
         } else setGamesArr(props.currentUserInfo.games);
@@ -66,7 +64,7 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p style={pageState==="profile"?selectedStyle:null}><img
+                <p style={pageState === "profile" ? selectedStyle : null}><img
                     src={props.currentUserInfo.profile_picture}
                     alt={""}
                     style={{
@@ -78,7 +76,7 @@ function NavigationBar(props) {
                 </img> profile</p>
             </Link>
             <Link to="/" style={linkStyle}>
-                <p style={pageState===""?selectedStyle:null}><img src={home} style={iconStyle} alt="" /> home</p>
+                <p style={pageState === "" ? selectedStyle : null}><img src={home} style={iconStyle} alt="" /> home</p>
             </Link>
             {/*<Link to="/following" style={linkStyle}>
                 <p><img src={follow} style={iconStyle} alt="" /> following</p>
@@ -88,7 +86,7 @@ function NavigationBar(props) {
                 </Link>*/}
             {gamesArr.map((game) => {
                 return <Link to={"/games/" + (props.allGames[game].title.split(" ")).join('').toLowerCase()} key={props.allGames[game].title} style={linkStyle}>
-                    <p style={(pageState==="games"&&game===pageId)?selectedStyle:null}>{props.allGames[game].title}</p>
+                    <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}>{props.allGames[game].title}</p>
                 </Link>
             })}
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
@@ -96,7 +94,7 @@ function NavigationBar(props) {
                     <img src={editGame} style={iconStyle}></img>edit games</p>
             </a>
             <Link to="/settings" style={linkStyle}>
-                <p style={pageState==="settings"?selectedStyle:null}><img src={setting} style={iconStyle} alt="" /> settings</p>
+                <p style={pageState === "settings" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> settings</p>
             </Link>
         </div>
     );

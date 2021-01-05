@@ -68,7 +68,6 @@ function App() {
         } else {
           // Existing user
           if (JSON.stringify(currentUserInfo) !== JSON.stringify(userData)) {
-            console.log(userData)
             setCurrentUserInfo(userData);
           }
         };

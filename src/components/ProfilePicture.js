@@ -6,59 +6,29 @@ function ProfilePicture(props) {
 
   useEffect(() => {
     setIsOpen(false);
-
-    document.addEventListener("mousedown", handleClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClick);
-    };
   }, []);
 
-  function handleClick(e) {
-    if (!outerDivRef.current.contains(e.target)) {
-      setIsOpen(false);
-    }
-  }
-
-  function handleShowDialog(e) {
-    setIsOpen(!isOpen);
+  function handleClick() {
+    props.setProfilePictureImage({
+      link: props.currentUserInfo.profile_picture,
+      width: props.currentUserInfo.profile_picture.width,
+      height: props.currentUserInfo.profile_picture.height
+    })
   }
 
   return (
-    <div ref={outerDivRef}>
-      <img
-        src={props.currentUserInfo.profile_picture}
-        onClick={handleShowDialog}
-        alt={props.currentUserInfo.username + " picture"}
-        width={props.width}
-        height={props.height}
-        style={{ borderRadius: "50%", cursor: "pointer" }}
-        className="img">
-      </img>
-      {isOpen && (
-        <dialog
-          className="dialog"
-          style={{
-            position: "center",
-            background: "transparent",
-            border: "none",
-            zIndex: "20000"
-          }}
-          open
-          onClick={handleShowDialog}
-        >
-          <img
-            className="image"
-            src={props.currentUserInfo.profile_picture}
-            onClick={handleShowDialog}
-            alt="no image"
-            width="250px"
-            height="250px"
-            style={{ borderRadius: "100%", cursor: "pointer" }}
-          />
-        </dialog>
-      )}
-    </div>
+    <img
+      className="ProfilePicture"
+      data-toggle="modal"
+      data-target="#enlargedProfilePicture"
+      onClick={handleClick}
+      src={props.currentUserInfo.profile_picture}
+      alt={props.currentUserInfo.username + " picture"}
+      width={props.width}
+      height={props.height}
+      style={{ borderRadius: "50%", cursor: "pointer" }}
+    >
+    </img>
   );
 }
 
