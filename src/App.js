@@ -103,7 +103,6 @@ function App() {
       var errorMessage = error.message;
       //todo:: implement logic here to tell user they couldnt sign up 
     });
-
   }
 
   const initializeUser = (email) => {
@@ -431,6 +430,24 @@ function App() {
     })
   }
 
+  const existsEmail = (email) => {
+    // checks if there is a user with the email already
+    // returns true if it exists false if doesn't exist
+    return new Promise(function (resolve, reject) {
+      const userRef = database.ref('/users/').orderByChild("email").equalTo(email);
+      userRef.once('value').then((snapshot) => {
+        const usersWithEmail = snapshot.val();
+
+        //if it's not null, there is some user with the email
+        if (usersWithEmail !== null) {
+          return resolve(true);
+        } else {
+          return resolve(false);
+        }
+      });
+    })
+  }
+
   const existsUsername = (username) => {
     // checks if there is a user with the username already
     // returns true if it exists false if doesn't exist
@@ -523,7 +540,7 @@ function App() {
         <Switch>
           <Route exact path="/SignUp" render={
             (props) => (
-              <SignUp signUpUser={signUpUser} />
+              <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
           <Route path="/forgotpassword" render={
             (props) => (
