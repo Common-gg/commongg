@@ -112,3 +112,13 @@ Input{
   overflow-wrap: break-word;
   display: block;
 }
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
