@@ -3,7 +3,6 @@ import Linkify from 'react-linkify';
 import { ReactTinyLink } from 'react-tiny-link';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
-import ProfilePicture from '../ProfilePicture.js';
 import optionsIcon from '../../images/icons/options.png';
 import TwitchEmbed from './TwitchEmbed.js'
 import { Link, useHistory } from "react-router-dom";
@@ -53,7 +52,7 @@ function Post(props) {
     } else {
       //we deleted and redirect to home
       history.goBack();
-      
+
     }
   }
 
@@ -140,7 +139,7 @@ function Post(props) {
     borderRadius: "10px",
     borderColor: "#BF9AFC",
     borderWidth: "2px",
-}
+  }
 
   const checkPostNum = isVisible => {
     if (isVisible && props.postNum >= props.numPostsLoaded - 3) {
@@ -170,7 +169,7 @@ function Post(props) {
   }
 
   const toggleExpand = () => {
-    if (expand === false){
+    if (expand === false) {
       setExpand(true);
     } else {
       setExpand(false);
@@ -188,7 +187,14 @@ function Post(props) {
               <div className="row">
                 <div className="col-12 row">
                   <div className="col-2">
-                    <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
+                    <img
+                      src={author.profile_picture}
+                      alt={author.username + " picture"}
+                      width="40px"
+                      height="40px"
+                      style={{ borderRadius: "50%", cursor: "pointer" }}
+                      className="img">
+                    </img>
                   </div>
                   <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
                     <div className="col-12">
@@ -237,7 +243,7 @@ function Post(props) {
                   />)}
                 </a>
               )}>
-                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap"}}>{checkExpandText()}</p>
+                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap" }}>{checkExpandText()}</p>
               </Linkify>
               {checkExpandButton()}
               {checkType()}

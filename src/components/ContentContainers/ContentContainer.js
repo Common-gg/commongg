@@ -12,7 +12,7 @@ function ContentContainer(props) {
   const [pageId, setPageId] = useState();
 
   useEffect(() => {
-    if(props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
+    if (props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
       setPageState("editgames");
       return;
     }
@@ -36,7 +36,7 @@ function ContentContainer(props) {
 
   switch (pageState) {
     case "profile":
-      return <ProfileContainer {...props} pageId={pageId} />;
+      return <ProfileContainer {...props} pageId={pageId} setProfilePictureImage={props.setProfilePictureImage} />;
     case "post":
       return <ViewPostContainer {...props} pageId={pageId} />;
     case "settings":

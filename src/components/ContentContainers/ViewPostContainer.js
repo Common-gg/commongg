@@ -32,7 +32,6 @@ function ViewPostContainer(props) {
     useEffect(() => {
         let url = window.location.href;
         url = url.split('/');
-        console.log(props.pageId);
         if (url[url.length - 2] === "comment") {
             setShowComment(true);
         }
@@ -77,7 +76,7 @@ function ViewPostContainer(props) {
             />
             <br />
             {sortedComments.map((comment) => {
-                if(comment[1].author !== "404"){
+                if (comment[1].author !== "404") {
                     return (
                         <div key={comment[0]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />

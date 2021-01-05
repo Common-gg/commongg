@@ -13,6 +13,11 @@ function PageContainer(props) {
     height: "0px",
     width: "0px"
   });
+  const [profilePictureImage, setProfilePictureImage] = useState({
+    link: "",
+    height: "0px",
+    width: "0px"
+  });
 
   const sticky = {
     position: "fixed"
@@ -24,33 +29,87 @@ function PageContainer(props) {
   };
 
   useEffect(() => {
-    setModalImage(modalImage);
-  }, [modalImage])
+    const wRatio = (window.innerWidth * .9) / modalImage.width;
+    const hRatio = (window.innerHeight * .9) / modalImage.height;
+    if (wRatio >= 1 && hRatio >= 1) return;
+    if (wRatio <= hRatio) {
+      setModalImage({
+        ...modalImage,
+        width: modalImage.width * wRatio,
+        height: modalImage.height * wRatio
+      })
+    } else {
+      setModalImage({
+        ...modalImage,
+        width: modalImage.width * hRatio,
+        height: modalImage.height * hRatio
+      })
+    }
+  }, modalImage)
+
+  useEffect(() => {
+    const wRatio = (window.innerWidth * .9) / profilePictureImage.width;
+    const hRatio = (window.innerHeight * .9) / profilePictureImage.height;
+
+    if (wRatio >= 1 && hRatio >= 1) return;
+    if (wRatio <= hRatio) {
+      setProfilePictureImage({
+        ...profilePictureImage,
+        width: profilePictureImage.width * wRatio,
+        height: profilePictureImage.height * wRatio
+      })
+    } else {
+      setProfilePictureImage({
+        ...profilePictureImage,
+        width: profilePictureImage.width * hRatio,
+        height: profilePictureImage.height * hRatio
+      })
+    }
+  }, profilePictureImage)
 
   return (
     <div className="PageContainer">
       <GamesContainer {...props} />
-      <div className="modal fade show" id="enlargedImageModal" tabIndex="-1" role="dialog"
-              aria-labelledby="chooseGameModalLabel" aria-hidden="true">
-              <div className="modal-dialog" role="document" style={{
-                marginTop: (window.innerHeight - (modalImage.height * 1.5)) / 2 + "px",
-                marginLeft: (window.innerWidth - (modalImage.width * 1.5)) / 2 + "px",
+      <div className="modal fade show" id="enlargedImageModal" tabIndex="-1" role="dialog">
+        <div className="modal-dialog" role="document" style={{
+          marginTop: (window.innerHeight - (modalImage.height * 1.5)) / 2 + "px",
+          marginLeft: (window.innerWidth - (modalImage.width * 1.5)) / 2 + "px",
+          width: modalImage.width * 1.5 + "px",
+          height: modalImage.height * 1.5 + "px",
+          background: "rgba(0, 0, 0, 0) !important"
+        }}>
+          <div className="modal-content" style={modalContentStyle}>
+            <img
+              src={modalImage.link}
+              alt="no image"
+              style={{
                 width: modalImage.width * 1.5 + "px",
                 height: modalImage.height * 1.5 + "px",
-                background: "rgba(0, 0, 0, 0) !important"
-              }}>
-                <div className="modal-content" style={modalContentStyle}>
-                  <img
-                    src={modalImage.link}
-                    alt="no image"
-                    style={{
-                      width: modalImage.width * 1.5 + "px",
-                      height: modalImage.height * 1.5 + "px",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+              }}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="modal fade show" id="enlargedProfilePicture" tabIndex="-1" role="dialog">
+        <div className="modal-dialog" role="document" style={{
+          marginTop: (window.innerHeight - profilePictureImage.height) / 2 + "px",
+          marginLeft: (window.innerWidth - profilePictureImage.width) / 2 + "px",
+          background: "rgba(0, 0, 0, 0) !important"
+        }}>
+          <div className="modal-content" style={modalContentStyle}>
+            <img
+              id="modalImage"
+              src={profilePictureImage.link}
+              alt="no image"
+              style={{
+                width: profilePictureImage.width + "px",
+                height: profilePictureImage.height + "px",
+                objectFit: "scale-down"
+              }}
+            />
+          </div>
+        </div>
+      </div>
       <div className="container-fluid">
         <br /><br />
         <div className="row">
@@ -65,7 +124,7 @@ function PageContainer(props) {
               <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
             </div>
-            <ContentContainer {...props} setModalImage={setModalImage} />
+            <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} />
           </div>
           <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>
