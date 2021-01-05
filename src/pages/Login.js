@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import logo from "../images/icons/logo1light.png";
 import arrow from "../images/icons/arrow-right.png";
@@ -7,6 +7,7 @@ function Login(props) {
 
   const emailRef = useRef();
   const passwordRef = useRef();
+  const [loginIsSuccessful, setLoginIsSuccessful] = useState();
 
   const logoCSS = {
     /* logo1light 1 */
@@ -21,9 +22,23 @@ function Login(props) {
     textDecoration: "underline"
   }
 
+  useEffect(() => {
+    setLoginIsSuccessful(null);
+  }, [])
+
   function handleSignIn(e) {
     if (e.key === "Enter") {
-      props.signInUser(emailRef.current.value, passwordRef.current.value);
+      props.signInUser(emailRef.current.value, passwordRef.current.value, setLoginIsSuccessful);
+    }
+  }
+
+  function handleMessagingForUnsuccessfulSignIn() {
+    if (loginIsSuccessful === null || loginIsSuccessful === true) {
+      return (<div></div>);
+    }
+    else if (loginIsSuccessful === false) {
+      return (<p style={{ color: "red" }}>there was an error when attempting to login.
+            please double check that your username and password are correct, and try again</p>);
     }
   }
 
@@ -45,8 +60,8 @@ function Login(props) {
           borderRadius: "10px",
           boxShadow: "-1px 10px 250px 1px #171421"
         }}>
-
         <div style={{ margin: "20px 20px 0px 20px" }}>
+          {handleMessagingForUnsuccessfulSignIn()}
           <div className="row">
             <div className="col-4"></div>
             <img src={logo} style={logoCSS} />
@@ -87,7 +102,7 @@ function Login(props) {
             <div className="col-5"></div>
             <div className="form-group">
               <button type="submit" className="btn btn-outline-light"
-                onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value)} style={{
+                onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value, setLoginIsSuccessful)} style={{
                   marginBottom: "20px",
                   backgroundColor: "transparent",
                   color: "#BF9AFC",
