@@ -48,7 +48,6 @@ function NotificationContainer(props) {
 
     function deleteNotificationHandler(notificationID) {
         let tempObj = {...readNotifications};
-        let tempObj = readNotifications
         delete tempObj[notificationID];
         setReadNotifications(tempObj);
         props.deleteNotification(notificationID);
