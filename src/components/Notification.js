@@ -43,7 +43,7 @@ function Notification(props) {
             postTitle = post.title;
         }
 
-        if (props.notification.type === "commented") {
+        if (props.notification.type === "comment") {
             setNotificationText(` commented on your post \"${postTitle}\"`)
         } else if (props.notification.type === "followed") {
 
