@@ -148,14 +148,14 @@ function PostFooter(props) {
     //first check if anyone has reacted
     if (post.reacted === undefined) {
       //hasn't reacted to post
-      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost, "posts");
+      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost, "posts", props.post.author);
       return;
     }
     //reacted would be undefined if not found and some emote if found
     const reacted = post.reacted[props.currentUserInfo.username]
     if (reacted === undefined) {
       //hasn't reacted to post
-      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost, "posts");
+      props.reactToPost(props.currentUserInfo.username, props.postId, emote, 1, setPost, "posts", props.post.author);
       return;
     } else {
       //reacted to post so check if reacted then unreact else switch reaction

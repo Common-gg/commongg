@@ -389,7 +389,51 @@ function App() {
     });
   }
 
-  const reactToPost = (username, postId, reaction, value, setPost, postType) => {
+  const addNotification = (targetUserID, type, locationID = "") => {
+    console.log("in add notification");
+
+    if (currentUser.uid === targetUserID) return;
+
+    database.ref(`/users/${targetUserID}/notifications/unread`).push({
+      userID: currentUser.uid,
+      type: type,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      locationID: locationID
+    });
+  }
+
+  const deleteNotification = (notificationID, read) => {
+    database.ref(`/users/${currentUser.uid}/notifications/${read}/${notificationID}`).remove();
+  }
+
+  const readNotification = () => {
+    const oldRef = database.ref(`/users/${currentUser.uid}/notifications/unread`).once("value", (snapshot) => {
+      const unreadNotifications = snapshot.val();
+
+      oldRef.remove();
+
+      const newRef = database.ref(`/users/${currentUser.uid}/notifications/read`).once("value", (snapshot_2) => {
+        const readNotifications = snapshot_2.val();
+        newRef.set({
+          ...readNotifications,
+          ...unreadNotifications
+        });
+      });
+    });
+  }
+
+  const notificationListener = (callback) => {
+
+    database.ref(`users/${currentUser.uid}/notifications/read`).once("value", (snapshot) => {
+      callback(snapshot.val());
+
+      database.ref(`users/${currentUser.uid}/notifications/unread`).on("child_added", (data) => {
+        callback(data.val());
+      });
+    });
+  }
+
+  const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
     reactedRef.set(reaction).then(() => {
@@ -399,6 +443,10 @@ function App() {
         getPost(postId, setPost, postType);
       })
     })
+
+    if (postAuthorID !== undefined) {
+      addNotification(postAuthorID, "post_reaction", postId);
+    }
   }
 
   //unreact to post and decrement
@@ -614,6 +662,11 @@ function App() {
                   storeUserAboutMe={storeUserAboutMe}
 
                   changePasswordFromSettingsPage={changePasswordFromSettingsPage}
+
+                  notificationListener={notificationListener}
+                  deleteNotification={deleteNotification}
+                  addNotification={addNotification}
+                  readNotification={readNotification}
                 />
               </div>
             )} />
