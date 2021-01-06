@@ -22,7 +22,6 @@ function FeedType(props) {
   function childPostRefresh() {
     setChildRefresh(childRefresh + 1);
   }
-
   const filter = props.filter;
   const sort = props.sort;
   const postRefresh = props.postRefresh;

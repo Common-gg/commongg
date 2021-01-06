@@ -7,11 +7,6 @@ const AsyncTypeahead = withAsync(Typeahead);
 
 function SearchBar(props) {
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [options, setOptions] = useState([]);
-
-  const value = useRef();
-
   const barStyle = {
     border: "2px solid #BF9AFC",
     borderRadius: "8px",
@@ -30,28 +25,6 @@ function SearchBar(props) {
     height: "30px",
     cursor: "pointer"
   }
-
-  const afterSearch = (users) => {
-    setOptions(Object.values(users).map((user, i) => ({
-      avatar_url: user.profile_picture,
-      id: Object.keys(users)[i],
-      login: user.username
-    })));
-    setIsLoading(false);
-  }
-
-  const handleSearch = (query) => {
-    setIsLoading(true);
-    props.search(query, afterSearch);
-  };
-
-  function handleOnKeyDown(e) {
-    if (e.key === "Enter") {
-      props.search(value.current.value);
-    }
-  }
-
-  const filterBy = () => true;
 
   return (
     <div>
