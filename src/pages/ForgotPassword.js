@@ -9,8 +9,8 @@ function ForgotPassword(props) {
 
     const logoCSS = {
         /* logo1light 1 */
-        width: "100px",
-        height: "99.01px",
+        width: "6.5rem",
+        height: "auto",
         left: "393px",
         top: "179px"
     }
@@ -50,7 +50,7 @@ function ForgotPassword(props) {
                     maxWidth: "410px",
                     backgroundColor: "#292833",
                     borderRadius: "10px",
-                    boxShadow: "-1px 10px 250px 1px #171421"
+                    boxShadow: "-1px 7px 150px 1px #171421"
                 }}>
                 <div style={{ margin: "20px 20px 0px 20px" }}>
                     <div className="row">
