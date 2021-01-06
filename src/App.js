@@ -358,6 +358,7 @@ function App() {
         [Date.now()]: followed
       }
     })
+    addNotification(followed, "followed", followed)
   }
 
   const unFollowUser = (follower, followed) => {

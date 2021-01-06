@@ -4,6 +4,7 @@ import Text from "./Text.js";
 import Notification from "./Notification.js"
 import NotificationUnread from "../images/icons/notificationfull-1.png";
 import NotificationRead from "../images/icons/notificationempty-1.png";
+import { isPlainObject } from "jquery";
 
 function NotificationContainer(props) {
 
@@ -19,21 +20,17 @@ function NotificationContainer(props) {
     }, []);
 
     useEffect(() => {
-        console.log(readNotifications);
         setAllNotifications({
             ...readNotifications,
             ...unreadNotifications
         })
     }, [readNotifications, unreadNotifications]);
 
-
     function notificationHandler(notifications, type) {
         if (type === "read") {
             setReadNotifications(notifications);
         }
         else {
-            console.log(allNotifications);
-            console.log(notifications);
             setUnreadNotifications({ ...allNotifications, ...notifications });
             setUnreadNotificationCounter(unreadNotificationCounter + 1);
             setImageSource(NotificationUnread);
@@ -50,18 +47,17 @@ function NotificationContainer(props) {
     }
 
     function deleteNotificationHandler(notificationID) {
-        props.deleteNotification(notificationID);
-
-        let tempObj = readNotifications;
+        let tempObj = {...readNotifications};
+        let tempObj = readNotifications
         delete tempObj[notificationID];
-
-        console.log(tempObj);
         setReadNotifications(tempObj);
+        props.deleteNotification(notificationID);
     }
 
     const notificationPopoverStyle = {
         backgroundColor: "#292833",
         borderRadius: "20px",
+        width: "100%"
     }
 
 
@@ -73,9 +69,9 @@ function NotificationContainer(props) {
                         Object.values(allNotifications).reverse().map((notification, i) => {
                             return (
                                 <div style={{ width: "100%" }} key={Object.keys(allNotifications).reverse()[i]} >
-                                    {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null}
+                                    {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null }
                                     <div className="row">
-                                        <div className="col-10">
+                                        <div style={{width: "80%"}}>
                                             <Notification getUser={props.getUser} getPost={props.getPost} notification={notification} />
                                         </div>
                                         <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
@@ -90,8 +86,20 @@ function NotificationContainer(props) {
 
     return (
         <div style={{ marginLeft: "40%" }}>
-            <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={notificationPopover}>
-                <img src={imageSource} onClick={handleNotificationClick} alt="Notification Icon" style={{ width: "3rem", height: "3rem", cursor: "pointer" }} />
+            <OverlayTrigger 
+                trigger={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : "click"} 
+                rootClose 
+                placement="bottom" 
+                overlay={notificationPopover}>
+                    <img src={imageSource} 
+                        onClick={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : handleNotificationClick}
+                        alt="Notification Icon" 
+                        style={{ 
+                            width: "3rem", 
+                            height: "3rem", 
+                            cursor: "pointer" 
+                        }} 
+                    />
             </OverlayTrigger>
             {unreadNotificationCounter !== 0 ? <Text text={unreadNotificationCounter}
                 style={{

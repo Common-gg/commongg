@@ -10,7 +10,7 @@ import editGame from "../images/icons/editgameaccent-1.png"
 
 function NavigationBar(props) {
 
-    const [gamesArr, setGamesArr] = useState([0]);
+    const [gamesArr, setGamesArr] = useState([{title: " "}]);
     const [pageState, setPageState] = useState("editgames");
     const [pageId, setPageId] = useState();
 
@@ -41,7 +41,17 @@ function NavigationBar(props) {
         if (props.currentUserInfo.games === undefined) {
             document.getElementById("editGamesToggle").click();
         } else setGamesArr(props.currentUserInfo.games);
-    }, []);
+    }, [props.currentUserInfo.games]);
+
+    useEffect(() => {
+        if(gamesArr[0] >= 0) {
+            let tempArr = []
+            gamesArr.forEach(game => {
+                tempArr.push(props.allGames[game]);
+            });
+            setGamesArr(tempArr);
+        }
+    }, [gamesArr]);
 
     const iconStyle = {
         width: "40px",
@@ -85,9 +95,12 @@ function NavigationBar(props) {
                 <p><img src={trend} style={iconStyle} alt="" /> trending</p>
                 </Link>*/}
             {gamesArr.map((game) => {
-                return <Link to={"/games/" + (props.allGames[game].title.split(" ")).join('').toLowerCase()} key={props.allGames[game].title} style={linkStyle}>
-                    <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}>{props.allGames[game].title}</p>
-                </Link>
+                if (game.title === undefined) return;
+                return (
+                    <Link to={"/games/" + game.title.split(" ").join('').toLowerCase()} key={game.title} style={linkStyle}>
+                        <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}>{game.title}</p>
+                    </Link>
+                )
             })}
             <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
                 <p style={linkStyle}>
