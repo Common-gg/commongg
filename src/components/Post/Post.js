@@ -18,7 +18,7 @@ function Post(props) {
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
-    if (props.post.text.length <= 800) {
+    if (props.post.text.length <= 500) {
       setExpand(true);
     }
   }, [props.post]);
@@ -153,7 +153,7 @@ function Post(props) {
 
   const checkExpandText = () => {
     if (expand === false) {
-      let str = props.post.text.substring(0, 800);
+      let str = props.post.text.substring(0, 500);
       return (str += "...");
     } else {
       return (props.post.text);
@@ -161,7 +161,7 @@ function Post(props) {
   }
 
   const checkExpandButton = () => {
-    if (props.post.text.length > 800) {
+    if (props.post.text.length > 500) {
       if (expand === false) {
         return (
           <button onClick={toggleExpand} style={expandButtonStyle}>

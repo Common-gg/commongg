@@ -317,6 +317,7 @@ function CreatePostModal(props) {
                             ref={postTextRef}
                             placeholder="type your body here..."
                             rows="5"
+                            maxLength="10000"
                             style={textAreaStyle}
                         />
                     </div>
