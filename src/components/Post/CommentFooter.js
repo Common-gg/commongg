@@ -109,14 +109,14 @@ function CommentFooter(props) {
     //first check if anyone has reacted
     if (comment.reacted === undefined) {
       //hasn't reacted to post
-      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments");
+      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments", props.comment.author);
       return;
     }
     //reacted would be undefined if not found and some emote if found
     const reacted = comment.reacted[props.currentUserInfo.username]
     if (reacted === undefined) {
       //hasn't reacted to post
-      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments");
+      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments", props.comment.author);
       return;
     } else {
       //reacted to post so check if reacted then unreact else switch reaction

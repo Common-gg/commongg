@@ -155,7 +155,7 @@ function ProfileContainer(props) {
                                 )
                             } else {
                                 return (
-                                    <div className="col-4">
+                                    <div key={index} className="col-4">
                                         <img
                                             src={props.allGames[index].image}
                                             key={"game-image2" + index}
