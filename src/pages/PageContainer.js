@@ -4,7 +4,7 @@ import NavigationBar from '../components/NavigationBar.js';
 import ContentContainer from '../components/ContentContainers/ContentContainer.js';
 import GamesContainer from '../components/ContentContainers/GamesContainer.js';
 import SearchBar from '../components/SearchBar.js';
-import ProfilePicture from '../components/ProfilePicture.js';
+import NotificationContainer from "../components/NotificationContainer.js";
 
 function PageContainer(props) {
 
@@ -112,6 +112,7 @@ function PageContainer(props) {
           </div>
           <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>
+              <NotificationContainer {...props} />
               <Text text="ADS GO HERE TO MAKE $$ YEP" />
             </div>
           </div>

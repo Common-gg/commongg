@@ -95,6 +95,54 @@ function App() {
     });
   }, []);
 
+  const addNotification = (targetUserID, type, locationID = "") => {
+
+    if (currentUser.uid === targetUserID) return;
+
+    database.ref(`/users/${targetUserID}/notifications/unread`).push({
+      userID: currentUser.uid,
+      type: type,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      locationID: locationID
+    });
+  }
+
+  const deleteNotification = (notificationID) => {
+    database.ref(`/users/${currentUser.uid}/notifications/read/${notificationID}`).remove();
+  }
+
+  const readNotifications = () => {
+    const oldRef = database.ref(`/users/${currentUser.uid}/notifications/unread`);
+
+    oldRef.once("value", (snapshot) => {
+      const unreadNotifications = snapshot.val();
+
+      oldRef.remove();
+
+      const newRef = database.ref(`/users/${currentUser.uid}/notifications/read`);
+
+      newRef.once("value", (snapshot_2) => {
+        const readNotifications = snapshot_2.val();
+        newRef.set({
+          ...readNotifications,
+          ...unreadNotifications
+        });
+      });
+    });
+  }
+
+  const notificationListener = (callback) => {
+
+    database.ref(`/users/${currentUser.uid}/notifications/read`).once("value", (snapshot) => {
+      callback(snapshot.val(), "read");
+
+      database.ref(`/users/${currentUser.uid}/notifications/unread`).on("child_added", (data) => {
+        callback({ [data.key]: data.val() }, "unread");
+      });
+    });
+  }
+
+
   const signUpUser = (email, password) => {
     // Signs user up
     window.history.pushState(null, null, "/");
@@ -232,13 +280,14 @@ function App() {
     numCommentsRef.set(firebase.database.ServerValue.increment(numIncrement));
   }
 
-  const createComment = (comment) => {
+  const createComment = (comment, postAuthorID) => {
     // Creates a comment in the DB
     if (currentUser === undefined) return;
     const commentRef = database.ref('/content/comments/').push();
     commentRef.set(comment);
     //update the number of comments
     updateNumComments(comment.postId, 1);
+    addNotification(postAuthorID, "comment", comment.postId);
   }
 
   const deleteComment = (commentId, postId) => {
@@ -389,50 +438,6 @@ function App() {
     });
   }
 
-  const addNotification = (targetUserID, type, locationID = "") => {
-    console.log("in add notification");
-
-    if (currentUser.uid === targetUserID) return;
-
-    database.ref(`/users/${targetUserID}/notifications/unread`).push({
-      userID: currentUser.uid,
-      type: type,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
-      locationID: locationID
-    });
-  }
-
-  const deleteNotification = (notificationID, read) => {
-    database.ref(`/users/${currentUser.uid}/notifications/${read}/${notificationID}`).remove();
-  }
-
-  const readNotification = () => {
-    const oldRef = database.ref(`/users/${currentUser.uid}/notifications/unread`).once("value", (snapshot) => {
-      const unreadNotifications = snapshot.val();
-
-      oldRef.remove();
-
-      const newRef = database.ref(`/users/${currentUser.uid}/notifications/read`).once("value", (snapshot_2) => {
-        const readNotifications = snapshot_2.val();
-        newRef.set({
-          ...readNotifications,
-          ...unreadNotifications
-        });
-      });
-    });
-  }
-
-  const notificationListener = (callback) => {
-
-    database.ref(`users/${currentUser.uid}/notifications/read`).once("value", (snapshot) => {
-      callback(snapshot.val());
-
-      database.ref(`users/${currentUser.uid}/notifications/unread`).on("child_added", (data) => {
-        callback(data.val());
-      });
-    });
-  }
-
   const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
@@ -445,7 +450,7 @@ function App() {
     })
 
     if (postAuthorID !== undefined) {
-      addNotification(postAuthorID, "post_reaction", postId);
+      addNotification(postAuthorID, `${postType}_reaction`, postId);
     }
   }
 
@@ -666,7 +671,7 @@ function App() {
                   notificationListener={notificationListener}
                   deleteNotification={deleteNotification}
                   addNotification={addNotification}
-                  readNotification={readNotification}
+                  readNotifications={readNotifications}
                 />
               </div>
             )} />
