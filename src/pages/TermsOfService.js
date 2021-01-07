@@ -1,12 +1,38 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import CommonLogoLarge from "../images/icons/logotextlarge 1.png";
+import ArrowLeft from "../images/icons/arrowleft 1.png"
+
 
 function TermsOfService(props) {
+    const history = useHistory();
+    const imageBackButtonStyle = {
+        width: "40px",
+        height: "45px",
+        paddingRight: ".5rem"
+    };
 
+    const backButtonStyle = {
+        backgroundColor: "transparent",
+        color: "#BF9AFC",
+        borderWidth: "2px",
+        padding: "0.6rem",
+        paddingTop: "4rem",
+        paddingLeft: "8rem"
+    };
     const styleCommonLogo = {
         display: "flex",
         justifyContent: "center",
         alignItems: "center"
+    }
+
+    function largeHeaderStyle(text) {
+        return (
+            <div className="row">
+                <div className="col-sm-3 "></div>
+                <p className="col" style={{ color: "white", fontSize: "40px" }}> {text}</p>
+            </div>
+        );
     }
 
     function headerStyle(text) {
@@ -29,14 +55,25 @@ function TermsOfService(props) {
 
     return (
         <div className="Terms Of Service">
-            <div style={styleCommonLogo}>
-                <img src={CommonLogoLarge} />
+            <div>
+                <div className="row">
+                    <button type="button"
+                        className="btn"
+                        style={backButtonStyle}
+                        onClick={history.goBack}
+                    >
+                        <div>
+                            <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
+
+                        </div>
+                    </button>
+                </div>
+                <div style={styleCommonLogo}>
+                    <img src={CommonLogoLarge} />
+                </div>
             </div>
             <br /><br /><br /><br />
-            <div className="row">
-                <div className="col-sm-3 "></div>
-                <p className="col" style={{ color: "white", fontSize: "40px" }}> Privacy Policy</p>
-            </div>
+            {largeHeaderStyle("Privacy Policy")}
             {bodyText("At Common.gg, we collect and manage user data according to the following Privacy Policy.")}
             <br />
             {headerStyle("Data Collected")}
@@ -78,7 +115,48 @@ function TermsOfService(props) {
             {bodyText("Our privacy policy may change over time. If we make major changes in the way we collect or use information, we will notify you by posting " +
                 "an announcement on the Website or sending you an email.")}
             <br />
-
+            <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
+            <br />
+            {largeHeaderStyle("Cookie Policy")}
+            {bodyText("Common.gg uses cookies and by using the service, you agree/consent to the use of cookies.")}
+            {bodyText("Our cookie policy explains what cookies are, how we use cookies, and how third-parties may use cookies on our site. ")}
+            <br />
+            {headerStyle("What are cookies")}
+            {bodyText("Cookies are small pieces of text sent by your web browser to a site you visit. A cookie file is stored in your browser and allows " +
+                "the service of third - party to recognize you and make your next visit easier and service more useful to you(ads catered based upon past " +
+                "searches, videos, etc.)")}
+            <br />
+            {headerStyle("How Common.gg uses cookies")}
+            {bodyText("When you use and access our service, we may place some cookie files into your web browser. We use cookies for the following reasons: to " +
+                "allow some functions of the service, to provide analytics, to store your tailored to you preferences, to enable advertisements, and tailored to you " +
+                "advertisements.")}
+            {bodyText("We use various cookies to help run the site: session, persistent, and essential cookies. Essential cookies are used to authenticate users and prevent " +
+                "fraudulent use of other accounts.")}
+            <br />
+            {headerStyle("Third-party cookies")}
+            {bodyText("In addition to our own cookies, we may also use different third-party cookies to report statistics of the site, bring advertisements to you and on the site itself, and so on.")}
+            <br />
+            <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
+            <br />
+            {largeHeaderStyle("Community Guidelines/Terms of Service")}
+            {headerStyle("What's covered in terms of service?")}
+            {bodyText("While we understand you may want to skip these Terms of Service, we at commongg want you to understand what you can expect from us as you use the site, " +
+                "in addition to what we expect from you. ")}
+            <div className="row">
+                {/* By agreeing to and using the services you acknowledge that you will follow these terms during the duration of your stay. */}
+                <div className="col-sm-3 "></div>
+                <p className="col-6" style={{ color: "#BF9AFC", fontSize: "20px", textDecoration: "underline" }}>By agreeing to and using the services you acknowledge that you will follow these terms during the duration of your stay. </p>
+            </div>
+            <br />
+            {headerStyle("1. Common.gg Services Provided")}
+            <div style={{ marginLeft: "5rem" }}>
+                {bodyText("You may begin using our services once agreeing to the \"terms.\" You must be at least 13 years old to use the services.")}
+            </div>
+            {headerStyle("2. Privacy Policy")}
+            <div style={{ marginLeft: "5rem" }}>
+                {bodyText("In our privacy policy you will learn and agree to what we do with the information you give us when using our services. " +
+                    "You also acknowledge that by using common.gg you agree to the collection and use of this information.")}
+            </div>
         </div>
     );
 }
