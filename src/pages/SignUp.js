@@ -66,43 +66,64 @@ function SignUp(props) {
 
   const logoCSS = {
     /* logo1light 1 */
-    width: "6.5rem",
+    width: "4.5rem",
     height: "auto",
+  }
+
+  const inputStyle = {
+    backgroundColor: "transparent #292833",
+    color: "#BF9AFC",
+    border: "solid",
+    borderColor: "#BF9AFC",
+    borderWidth: "1px",
+    borderRadius: "2px",
+    backgroundColor: "#292833",
+    padding: "0.3rem",
+    margin: "3%",
+    width: "100%",
+    height: "77%",
   }
 
   return (
     <div>
       <div className="mx-auto card"
         style={{
-          margin: "150px",
-          maxWidth: "410px",
+          margin: "200px",
+          maxWidth: "20%",
+          maxHeight: "100%",
           backgroundColor: "#292833",
           borderRadius: "10px",
-          boxShadow: "-1px 7px 150px 1px #171421"
+          boxShadow: "-1px 7px 25px 1px #171421"
         }}>
 
         <div style={{ margin: "20px 20px 0px 20px" }}>
           <div className="row">
-            <div className="col-4" style={{ marginRight: "2.5%" }}></div>
+            <div className="col-5"></div>
             <img src={logo} style={logoCSS} />
             <div className="col-5" style={{ pointerEvents: "none" }}></div>
             <br />
-            <div className="form-group" >
+            <div className="form-group" style={{ marginRight: "10%", }}>
+            <p style={{left: "10rem", position: "relative", color: "#BF9AFC" }}> Sign up </p>
               <div className="row">
-                <div className="col-6"></div>
+                <div className="col-1"></div>
                 <div className="row">
-                  <div className="col-6"></div>
+                  <div className="col-1"></div>
                   <div className="row">
-                    <div className="col-6"></div>
+                    <div className="col-1"></div>
                     <div className="row">
-                      <div className="col-4"></div>
-                      <br />
-                      <Input type="email"
-                        bootstrap="border border-secondary"
-                        placeholder="email"
-                        track={setEmail}
-                        style={{ backgroundColor: "#292833",  }} />
-                    </div></div></div></div></div></div>
+                      <div className="col-1"></div>
+                      <div className="row">
+                        <div className="col-1"></div>
+                        <div className="row">
+                          <div className="col-1"></div>
+                          <div className="row">
+                            <div className="col-1"></div>
+                            <Input type="email"
+                              bootstrap="border-0"
+                              placeholder="email"
+                              track={setEmail}
+                              style={inputStyle} />
+                          </div></div></div></div></div></div></div></div></div>
           <div className="form-group">
             <div className="row col-12">
               <div className="col-1"></div>
@@ -115,10 +136,22 @@ function SignUp(props) {
                     <div className="row">
                       <div className="col-1"></div>
                       <Input type="password"
-                        bootstrap="border border-secondary"
+                        bootstrap="border-0"
                         placeholder="password"
                         track={setPassword}
-                        style={{ backgroundColor: "#292833", }} />
+                        style={{
+                          backgroundColor: "transparent #292833",
+                          color: "#BF9AFC",
+                          border: "solid",
+                          borderColor: "#BF9AFC",
+                          backgroundColor: "#292833",
+                          borderRadius: "2px",
+                          borderWidth: "1px",
+                          padding: "0.3rem",
+                          margin: "3%",
+                          width: "100%",
+                          height: "77%"
+                        }} />
                     </div></div></div></div></div></div>
           <div className="d-flex justify-content-center text-center">
             {failedSignUp()}
@@ -128,18 +161,20 @@ function SignUp(props) {
             <div className="form-group">
               <SignUpButton click={signUp} />
             </div></div></div>
-        <div className="row">
-          <div className="col-5"></div>
-
           <br />
-        </div>
-
       </div>
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
           <Link to="/">
-            <p className="col" style={{ color: "#BF9AFC", textDecoration: "underline", padding: '.3rem', lineHeight: "0.5rem", }}>
+            <p className="col" style={{
+            position: "relative",
+            padding: '.3rem',
+            lineHeight: "0.5rem",
+            top: "-10.75rem",
+            color: "#BF9AFC",
+            textDecoration: "underline", 
+            }}>
               Login
       </p>
           </Link>

@@ -20,7 +20,7 @@ function CreateProfile(props) {
   const [failedLength, setFailedLength] = useState(false);
 
 
-  
+
   function handleSubmit(event) {
     event.preventDefault();
     setFailedExists(false);
@@ -69,30 +69,47 @@ function CreateProfile(props) {
         maxWidth: "485px",
         backgroundColor: "#292833",
         borderRadius: "10px",
-        boxShadow: "-1px 10px 250px 1px #171421",
+        boxShadow: "-1px 7px 25px 1px #171421",
         color: "#BF9AFC"
       }}>
         <br />
         <h4>create your profile</h4>
         < br />
         Pick a username
-        <Input style={{ backgroundColor: "#292833" }} maxLength="15" type="displayName" placeholder="username" track={setDisplayName}/>
+        <Input style={{
+          backgroundColor: "transparent #292833",
+          color: "#BF9AFC text-center",
+          border: "solid",
+          borderColor: "#BF9AFC",
+          backgroundColor: "#292833",
+          borderRadius: "2px",
+          borderWidth: "1px",
+          padding: "0.3rem",
+          width: "50%",
+          height: "95%",
+          marginLeft: "25%"
+        }}
+          maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
         {failedExists ? <p style={{ color: "red" }}>username already in use</p> : null}
         {failedSpace ? <p style={{ color: "red" }}>username can't contain space</p> : null}
         {failedProfane ? <p style={{ color: "red" }}>username contains profanity</p> : null}
         {failedLength ? <p style={{ color: "red" }}>username is too short</p> : null}
         < br />
         add a profile picture
-        <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => {}} />
-        <button type="submit" className="btn btn-outline-dark"
+        <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => { }} />
+        <button type="submit" className="btn"
           style={{
             marginBottom: "20px",
+            padding: "0.3rem",
             backgroundColor: "transparent",
             color: "#BF9AFC",
             border: "solid",
             borderRadius: "10px",
             borderColor: "#BF9AFC",
-            borderWidth: "2px"
+            borderWidth: "2px",
+            maxWidth: "10%",
+            position: "relative",
+            left: "13.4rem",
           }}
           onClick={handleSubmit}>
           <img src={arrow} />
