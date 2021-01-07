@@ -52,9 +52,7 @@ function SettingsContainer(props) {
     let profilePicture = props.currentUserInfo.profile_picture;
     let profilePictureUpdated = false;
 
-    if (aboutMeRef.current.value !== "") {
-      aboutMe = aboutMeRef.current.value;
-    }
+    aboutMe = aboutMeRef.current.value;
     //if selected doesn't have current it means it loaded from setImage
     if (selectedFile.current === undefined) {
       profilePictureUpdated = true;

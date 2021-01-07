@@ -77,7 +77,7 @@ function ProfileContainer(props) {
 
     const checkAboutMe = () => {
         if (user.about_me !== "") {
-            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px" }} text={user.about_me} />)
+            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px", whiteSpace: "pre-wrap"}} text={user.about_me} />)
         }
     }
 
