@@ -82,14 +82,15 @@ function UsersModal(props) {
     }
 
     function checkButton() {
+        console.log(props.user)
         if (props.type === "following") {
             return (
-            <span role="button" onClick={handleShow} style={numberStyle}>{props.user.followCounts.following}
+            <span role="button" onClick={handleShow} style={numberStyle}>{props.user.following?Object.keys(props.user.following).length:0}
                 <span style={followStyle}> following</span>
             </span>)
         } else if (props.type === "followers") {
             return (
-                <span role="button" onClick={handleShow} style={numberStyle}>{props.user.followCounts.follower}
+                <span role="button" onClick={handleShow} style={numberStyle}>{props.user.followers?Object.keys(props.user.followers).length:0}
                     <span style={followStyle}> followers</span>
                 </span>)
         }

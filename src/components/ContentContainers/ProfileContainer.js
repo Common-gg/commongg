@@ -34,10 +34,7 @@ function ProfileContainer(props) {
         }
     }
 
-    useEffect(() => {
-        props.getUser(props.pageId, setUser);
-    }, [props.pageId]);
-
+    //check if the current user is self
     useEffect(() => {
         if (props.currentUserId) {
             if (props.currentUserId === props.pageId) {
@@ -57,15 +54,29 @@ function ProfileContainer(props) {
         }
     }, [props.pageId]);
 
+
+    //update the current useer when navigating to new page
+    useEffect(() => {
+        props.getUser(props.pageId, setUser);
+    }, [props.pageId]);
+
     //update the following icon when switching pages
     useEffect(() => {
-        if (props.currentUserInfo.following) {
-            let temp = Object.values(props.currentUserInfo.following);
-            if (temp.includes(props.pageId)) {
+        //check if user is using follow properly
+        if (props.currentUserId === props.pageId) {
+            //already set to invisible since it's self
+            return;
+        }
+        if (user.followers) {
+            let temp = Object.values(user.followers);
+            //check if current user
+            if (temp.includes(props.currentUserId)) {
                 setFollowBtnState({ ...followBtnState, text: "Following", img: check });
+            } else {
+                setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
             }
         }
-    }, [props.pageId])
+    }, [user])
 
     const checkId = () => {
         if (props.pageId !== undefined) {
