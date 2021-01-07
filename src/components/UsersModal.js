@@ -82,7 +82,6 @@ function UsersModal(props) {
     }
 
     function checkButton() {
-        console.log(props.user)
         if (props.type === "following") {
             return (
             <span role="button" onClick={handleShow} style={numberStyle}>{props.user.following?Object.keys(props.user.following).length:0}
