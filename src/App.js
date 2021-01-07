@@ -10,6 +10,7 @@ import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
 import CommonChat from "./images/games/Common Chat.png";
 import ForgotPassword from './pages/ForgotPassword.js';
 import ChangePassword from './pages/ChangePassword.js';
+import TermsOfService from './pages/TermsOfService.js';
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -633,6 +634,11 @@ function App() {
     return (
       <Router>
         <Switch>
+          <Route path="/termsofservice" render={
+            (props) => (
+              <TermsOfService />
+            )}
+          />
           <Route path="/" render={
             (props) => (
               <div>

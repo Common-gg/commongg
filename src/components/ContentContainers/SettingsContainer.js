@@ -65,6 +65,10 @@ function SettingsContainer(props) {
     width: "35px",
     height: "35px"
   };
+  const linkStyle = {
+    color: "#BF9AFC",
+    textDecoration: "underline"
+  }
 
   function handleUpdateButtonClick(e) {
     let aboutMe = props.currentUserInfo.about_me;
@@ -243,10 +247,16 @@ function SettingsContainer(props) {
       <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
       <div className="row">
         <div className="col text-center">
-          <Link to="/" style={{ color: "#BF9AFC", textDecoration: "underline", }}>
+          <Link to="/" style={linkStyle}>
             <br /><p onClick={() => props.signOut()}>sign out</p>
           </Link>
-          <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC", textDecoration: "underline" }}>discord</a></p>
+          <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={linkStyle}>discord</a></p>
+          <Link to="/termsofservice">
+            <p className="col" style={linkStyle}>
+              privacy policy, cookie policy <br />
+                & terms of service
+              </p>
+          </Link>
         </div>
       </div>
     </div>
