@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import DisplayImage from "../../components/DisplayImage.js"
 import edit from "../../images/icons/edit-1.png";
 import Input from "../Input.js";
 import Label from "../Label.js";
+import ArrowLeft from "../../images/icons/arrowleft 1.png"
 
 function SettingsContainer(props) {
   const aboutMeRef = useRef();
@@ -15,6 +16,7 @@ function SettingsContainer(props) {
   const [loadChangePasswordFields, setLoadChangePasswordFields] = useState(null);
   const [errorString, setErrorString] = useState("");
   const [updateButtonText, setUpdateButtonText] = useState("update");
+  const history = useHistory();
 
   useEffect(() => {
     aboutMeRef.current.value = props.currentUserInfo.about_me;
@@ -45,6 +47,23 @@ function SettingsContainer(props) {
     borderColor: "#BF9AFC",
     borderWidth: "2px",
     padding: "0.6rem"
+  };
+
+  const backButtonStyle = {
+    backgroundColor: "transparent",
+    color: "#BF9AFC",
+    borderWidth: "2px",
+    padding: "0.6rem"
+  };
+
+  const editButtonStyle = {
+    width: "60px",
+    height: "60px"
+  };
+
+  const imageBackButtonStyle = {
+    width: "35px",
+    height: "35px"
   };
 
   function handleUpdateButtonClick(e) {
@@ -112,7 +131,15 @@ function SettingsContainer(props) {
   return (
     <div className="SettingsContainer" style={settingsContainerStyle}>
       <div className="row">
-        <div className="col-4"></div>
+        <div className="col-4">
+          <button type="button"
+            className="btn"
+            style={backButtonStyle}
+            onClick={history.goBack}
+          >
+            <img src={ArrowLeft} style={imageBackButtonStyle} />
+          </button>
+        </div>
         <div className="col-4">
           <br />
           <h2 className="text-center" style={{ color: "#BF9AFC" }}>edit profile</h2>
@@ -129,7 +156,7 @@ function SettingsContainer(props) {
                 top: "-6rem",
                 right: "-6.5rem"
               }}>
-              <img src={edit} style={{ width: "60px", height: "60px" }} />
+              <img src={edit} style={editButtonStyle} />
             </label>
           </div>
         </div>
