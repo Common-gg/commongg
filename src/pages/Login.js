@@ -11,10 +11,8 @@ function Login(props) {
 
   const logoCSS = {
     /* logo1light 1 */
-    width: "100px",
-    height: "99.01px",
-    left: "393px",
-    top: "179px"
+    width: "6.5rem",
+    height: "auto",
   }
 
   const linkStyle = {
@@ -58,12 +56,12 @@ function Login(props) {
           maxWidth: "410px",
           backgroundColor: "#292833",
           borderRadius: "10px",
-          boxShadow: "-1px 10px 250px 1px #171421"
+          boxShadow: "-1px 7px 150px 1px #171421"
         }}>
         <div style={{ margin: "20px 20px 0px 20px" }}>
           {handleMessagingForUnsuccessfulSignIn()}
           <div className="row">
-            <div className="col-4"></div>
+            <div className="col-4" style={{ marginRight: "2.5%" }}></div>
             <img src={logo} style={logoCSS} />
             <div className="col-5" style={{ pointerEvents: "none" }}></div>
             <br />
@@ -104,6 +102,7 @@ function Login(props) {
               <button type="submit" className="btn btn-outline-light"
                 onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value, setLoginIsSuccessful)} style={{
                   marginBottom: "20px",
+                  marginRight: "2.5%",
                   backgroundColor: "transparent",
                   color: "#BF9AFC",
                   border: "solid",
@@ -118,7 +117,7 @@ function Login(props) {
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
-          <Link to="/signup">
+          <Link to="/signup" style={{ position: "relative", padding: '.3rem', lineHeight: "0.5rem", }}>
             <p className="col" style={linkStyle}>
               new? sign up
               </p>
