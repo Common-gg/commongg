@@ -439,7 +439,7 @@ function App() {
     });
   }
 
-  const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID) => {
+  const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID, parentID) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
     reactedRef.set(reaction).then(() => {
@@ -450,7 +450,9 @@ function App() {
       })
     })
 
-    if (postAuthorID !== undefined) {
+    if (parentID !== undefined) {
+      addNotification(postAuthorID, `${postType}_reaction`, parentID);
+    } else {
       addNotification(postAuthorID, `${postType}_reaction`, postId);
     }
   }
