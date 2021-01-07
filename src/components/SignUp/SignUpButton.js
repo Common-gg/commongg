@@ -9,7 +9,7 @@ function SignUpButton(props) {
           border: "solid",
           borderRadius: "10px",
           borderColor: "#BF9AFC",
-          borderWidth: "2px"
+          borderWidth: "2px",
       }} >
         Sign Up
       </button>

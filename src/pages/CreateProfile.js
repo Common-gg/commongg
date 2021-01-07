@@ -69,7 +69,7 @@ function CreateProfile(props) {
         maxWidth: "485px",
         backgroundColor: "#292833",
         borderRadius: "10px",
-        boxShadow: "-1px 10px 250px 1px #171421",
+        boxShadow: "-1px 7px 25px 1px #171421",
         color: "#BF9AFC"
       }}>
         <br />
@@ -87,6 +87,7 @@ function CreateProfile(props) {
         <button type="submit" className="btn btn-outline-dark"
           style={{
             marginBottom: "20px",
+            padding: "0.3rem",
             backgroundColor: "transparent",
             color: "#BF9AFC",
             border: "solid",
