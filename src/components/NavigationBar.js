@@ -8,6 +8,10 @@ import follow from "../images/icons/followingaccent-1.png";
 import setting from "../images/icons/settingsaccent-1.png";
 import editGame from "../images/icons/editgameaccent-1.png"
 
+import whitehome from "../images/icons/homewhite-1.png";
+import whitedit from "../images/icons/editgamewhite-1.png";
+import whitesetting from "../images/icons/settingswhite-3.png"
+
 function NavigationBar(props) {
 
     const [gamesArr, setGamesArr] = useState([{title: " "}]);

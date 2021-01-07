@@ -51,12 +51,12 @@ function Login(props) {
     padding: "0.3rem",
     margin: "3%",
     width: "135%",
-    height: "65%"
+    height: "95%"
   }
 
   return (
     <div className="Login">
-      <div className="mx-auto card"
+      <div className="mx-auto card text-center"
         style={{
           margin: "200px",
           marginLeft: "100px",
@@ -74,6 +74,7 @@ function Login(props) {
             <div className="col-5" style={{ pointerEvents: "none" }}></div>
             <br />
             <div className="form-group" style={{ marginRight: "10%", }} >
+            <p style={{left: "5.7rem", position: "relative", color: "#BF9AFC" }}> Login </p>
               <div className="row">
                 <div className="col-1"></div>
                 <div className="row">
@@ -83,7 +84,6 @@ function Login(props) {
                     <div className="row">
                       <div className="col-1"></div>
                       <div className="Input" >
-                        <br />
                         <input style={inputStyle} className="border border-secondary" type="email"
                           placeholder="email" ref={emailRef}
                           onKeyPress={(e) => handleSignIn(e)} />

@@ -81,7 +81,7 @@ function SignUp(props) {
     padding: "0.3rem",
     margin: "3%",
     width: "100%",
-    height: "55%",
+    height: "77%",
   }
 
   return (
@@ -103,6 +103,7 @@ function SignUp(props) {
             <div className="col-5" style={{ pointerEvents: "none" }}></div>
             <br />
             <div className="form-group" style={{ marginRight: "10%", }}>
+            <p style={{left: "10rem", position: "relative", color: "#BF9AFC" }}> Sign up </p>
               <div className="row">
                 <div className="col-1"></div>
                 <div className="row">
@@ -117,7 +118,6 @@ function SignUp(props) {
                           <div className="col-1"></div>
                           <div className="row">
                             <div className="col-1"></div>
-                            <br />
                             <Input type="email"
                               bootstrap="border-0"
                               placeholder="email"
@@ -161,12 +161,7 @@ function SignUp(props) {
             <div className="form-group">
               <SignUpButton click={signUp} />
             </div></div></div>
-        <div className="row">
-          <div className="col-5"></div>
-
           <br />
-        </div>
-
       </div>
       <div className="row">
         <div className="col-4"></div>
