@@ -75,11 +75,15 @@ function Post(props) {
   function checkTwitchClips(link, preview) {
     //parse all twitch clips with regular expression and map the results
     if (typeof link !== "string") return
-    const regexp = /https:\/\/www\.twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+)/g;
+    const regexp = /(?:(?:https:\/\/)?(?:www\.)?twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:(?:https:\/\/)?clips\.twitch\.tv\/([a-zA-Z]+))/g;
     const matches = link.matchAll(regexp);
     let clips = [];
     for (const match of matches) {
-      clips.push(match[1]);
+      if(match[1] !== undefined){
+        clips.push(match[1]);
+      }else if(match[2] !== undefined){
+        clips.push(match[2]);
+      }
     }
     if (clips.length === 0) {
       return preview;
