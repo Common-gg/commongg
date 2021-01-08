@@ -248,14 +248,13 @@ function SettingsContainer(props) {
       <div className="row">
         <div className="col text-center">
           <Link to="/" style={linkStyle}>
-            <br /><p onClick={() => props.signOut()}>sign out</p>
+            <br /><a onClick={() => props.signOut()}>sign out</a> <br />
           </Link>
           <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={linkStyle}>discord</a></p>
           <Link to="/termsofservice">
-            <p className="col" style={linkStyle}>
-              privacy policy, cookie policy <br />
-                & terms of service
-              </p>
+            <a className="col" style={linkStyle}>
+              privacy policy, cookie policy & terms of service
+              </a>
           </Link>
         </div>
       </div>
