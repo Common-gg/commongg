@@ -29,7 +29,7 @@ function TermsOfService(props) {
     function largeHeaderStyle(text) {
         return (
             <div className="row">
-                <div className="col-sm-3 "></div>
+                <div className="col-sm-1"></div>
                 <p className="col" style={{ color: "white", fontSize: "40px" }}> {text}</p>
             </div>
         );
@@ -38,7 +38,7 @@ function TermsOfService(props) {
     function headerStyle(text) {
         return (
             <div className="row">
-                <div className="col-sm-3 "></div>
+                <div className="col-sm-1"></div>
                 <p className="col" style={{ color: "white", fontSize: "20px" }}> {text}</p>
             </div>
         );
@@ -47,8 +47,8 @@ function TermsOfService(props) {
     function bodyText(text) {
         return (
             <div className="row">
-                <div className="col-sm-3 "></div>
-                <p className="col-6" style={{ color: "#BF9AFC", fontSize: "20px" }}>{text}</p>
+                <div className="col-sm-1"></div>
+                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px" }}>{text}</p>
             </div>
         );
     }
@@ -143,19 +143,24 @@ function TermsOfService(props) {
             {bodyText("While we understand you may want to skip these Terms of Service, we at commongg want you to understand what you can expect from us as you use the site, " +
                 "in addition to what we expect from you. ")}
             <div className="row">
-                {/* By agreeing to and using the services you acknowledge that you will follow these terms during the duration of your stay. */}
-                <div className="col-sm-3 "></div>
-                <p className="col-6" style={{ color: "#BF9AFC", fontSize: "20px", textDecoration: "underline" }}>By agreeing to and using the services you acknowledge that you will follow these terms during the duration of your stay. </p>
+                <div className="col-sm-1"></div>
+                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px", textDecoration: "underline" }}>By agreeing to and using the services you acknowledge that you will follow these terms during the duration of your stay. </p>
             </div>
             <br />
             {headerStyle("1. Common.gg Services Provided")}
-            <div style={{ marginLeft: "5rem" }}>
+            <div style={{ marginLeft: "2rem" }}>
                 {bodyText("You may begin using our services once agreeing to the \"terms.\" You must be at least 13 years old to use the services.")}
             </div>
             {headerStyle("2. Privacy Policy")}
-            <div style={{ marginLeft: "5rem" }}>
+            <div style={{ marginLeft: "2rem" }}>
                 {bodyText("In our privacy policy you will learn and agree to what we do with the information you give us when using our services. " +
                     "You also acknowledge that by using common.gg you agree to the collection and use of this information.")}
+            </div>
+            <div className="row">
+                <div className="col-sm-1"></div>
+                <p className="col-8" style={{ color: "white", fontSize: "20px", textDecoration: "underline" }}>
+                    BY SIGNING UP YOU AGREE TO THE TERMS & CONDITIONS, PRIVACY POLICY, AND COOKIE POLICY
+                </p>
             </div>
         </div>
     );

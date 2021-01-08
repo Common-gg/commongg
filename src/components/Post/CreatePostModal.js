@@ -13,7 +13,6 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(getOptions()[0].label);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("Post");
@@ -34,11 +33,6 @@ function CreatePostModal(props) {
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
-    };
-    const modalHeaderStyle = {
-        border: "none",
-        textAlign: "center",
-        padding: "0 !important"
     };
     const postButtonStyle = {
         height: 48,
@@ -239,14 +233,14 @@ function CreatePostModal(props) {
                 tempArr.push({ label: props.allGames[game].title, value: game });
             });
         } else {
-            tempArr.push({ label: props.allGames[props.default].title, value: props.default})
+            tempArr.push({ label: props.allGames[props.default].title, value: props.default })
             props.currentUserInfo.games.map((game) => {
                 if (game !== props.default) {
                     tempArr.push({ label: props.allGames[game].title, value: game });
                 }
             });
         }
-        
+
         return tempArr;
     }
 
@@ -310,7 +304,7 @@ function CreatePostModal(props) {
                                 ref={postTitleRef}
                                 style={titleInputStyle}
                             />
-                            <p style={{marginRight: "10px", marginTop: "7px"}}>{titleLength + "/150"}</p>
+                            <p style={{ marginRight: "10px", marginTop: "7px" }}>{titleLength + "/150"}</p>
                             <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close"
                                 aria-label="Close" onClick={() => clearFields()}>
                                 <span id="createPostX" aria-hidden="true">&times;</span>
