@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {TwitchClip} from 'react-twitch-embed';
+import { TwitchClip } from 'react-twitch-embed';
 
 function TwitchEmbed(props) {
   //only prop it takes is the things after the clip
@@ -20,7 +20,7 @@ function TwitchEmbed(props) {
   return (
     <div style={parent}>
       <div style={child}>
-      <TwitchClip clip={props.clip} parent={['localhost', 'common.gg']} width="100%" height="100%" autoplay={false}/>
+        <TwitchClip clip={props.clip} parent={['localhost', 'common.gg']} width="100%" height="100%" autoplay={false} />
       </div>
     </div>
   );
