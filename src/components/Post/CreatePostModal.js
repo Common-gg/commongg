@@ -239,14 +239,14 @@ function CreatePostModal(props) {
                 tempArr.push({ label: props.allGames[game].title, value: game });
             });
         } else {
-            tempArr.push({ label: props.allGames[props.default].title, value: props.default})
+            tempArr.push({ label: props.allGames[props.default].title, value: props.default })
             props.currentUserInfo.games.map((game) => {
                 if (game !== props.default) {
                     tempArr.push({ label: props.allGames[game].title, value: game });
                 }
             });
         }
-        
+
         return tempArr;
     }
 
@@ -310,7 +310,7 @@ function CreatePostModal(props) {
                                 ref={postTitleRef}
                                 style={titleInputStyle}
                             />
-                            <p style={{marginRight: "10px", marginTop: "7px"}}>{titleLength + "/150"}</p>
+                            <p style={{ marginRight: "10px", marginTop: "7px" }}>{titleLength + "/150"}</p>
                             <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close"
                                 aria-label="Close" onClick={() => clearFields()}>
                                 <span id="createPostX" aria-hidden="true">&times;</span>
