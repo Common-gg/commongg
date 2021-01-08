@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import Linkify from 'react-linkify';
 import { ReactTinyLink } from 'react-tiny-link';
 import Text from '../Text.js';
-import PostFooter from './PostFooter.js'
+import PostFooter from './PostFooter.js';
 import optionsIcon from '../../images/icons/options.png';
-import TwitchEmbed from './TwitchEmbed.js'
+import TwitchEmbed from './TwitchEmbed.js';
+import YoutubeEmbed from './YoutubeEmbed.js';
 import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 
@@ -71,12 +72,11 @@ function Post(props) {
     }
   }
 
-  //creating twitch embedding if twitch clips are found
-  function checkTwitchClips(link, preview) {
-    //parse all twitch clips with regular expression and map the results
+  function checkEmbeded(link, preview) {
     if (typeof link !== "string") return
-    const regexp = /(?:(?:https:\/\/)?(?:www\.)?twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:(?:https:\/\/)?clips\.twitch\.tv\/([a-zA-Z]+))/g;
-    const matches = link.matchAll(regexp);
+    //twitch clips
+    let regexp = /(?:twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:clips\.twitch\.tv\/([a-zA-Z]+))/g;
+    let matches = link.matchAll(regexp);
     let clips = [];
     for (const match of matches) {
       if (match[1] !== undefined) {
@@ -85,11 +85,27 @@ function Post(props) {
         clips.push(match[2]);
       }
     }
-    if (clips.length === 0) {
-      return preview;
-    } else {
+    if (clips.length !== 0) {
       return <div><TwitchEmbed clip={clips[0]}></TwitchEmbed></div>
     }
+
+    //youtube videos
+    regexp = /(?:youtube\.com\/watch\?v=([1-9a-zA-Z-_]{11}))|(?:youtu\.be\/([1-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([1-9a-zA-Z-_]{11}))/g;
+    matches = link.matchAll(regexp);
+    clips = [];
+    for (const match of matches) {
+      if (match[1] !== undefined) {
+        clips.push(match[1]);
+      } else if (match[2] !== undefined) {
+        clips.push(match[2]);
+      } else if (match[3] !== undefined) {
+        clips.push(match[3]);
+      }
+    }
+    if (clips.length !== 0) {
+      return <div><YoutubeEmbed clip={clips[0]}></YoutubeEmbed></div>
+    }
+    return preview;
   }
 
   function handleImageClick() {
@@ -243,7 +259,7 @@ function Post(props) {
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
                 <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
                   <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
-                  {checkTwitchClips(decoratedHref, <ReactTinyLink
+                  {checkEmbeded(decoratedHref, <ReactTinyLink
                     cardSize="large"
                     showGraphic={true}
                     maxLine={2}
