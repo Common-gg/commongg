@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap'
-import IconButton from '../IconButton';
-import CreateCommentModal from './CreateCommentModal.js';
-import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
-import commentIcon from '../../images/icons/addcomment.png';
-import shareIcon from '../../images/icons/share.png';
-import Text from '../Text.js';
 
 function CommentFooter(props) {
   const [comment, setComment] = useState(props.comment)

@@ -64,7 +64,7 @@ function CreateCommentModal(props) {
             author: props.currentUserId,
             commentText: commentText.current.value,
             postId: props.postId,
-            timestamp: Date.now()
+            timestamp: props.firebaseTimeStamp()
         }, props.post.author);
         props.updateRefresh();
         clearFields();

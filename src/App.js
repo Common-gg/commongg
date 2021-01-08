@@ -96,6 +96,10 @@ function App() {
     });
   }, []);
 
+  const firebaseTimeStamp = () => {
+    return firebase.database.ServerValue.TIMESTAMP;
+  }
+
   const addNotification = (targetUserID, type, locationID = "") => {
 
     if (currentUser.uid === targetUserID) return;
@@ -103,7 +107,7 @@ function App() {
     database.ref(`/users/${targetUserID}/notifications/unread`).push({
       userID: currentUser.uid,
       type: type,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      timestamp: firebaseTimeStamp(),
       locationID: locationID
     });
   }
@@ -356,7 +360,7 @@ function App() {
       },
       following: {
         ...currentUserInfo.following,
-        [Date.now()]: followed
+        [firebaseTimeStamp()]: followed
       }
     })
     addNotification(followed, "followed", currentUser.uid);
@@ -681,6 +685,7 @@ function App() {
                   deleteNotification={deleteNotification}
                   addNotification={addNotification}
                   readNotifications={readNotifications}
+                  firebaseTimeStamp={firebaseTimeStamp}
                 />
               </div>
             )} />
