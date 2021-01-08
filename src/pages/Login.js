@@ -36,8 +36,8 @@ function Login(props) {
       return (<div></div>);
     }
     else if (loginIsSuccessful === false) {
-      return (<p style={{ color: "red" }}>there was an error when attempting to login.
-            please double check that your username and password are correct, and try again</p>);
+      return (<p style={{ color: "#F34D4D" }}>There was an error when attempting to login.
+            Please double check that your username and password are correct, and try again</p>);
     }
   }
 
@@ -74,7 +74,7 @@ function Login(props) {
             <div className="col-5" style={{ pointerEvents: "none" }}></div>
             <br />
             <div className="form-group" style={{ marginRight: "10%", }} >
-            <p style={{left: "5.7rem", position: "relative", color: "#BF9AFC" }}> Login </p>
+              <p style={{ left: "5.7rem", position: "relative", color: "#BF9AFC" }}> Login </p>
               <div className="row">
                 <div className="col-1"></div>
                 <div className="row">

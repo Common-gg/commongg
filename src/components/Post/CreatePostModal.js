@@ -222,7 +222,7 @@ function CreatePostModal(props) {
             return null;
         }
         else if (isFileTooLarge === true) {
-            return (<p style={{ color: "red" }}>Image cannot exceed 5MB. Select a different image or shrink the currently selected image.</p>);
+            return (<p style={{ color: "#F34D4D" }}>Image cannot exceed 5MB. Select a different image or shrink the currently selected image.</p>);
         }
     }
 

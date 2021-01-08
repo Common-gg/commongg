@@ -100,7 +100,7 @@ function SettingsContainer(props) {
       return setErrorString(<div></div>);
     }
     else if (passwordChangeIsSuccessful === false) {
-      return setErrorString(<p style={{ color: "red" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
+      return setErrorString(<p style={{ color: "#F34D4D" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
     }
     else {
       return setErrorString(<p style={{ color: "green" }}>password changed successfully!</p>);
