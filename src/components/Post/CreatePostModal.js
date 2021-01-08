@@ -124,7 +124,10 @@ function CreatePostModal(props) {
     };
 
     function handlePostClick() {
-        if ((postTitleRef.current.value === "") && (postTextRef.current.value === "")
+        let postTitleCurrentValue = postTitleRef.current.value.trim();
+        let postTextCurrentvalue = postTextRef.current.value.trim();
+
+        if ((postTitleCurrentValue === "") && (postTextCurrentvalue === "")
             && (selectedFile === null)) {
             return;
         }
@@ -145,13 +148,13 @@ function CreatePostModal(props) {
         });
 
         props.createPost({
-            text: postText.current.value,
+            text: postText.current.value.trim(),
             author: props.currentUserId,
             caption: "CAPTION_TEXT",
             game: gameId.toString(),
             link: url,
             timestamp: props.firebaseTimeStamp(),
-            title: postTitleRef.current.value,
+            title: postTitleRef.current.value.trim(),
             type: postType,
             numComments: 0,
             category: selectedOption
