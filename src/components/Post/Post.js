@@ -79,9 +79,9 @@ function Post(props) {
     const matches = link.matchAll(regexp);
     let clips = [];
     for (const match of matches) {
-      if(match[1] !== undefined){
+      if (match[1] !== undefined) {
         clips.push(match[1]);
-      }else if(match[2] !== undefined){
+      } else if (match[2] !== undefined) {
         clips.push(match[2]);
       }
     }
@@ -219,14 +219,14 @@ function Post(props) {
                   {checkOptions()}
                 </div>
               </div>
-             
+
               <div className="row">
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
                     <Text text={props.post.title} style={{ fontSize: '25px' }} />
                   </div>
                 </Link>
-                <Link to={"/games/" + props.post.category}>
+                <Link to={"/games/" + props.post.category.replace(" ", "").toLowerCase()}>
                   <div className="col-auto" style={{ paddingTop: '.2rem' }}>
                     <Text text={props.post.category}
                       style={{
