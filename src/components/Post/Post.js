@@ -3,7 +3,6 @@ import Linkify from 'react-linkify';
 import { ReactTinyLink } from 'react-tiny-link';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js'
-import ProfilePicture from '../ProfilePicture.js';
 import optionsIcon from '../../images/icons/options.png';
 import TwitchEmbed from './TwitchEmbed.js'
 import { Link, useHistory } from "react-router-dom";
@@ -13,11 +12,15 @@ import TrackVisibility from "react-on-screen";
 function Post(props) {
 
   const [author, setAuthor] = useState({ profile: "" });
+  const [expand, setExpand] = useState(false);
   const history = useHistory();
   const postImageRef = useRef();
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
+    if (props.post.text.length <= 500) {
+      setExpand(true);
+    }
   }, [props.post]);
 
   useEffect(() => {
@@ -49,7 +52,7 @@ function Post(props) {
     } else {
       //we deleted and redirect to home
       history.goBack();
-      
+
     }
   }
 
@@ -72,11 +75,15 @@ function Post(props) {
   function checkTwitchClips(link, preview) {
     //parse all twitch clips with regular expression and map the results
     if (typeof link !== "string") return
-    const regexp = /https:\/\/www\.twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+)/g;
+    const regexp = /(?:(?:https:\/\/)?(?:www\.)?twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:(?:https:\/\/)?clips\.twitch\.tv\/([a-zA-Z]+))/g;
     const matches = link.matchAll(regexp);
     let clips = [];
     for (const match of matches) {
-      clips.push(match[1]);
+      if(match[1] !== undefined){
+        clips.push(match[1]);
+      }else if(match[2] !== undefined){
+        clips.push(match[2]);
+      }
     }
     if (clips.length === 0) {
       return preview;
@@ -86,11 +93,14 @@ function Post(props) {
   }
 
   function handleImageClick() {
+    const img = document.getElementById(`${props.postId}img`);
+    const natWidth = img.naturalWidth;
+    const natHeight = img.naturalHeight;
     props.setModalImage({
       link: postImageRef.current.currentSrc,
-      height: postImageRef.current.height,
-      width: postImageRef.current.width
-    })
+      width: natWidth,
+      height: natHeight
+    });
   }
 
   const checkType = () => {
@@ -99,6 +109,7 @@ function Post(props) {
     } else if (props.post.type === "image") {
       return (
         <img
+          id={props.postId + "img"}
           data-toggle="modal"
           data-target="#enlargedImageModal"
           ref={postImageRef}
@@ -127,9 +138,49 @@ function Post(props) {
     // }
   }
 
+  const expandButtonStyle = {
+    height: 32,
+    marginLeft: "auto",
+    backgroundColor: "transparent",
+    color: "#BF9AFC",
+    border: "solid",
+    borderRadius: "10px",
+    borderColor: "#BF9AFC",
+    borderWidth: "2px",
+  }
+
   const checkPostNum = isVisible => {
     if (isVisible && props.postNum >= props.numPostsLoaded - 3) {
       props.setNumPostsLoaded(props.numPostsLoaded + 5);
+    }
+  }
+
+  const checkExpandText = () => {
+    if (expand === false) {
+      let str = props.post.text.substring(0, 500);
+      return (str += "...");
+    } else {
+      return (props.post.text);
+    }
+  }
+
+  const checkExpandButton = () => {
+    if (props.post.text.length > 500) {
+      if (expand === false) {
+        return (
+          <button onClick={toggleExpand} style={expandButtonStyle}>
+            expand
+          </button>
+        )
+      }
+    }
+  }
+
+  const toggleExpand = () => {
+    if (expand === false) {
+      setExpand(true);
+    } else {
+      setExpand(false);
     }
   }
 
@@ -142,44 +193,52 @@ function Post(props) {
             <div className="container">
               <br />
               <div className="row">
-                <div className="col-12 row">
+                <Link to={"/profile/" + props.post.author} className="col-12 row" style={{ textDecoration: 'none' }} >
                   <div className="col-2">
-                    <ProfilePicture currentUserInfo={author} width="40px" height="40px" />
+                    <img
+                      src={author.profile_picture}
+                      alt={author.username + " picture"}
+                      width="40px"
+                      height="40px"
+                      style={{ borderRadius: "50%", cursor: "pointer" }}
+                      className="img">
+                    </img>
                   </div>
                   <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
                     <div className="col-12">
                       <br />
                       <br />
-                      <Link to={"/profile/" + props.post.author} style={{ textDecoration: 'none' }} >
-                        <Text text={author.username} />
-                      </Link>
+                      <Text text={author.username} />
                       <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
                         style={{ color: '#BF9AFC', fontSize: '.9rem' }}
                       />
                     </div>
                   </div>
-                </div>
+                </Link>
                 <div className="ml-auto pr-3 dropdown">
                   {checkOptions()}
                 </div>
               </div>
+             
               <div className="row">
-                <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
-                  <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+                <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+                  <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
                     <Text text={props.post.title} style={{ fontSize: '25px' }} />
-                  </Link>
-                </div>
-                <div className="col-auto" style={{ paddingTop: '.2rem' }}>
-                  <Text text={props.post.category}
-                    style={{
-                      borderStyle: 'solid',
-                      borderWidth: '1px',
-                      borderRadius: '5px',
-                      height: '25px',
-                      color: '#BF9AFC',
-                      borderColor: '#BF9AFC'
-                    }} />
-                </div>
+                  </div>
+                </Link>
+                <Link to={"/games/" + props.post.category}>
+                  <div className="col-auto" style={{ paddingTop: '.2rem' }}>
+                    <Text text={props.post.category}
+                      style={{
+                        borderStyle: 'solid',
+                        borderWidth: '1px',
+                        borderRadius: '5px',
+                        height: '25px',
+                        color: '#BF9AFC',
+                        borderColor: '#BF9AFC'
+                      }} />
+                  </div>
+                </Link>
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
                 <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
@@ -193,8 +252,9 @@ function Post(props) {
                   />)}
                 </a>
               )}>
-                <p style={{ fontSize: '18px' }}>{props.post.text}</p>
+                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap" }}>{checkExpandText()}</p>
               </Linkify>
+              {checkExpandButton()}
               {checkType()}
               <PostFooter {...props} />
             </div>

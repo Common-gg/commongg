@@ -10,6 +10,7 @@ import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
 import CommonChat from "./images/games/Common Chat.png";
 import ForgotPassword from './pages/ForgotPassword.js';
 import ChangePassword from './pages/ChangePassword.js';
+import TermsOfService from './pages/TermsOfService.js';
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -95,6 +96,54 @@ function App() {
     });
   }, []);
 
+  const addNotification = (targetUserID, type, locationID = "") => {
+
+    if (currentUser.uid === targetUserID) return;
+
+    database.ref(`/users/${targetUserID}/notifications/unread`).push({
+      userID: currentUser.uid,
+      type: type,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      locationID: locationID
+    });
+  }
+
+  const deleteNotification = (notificationID) => {
+    database.ref(`/users/${currentUser.uid}/notifications/read/${notificationID}`).remove();
+  }
+
+  const readNotifications = () => {
+    const oldRef = database.ref(`/users/${currentUser.uid}/notifications/unread`);
+
+    oldRef.once("value", (snapshot) => {
+      const unreadNotifications = snapshot.val();
+
+      oldRef.remove();
+
+      const newRef = database.ref(`/users/${currentUser.uid}/notifications/read`);
+
+      newRef.once("value", (snapshot_2) => {
+        const readNotifications = snapshot_2.val();
+        newRef.set({
+          ...readNotifications,
+          ...unreadNotifications
+        });
+      });
+    });
+  }
+
+  const notificationListener = (callback) => {
+
+    database.ref(`/users/${currentUser.uid}/notifications/read`).once("value", (snapshot) => {
+      callback(snapshot.val(), "read");
+
+      database.ref(`/users/${currentUser.uid}/notifications/unread`).on("child_added", (data) => {
+        callback({ [data.key]: data.val() }, "unread");
+      });
+    });
+  }
+
+
   const signUpUser = (email, password) => {
     // Signs user up
     window.history.pushState(null, null, "/");
@@ -103,7 +152,6 @@ function App() {
       var errorMessage = error.message;
       //todo:: implement logic here to tell user they couldnt sign up 
     });
-
   }
 
   const initializeUser = (email) => {
@@ -114,7 +162,6 @@ function App() {
         username: "",
         profile_picture: "",
         about_me: "",
-        games: { "0": 0 },
         followers: [],
         following: [],
         followCounts: {
@@ -122,7 +169,18 @@ function App() {
           following: 0
         }
       });
-      setCurrentUserInfo({ email: email });
+      setCurrentUserInfo({
+        email: email,
+        username: "",
+        profile_picture: "",
+        about_me: "",
+        followers: [],
+        following: [],
+        followCounts: {
+          follower: 0,
+          following: 0
+        }
+      });
     }
   }
 
@@ -132,15 +190,17 @@ function App() {
     database.ref('users/' + currentUser.uid).set({
       ...currentUserInfo,
       username: username,
+      lower: username.toLowerCase(),
       profile_picture: url,
       about_me: aboutMe,
     });
     setCurrentUserInfo({
       ...currentUserInfo,
       username: username,
+      lower: username.toLowerCase(),
       profile_picture: url,
-      about_me: aboutMe,
-    })
+      about_me: aboutMe
+    });
   }
 
   const storeUserAboutMe = (aboutMe) => {
@@ -163,7 +223,7 @@ function App() {
     })
   }
 
-  const storeBlob = (username, blob, aboutMe = "") => {
+  const storeBlob = (username, blob, aboutMe) => {
     // Stores the user's profile picture
     const storageRef = storage.ref();
     const ref = storageRef.child("users/" + currentUser.uid);
@@ -187,12 +247,12 @@ function App() {
     });
   }
 
-  const signInUser = (email, password) => {
+  const signInUser = (email, password, callback) => {
     // logs the user in
-    auth.signInWithEmailAndPassword(email, password).catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      //todo:: implement logic here to tell user they couldnt sign in 
+    auth.signInWithEmailAndPassword(email, password).then(() => {
+      return callback(true);
+    }).catch((error) => {
+      return callback(false);
     });
   }
 
@@ -221,13 +281,14 @@ function App() {
     numCommentsRef.set(firebase.database.ServerValue.increment(numIncrement));
   }
 
-  const createComment = (comment) => {
+  const createComment = (comment, postAuthorID) => {
     // Creates a comment in the DB
     if (currentUser === undefined) return;
     const commentRef = database.ref('/content/comments/').push();
     commentRef.set(comment);
     //update the number of comments
     updateNumComments(comment.postId, 1);
+    addNotification(postAuthorID, "comment", comment.postId);
   }
 
   const deleteComment = (commentId, postId) => {
@@ -257,6 +318,22 @@ function App() {
     })
   }
 
+  const getUserWithId = (id) => {
+    // checks if there is a user with the username already
+    // returns true if it exists false if doesn't exist
+    return new Promise(function (resolve, reject) {
+      database.ref('/users/' + id).once('value').then(function (snapshot) {
+        const userData = snapshot.val();
+        //if it's not null, there is some user with the username 
+        if (userData !== null) {
+          return resolve({ ...userData, id: id });
+        } else {
+          return resolve(null);
+        }
+      })
+    })
+  }
+
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
     followRef.set(firebase.database.ServerValue.increment(value));
@@ -282,6 +359,7 @@ function App() {
         [firebase.database.ServerValue.TIMESTAMP]: followed
       }
     })
+    addNotification(followed, "followed", currentUser.uid);
   }
 
   const unFollowUser = (follower, followed) => {
@@ -362,7 +440,7 @@ function App() {
     });
   }
 
-  const reactToPost = (username, postId, reaction, value, setPost, postType) => {
+  const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID, parentID) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
     reactedRef.set(reaction).then(() => {
@@ -372,6 +450,12 @@ function App() {
         getPost(postId, setPost, postType);
       })
     })
+
+    if (parentID !== undefined) {
+      addNotification(postAuthorID, `${postType}_reaction`, parentID);
+    } else {
+      addNotification(postAuthorID, `${postType}_reaction`, postId);
+    }
   }
 
   //unreact to post and decrement
@@ -405,19 +489,41 @@ function App() {
     })
   }
 
+  const existsEmail = (email) => {
+    // checks if there is a user with the email already
+    // returns true if it exists false if doesn't exist
+    return new Promise(function (resolve, reject) {
+      const userRef = database.ref('/users/').orderByChild("email").equalTo(email);
+      userRef.once('value').then((snapshot) => {
+        const usersWithEmail = snapshot.val();
+
+        //if it's not null, there is some user with the email
+        if (usersWithEmail !== null) {
+          return resolve(true);
+        } else {
+          return resolve(false);
+        }
+      });
+    })
+  }
+
   const existsUsername = (username) => {
     // checks if there is a user with the username already
     // returns true if it exists false if doesn't exist
     return new Promise(function (resolve, reject) {
-      const postRef = database.ref('/users/').orderByChild("username").equalTo(username);
-      postRef.once('value').then((snapshot) => {
+      const userRef = database.ref('/users/').orderByChild("username").equalTo(username);
+      userRef.once('value').then((snapshot) => {
         const usersWithUsername = snapshot.val();
 
         //if it's not null, there is some user with the username 
         if (usersWithUsername !== null) {
           return resolve(true);
         } else {
-          return resolve(false);
+          const reservedRef = database.ref('/reservedNames/' + username);
+          reservedRef.once('value').then((snap2) => {
+            if (snap2.val() !== null) return resolve(true)
+            return resolve(false);
+          })
         }
       });
     })
@@ -441,10 +547,13 @@ function App() {
 
   const search = (value, callback, query) => {
     // search the db
-    const usersRef = database.ref('/users/').orderByChild('username').startAt(value.toUpperCase()).endAt(value.toLowerCase() + "\uf8ff");
+    const usersRef = database.ref('/users/').orderByChild('lower').startAt(value.toLowerCase()).endAt(value.toLowerCase() + "\uf8ff");
     usersRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) {
         return callback(snapshot.val(), query);
+      } else {
+        //return empty object since no result
+        return callback({}, query);
       }
     });
   }
@@ -497,7 +606,7 @@ function App() {
         <Switch>
           <Route exact path="/SignUp" render={
             (props) => (
-              <SignUp signUpUser={signUpUser} />
+              <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
           <Route path="/forgotpassword" render={
             (props) => (
@@ -529,6 +638,11 @@ function App() {
     return (
       <Router>
         <Switch>
+          <Route path="/termsofservice" render={
+            (props) => (
+              <TermsOfService />
+            )}
+          />
           <Route path="/" render={
             (props) => (
               <div>
@@ -559,6 +673,7 @@ function App() {
                   storeBlob={storeBlob}
 
                   getUser={getUser}
+                  getUserWithId={getUserWithId}
                   followUser={followUser}
                   unFollowUser={unFollowUser}
                   storeUserGames={storeUserGames}
@@ -566,6 +681,11 @@ function App() {
 
                   changePasswordFromSettingsPage={changePasswordFromSettingsPage}
                   firebaseTimeStamp={firebaseTimeStamp}
+
+                  notificationListener={notificationListener}
+                  deleteNotification={deleteNotification}
+                  addNotification={addNotification}
+                  readNotifications={readNotifications}
                 />
               </div>
             )} />

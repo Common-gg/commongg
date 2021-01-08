@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
+import UsersModal from '../UsersModal.js';
 import FeedType from '../FeedType.js';
 import plus from "../../images/icons/followingplus-1.png";
 import check from "../../images/icons/followingcheck-1.png";
@@ -33,26 +34,49 @@ function ProfileContainer(props) {
         }
     }
 
-    useEffect(() => {
-        props.getUser(props.pageId, setUser);
-    }, [props.pageId]);
-
+    //check if the current user is self
     useEffect(() => {
         if (props.currentUserId) {
             if (props.currentUserId === props.pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
+            } else {
+                setFollowBtnStyle({
+                    visibility: "visible",
+                    backgroundColor: "transparent",
+                    width: "2.5rem",
+                    height: "2.5rem",
+                    borderRadius: "50%",
+                    position: "relative",
+                    top: "-1.6vh",
+                    left: "-1vw"
+                });
             }
         }
     }, [props.pageId]);
 
+
+    //update the current useer when navigating to new page
     useEffect(() => {
-        if (props.currentUserInfo.following) {
-            let temp = Object.values(props.currentUserInfo.following);
-            if (temp.includes(props.pageId)) {
+        props.getUser(props.pageId, setUser);
+    }, [props.pageId]);
+
+    //update the following icon when switching pages
+    useEffect(() => {
+        //check if user is using follow properly
+        if (props.currentUserId === props.pageId) {
+            //already set to invisible since it's self
+            return;
+        }
+        if (user.followers) {
+            let temp = Object.values(user.followers);
+            //check if current user
+            if (temp.includes(props.currentUserId)) {
                 setFollowBtnState({ ...followBtnState, text: "Following", img: check });
+            } else {
+                setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
             }
         }
-    }, [])
+    }, [user])
 
     const checkId = () => {
         if (props.pageId !== undefined) {
@@ -64,7 +88,7 @@ function ProfileContainer(props) {
 
     const checkAboutMe = () => {
         if (user.about_me !== "") {
-            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px" }} text={user.about_me} />)
+            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px", whiteSpace: "pre-wrap"}} text={user.about_me} />)
         }
     }
 
@@ -89,18 +113,17 @@ function ProfileContainer(props) {
                 <br />
                 <div className="row p-0">
                     <div className="col-1"></div>
-                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }} />
+                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+                        setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
                         <h2 style={{ marginTop: "5%" }}>
                             {user.username}
                         </h2>
                         <div className="d-flex flex-wrap">
-                            <span style={numberStyle}>{user.followCounts.following}
-                                <a style={followStyle}> following</a>
-                            </span>
-                            <span style={numberStyle}>{user.followCounts.follower}
-                                <a style={followStyle}> followers</a>
-                            </span>
+
+                            <UsersModal {...props} user={user} type="followers"></UsersModal>
+                            <UsersModal {...props} user={user} type="following"></UsersModal>
+
                             <span>
                                 <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
                                     <img src={followBtnState.img} style={{
@@ -113,12 +136,12 @@ function ProfileContainer(props) {
                     </div>
                 </div>
                 <div className="container text-wrap row" style={{ margin: "auto" }}>
-                        <div className="col-12">
-                            <br />{checkAboutMe()}
-                        </div></div>
+                    <div className="col-12">
+                        <br />{checkAboutMe()}
+                    </div></div>
                 <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                 <div className="flex-wrap d-flex flex-row justify-content-center">
-                    <div className="row justify-content-center" style={{ width: "70%" , paddingBottom: '20px'}}>
+                    <div className="row justify-content-center" style={{ width: "70%", paddingBottom: '20px' }}>
                         {user.games.map(index => {
                             if (props.currentUserInfo.games.includes(index)) {
                                 return (
@@ -130,12 +153,12 @@ function ProfileContainer(props) {
                                                 alt={props.allGames[index].title}
                                                 className="rounded"
                                                 style={{
-                                                  width: '8rem',
-                                                  height: 'auto',
-                                                  margin: '3%',
-                                                  padding: '.3rem',
-                                                  marginBottom: "10%",
-                                                  marginTop: "4%"
+                                                    width: '8rem',
+                                                    height: 'auto',
+                                                    margin: '3%',
+                                                    padding: '.3rem',
+                                                    marginBottom: "10%",
+                                                    marginTop: "4%"
                                                 }}
                                             />
                                         </Link>
@@ -143,7 +166,7 @@ function ProfileContainer(props) {
                                 )
                             } else {
                                 return (
-                                    <div className="col-4">
+                                    <div key={index} className="col-4">
                                         <img
                                             src={props.allGames[index].image}
                                             key={"game-image2" + index}
@@ -156,7 +179,7 @@ function ProfileContainer(props) {
                                                 padding: '.3rem',
                                                 marginBottom: "10%",
                                                 marginTop: "4%"
-                                              }}
+                                            }}
                                         />
                                     </div>
                                 )

@@ -36,7 +36,8 @@ function CreateCommentModal(props) {
         backgroundColor: "#202020",
         borderTop: "0",
         borderLeft: "0",
-        borderRight: "0"
+        borderRight: "0",
+        whiteSpace: "pre-wrap"
     }
     const commentButtonStyle = {
         height: 48,
@@ -64,7 +65,7 @@ function CreateCommentModal(props) {
             commentText: commentText.current.value,
             postId: props.postId,
             timestamp: props.firebaseTimeStamp()
-        });
+        }, props.post.author);
         props.updateRefresh();
         clearFields();
     }

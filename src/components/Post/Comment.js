@@ -94,7 +94,7 @@ function Comment(props) {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <Text text={comment.commentText} />
+                        <Text text={comment.commentText} style={{whiteSpace: "pre-wrap"}}/>
                     </div>
                 </div>
                 <div className="row">

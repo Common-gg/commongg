@@ -8,10 +8,14 @@ import PageNotFound from './PageNotFound.js';
 import GameFeedContainer from './GameFeedContainer.js';
 
 function ContentContainer(props) {
-  const [pageState, setPageState] = useState();
+  const [pageState, setPageState] = useState("editgames");
   const [pageId, setPageId] = useState();
 
   useEffect(() => {
+    if (props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
+      setPageState("editgames");
+      return;
+    }
     let url = window.location.href;
     url = url.split('/');
     setPageState(url[3]);
@@ -40,7 +44,7 @@ function ContentContainer(props) {
     case "editgames":
       return <GamesContainer {...props} />;
     case "":
-      return <FeedContainer {...props} setModalImage={props.setModalImage} />;
+      return <FeedContainer {...props} />;
     case "games":
       return <GameFeedContainer {...props} pageId={pageId} />;
     default:

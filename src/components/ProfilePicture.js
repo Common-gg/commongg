@@ -1,64 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 function ProfilePicture(props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const outerDivRef = useRef();
+  const profileImageRef = useRef();
+
 
   useEffect(() => {
-    setIsOpen(false);
+    if (profileImageRef.current === undefined)
+      return;
+  }, [profileImageRef])
 
-    document.addEventListener("mousedown", handleClick);
+  function handleClick() {
+    const img = document.getElementById("ProfilePictureImage");
+    const natWidth = img.naturalWidth;
+    const natHeight = img.naturalHeight;
 
-    return () => {
-      document.removeEventListener("mousedown", handleClick);
-    };
-  }, []);
-
-  function handleClick(e) {
-    if (!outerDivRef.current.contains(e.target)) {
-      setIsOpen(false);
-    }
-  }
-
-  function handleShowDialog(e) {
-    setIsOpen(!isOpen);
+    props.setProfilePictureImage({
+      link: profileImageRef.current.currentSrc,
+      width: natWidth,
+      height: natHeight
+    });
   }
 
   return (
-    <div ref={outerDivRef}>
-      <img
-        src={props.currentUserInfo.profile_picture}
-        onClick={handleShowDialog}
-        alt={props.currentUserInfo.username + " picture"}
-        width={props.width}
-        height={props.height}
-        style={{ borderRadius: "50%", cursor: "pointer" }}
-        className="img">
-      </img>
-      {isOpen && (
-        <dialog
-          className="dialog"
-          style={{
-            position: "center",
-            background: "transparent",
-            border: "none",
-            zIndex: "20000"
-          }}
-          open
-          onClick={handleShowDialog}
-        >
-          <img
-            className="image"
-            src={props.currentUserInfo.profile_picture}
-            onClick={handleShowDialog}
-            alt="no image"
-            width="250px"
-            height="200px"
-            style={{ borderRadius: "50%", cursor: "pointer" }}
-          />
-        </dialog>
-      )}
-    </div>
+    <img
+      id="ProfilePictureImage"
+      data-toggle="modal"
+      data-target="#enlargedProfilePicture"
+      onClick={handleClick}
+      ref={profileImageRef}
+      src={props.currentUserInfo.profile_picture}
+      alt={props.currentUserInfo.username + " picture"}
+      width={props.width}
+      height={props.height}
+      style={{ borderRadius: "50%", cursor: "pointer" }}
+    >
+    </img>
   );
 }
 

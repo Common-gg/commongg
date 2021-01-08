@@ -1,4 +1,5 @@
 import React from 'react';
+import arrow from "../../images/icons/arrow-right.png";
 
 function SignUpButton(props) {
   return (
@@ -9,9 +10,10 @@ function SignUpButton(props) {
           border: "solid",
           borderRadius: "10px",
           borderColor: "#BF9AFC",
-          borderWidth: "2px"
+          borderWidth: "2px",
+          left: "0.5rem"
       }} >
-        Sign Up
+        <img src={arrow} />
       </button>
     </div>
   );
