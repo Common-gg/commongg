@@ -156,7 +156,7 @@ function CreatePostModal(props) {
             caption: "CAPTION_TEXT",
             game: gameId.toString(),
             link: url,
-            timestamp: Date.now(),
+            timestamp: props.firebaseTimeStamp(),
             title: postTitleRef.current.value,
             type: postType,
             numComments: 0,
