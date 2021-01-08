@@ -47,19 +47,19 @@ function SignUp(props) {
   const failedSignUp = () => {
     if (missing === true) {
       return (
-        <p style={{ color: "red" }}>missing email or password</p>
+        <p style={{ color: "#F34D4D" }}>missing email or password</p>
       )
     } else if (failedEmail === 1) {
       return (
-        <p style={{ color: "red" }}>email already in use</p>
+        <p style={{ color: "#F34D4D" }}>email already in use</p>
       )
     } else if (failedEmail === 2) {
       return (
-        <p style={{ color: "red" }}>not a valid email format</p>
+        <p style={{ color: "#F34D4D" }}>not a valid email format</p>
       )
     } else if (failedPassword === true) {
       return (
-        <p style={{ color: "red" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
+        <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
       )
     }
   }
@@ -103,7 +103,7 @@ function SignUp(props) {
             <div className="col-5" style={{ pointerEvents: "none" }}></div>
             <br />
             <div className="form-group" style={{ marginRight: "10%", }}>
-            <p style={{left: "10rem", position: "relative", color: "#BF9AFC" }}> Sign up </p>
+              <p style={{ left: "10rem", position: "relative", color: "#BF9AFC" }}> Sign up </p>
               <div className="row">
                 <div className="col-1"></div>
                 <div className="row">
@@ -161,19 +161,19 @@ function SignUp(props) {
             <div className="form-group">
               <SignUpButton click={signUp} />
             </div></div></div>
-          <br />
+        <br />
       </div>
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
           <Link to="/">
             <p className="col" style={{
-            position: "relative",
-            padding: '.3rem',
-            lineHeight: "0.5rem",
-            top: "-10.75rem",
-            color: "#BF9AFC",
-            textDecoration: "underline", 
+              position: "relative",
+              padding: '.3rem',
+              lineHeight: "0.5rem",
+              top: "-10.75rem",
+              color: "#BF9AFC",
+              textDecoration: "underline",
             }}>
               Login
       </p>

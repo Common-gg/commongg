@@ -90,10 +90,10 @@ function CreateProfile(props) {
           marginLeft: "25%"
         }}
           maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
-        {failedExists ? <p style={{ color: "red" }}>username already in use</p> : null}
-        {failedSpace ? <p style={{ color: "red" }}>username can't contain space</p> : null}
-        {failedProfane ? <p style={{ color: "red" }}>username contains profanity</p> : null}
-        {failedLength ? <p style={{ color: "red" }}>username is too short</p> : null}
+        {failedExists ? <p style={{ color: "#F34D4D" }}>username already in use</p> : null}
+        {failedSpace ? <p style={{ color: "#F34D4D" }}>username can't contain space</p> : null}
+        {failedProfane ? <p style={{ color: "#F34D4D" }}>username contains profanity</p> : null}
+        {failedLength ? <p style={{ color: "#F34D4D" }}>username is too short</p> : null}
         < br />
         add a profile picture
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => { }} />

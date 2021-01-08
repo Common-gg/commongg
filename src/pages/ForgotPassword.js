@@ -53,7 +53,7 @@ function ForgotPassword(props) {
             return (<div></div>);
         }
         else if (isResetPasswordEmailSent === false) {
-            return (<p style={{ color: "red" }}>there was an error when trying to send reset password email</p>);
+            return (<p style={{ color: "#F34D4D" }}>there was an error when trying to send reset password email</p>);
         }
         else {
             return (<p style={{ color: "green" }}>password reset email sent successfully!</p>);
@@ -77,10 +77,10 @@ function ForgotPassword(props) {
                         <img src={logo} style={logoCSS} />
                         <div className="col-5" style={{ pointerEvents: "none" }}></div>
                         <br /><br />
-                       <p style={{left: "-1.5rem", position: "relative",}}> forgot password </p>
+                        <p style={{ left: "-1.5rem", position: "relative", }}> forgot password </p>
                         <div className="form-group" >
                             <div className="row col-12">
-                            <div classname="col-1"></div>
+                                <div classname="col-1"></div>
                                 <Input type="email"
                                     bootstrap="border-0"
                                     placeholder="email"
@@ -113,12 +113,12 @@ function ForgotPassword(props) {
                 <div className="text-center col-4">
                     <Link to="/">
                         <p className="col" style={{
-                               position: "relative",
-                               padding: '.3rem',
-                               lineHeight: "0.5rem",
-                               top: "-10.75rem",
-                               color: "#BF9AFC",
-                               textDecoration: "underline", 
+                            position: "relative",
+                            padding: '.3rem',
+                            lineHeight: "0.5rem",
+                            top: "-10.75rem",
+                            color: "#BF9AFC",
+                            textDecoration: "underline",
                         }}>
                             Login
                          </p>
