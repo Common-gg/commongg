@@ -13,6 +13,7 @@ function Login(props) {
     /* logo1light 1 */
     width: "4.5rem",
     height: "auto",
+    marginBottom: "20px"
   }
 
   const linkStyle = {
@@ -50,7 +51,7 @@ function Login(props) {
     borderRadius: "2px",
     padding: "0.3rem",
     margin: "3%",
-    width: "135%",
+    width: "100%",
     height: "95%"
   }
 
@@ -68,47 +69,42 @@ function Login(props) {
         }}>
         <div style={{ margin: "20px 20px 0px 20px" }}>
           {handleMessagingForUnsuccessfulSignIn()}
-          <div className="row">
-            <div className="col-5"></div>
-            <img src={logo} style={logoCSS} />
-            <div className="col-5" style={{ pointerEvents: "none" }}></div>
+          <div className="row mx-auto">
+            <img style={logoCSS} className="mx-auto" src={logo} />
+            <div  style={{ pointerEvents: "none" }}></div>
             <br />
             <div className="form-group" style={{ marginRight: "10%", }} >
-              <p style={{ left: "5.7rem", position: "relative", color: "#BF9AFC" }}> Login </p>
-              <div className="row">
-                <div className="col-1"></div>
-                <div className="row">
-                  <div className="col-1"></div>
-                  <div className="row">
-                    <div className="col-1"></div>
-                    <div className="row">
-                      <div className="col-1"></div>
+              <p style={{ position: "relative", color: "#BF9AFC" }}> Login </p>
+              <div className="row mx-auto">
                       <div className="Input" >
                         <input style={inputStyle} className="border border-secondary" type="email"
                           placeholder="email" ref={emailRef}
                           onKeyPress={(e) => handleSignIn(e)} />
-                      </div></div></div></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="form-group" >
-            <div className="row col-12">
-              <div className="col-1"></div>
-              <div className="row">
-                <div className="col-1"></div>
-                <div className="Input" >
-                  <input style={{
-                    backgroundColor: "transparent #292833",
-                    color: "#BF9AFC",
-                    border: "solid",
-                    borderColor: "#BF9AFC",
-                    backgroundColor: "#292833",
-                    borderRadius: "2px",
-                    padding: "0.3rem",
-                    margin: "3%",
-                    width: "135%",
-                    height: "95%"
-                  }} className="border border-secondary" type="Password"
-                    placeholder="password" ref={passwordRef}
-                    onKeyPress={(e) => handleSignIn(e)} />
-                </div></div></div></div>
+            <div className="row mx-auto">
+              <div className="Input" >
+                <input style={{
+                  backgroundColor: "transparent #292833",
+                  color: "#BF9AFC",
+                  border: "solid",
+                  borderColor: "#BF9AFC",
+                  backgroundColor: "#292833",
+                  borderRadius: "2px",
+                  padding: "0.3rem",
+                  margin: "3%",
+                  width: "100%",
+                  height: "95%"
+                }} className="border border-secondary" type="Password"
+                  placeholder="password" ref={passwordRef}
+                  onKeyPress={(e) => handleSignIn(e)} />
+              </div>
+            </div>
+
+          </div>
           <div className="row col-12">
             <div className="col-5" style={{ marginRight: "3%" }}></div>
             <div className="form-group">
@@ -128,7 +124,9 @@ function Login(props) {
                 }}>
                 <img src={arrow} />
               </button>
-            </div></div></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="row">
         <div className="col-4"></div>
