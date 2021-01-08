@@ -13,7 +13,6 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(getOptions()[0].label);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("Post");
@@ -34,11 +33,6 @@ function CreatePostModal(props) {
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
-    };
-    const modalHeaderStyle = {
-        border: "none",
-        textAlign: "center",
-        padding: "0 !important"
     };
     const postButtonStyle = {
         height: 48,

@@ -42,8 +42,7 @@ function PageContainer(props) {
   const checkRatio = (image, setImage) => {
     const wRatio = (window.innerWidth * .9) / image.width;
     const hRatio = (window.innerHeight * .9) / image.height;
-    console.log(image);
-    console.log(wRatio, hRatio);
+
     if (Math.min(wRatio, hRatio) >= 1) return;
     setImage({
       ...image,

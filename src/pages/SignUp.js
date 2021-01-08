@@ -1,26 +1,27 @@
 import React, { useRef, useState } from "react";
 import SignUpButton from "../components/SignUp/SignUpButton.js";
+import TermsOfService from "./TermsOfService.js"
 import logo from "../images/icons/logo1light.png";
 import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
+import { Modal, Form } from "react-bootstrap";
 
 function SignUp(props) {
-
   const [email, setEmail] = useState();
+  const [showTosModal, setShowTosModal] = useState(true);
   const [password, setPassword] = useState();
   const [failedPassword, setFailedPassword] = useState(false);
   const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
   const [missing, setMissing] = useState(false);
+  const [tosCheckbox, setTosCheckbox] = useState(false);
 
   const signUp = () => {
     if ((email !== undefined && email.current.value !== "") && (password !== undefined && password.current.value !== "")) {
       setMissing(false);
       //email already in use
       setFailedEmail(0);
-      console.log(email, password);
       if (!(email.current.value.includes('@')) || !(email.current.value.includes('.'))) {
         setFailedEmail(2);
-        console.log("reached email");
       } else {
         props.existsEmail(email.current.value).then((existsUser) => {
           if (existsUser === true) {
@@ -35,7 +36,6 @@ function SignUp(props) {
         setFailedPassword(true);
       }
       //sign up user
-      console.log(failedEmail, failedPassword);
       if (failedEmail === 0 && failedPassword === false) {
         props.signUpUser(email.current.value, password.current.value);
       }
@@ -64,12 +64,16 @@ function SignUp(props) {
     }
   }
 
+  function handleChecked() {
+    setTosCheckbox(!tosCheckbox);
+    setShowTosModal(false);
+  }
+
   const logoCSS = {
     /* logo1light 1 */
     width: "4.5rem",
     height: "auto",
   }
-
   const inputStyle = {
     backgroundColor: "transparent #292833",
     color: "#BF9AFC",
@@ -83,9 +87,44 @@ function SignUp(props) {
     width: "100%",
     height: "77%",
   }
+  const modalBodyStyle = {
+    color: "#BF9AFC",
+    backgroundColor: "#202020",
+    width: "45rem",
+    height: "45rem",
+    border: "none",
+    maxHeight: "calc(100vh - 210px)",
+    overflowY: "auto"
+  };
+  const modalStyle = {
+    width: "80rem",
+    height: "50rem",
+    display: "flex",
+    margin: "auto",
+    border: "none"
+  }
+  const modalFooterStyle = {
+    position: "flex",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    border: "none"
+  }
 
   return (
     <div>
+      <Modal show={showTosModal} style={modalStyle} backdrop="static" keyboard={false}>
+        <Modal.Body style={modalBodyStyle}>
+          <TermsOfService />
+          <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
+          <Modal.Footer style={modalFooterStyle}>
+            <Form.Group controlId="tosCheckBox">
+              <Form.Check onChange={handleChecked} type="checkbox" label="I accept the Terms of Service" />
+            </Form.Group>
+          </Modal.Footer>
+        </Modal.Body>
+
+      </Modal>
       <div className="mx-auto card"
         style={{
           margin: "200px",
@@ -103,7 +142,7 @@ function SignUp(props) {
             <div className="col-5" style={{ pointerEvents: "none" }}></div>
             <br />
             <div className="form-group" style={{ marginRight: "10%", }}>
-            <p style={{left: "10rem", position: "relative", color: "#BF9AFC" }}> Sign up </p>
+              <p style={{ left: "10rem", position: "relative", color: "#BF9AFC" }}> Sign up </p>
               <div className="row">
                 <div className="col-1"></div>
                 <div className="row">
@@ -161,19 +200,19 @@ function SignUp(props) {
             <div className="form-group">
               <SignUpButton click={signUp} />
             </div></div></div>
-          <br />
+        <br />
       </div>
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
           <Link to="/">
             <p className="col" style={{
-            position: "relative",
-            padding: '.3rem',
-            lineHeight: "0.5rem",
-            top: "-10.75rem",
-            color: "#BF9AFC",
-            textDecoration: "underline", 
+              position: "relative",
+              padding: '.3rem',
+              lineHeight: "0.5rem",
+              top: "-10.75rem",
+              color: "#BF9AFC",
+              textDecoration: "underline",
             }}>
               Login
       </p>
