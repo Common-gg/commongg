@@ -226,7 +226,7 @@ function Post(props) {
                     <Text text={props.post.title} style={{ fontSize: '25px' }} />
                   </div>
                 </Link>
-                <Link to={"/games/" + props.post.category.replace(" ", "").toLowerCase()}>
+                <Link to={"/games/" + props.post.category}>
                   <div className="col-auto" style={{ paddingTop: '.2rem' }}>
                     <Text text={props.post.category}
                       style={{
