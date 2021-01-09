@@ -73,6 +73,7 @@ function SignUp(props) {
     /* logo1light 1 */
     width: "4.5rem",
     height: "auto",
+    marginBottom: "20px"
   }
   const inputStyle = {
     backgroundColor: "transparent #292833",
@@ -136,62 +137,45 @@ function SignUp(props) {
         }}>
 
         <div style={{ margin: "20px 20px 0px 20px" }}>
-          <div className="row">
-            <div className="col-5"></div>
-            <img src={logo} style={logoCSS} />
-            <div className="col-5" style={{ pointerEvents: "none" }}></div>
+          <div className="row mx-auto">
+            <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
+            <img style={logoCSS} src={logo}  />
+            <div style={{ pointerEvents: "none" }}></div>
+            </div>
             <br />
-            <div className="form-group" style={{ marginRight: "10%", }}>
-              <p style={{ left: "10rem", position: "relative", color: "#BF9AFC" }}> Sign up </p>
-              <div className="row">
-                <div className="col-1"></div>
-                <div className="row">
-                  <div className="col-1"></div>
-                  <div className="row">
-                    <div className="col-1"></div>
-                    <div className="row">
-                      <div className="col-1"></div>
-                      <div className="row">
-                        <div className="col-1"></div>
-                        <div className="row">
-                          <div className="col-1"></div>
-                          <div className="row">
-                            <div className="col-1"></div>
-                            <Input type="email"
-                              bootstrap="border-0"
-                              placeholder="email"
-                              track={setEmail}
-                              style={inputStyle} />
-                          </div></div></div></div></div></div></div></div></div>
-          <div className="form-group">
-            <div className="row col-12">
-              <div className="col-1"></div>
-              <div className="row">
-                <div className="col-1"></div>
-                <div className="row">
-                  <div className="col-1"></div>
-                  <div className="row">
-                    <div className="col-1"></div>
-                    <div className="row">
-                      <div className="col-1"></div>
-                      <Input type="password"
-                        bootstrap="border-0"
-                        placeholder="password"
-                        track={setPassword}
-                        style={{
-                          backgroundColor: "transparent #292833",
-                          color: "#BF9AFC",
-                          border: "solid",
-                          borderColor: "#BF9AFC",
-                          backgroundColor: "#292833",
-                          borderRadius: "2px",
-                          borderWidth: "1px",
-                          padding: "0.3rem",
-                          margin: "3%",
-                          width: "100%",
-                          height: "77%"
-                        }} />
-                    </div></div></div></div></div></div>
+            <div className="form-group col-12">
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> Sign up </p>
+              <div className="row mx-auto">
+                <Input type="email"
+                  bootstrap="border-0"
+                  placeholder="email"
+                  track={setEmail}
+                  style={inputStyle} />
+              </div>
+            </div>
+          </div>
+          <div className="form-group col-12">
+            <div className="row mx-auto">
+
+              <Input type="password"
+                bootstrap="border-0"
+                placeholder="password"
+                track={setPassword}
+                style={{
+                  backgroundColor: "transparent #292833",
+                  color: "#BF9AFC",
+                  border: "solid",
+                  borderColor: "#BF9AFC",
+                  backgroundColor: "#292833",
+                  borderRadius: "2px",
+                  borderWidth: "1px",
+                  padding: "0.3rem",
+                  margin: "3%",
+                  width: "100%",
+                  height: "77%"
+                }} />
+            </div>
+          </div>
           <div className="d-flex justify-content-center text-center">
             {failedSignUp()}
           </div>
@@ -205,16 +189,25 @@ function SignUp(props) {
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
+          <p className="col" style={{
+              position: "relative",
+
+
+              top: "-10.75rem",
+              color: "#BF9AFC",
+              
+            }}>
+              Already have an account? </p>
           <Link to="/">
             <p className="col" style={{
               position: "relative",
               padding: '.3rem',
-              lineHeight: "0.5rem",
+
               top: "-10.75rem",
               color: "#BF9AFC",
               textDecoration: "underline",
             }}>
-              Login
+              Login Here!
       </p>
           </Link>
         </div></div></div>

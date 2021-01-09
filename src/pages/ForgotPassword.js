@@ -13,7 +13,8 @@ function ForgotPassword(props) {
         width: "4.5rem",
         height: "auto",
         left: "393px",
-        top: "179px"
+        top: "179px",
+
     }
 
     const buttonStyle = {
@@ -36,10 +37,10 @@ function ForgotPassword(props) {
         borderRadius: "2px",
         borderWidth: "0.1rem",
         padding: "0.3rem",
-        width: "135%",
+        width: "100%",
         height: "65%",
         position: "relative",
-        left: "6rem"
+       
     }
 
     function handleForgotPasswordClick() {
@@ -72,15 +73,13 @@ function ForgotPassword(props) {
                     color: "#BF9AFC",
                 }}>
                 <div style={{ margin: "20px 20px 0px 20px" }}>
-                    <div className="row">
-                        <div className="col-5"></div>
-                        <img src={logo} style={logoCSS} />
-                        <div className="col-5" style={{ pointerEvents: "none" }}></div>
+                    <div className="mx-auto">
+                        <img style={logoCSS} className="mx-auto" src={logo} />
+                        <div style={{ pointerEvents: "none" }}></div>
                         <br /><br />
-                        <p style={{ left: "-1.5rem", position: "relative", }}> forgot password </p>
+                        <p style={{ position: "relative", }}> forgot password </p>
                         <div className="form-group" >
-                            <div className="row col-12">
-                                <div classname="col-1"></div>
+                            <div className="row mx-auto">
                                 <Input type="email"
                                     bootstrap="border-0"
                                     placeholder="email"

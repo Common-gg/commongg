@@ -70,23 +70,25 @@ function Login(props) {
         <div style={{ margin: "20px 20px 0px 20px" }}>
           {handleMessagingForUnsuccessfulSignIn()}
           <div className="row mx-auto">
-            <img style={logoCSS} className="mx-auto" src={logo} />
-            <div  style={{ pointerEvents: "none" }}></div>
+            <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
+              <img style={logoCSS} src={logo} />
+              <div style={{ pointerEvents: "none" }}></div>
+            </div>
             <br />
-            <div className="form-group" style={{ marginRight: "10%", }} >
+            <div className="form-group col-12">
               <p style={{ position: "relative", color: "#BF9AFC" }}> Login </p>
-              <div className="row mx-auto">
-                      <div className="Input" >
-                        <input style={inputStyle} className="border border-secondary" type="email"
-                          placeholder="email" ref={emailRef}
-                          onKeyPress={(e) => handleSignIn(e)} />
+              <div className="row">
+                <div className="Input mx-auto" >
+                  <input style={inputStyle} className="border border-secondary" type="email"
+                    placeholder="email" ref={emailRef}
+                    onKeyPress={(e) => handleSignIn(e)} />
                 </div>
               </div>
             </div>
           </div>
-          <div className="form-group" >
-            <div className="row mx-auto">
-              <div className="Input" >
+          <div className="form-group col-12" >
+            <div className="row">
+              <div className="Input mx-auto" >
                 <input style={{
                   backgroundColor: "transparent #292833",
                   color: "#BF9AFC",
