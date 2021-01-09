@@ -5,10 +5,11 @@ import ContentContainer from '../components/ContentContainers/ContentContainer.j
 import GamesContainer from '../components/ContentContainers/GamesContainer.js';
 import SearchBar from '../components/SearchBar.js';
 import NotificationContainer from "../components/NotificationContainer.js";
+import TopOfPageImage from "../images/icons/top 1.png";
 
 function PageContainer(props) {
 
-  const [search, setSearch] = useState();
+  const [, setSearch] = useState();
   const [modalImage, setModalImage] = useState({
     link: "",
     height: 1,
@@ -20,8 +21,6 @@ function PageContainer(props) {
     width: 1
   });
 
-  const modalImageRef = useRef();
-
   const sticky = {
     position: "fixed"
   }
@@ -30,6 +29,21 @@ function PageContainer(props) {
     backgroundColor: "transparent",
     borderColor: "transparent"
   };
+  const topOfPageButtonStyle = {
+    visibility: "visible",
+    backgroundColor: "transparent",
+    width: "2.5rem",
+    height: "2.5rem",
+    borderRadius: "50%",
+    position: "relative",
+    top: "-1.6vh",
+    left: "-1vw",
+    borderTop: "4rem"
+  };
+  const topOfPageImageStyle = {
+    width: "6rem",
+    height: "2.5rem"
+  }
 
   useEffect(() => {
     checkRatio(modalImage, setModalImage);
@@ -50,6 +64,7 @@ function PageContainer(props) {
       height: image.height * Math.min(wRatio, hRatio)
     });
   }
+
 
   return (
     <div className="PageContainer">
@@ -112,6 +127,11 @@ function PageContainer(props) {
           <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>
               <NotificationContainer {...props} />
+              <div style={{ position: "absolute", bottom: "-2.5rem", right: "8rem" }}>
+                <button className="btn btn-primary" onClick={() => window.scrollTo(0, 0)} style={topOfPageButtonStyle}>
+                  <img src={TopOfPageImage} style={topOfPageImageStyle} />
+                </button>
+              </div>
               <Text text="ADS GO HERE TO MAKE $$ YEP" />
             </div>
           </div>
