@@ -6,10 +6,16 @@ import GamesContainer from '../components/ContentContainers/GamesContainer.js';
 import SearchBar from '../components/SearchBar.js';
 import NotificationContainer from "../components/NotificationContainer.js";
 import TopOfPageImage from "../images/icons/top 1.png";
+import { useHistory } from "react-router-dom";
 
 function PageContainer(props) {
 
+  const [numPostsToLoad, setNumPostsToLoad] = useState(10);
+  const [backClicked, setBackClicked] = useState(false);
+  const [numPostsLoaded, setNumPostsLoaded] = useState();
+  const [offSet, setOffSet] = useState(0, 0);
   const [, setSearch] = useState();
+  const history = useHistory();
   const [modalImage, setModalImage] = useState({
     link: "",
     height: 1,
@@ -52,6 +58,13 @@ function PageContainer(props) {
   useEffect(() => {
     checkRatio(profilePictureImage, setProfilePictureImage);
   }, [profilePictureImage]);
+
+  useEffect(() => {
+    if (backClicked) {
+      setBackClicked(false);
+      history.goBack();
+    }
+  }, [backClicked]);
 
   const checkRatio = (image, setImage) => {
     const wRatio = (window.innerWidth * .9) / image.width;
@@ -122,7 +135,9 @@ function PageContainer(props) {
               <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
             </div>
-            <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} />
+            <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} offSet={offSet}
+              setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
+              setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} />
           </div>
           <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>

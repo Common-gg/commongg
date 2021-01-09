@@ -8,12 +8,14 @@ import TwitchEmbed from './TwitchEmbed.js';
 import YoutubeEmbed from './YoutubeEmbed.js';
 import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
+import ArrowLeft from "../../images/icons/arrowleft 1.png";
 
 
 function Post(props) {
 
   const [author, setAuthor] = useState({ profile: "" });
   const [expand, setExpand] = useState(false);
+  const [renderBackButton, setRenderBackButton] = useState(false);
   const history = useHistory();
   const postImageRef = useRef();
 
@@ -29,6 +31,12 @@ function Post(props) {
       return;
   }, [postImageRef])
 
+  useEffect(() => {
+    props.setNumPostsLoaded(props.postNum);
+    if (props.isBackButtonVisible === true) {
+      setRenderBackButton(true);
+    }
+  }, [])
 
   function getStyle() {
     if (props.style === undefined) {
@@ -53,7 +61,6 @@ function Post(props) {
     } else {
       //we deleted and redirect to home
       history.goBack();
-
     }
   }
 
@@ -166,9 +173,21 @@ function Post(props) {
     cursor: "pointer"
   }
 
+  const imageBackButtonStyle = {
+    width: "35px",
+    height: "35px"
+  };
+
+  const backButtonStyle = {
+    backgroundColor: "transparent",
+    color: "#BF9AFC",
+    borderWidth: "2px",
+    padding: "0.6rem"
+  };
+
   const checkPostNum = isVisible => {
-    if (isVisible && props.postNum >= props.numPostsLoaded - 3) {
-      props.setNumPostsLoaded(props.numPostsLoaded + 5);
+    if (isVisible && props.postNum >= props.numPostsToLoad - 3) {
+      props.setNumPostsToLoad(props.numPostsToLoad + 5);
     }
   }
 
@@ -201,6 +220,10 @@ function Post(props) {
     }
   }
 
+  function handleBackClick() {
+    props.setBackClicked(true);
+  }
+
   return (
     <TrackVisibility>
       {({ isVisible }) => {
@@ -210,8 +233,16 @@ function Post(props) {
             <div className="container">
               <br />
               <div className="row">
-                <Link to={"/profile/" + props.post.author} className="col-12 row" style={{ textDecoration: 'none' }} >
-                  <div className="col-2">
+
+                <div className="col-12 row" >
+                  {renderBackButton ? <button type="button"
+                    className="btn"
+                    style={backButtonStyle}
+                    onClick={handleBackClick}
+                  >
+                    <img src={ArrowLeft} style={imageBackButtonStyle} />
+                  </button> : null}
+                  <Link to={"/profile/" + props.post.author} className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", bottom: "-0.5rem", left: "0.5rem", textDecoration: 'none' }}>
                     <img
                       src={author.profile_picture}
                       alt={author.username + " picture"}
@@ -220,18 +251,14 @@ function Post(props) {
                       style={{ borderRadius: "50%", cursor: "pointer" }}
                       className="img">
                     </img>
-                  </div>
-                  <div className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", left: "-1rem" }}>
-                    <div className="col-12">
-                      <br />
-                      <br />
+                    <div className="col-8">
                       <Text text={author.username} />
                       <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
                         style={{ color: '#BF9AFC', fontSize: '.9rem' }}
                       />
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
                 <div className="ml-auto pr-3 dropdown">
                   {checkOptions()}
                 </div>
