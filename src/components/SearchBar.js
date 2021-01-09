@@ -23,7 +23,9 @@ function SearchBar(props) {
     top: "-px",
     width: "30px",
     height: "30px",
-    cursor: "pointer"
+    cursor: "pointer",
+    margin: "10px",
+  
   }
 
   return (

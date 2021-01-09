@@ -58,9 +58,9 @@ function NavigationBar(props) {
     }, [gamesArr]);
 
     const iconStyle = {
-        width: "40px",
-        height: "40px",
-        marginRight: ".5rem"
+        width: "25px",
+        height: "25px",
+        marginRight: "1rem"
     };
 
     const linkStyle = {
@@ -77,21 +77,24 @@ function NavigationBar(props) {
 
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
-            <Link to="/" style={linkStyle}>
-                <p style={pageState === "" ? selectedStyle : null}><img src={home} style={iconStyle} alt="" /> home</p>
-            </Link>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
                 <p style={pageState === "profile" ? selectedStyle : null}><img
                     src={props.currentUserInfo.profile_picture}
                     alt={""}
                     style={{
                         borderRadius: "50%",
-                        width: "40px",
-                        height: "40px"
+                        width: "30px",
+                        height: "30px",
+                        marginRight: ".75rem"
                     }}
                     className="img">
                 </img> profile</p>
             </Link>
+
+            <Link to="/" style={linkStyle}>
+                <p style={pageState === "" ? selectedStyle : null}><img src={home} style={iconStyle} alt="" /> home</p>
+            </Link>
+
             {/*<Link to="/following" style={linkStyle}>
                 <p><img src={follow} style={iconStyle} alt="" /> following</p>
             </Link>

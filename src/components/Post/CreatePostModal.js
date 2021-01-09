@@ -287,8 +287,8 @@ function CreatePostModal(props) {
                     src={excludeIcon}
                     alt="post button"
                     style={{
-                        width: "40px",
-                        height: "40px",
+                        width: "25px",
+                        height: "25px",
                         marginRight: ".5rem"
                     }} />
                     make a post
