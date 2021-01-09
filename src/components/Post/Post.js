@@ -163,6 +163,7 @@ function Post(props) {
     borderRadius: "10px",
     borderColor: "#BF9AFC",
     borderWidth: "2px",
+    cursor: "pointer"
   }
 
   const checkPostNum = isVisible => {
@@ -268,7 +269,9 @@ function Post(props) {
                   />)}
                 </a>
               )}>
-                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
+                <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+                  <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
+                </Link>
               </Linkify>
               {checkExpandButton()}
               {checkType()}
