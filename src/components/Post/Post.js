@@ -268,7 +268,7 @@ function Post(props) {
                   />)}
                 </a>
               )}>
-                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap" }}>{checkExpandText()}</p>
+                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
               </Linkify>
               {checkExpandButton()}
               {checkType()}

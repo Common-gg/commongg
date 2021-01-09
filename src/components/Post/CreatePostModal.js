@@ -148,7 +148,7 @@ function CreatePostModal(props) {
         });
 
         props.createPost({
-            text: postText.current.value.trim(),
+            text: postText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
             author: props.currentUserId,
             caption: "CAPTION_TEXT",
             game: gameId.toString(),
