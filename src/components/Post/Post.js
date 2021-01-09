@@ -254,7 +254,7 @@ function Post(props) {
                     <div className="col-8">
                       <Text text={author.username} />
                       <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
-                        style={{ color: '#BF9AFC', fontSize: '.9rem' }}
+                        style={{ color: '#BF9AFC', fontSize: '.9rem', }}
                       />
                     </div>
                   </Link>

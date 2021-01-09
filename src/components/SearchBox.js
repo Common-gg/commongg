@@ -76,7 +76,7 @@ function SearchBox(props) {
       minLength={3}
       onSearch={handleSearch}
       options={options}
-      placeholder="search"
+      placeholder="search users and games"
       style={inputStyle}
       renderMenuItemChildren={(option, props) => (
         <Fragment>
