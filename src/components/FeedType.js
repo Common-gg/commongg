@@ -4,8 +4,6 @@ import 'react-on-screen';
 
 function FeedType(props) {
 
-  const [numPostsLoaded, setNumPostsLoaded] = useState(10);
-
   const [posts, setPosts] = useState({
     "00000000": {
       author: "404",
@@ -18,6 +16,7 @@ function FeedType(props) {
       type: "text"
     }
   });
+
   const [childRefresh, setChildRefresh] = useState(0);
   function childPostRefresh() {
     setChildRefresh(childRefresh + 1);
@@ -26,6 +25,20 @@ function FeedType(props) {
   const sort = props.sort;
   const postRefresh = props.postRefresh;
   const getPosts = props.getPosts;
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }
+  }, [])
+
+  useEffect(() => {
+    if (props.numPostsLoaded >= props.numPostsToLoad) {
+      window.scrollTo(0, props.offSet);
+    }
+  }, [props.numPostsLoaded])
 
   useEffect(() => {
     if (filter !== "") {
@@ -40,15 +53,20 @@ function FeedType(props) {
     window.scrollTo(0, 0)
   }, [filter])
 
+  function handleScroll() {
+    const position = window.pageYOffset;
+    props.setOffSet(position);
+  }
+
   return (
     <div>
       {Object.values(posts).reverse().map((post, i) => {
-        if (post.author !== "404" && i < numPostsLoaded)
+        if (post.author !== "404" && i < props.numPostsToLoad)
           return (
             <div key={Object.keys(posts).reverse()[i]}>
               <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]}
-                postNum={i + 1} numPostsLoaded={numPostsLoaded} setNumPostsLoaded={setNumPostsLoaded}
-                childPostRefresh={childPostRefresh} setModalImage={props.setModalImage}
+                postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
+                childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
               />
               <br />
             </div>
