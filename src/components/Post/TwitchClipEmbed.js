@@ -1,28 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { TwitchClip } from 'react-twitch-embed';
 
 function TwitchClipEmbed(props) {
-  //only prop it takes is the things after the clip
-  const parent = {
-    position: "relative",
-    width: "100%",
-    paddingBottom: "56%",
-    float: "left",
-    height: "0"
-  };
-  const child = {
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    left: "0"
-  };
-
   return (
-    <div style={parent}>
-      <div style={child}>
-        <TwitchClip clip={props.clip} parent={['localhost', 'common.gg']} width="100%" height="100%" autoplay={false} />
-      </div>
-    </div>
+    <iframe src={"https://clips.twitch.tv/embed?clip=" + props.clip + "&parent=localhost&parent=common.gg&parent=common-gg.web.app&autoplay=false"}
+      frameborder="0"
+      allowfullscreen="true"
+      scrolling="no"
+      height="300px"
+      width="100%">
+    </iframe>
   );
 }
 

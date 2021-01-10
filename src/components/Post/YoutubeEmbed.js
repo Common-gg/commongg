@@ -4,7 +4,7 @@ import YouTube from "react-youtube";
 function YoutubeEmbed(props) {
     const opts = {
         width: '100%',
-        height: '297px',
+        height: '300px',
         id: props.video + '_video',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
