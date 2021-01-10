@@ -4,7 +4,8 @@ import { ReactTinyLink } from 'react-tiny-link';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js';
 import optionsIcon from '../../images/icons/options.png';
-import TwitchEmbed from './TwitchEmbed.js';
+import TwitchClipEmbed from './TwitchClipEmbed.js';
+import TwitchStreamEmbed from './TwitchStreamEmbed.js';
 import YoutubeEmbed from './YoutubeEmbed.js';
 import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
@@ -81,36 +82,50 @@ function Post(props) {
 
   function checkEmbeded(link, preview) {
     if (typeof link !== "string") return
-    //twitch clips
+
+    //twitch clip
     let regexp = /(?:twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:clips\.twitch\.tv\/([a-zA-Z]+))/g;
     let matches = link.matchAll(regexp);
-    let clips = [];
+    let clip = [];
     for (const match of matches) {
       if (match[1] !== undefined) {
-        clips.push(match[1]);
+        clip.push(match[1]);
       } else if (match[2] !== undefined) {
-        clips.push(match[2]);
+        clip.push(match[2]);
       }
     }
-    if (clips.length !== 0) {
-      return <div><TwitchEmbed clip={clips[0]}></TwitchEmbed></div>
+    if (clip.length !== 0) {
+      return <div><TwitchClipEmbed clip={clip[0]}></TwitchClipEmbed></div>
     }
 
-    //youtube videos
-    regexp = /(?:youtube\.com\/watch\?v=([1-9a-zA-Z-_]{11}))|(?:youtu\.be\/([1-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([1-9a-zA-Z-_]{11}))/g;
+    //twitch stream
+    regexp = /twitch\.tv\/([a-zA-Z0-9_]{4,25})/g;
     matches = link.matchAll(regexp);
-    clips = [];
+    let channel = [];
     for (const match of matches) {
       if (match[1] !== undefined) {
-        clips.push(match[1]);
-      } else if (match[2] !== undefined) {
-        clips.push(match[2]);
-      } else if (match[3] !== undefined) {
-        clips.push(match[3]);
+        channel.push(match[1]);
       }
     }
-    if (clips.length !== 0) {
-      return <div><YoutubeEmbed clip={clips[0]}></YoutubeEmbed></div>
+    if (channel.length !== 0) {
+      return <div><TwitchStreamEmbed channel={channel[0]} ></TwitchStreamEmbed></div>
+    }
+
+    //youtube video
+    regexp = /(?:youtube\.com\/watch\?v=([1-9a-zA-Z-_]{11}))|(?:youtu\.be\/([1-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([1-9a-zA-Z-_]{11}))/g;
+    matches = link.matchAll(regexp);
+    let video = [];
+    for (const match of matches) {
+      if (match[1] !== undefined) {
+        video.push(match[1]);
+      } else if (match[2] !== undefined) {
+        video.push(match[2]);
+      } else if (match[3] !== undefined) {
+        video.push(match[3]);
+      }
+    }
+    if (video.length !== 0) {
+      return <div><YoutubeEmbed video={video[0]}></YoutubeEmbed></div>
     }
     return preview;
   }
