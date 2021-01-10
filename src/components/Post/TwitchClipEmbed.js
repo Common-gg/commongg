@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TwitchClip } from 'react-twitch-embed';
 
-function TwitchEmbed(props) {
+function TwitchClipEmbed(props) {
   //only prop it takes is the things after the clip
   const parent = {
     position: "relative",
@@ -26,4 +26,4 @@ function TwitchEmbed(props) {
   );
 }
 
-export default TwitchEmbed;
+export default TwitchClipEmbed;
