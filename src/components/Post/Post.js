@@ -99,7 +99,6 @@ function Post(props) {
     }
 
     //twitch stream
-    /*
     regexp = /twitch\.tv\/([a-zA-Z0-9_]{4,25})/g;
     matches = link.matchAll(regexp);
     let channel = [];
@@ -111,7 +110,6 @@ function Post(props) {
     if (channel.length !== 0) {
       return <div><TwitchStreamEmbed channel={channel[0]} ></TwitchStreamEmbed></div>
     }
-    */
 
     //youtube video
     regexp = /(?:youtube\.com\/watch\?v=([1-9a-zA-Z-_]{11}))|(?:youtu\.be\/([1-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([1-9a-zA-Z-_]{11}))/g;
