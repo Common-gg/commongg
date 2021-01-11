@@ -3,8 +3,20 @@ import Post from './Post/Post.js';
 import 'react-on-screen';
 
 function FeedType(props) {
-
   const [posts, setPosts] = useState({
+    "00000000": {
+      author: "404",
+      caption: "Nothing here",
+      game: "",
+      link: "",
+      text: "There are no posts to see",
+      timestamp: 0,
+      title: "No Content",
+      type: "text"
+    }
+  });
+  //used for client filter retrievel
+  const [allPosts, setAllPosts] = useState({
     "00000000": {
       author: "404",
       caption: "Nothing here",
@@ -25,6 +37,8 @@ function FeedType(props) {
   const sort = props.sort;
   const postRefresh = props.postRefresh;
   const getPosts = props.getPosts;
+  const getAllPosts = props.getAllPosts;
+  const clientFilter = props.clientFilter;
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -40,13 +54,38 @@ function FeedType(props) {
     }
   }, [props.numPostsLoaded])
 
+  //gets the post based on filter
   useEffect(() => {
-    if (filter !== "") {
-      getPosts(filter, sort, setPosts);
+    //check if we are doing client side filtering
+    if (clientFilter === true) {
+      //we get all post and filter it on our side based on game and people
+      getAllPosts(setAllPosts);
     } else {
-      setPosts([]);
+      if (filter !== "") {
+        getPosts(filter, sort, setPosts);
+      } else {
+        setPosts([]);
+      }
     }
-  }, [filter, sort, postRefresh, childRefresh, getPosts]);
+  }, [filter, sort, postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
+
+  //when we are done with retrieving allPosts we set the posts by filtering
+  useEffect(() => {
+    //only changes when we are doing client filtering
+    if (clientFilter === true && allPosts) {
+      const following = Object.values(props.currentUserInfo.following);
+      following.push(props.currentUserId)
+      const games = props.currentUserInfo.games
+      const filteredPosts = Object.fromEntries(Object.entries(allPosts).filter(
+        ([key, value]) => {
+          //filter based on value
+          const postGame = parseInt(value.game);
+          const postAuthor = value.author;
+          return (games.includes(postGame) && following.includes(postAuthor))
+        }))
+      setPosts(filteredPosts);
+    }
+  }, [allPosts, clientFilter, props.currentUserInfo, props.currentUserId])
 
   //when the filter changes make the page go back to top
   useEffect(() => {
