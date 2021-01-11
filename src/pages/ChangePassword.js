@@ -42,7 +42,7 @@ function ChangePassword(props) {
             return (<div></div>);
         }
         else if (isPasswordResetSuccess === false) {
-            return (<p style={{ color: "red" }}>there was an error when trying to reset your password</p>);
+            return (<p style={{ color: "#F34D4D" }}>there was an error when trying to reset your password</p>);
         }
         else {
             return (<p style={{ color: "green" }}>password reset successful! return to login page to continue</p>);

@@ -22,9 +22,10 @@ function ViewPostContainer(props) {
             postId: ""
         }
     });
+    const [offSet, setOffSet] = useState(null);
     const [showComment, setShowComment] = useState(false);
     const [sortedComments, setSortedComments] = useState([]);
-    const [commentRefresh, setCommentRefresh] = useState(0)
+    const [commentRefresh, setCommentRefresh] = useState(0);
     const updateRefresh = function () {
         setCommentRefresh(commentRefresh + 1);
     }
@@ -36,6 +37,10 @@ function ViewPostContainer(props) {
             setShowComment(true);
         }
     }, []);
+
+    useEffect(() => {
+        setOffSet(window.pageYOffset);
+    }, [offSet])
 
     useEffect(() => {
         props.getPost(props.pageId, setPost, "posts");
@@ -67,7 +72,7 @@ function ViewPostContainer(props) {
         <div className="ViewPostContainer">
             <Post {...props} post={post} postId={props.pageId}
                 updateRefresh={updateRefresh} show={showComment}
-                isPostPage={true}
+                isPostPage={true} isBackButtonVisible={true} setBackClicked={props.setBackClicked}
                 style={{
                     paddingBottom: '0px',
                     paddingLeft: '20px',

@@ -10,6 +10,7 @@ import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
 import CommonChat from "./images/games/Common Chat.png";
 import ForgotPassword from './pages/ForgotPassword.js';
 import ChangePassword from './pages/ChangePassword.js';
+import TermsOfService from './pages/TermsOfService.js';
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -95,6 +96,10 @@ function App() {
     });
   }, []);
 
+  const firebaseTimeStamp = () => {
+    return firebase.database.ServerValue.TIMESTAMP;
+  }
+
   const addNotification = (targetUserID, type, locationID = "") => {
 
     if (currentUser.uid === targetUserID) return;
@@ -102,7 +107,7 @@ function App() {
     database.ref(`/users/${targetUserID}/notifications/unread`).push({
       userID: currentUser.uid,
       type: type,
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      timestamp: firebaseTimeStamp(),
       locationID: locationID
     });
   }
@@ -355,7 +360,7 @@ function App() {
       },
       following: {
         ...currentUserInfo.following,
-        [Date.now()]: followed
+        [firebaseTimeStamp()]: followed
       }
     })
     addNotification(followed, "followed", currentUser.uid);
@@ -439,7 +444,7 @@ function App() {
     });
   }
 
-  const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID) => {
+  const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID, parentID) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
     reactedRef.set(reaction).then(() => {
@@ -450,7 +455,9 @@ function App() {
       })
     })
 
-    if (postAuthorID !== undefined) {
+    if (parentID !== undefined) {
+      addNotification(postAuthorID, `${postType}_reaction`, parentID);
+    } else {
       addNotification(postAuthorID, `${postType}_reaction`, postId);
     }
   }
@@ -631,6 +638,11 @@ function App() {
     return (
       <Router>
         <Switch>
+          <Route path="/termsofservice" render={
+            (props) => (
+              <TermsOfService />
+            )}
+          />
           <Route path="/" render={
             (props) => (
               <div>
@@ -673,6 +685,7 @@ function App() {
                   deleteNotification={deleteNotification}
                   addNotification={addNotification}
                   readNotifications={readNotifications}
+                  firebaseTimeStamp={firebaseTimeStamp}
                 />
               </div>
             )} />

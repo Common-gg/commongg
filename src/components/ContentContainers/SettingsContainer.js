@@ -65,15 +65,17 @@ function SettingsContainer(props) {
     width: "35px",
     height: "35px"
   };
+  const linkStyle = {
+    color: "#BF9AFC",
+    textDecoration: "underline"
+  }
 
   function handleUpdateButtonClick(e) {
     let aboutMe = props.currentUserInfo.about_me;
     let profilePicture = props.currentUserInfo.profile_picture;
     let profilePictureUpdated = false;
 
-    if (aboutMeRef.current.value !== "") {
-      aboutMe = aboutMeRef.current.value;
-    }
+    aboutMe = aboutMeRef.current.value;
     //if selected doesn't have current it means it loaded from setImage
     if (selectedFile.current === undefined) {
       profilePictureUpdated = true;
@@ -98,7 +100,7 @@ function SettingsContainer(props) {
       return setErrorString(<div></div>);
     }
     else if (passwordChangeIsSuccessful === false) {
-      return setErrorString(<p style={{ color: "red" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
+      return setErrorString(<p style={{ color: "#F34D4D" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
     }
     else {
       return setErrorString(<p style={{ color: "green" }}>password changed successfully!</p>);
@@ -245,10 +247,15 @@ function SettingsContainer(props) {
       <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
       <div className="row">
         <div className="col text-center">
-          <Link to="/" style={{ color: "#BF9AFC", textDecoration: "underline", }}>
-            <br /><p onClick={() => props.signOut()}>sign out</p>
+          <Link to="/" style={linkStyle}>
+            <br /><a onClick={() => props.signOut()}>sign out</a> <br />
           </Link>
-          <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={{ color: "#BF9AFC", textDecoration: "underline" }}>discord</a></p>
+          <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={linkStyle}>discord</a></p>
+          <Link to="/termsofservice">
+            <a className="col" style={linkStyle}>
+              privacy policy, cookie policy & terms of service
+              </a>
+          </Link>
         </div>
       </div>
     </div>

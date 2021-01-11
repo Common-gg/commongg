@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap'
-import IconButton from '../IconButton';
-import CreateCommentModal from './CreateCommentModal.js';
-import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
-import commentIcon from '../../images/icons/addcomment.png';
-import shareIcon from '../../images/icons/share.png';
-import Text from '../Text.js';
 
 function CommentFooter(props) {
   const [comment, setComment] = useState(props.comment)
@@ -109,14 +103,14 @@ function CommentFooter(props) {
     //first check if anyone has reacted
     if (comment.reacted === undefined) {
       //hasn't reacted to post
-      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments", props.comment.author);
+      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments", props.comment.author, props.comment.postId);
       return;
     }
     //reacted would be undefined if not found and some emote if found
     const reacted = comment.reacted[props.currentUserInfo.username]
     if (reacted === undefined) {
       //hasn't reacted to post
-      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments", props.comment.author);
+      props.reactToPost(props.currentUserInfo.username, props.commentId, emote, 1, setComment, "comments", props.comment.author, props.comment.postId);
       return;
     } else {
       //reacted to post so check if reacted then unreact else switch reaction

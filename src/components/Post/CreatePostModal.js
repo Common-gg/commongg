@@ -11,13 +11,12 @@ function CreatePostModal(props) {
     const postTitleRef = useRef();
     const fileInputRef = useRef();
     const [selectedFile, setSelectedFile] = useState(null);
-    const [postTitle, setPostTitle] = useState({ current: { value: "" } });
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(getOptions()[0].label);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("Post");
+    const [titleLength, setTitleLength] = useState(0);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -34,11 +33,6 @@ function CreatePostModal(props) {
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#202020",
-    };
-    const modalHeaderStyle = {
-        border: "none",
-        textAlign: "center",
-        padding: "0 !important"
     };
     const postButtonStyle = {
         height: 48,
@@ -117,6 +111,7 @@ function CreatePostModal(props) {
             backgroundColor: "#292833",
         })
     }
+
     function clearFields() {
         postTitleRef.current.value = "";
         postTextRef.current.value = "";
@@ -125,10 +120,14 @@ function CreatePostModal(props) {
         setBtnText("Post");
         setSelectedFile(null);
         setShow(false);
+        setTitleLength(0);
     };
 
     function handlePostClick() {
-        if ((postTitleRef.current.value === "") && (postTextRef.current.value === "")
+        let postTitleCurrentValue = postTitleRef.current.value.trim();
+        let postTextCurrentvalue = postTextRef.current.value.trim();
+
+        if ((postTitleCurrentValue === "") && (postTextCurrentvalue === "")
             && (selectedFile === null)) {
             return;
         }
@@ -149,13 +148,13 @@ function CreatePostModal(props) {
         });
 
         props.createPost({
-            text: postText.current.value,
+            text: postText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
             author: props.currentUserId,
             caption: "CAPTION_TEXT",
             game: gameId.toString(),
             link: url,
-            timestamp: Date.now(),
-            title: postTitle.current.value,
+            timestamp: props.firebaseTimeStamp(),
+            title: postTitleRef.current.value.trim(),
             type: postType,
             numComments: 0,
             category: selectedOption
@@ -166,7 +165,7 @@ function CreatePostModal(props) {
     }
 
     function getPostType() {
-        let postTitleCurrentValue = postTitle.current.value;
+        let postTitleCurrentValue = postTitleRef.current.value;
         let postTextCurrentValue = postText.current.value;
 
         if (selectedFile !== null) {
@@ -226,7 +225,7 @@ function CreatePostModal(props) {
             return null;
         }
         else if (isFileTooLarge === true) {
-            return (<p style={{ color: "red" }}>Image cannot exceed 5MB. Select a different image or shrink the currently selected image.</p>);
+            return (<p style={{ color: "#F34D4D" }}>Image cannot exceed 5MB. Select a different image or shrink the currently selected image.</p>);
         }
     }
 
@@ -237,14 +236,14 @@ function CreatePostModal(props) {
                 tempArr.push({ label: props.allGames[game].title, value: game });
             });
         } else {
-            tempArr.push({ label: props.allGames[props.default].title, value: props.default})
+            tempArr.push({ label: props.allGames[props.default].title, value: props.default })
             props.currentUserInfo.games.map((game) => {
                 if (game !== props.default) {
                     tempArr.push({ label: props.allGames[game].title, value: game });
                 }
             });
         }
-        
+
         return tempArr;
     }
 
@@ -277,6 +276,10 @@ function CreatePostModal(props) {
         }
     }
 
+    const numCharTitle = (title) => {
+        setTitleLength(title.length);
+    }
+
     return (
         <div className="CreatePostModal">
             <button type="button" style={buttonStyle} className="btn btn-primary" onClick={handleShow}>
@@ -284,8 +287,8 @@ function CreatePostModal(props) {
                     src={excludeIcon}
                     alt="post button"
                     style={{
-                        width: "40px",
-                        height: "40px",
+                        width: "25px",
+                        height: "25px",
                         marginRight: ".5rem"
                     }} />
                     make a post
@@ -299,10 +302,12 @@ function CreatePostModal(props) {
                                 type="text"
                                 className="form-control"
                                 placeholder="title..."
-                                onChange={() => setPostTitle(postTitleRef)}
+                                maxLength="150"
+                                onChange={() => numCharTitle(postTitleRef.current.value)}
                                 ref={postTitleRef}
                                 style={titleInputStyle}
                             />
+                            <p style={{ marginRight: "10px", marginTop: "7px" }}>{titleLength + "/150"}</p>
                             <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close"
                                 aria-label="Close" onClick={() => clearFields()}>
                                 <span id="createPostX" aria-hidden="true">&times;</span>

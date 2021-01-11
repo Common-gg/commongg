@@ -5,10 +5,17 @@ import ContentContainer from '../components/ContentContainers/ContentContainer.j
 import GamesContainer from '../components/ContentContainers/GamesContainer.js';
 import SearchBar from '../components/SearchBar.js';
 import NotificationContainer from "../components/NotificationContainer.js";
+import TopOfPageImage from "../images/icons/top 1.png";
+import { useHistory } from "react-router-dom";
 
 function PageContainer(props) {
 
-  const [search, setSearch] = useState();
+  const [numPostsToLoad, setNumPostsToLoad] = useState(10);
+  const [backClicked, setBackClicked] = useState(false);
+  const [numPostsLoaded, setNumPostsLoaded] = useState();
+  const [offSet, setOffSet] = useState(0, 0);
+  const [, setSearch] = useState();
+  const history = useHistory();
   const [modalImage, setModalImage] = useState({
     link: "",
     height: 1,
@@ -20,8 +27,6 @@ function PageContainer(props) {
     width: 1
   });
 
-  const modalImageRef = useRef();
-
   const sticky = {
     position: "fixed"
   }
@@ -30,6 +35,21 @@ function PageContainer(props) {
     backgroundColor: "transparent",
     borderColor: "transparent"
   };
+  const topOfPageButtonStyle = {
+    visibility: "visible",
+    backgroundColor: "transparent",
+    width: "2.5rem",
+    height: "2.5rem",
+    borderRadius: "50%",
+    position: "relative",
+    top: "-1.6vh",
+    left: "-1vw",
+    borderTop: "4rem"
+  };
+  const topOfPageImageStyle = {
+    width: "6rem",
+    height: "2.5rem"
+  }
 
   useEffect(() => {
     checkRatio(modalImage, setModalImage);
@@ -39,11 +59,17 @@ function PageContainer(props) {
     checkRatio(profilePictureImage, setProfilePictureImage);
   }, [profilePictureImage]);
 
+  useEffect(() => {
+    if (backClicked) {
+      setBackClicked(false);
+      history.goBack();
+    }
+  }, [backClicked]);
+
   const checkRatio = (image, setImage) => {
     const wRatio = (window.innerWidth * .9) / image.width;
     const hRatio = (window.innerHeight * .9) / image.height;
-    console.log(image);
-    console.log(wRatio, hRatio);
+
     if (Math.min(wRatio, hRatio) >= 1) return;
     setImage({
       ...image,
@@ -51,6 +77,7 @@ function PageContainer(props) {
       height: image.height * Math.min(wRatio, hRatio)
     });
   }
+
 
   return (
     <div className="PageContainer">
@@ -108,11 +135,18 @@ function PageContainer(props) {
               <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
             </div>
-            <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} />
+            <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} offSet={offSet}
+              setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
+              setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} />
           </div>
           <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>
               <NotificationContainer {...props} />
+              <div style={{ position: "absolute", bottom: "-2.5rem", right: "8rem" }}>
+                <button className="btn btn-primary" onClick={() => window.scrollTo(0, 0)} style={topOfPageButtonStyle}>
+                  <img src={TopOfPageImage} style={topOfPageImageStyle} />
+                </button>
+              </div>
               <Text text="ADS GO HERE TO MAKE $$ YEP" />
             </div>
           </div>

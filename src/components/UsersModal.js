@@ -35,8 +35,8 @@ function UsersModal(props) {
             }
         }
         setUsersList(tempList);
-        
-        
+
+
     }, [props.user, props.type]);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ function UsersModal(props) {
     }, [props.show])
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true); 
+    const handleShow = () => setShow(true);
 
     const modalHeaderStyle = {
         borderBottom: "0 none",
@@ -84,44 +84,44 @@ function UsersModal(props) {
     function checkButton() {
         if (props.type === "following") {
             return (
-            <span role="button" onClick={handleShow} style={numberStyle}>{props.user.following?Object.keys(props.user.following).length:0}
-                <span style={followStyle}> following</span>
-            </span>)
+                <span role="button" onClick={handleShow} style={numberStyle}>{props.user.following ? Object.keys(props.user.following).length : 0}
+                    <span style={followStyle}> following</span>
+                </span>)
         } else if (props.type === "followers") {
             return (
-                <span role="button" onClick={handleShow} style={numberStyle}>{props.user.followers?Object.keys(props.user.followers).length:0}
+                <span role="button" onClick={handleShow} style={numberStyle}>{props.user.followers ? Object.keys(props.user.followers).length : 0}
                     <span style={followStyle}> followers</span>
                 </span>)
         }
-        
+
     }
 
     function checkUsersList() {
         return (<>
             {usersList.map((user) => {
                 return <Link to={"/profile/" + user.id}>
-                <div className="row" style={{ width: "100%" }}>
-                  <img
-                    alt={user.username}
-                    src={user.profile_picture}
-                    style={{
-                      borderRadius: '50%',
-                      height: '1.8rem',
-                      marginRight: '.8rem',
-                      width: '1.8rem',
-                    }}
-                  />
-                  <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{user.username}</span>
-                </div>
-              </Link>
+                    <div className="row" style={{ width: "100%" }}>
+                        <img
+                            alt={user.username}
+                            src={user.profile_picture}
+                            style={{
+                                borderRadius: '50%',
+                                height: '1.8rem',
+                                marginRight: '.8rem',
+                                width: '1.8rem',
+                            }}
+                        />
+                        <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{user.username}</span>
+                    </div>
+                </Link>
             })}
-         </>)
+        </>)
     }
-    
+
     return (
         <div className="CreateCommentModal" >
             {checkButton()}
-            
+
             <Modal show={show} onHide={handleClose}>
                 <div style={modalContentStyle}>
                     <Modal.Header closeButton style={modalHeaderStyle}>
@@ -131,7 +131,7 @@ function UsersModal(props) {
                         {checkUsersList()}
                     </Modal.Body>
                 </div>
-                
+
             </Modal>
         </div>
     )

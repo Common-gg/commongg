@@ -28,8 +28,8 @@ function GamesContainer(props) {
         color: "#BF9AFC",
         backgroundColor: "#202020",
     }
-    
-    const modalStyle={
+
+    const modalStyle = {
         position: "absolute",
         top: "170px"
     };
@@ -37,7 +37,7 @@ function GamesContainer(props) {
     const modalHeaderStyle = {
         borderBottom: "0 none",
     }
-    
+
     const buttonStyle = {
         backgroundColor: "transparent",
         color: "#BF9AFC",
@@ -46,14 +46,14 @@ function GamesContainer(props) {
         borderColor: "#BF9AFC",
         borderWidth: "2px",
     }
-    
+
     function handleDoneClick() {
         if (selectedGames.length > 0) {
             props.storeUserGames(selectedGames);
         } else {
             setClicked(true);
         }
-        
+
     }
 
     return (
@@ -78,15 +78,15 @@ function GamesContainer(props) {
                                         index={i}
                                         selectedGames={selectedGames}
                                         setSelectedGames={setSelectedGames}
-                                        style= {{ backgroundColor: "#292833" }}
+                                        style={{ backgroundColor: "#292833" }}
                                     />;
                                 })}</div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <button style={buttonStyle} type="button" className="btn btn-primary" data-dismiss={modalDismiss} onClick={handleDoneClick}>done</button>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                   {clicked?<p style={{color: "red"}}>must pick at least one game</p>:""}
-                                </div>                        
+                                    {clicked ? <p style={{ color: "#F34D4D" }}>must pick at least one game</p> : ""}
+                                </div>
                             </div>
                         </div>
                     </div>
