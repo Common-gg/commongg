@@ -112,7 +112,7 @@ function Post(props) {
     }
 
     //youtube video
-    regexp = /(?:youtube\.com\/watch\?v=([1-9a-zA-Z-_]{11}))|(?:youtu\.be\/([1-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([1-9a-zA-Z-_]{11}))/g;
+    regexp = /(?:youtube\.com\/watch\?v=([0-9a-zA-Z-_]{11}))|(?:youtu\.be\/([0-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([0-9a-zA-Z-_]{11}))/g;
     matches = link.matchAll(regexp);
     let video = [];
     for (const match of matches) {
