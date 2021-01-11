@@ -444,6 +444,29 @@ function App() {
     });
   }
 
+  const getAllPosts = (callback) => {
+    // gets all posts for the DB
+    const postRef = database.ref('/content/posts/');
+    postRef.once('value', function (snapshot) {
+      if (snapshot.val() !== null) {
+        return callback(snapshot.val());
+      } else {
+        return callback({
+          "00000000": {
+            author: "404",
+            caption: "Nothing here",
+            game: "",
+            link: "",
+            text: "There are no posts to see",
+            timestamp: 0,
+            title: "No Content",
+            type: "text"
+          }
+        })
+      }
+    });
+  }
+
   const reactToPost = (username, postId, reaction, value, setPost, postType, postAuthorID, parentID) => {
     //add to list to reacted
     const reactedRef = database.ref('/content/' + postType + '/' + postId + '/reacted/' + username);
@@ -656,6 +679,7 @@ function App() {
                   signOut={signOut}
 
                   getPosts={getPosts}
+                  getAllPosts={getAllPosts}
                   getPost={getPost}
                   reactToPost={reactToPost}
                   unreactToPost={unreactToPost}
