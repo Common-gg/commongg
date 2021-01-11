@@ -16,7 +16,7 @@ function FeedContainer(props) {
         setAllGames={props.setAllGames}
       />
       <br />
-      <FeedType {...props} filter={"CAPTION_TEXT"} sort={"caption"} postRefresh={postRefresh}
+      <FeedType {...props} filter={"CAPTION_TEXT"} sort={"caption"} postRefresh={postRefresh} clientFilter={true}
         setModalImage={props.setModalImage} />
     </div>
   );

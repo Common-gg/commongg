@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FeedContainer from './FeedContainer.js';
+import FollowingContainer from './FollowingContainer.js';
 import ProfileContainer from './ProfileContainer.js';
 import ViewPostContainer from './ViewPostContainer.js';
 import SettingsContainer from './SettingsContainer.js';
@@ -45,6 +46,8 @@ function ContentContainer(props) {
       return <GamesContainer {...props} />;
     case "":
       return <FeedContainer {...props} />;
+    case "following":
+        return <FollowingContainer {...props}/>;
     case "games":
       return <GameFeedContainer {...props} pageId={pageId} />;
     default:

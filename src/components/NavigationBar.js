@@ -95,10 +95,10 @@ function NavigationBar(props) {
                 <p style={pageState === "" ? selectedStyle : null}><img src={home} style={iconStyle} alt="" /> home</p>
             </Link>
 
-            {/*<Link to="/following" style={linkStyle}>
+            {<Link to="/following" style={linkStyle}>
                 <p><img src={follow} style={iconStyle} alt="" /> following</p>
             </Link>
-            <Link to="/trending" style={linkStyle}>
+            /*<Link to="/trending" style={linkStyle}>
                 <p><img src={trend} style={iconStyle} alt="" /> trending</p>
                 </Link>*/}
             {gamesArr.map((game) => {
