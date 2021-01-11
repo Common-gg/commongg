@@ -285,7 +285,7 @@ function Post(props) {
                     <Text text={props.post.title} style={{ fontSize: '25px' }} />
                   </div>
                 </Link>
-                <Link to={"/games/" + props.post.category}>
+                <Link to={"/games/" + (props.post.category !== undefined ? props.post.category.toLowerCase().split(" ").join("") : null)}>
                   <div className="col-auto" style={{ paddingTop: '.2rem' }}>
                     <Text text={props.post.category}
                       style={{
