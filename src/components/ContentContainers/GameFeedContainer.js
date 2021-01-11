@@ -12,7 +12,16 @@ function GameFeedContainer(props) {
   
   return (
     <div>
-      <CreatePostModal default={parseInt(props.pageId)} currentUserId={props.currentUserId} createPost={props.createPost} storeImage={props.storeImage} currentUserInfo={props.currentUserInfo} updatePostRefresh={updatePostRefresh} allGames={props.allGames} setAllGames={props.setAllGames}
+      <CreatePostModal 
+        default={parseInt(props.pageId)} 
+        currentUserId={props.currentUserId} 
+        createPost={props.createPost} 
+        storeImage={props.storeImage} 
+        currentUserInfo={props.currentUserInfo} 
+        updatePostRefresh={updatePostRefresh} 
+        allGames={props.allGames} 
+        setAllGames={props.setAllGames}
+        firebaseTimeStamp={props.firebaseTimeStamp}
       />
       <br />
       <FeedType {...props} filter={props.pageId} sort={"game"}/>
