@@ -14,7 +14,7 @@ import whitesetting from "../images/icons/settingswhite-3.png"
 
 function NavigationBar(props) {
 
-    const [gamesArr, setGamesArr] = useState([{title: " "}]);
+    const [gamesArr, setGamesArr] = useState([{ title: " " }]);
     const [pageState, setPageState] = useState("editgames");
     const [pageId, setPageId] = useState();
 
@@ -48,7 +48,7 @@ function NavigationBar(props) {
     }, [props.currentUserInfo.games]);
 
     useEffect(() => {
-        if(gamesArr[0] >= 0) {
+        if (gamesArr[0] >= 0) {
             let tempArr = []
             gamesArr.forEach(game => {
                 tempArr.push(props.allGames[game]);
@@ -104,7 +104,7 @@ function NavigationBar(props) {
             {gamesArr.map((game) => {
                 if (game.title === undefined) return;
                 return (
-                    <Link to={"/games/" + game.title.split(" ").join('').toLowerCase()} key={game.title} style={linkStyle}>
+                    <Link to={"/games/" + game.urlLink} key={game.title} style={linkStyle}>
                         <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}>{game.title}</p>
                     </Link>
                 )

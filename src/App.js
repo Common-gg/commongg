@@ -46,11 +46,13 @@ function App() {
   const [allGames, setAllGames] = useState([
     {
       title: "Common Chat",
-      image: CommonChat
+      image: CommonChat,
+      urlLink: "commonchat"
     },
     {
       title: "TFT",
-      image: TeamfightTactics
+      image: TeamfightTactics,
+      urlLink: "tft"
     }
   ]);
 

@@ -13,6 +13,7 @@ function CreatePostModal(props) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [postText, setPostText] = useState({ current: { value: "" } });
     const [selectedOption, setSelectedOption] = useState(getOptions()[0].label);
+    const [linkUrlForSelectedOption, setLinkUrlForSelectedOption] = useState("");
     const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("Post");
@@ -157,7 +158,8 @@ function CreatePostModal(props) {
             title: postTitleRef.current.value.trim(),
             type: postType,
             numComments: 0,
-            category: selectedOption
+            category: selectedOption,
+            linkUrlForCategory: linkUrlForSelectedOption
         });
         clearFields();
         //get the feedcontainer to update posts from db
@@ -233,22 +235,22 @@ function CreatePostModal(props) {
         let tempArr = [];
         if (props.default === undefined) {
             props.currentUserInfo.games.map((game) => {
-                tempArr.push({ label: props.allGames[game].title, value: game });
+                tempArr.push({ label: props.allGames[game].title, value: game, urlLink: props.allGames[game].urlLink });
             });
         } else {
-            tempArr.push({ label: props.allGames[props.default].title, value: props.default })
+            tempArr.push({ label: props.allGames[props.default].title, value: props.default, urlLink: props.allGames[props.default].urlLink })
             props.currentUserInfo.games.map((game) => {
                 if (game !== props.default) {
-                    tempArr.push({ label: props.allGames[game].title, value: game });
+                    tempArr.push({ label: props.allGames[game].title, value: game, urlLink: props.allGames[game].urlLink });
                 }
             });
         }
-
         return tempArr;
     }
 
     function handleOnChangeDropdown(e) {
         setSelectedOption(e.label);
+        setLinkUrlForSelectedOption(e.urlLink);
     }
 
     function removeImage() {
