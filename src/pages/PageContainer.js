@@ -14,7 +14,6 @@ function PageContainer(props) {
   const [backClicked, setBackClicked] = useState(false);
   const [numPostsLoaded, setNumPostsLoaded] = useState();
   const [offSet, setOffSet] = useState(0, 0);
-  const [, setSearch] = useState();
   const history = useHistory();
   const [modalImage, setModalImage] = useState({
     link: "",
