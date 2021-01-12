@@ -131,7 +131,7 @@ function PageContainer(props) {
           </div>
           <div className="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-8">
             <div className="text-center">
-              <SearchBar track={setSearch} search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
+              <SearchBar search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
             </div>
             <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} offSet={offSet}
