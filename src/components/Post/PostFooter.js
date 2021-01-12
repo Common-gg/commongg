@@ -35,7 +35,9 @@ function PostFooter(props) {
     "josepa3Riot",
     "soulessFF",
     "soulessG",
-    "treebeardMeep"
+    "treebeardMeep",
+    "emyyAww",
+    "emyyHiYo"
   ];
 
   useEffect(() => {
