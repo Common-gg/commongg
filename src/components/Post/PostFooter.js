@@ -24,7 +24,18 @@ function PostFooter(props) {
     "sadge",
     "thumbsup",
     "influrUWU",
-    "avnijoPeter"
+    "avnijoPeter",
+    "AYAYA",
+    "monkaHmm",
+    "agontfConcern",
+    "agontfHi",
+    "muffiS",
+    "dqaHi",
+    "eschatHwak2",
+    "josepa3Riot",
+    "soulessFF",
+    "soulessG",
+    "treebeardMeep"
   ];
 
   useEffect(() => {
