@@ -8,7 +8,7 @@ import { Modal, Form } from "react-bootstrap";
 
 function SignUp(props) {
   const [email, setEmail] = useState();
-  const [showTosModal, setShowTosModal] = useState(true);
+  const [showTosModal, setShowTosModal] = useState(false);
   const [password, setPassword] = useState();
   const [failedPassword, setFailedPassword] = useState(false);
   const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
@@ -175,6 +175,20 @@ function SignUp(props) {
                   height: "77%"
                 }} />
             </div>
+          </div>
+          <div className="d-flex justify-content-center text-center">
+            <Link to="/termsofservice" style={{
+              position: "relative",
+              padding: '.3rem',
+              lineHeight: "0.5rem",
+              top: "-11.25rem",
+              color: "#BF9AFC",
+              textDecoration: "underline",
+            }}>
+              <p className="col">
+                Terms Of Service
+              </p>
+            </Link>
           </div>
           <div className="d-flex justify-content-center text-center">
             {failedSignUp()}

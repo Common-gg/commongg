@@ -643,6 +643,11 @@ function App() {
             (props) => (
               <Login signInUser={signInUser} />
             )} />
+          <Route path="/termsofservice" render={
+            (props) => (
+              <TermsOfService />
+            )}
+          />
         </Switch>
       </Router>
     )
