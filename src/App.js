@@ -16,6 +16,7 @@ const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
 require("firebase/database");
 require("firebase/storage");
+require("firebase/analytics")
 
 function App() {
 
@@ -37,7 +38,7 @@ function App() {
   const auth = firebase.default.auth();
   const database = firebase.default.database();
   const storage = firebase.default.storage();
-
+  const analytics = firebase.default.analytics();
   const [currentUser, setCurrentUser] = useState();
   const [currentUserInfo, setCurrentUserInfo] = useState();
   const [startUp, setStartUp] = useState(false);
@@ -151,6 +152,7 @@ function App() {
   const signUpUser = (email, password) => {
     // Signs user up
     window.history.pushState(null, null, "/");
+    analytics.logEvent("signup")
     auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -254,8 +256,10 @@ function App() {
   const signInUser = (email, password, callback) => {
     // logs the user in
     auth.signInWithEmailAndPassword(email, password).then(() => {
+      analytics.logEvent("login_success")
       return callback(true);
     }).catch((error) => {
+      analytics.logEvent("login_fail")
       return callback(false);
     });
   }
@@ -264,7 +268,9 @@ function App() {
     // logs the user out
     auth.signOut().then(function () {
       // Sign-out successful.
+      analytics.logEvent("signout_success")
     }).catch(function (error) {
+      analytics.logEvent("signout_failed")
       // An error happened.
     });
   }
@@ -275,6 +281,7 @@ function App() {
     const postRef = database.ref('/content/posts/').push();
     postRef.set(post);
     document.getElementById("createPostX").click();
+    analytics.logEvent("post_created")
   }
 
   const updateNumComments = (postId, numIncrement) => {
@@ -290,6 +297,7 @@ function App() {
     if (currentUser === undefined) return;
     const commentRef = database.ref('/content/comments/').push();
     commentRef.set(comment);
+    analytics.logEvent("comment_added")
     //update the number of comments
     updateNumComments(comment.postId, 1);
     addNotification(postAuthorID, "comment", comment.postId);
@@ -301,6 +309,7 @@ function App() {
     if (commentId === undefined || commentId === "") return;
     const commentRef = database.ref('/content/comments/' + commentId);
     commentRef.remove();
+    analytics.logEvent("comment_deleted")
     //update the number of comments
     updateNumComments(postId, -1);
   }
@@ -312,6 +321,7 @@ function App() {
     if (postId === undefined || postId === "") return;
     const postRef = database.ref('/content/posts/' + postId);
     postRef.remove();
+    analytics.logEvent("post_deleted")
   }
 
   const getUser = (userId, callback) => {
@@ -364,6 +374,7 @@ function App() {
       }
     })
     addNotification(followed, "followed", currentUser.uid);
+    analytics.logEvent("Users_followed")
   }
 
   const unFollowUser = (follower, followed) => {
@@ -383,6 +394,7 @@ function App() {
     });
     updateFollow(follower, "following", -1);
     updateFollow(followed, "follower", -1);
+    analytics.logEvent("Users_unfollowed")
     setCurrentUserInfo({
       ...currentUserInfo,
       followCounts: {
@@ -474,6 +486,7 @@ function App() {
       //increment the counter for the post
       const reactionRef = database.ref('/content/' + postType + '/' + postId + '/reactions/' + reaction);
       reactionRef.set(firebase.database.ServerValue.increment(value)).then(() => {
+        analytics.logEvent("reactions_added")
         getPost(postId, setPost, postType);
       })
     })
@@ -494,6 +507,7 @@ function App() {
       const reactionRef = database.ref('/content/' + postType + '/' + postId + '/reactions/' + reaction);
       reactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
         //make sure everything is updated on server before gettingp ost
+        analytics.logEvent("reactions_unreact")
         getPost(postId, setPost, postType);
       })
     })
@@ -510,6 +524,7 @@ function App() {
         //decrementr the counter for old emote
         const oldReactionRef = database.ref('/content/' + postType + '/' + postId + '/reactions/' + oldReaction);
         oldReactionRef.set(firebase.database.ServerValue.increment(-value)).then(() => {
+          analytics.logEvent("reactions_changed")
           getPost(postId, setPost, postType);
         })
       })
@@ -577,9 +592,11 @@ function App() {
     const usersRef = database.ref('/users/').orderByChild('lower').startAt(value.toLowerCase()).endAt(value.toLowerCase() + "\uf8ff");
     usersRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) {
+        analytics.logEvent("query_results_found")
         return callback(snapshot.val(), query);
       } else {
         //return empty object since no result
+        analytics.logEvent("query_results_empty")
         return callback({}, query);
       }
     });
@@ -587,8 +604,10 @@ function App() {
 
   const resetPasswordEmail = (userEmail, callback) => {
     auth.sendPasswordResetEmail(userEmail).then(() => {
+      analytics.logEvent("resetPasswordemail_success")
       return callback(true);
     }).catch(function () {
+      analytics.logEvent("resetPasswordemail_fail")
       return callback(false);
     });
   }
@@ -597,13 +616,16 @@ function App() {
     auth.verifyPasswordResetCode(oobCode).then((email) => {
       auth.confirmPasswordReset(oobCode, newPassword).then((resp) => {
         // Enter this block if reset was successful
+        analytics.logEvent("handleResetPassword_success")
         return isSuccess(true);
       }).catch(() => {
         // Enter this block if password is too weak
+        analytics.logEvent("handleResetPassword_tooweak")
         return isSuccess(false);
       });
     }).catch(() => {
       // Enter this block if the action code is invalid or expired
+      analytics.logEvent("handleResetPassword_invalid")
       return isSuccess(false);
     });
   }
@@ -612,11 +634,14 @@ function App() {
     auth.signInWithEmailAndPassword(currentUser.email, oldPassword).then((user) => {
       auth.currentUser.updatePassword(newPassword).then(() => {
         // password reset successful
+        analytics.logEvent("changePasswordFromSettingsPage_success")
         return isSuccess(true);
       }).catch((err) => {
+        analytics.logEvent("changePasswordFromSettingsPage_fail")
         return isSuccess(false);
       });
     }).catch((err) => {
+      analytics.logEvent("changePasswordFromSettingsPage_fail2")
       return isSuccess(false);
     });
   }
