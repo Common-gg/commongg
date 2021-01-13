@@ -11,6 +11,8 @@ import CommonChat from "./images/games/Common Chat.png";
 import ForgotPassword from './pages/ForgotPassword.js';
 import ChangePassword from './pages/ChangePassword.js';
 import TermsOfService from './pages/TermsOfService.js';
+import VerifyEmail from './pages/VerifyEmail.js';
+import ReminderVerifyEmail from './pages/ReminderVerifyEmail.js';
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -153,10 +155,29 @@ function App() {
     // Signs user up
     window.history.pushState(null, null, "/");
     analytics.logEvent("signup")
-    auth.createUserWithEmailAndPassword(email, password).catch(function (error) {
+    auth.createUserWithEmailAndPassword(email, password).then(() => {
+      sendVerifyEmail();
+    }).catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
       //todo:: implement logic here to tell user they couldnt sign up 
+    });
+  }
+
+  const sendVerifyEmail = () => {
+    auth.currentUser.sendEmailVerification().then(() => {
+    })
+      .catch((error) => {
+      })
+  }
+
+  const handleVerifyEmail = (actionCode, callback) => {
+    auth.applyActionCode(actionCode).then((resp) => {
+      window.history.pushState(null, null, "/");
+      setCurrentUser({ ...currentUser, emailVerified: true })
+      return callback(true);
+    }).catch((error) => {
+      return callback(false);
     });
   }
 
@@ -656,6 +677,10 @@ function App() {
             (props) => (
               <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
+          <Route path="/verifyemail" render={
+            (props) => (
+              <VerifyEmail handleVerifyEmail={handleVerifyEmail} />
+            )} />
           <Route path="/forgotpassword" render={
             (props) => (
               <ForgotPassword resetPasswordEmail={resetPasswordEmail} />
@@ -671,6 +696,23 @@ function App() {
         </Switch>
       </Router>
     )
+  } else if (!currentUser.emailVerified) {
+    return (
+      <Router>
+        <Switch>
+          {console.log(auth.currentUser.emailVerified)}
+          <Route path="/verifyemail" render={
+            (props) => (
+              <VerifyEmail handleVerifyEmail={handleVerifyEmail} />
+            )} />
+          <Route path="/" render={
+            (props) => (
+              <ReminderVerifyEmail sendVerifyEmail={sendVerifyEmail} />
+            )
+          } />
+        </Switch>
+      </Router>
+    );
   } else if (currentUserInfo.username === "") {
     return (
       <Router>
