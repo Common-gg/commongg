@@ -80,8 +80,8 @@ function Post(props) {
     }
   }
 
-  function checkEmbeded(link, preview) {
-    if (typeof link !== "string") return
+  function checkEmbeded(link, text, preview) {
+    if (typeof link !== "string") return;
 
     //twitch clip
     let regexp = /(?:twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:clips\.twitch\.tv\/([a-zA-Z]+))/g;
@@ -95,7 +95,7 @@ function Post(props) {
       }
     }
     if (clip.length !== 0) {
-      return <div><TwitchClipEmbed clip={clip[0]}></TwitchClipEmbed></div>
+      return (<div>{text}<TwitchClipEmbed clip={clip[0]}></TwitchClipEmbed></div>)
     }
 
     //twitch stream
@@ -108,7 +108,7 @@ function Post(props) {
       }
     }
     if (channel.length !== 0) {
-      return <div><TwitchStreamEmbed channel={channel[0]} ></TwitchStreamEmbed></div>
+      return <div>{text}<TwitchStreamEmbed channel={channel[0]} ></TwitchStreamEmbed></div>
     }
 
     //youtube video
@@ -125,9 +125,46 @@ function Post(props) {
       }
     }
     if (video.length !== 0) {
-      return <div><YoutubeEmbed video={video[0]}></YoutubeEmbed></div>
+      return <div>{text}<YoutubeEmbed video={video[0]}></YoutubeEmbed></div>
     }
-    return preview;
+
+    // image file
+    regexp = /\.((jpe?g)|(JPE?G)|(png)|(PNG)|(gif)|(gifv))/g
+    if (link.search(regexp) !== -1) {
+      return (
+        <img
+          id={link + "img"}
+          src={link}
+          alt={link}
+          data-toggle="modal"
+          data-target="#enlargedImageModal"
+          onClick={() => handleEmbeddedImageClick(link)}
+          style={{
+            maxWidth: "100%"
+          }}>
+        </img>
+      );
+    }
+
+    // video file
+    regexp = /\.((mp4)|(MP4))/g
+      if (link.search(regexp) !== -1) {
+        return (
+          <video controls style={{width: "100%", height: "300px"}}>
+            <source src={link} type="video/mp4"/>
+          </video>
+        )
+      }
+
+    // gyazo regex: /(?:i\.gyazo\.com\/thumb\/\S+\/([a-z0-9]{32}))|(?:gyazo\.com\/([a-z0-9]{32}))/g
+    // gives the 32 char gyazo id
+
+    // imgur regex:
+
+    return (<div>
+      {text}
+      {preview}
+    </div>);
   }
 
   function handleImageClick() {
@@ -139,6 +176,17 @@ function Post(props) {
       width: natWidth,
       height: natHeight
     });
+  }
+
+  function handleEmbeddedImageClick(imageLink) {
+    const img = document.getElementById(`${imageLink}img`);
+    const natWidth = img.naturalWidth;
+    const natHeight = img.naturalHeight;
+    props.setModalImage({
+      link: imageLink,
+      width: natWidth,
+      height: natHeight
+    })
   }
 
   const checkType = () => {
@@ -301,8 +349,7 @@ function Post(props) {
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
                 <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
-                  <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>
-                  {checkEmbeded(decoratedHref, <ReactTinyLink
+                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>, <ReactTinyLink
                     cardSize="large"
                     showGraphic={true}
                     maxLine={2}
