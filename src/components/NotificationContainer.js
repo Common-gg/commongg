@@ -71,7 +71,14 @@ function NotificationContainer(props) {
                                     {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null }
                                     <div className="row">
                                         <div style={{width: "80%"}}>
-                                            <Notification getUser={props.getUser} getPost={props.getPost} notification={notification} />
+                                            <Notification 
+                                                getUser={props.getUser} 
+                                                getPost={props.getPost} 
+                                                notification={notification} 
+                                                deleteNotificationHandler={deleteNotificationHandler}
+                                                id={Object.keys(allNotifications).reverse()[i]} 
+                                                />
+                    
                                         </div>
                                         <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                     </div>

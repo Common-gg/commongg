@@ -446,11 +446,12 @@ function App() {
     });
   }
 
-  const getPost = (postId, callback, postType) => {
+  const getPost = (postId, callback, postType, nullCallBack) => {
     // Gets a single post from DB
     database.ref('/content/' + postType + '/' + postId).once('value').then((snapshot) => {
       const postData = snapshot.val();
       if (postData !== null) return callback(postData);
+      if (postData === null && nullCallBack !== undefined) return nullCallBack();
     })
   }
 
