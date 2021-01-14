@@ -125,6 +125,7 @@ function ProfileContainer(props) {
                                     <img src={followBtnState.img} style={{
                                         width: "2.5rem",
                                         height: "2.5rem",
+                                        position: "relative"
                                     }} />
                                 </button>
                             </span>

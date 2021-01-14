@@ -47,7 +47,8 @@ function PageContainer(props) {
   };
   const topOfPageImageStyle = {
     width: "6rem",
-    height: "2.5rem"
+    height: "2.5rem",
+    position: "relative"
   }
 
   useEffect(() => {
