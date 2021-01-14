@@ -65,17 +65,16 @@ function CreateProfile(props) {
   return (
     <div className="CreateProfile">
       <div className="mx-auto card text-center" style={{
-        margin: "175px",
-        maxWidth: "485px",
+        margin: "200px",
+        maxWidth: "20%",
         backgroundColor: "#292833",
         borderRadius: "10px",
         boxShadow: "-1px 7px 25px 1px #171421",
         color: "#BF9AFC"
       }}>
         <br />
-        <h4>create your profile</h4>
-        < br />
-        Pick a username
+        <h4 style={{marginTop:"2rem"}}>create your profile</h4>
+        <span style={{marginTop:"2rem"}}>pick a username</span>
         <Input style={{
           backgroundColor: "transparent #292833",
           color: "#BF9AFC text-center",
@@ -87,29 +86,31 @@ function CreateProfile(props) {
           padding: "0.3rem",
           width: "50%",
           height: "95%",
-          marginLeft: "25%"
+          marginLeft: "25%",
+          marginTop: "1.1rem"
         }}
           maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
-        {failedExists ? <p style={{ color: "#F34D4D" }}>username already in use</p> : null}
-        {failedSpace ? <p style={{ color: "#F34D4D" }}>username can't contain space</p> : null}
-        {failedProfane ? <p style={{ color: "#F34D4D" }}>username contains profanity</p> : null}
-        {failedLength ? <p style={{ color: "#F34D4D" }}>username is too short</p> : null}
-        < br />
-        add a profile picture
+        {failedExists ? <p style={{ color: "#F34D4D", marginTop:"1rem"  }}>username already in use</p> : null}
+        {failedSpace ? <p style={{ color: "#F34D4D", marginTop:"1rem", marginbottom: "-5rem"  }}>username can't contain space</p> : null}
+        {failedProfane ? <p style={{ color: "#F34D4D", marginTop:"1rem"  }}>username contains profanity</p> : null}
+        {failedLength ? <p style={{ color: "#F34D4D", marginTop:"1rem"  }}>username is too short</p> : null}
+        <span style={{marginTop:"3rem"}}>Add a Profile Picture</span>
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => { }} />
         <button type="submit" className="btn"
           style={{
             marginBottom: "20px",
-            padding: "0.3rem",
+            padding: "0.4rem",
             backgroundColor: "transparent",
             color: "#BF9AFC",
             border: "solid",
             borderRadius: "10px",
             borderColor: "#BF9AFC",
             borderWidth: "2px",
-            maxWidth: "10%",
+            maxWidth: "15%",
             position: "relative",
-            left: "13.4rem",
+            left: "10rem",
+            marginTop: "1rem",
+            marginBottom: "2.7rem"
           }}
           onClick={handleSubmit}>
           <img src={arrow} />

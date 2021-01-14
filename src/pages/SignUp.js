@@ -85,8 +85,9 @@ function SignUp(props) {
     backgroundColor: "#292833",
     padding: "0.3rem",
     margin: "3%",
-    width: "100%",
+    width: "80%",
     height: "77%",
+    marginLeft: "10%"
   }
   const modalBodyStyle = {
     color: "#BF9AFC",
@@ -139,12 +140,12 @@ function SignUp(props) {
         <div style={{ margin: "20px 20px 0px 20px" }}>
           <div className="row mx-auto">
             <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
-            <img style={logoCSS} src={logo}  />
-            <div style={{ pointerEvents: "none" }}></div>
+              <img style={logoCSS} src={logo} />
+              <div style={{ pointerEvents: "none" }}></div>
             </div>
             <br />
             <div className="form-group col-12">
-              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> Sign up </p>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> sign up </p>
               <div className="row mx-auto">
                 <Input type="email"
                   bootstrap="border-0"
@@ -161,53 +162,36 @@ function SignUp(props) {
                 bootstrap="border-0"
                 placeholder="password"
                 track={setPassword}
-                style={{
-                  backgroundColor: "transparent #292833",
-                  color: "#BF9AFC",
-                  border: "solid",
-                  borderColor: "#BF9AFC",
-                  backgroundColor: "#292833",
-                  borderRadius: "2px",
-                  borderWidth: "1px",
-                  padding: "0.3rem",
-                  margin: "3%",
-                  width: "100%",
-                  height: "77%"
-                }} />
+                style={inputStyle} />
             </div>
           </div>
           <div className="d-flex justify-content-center text-center">
             {failedSignUp()}
           </div>
-          <div className="row col-12">
-            <div className="col-5"></div>
-            <div className="form-group">
-              <SignUpButton click={signUp} />
-            </div></div></div>
+          <div className="form-group col-12" style={{ textAlign: "center", }}>
+            <SignUpButton click={signUp} />
+          </div>
+        </div>
         <br />
       </div>
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
           <p className="col" style={{
-              position: "relative",
-
-
-              top: "-10.75rem",
-              color: "#BF9AFC",
-              
-            }}>
-              Already have an account? </p>
+            position: "relative",
+            top: "-10rem",
+            color: "#BF9AFC",
+          }}>
+            already have an account? </p>
           <Link to="/">
             <p className="col" style={{
               position: "relative",
               padding: '.3rem',
-
-              top: "-10.75rem",
+              top: "-11rem",
               color: "#BF9AFC",
               textDecoration: "underline",
             }}>
-              Login Here!
+              login here!
       </p>
           </Link>
         </div></div></div>
