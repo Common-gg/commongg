@@ -23,8 +23,11 @@ function CreateCommentModal(props) {
     }
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#202020",
-        borderBottom: ""
+        backgroundColor: "#292833",
+        borderTop: "0",
+        borderLeft: "0",
+        borderRight: "0",
+        borderBottom: "0",
     }
     const modalHeaderStyle = {
         borderBottom: "0 none",
@@ -33,17 +36,18 @@ function CreateCommentModal(props) {
     const textAreaStyle = {
         resize: "none",
         color: "#BF9AFC",
-        backgroundColor: "#202020",
+        backgroundColor: "#292833",
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",
+        borderBottom: "0",
         whiteSpace: "pre-wrap"
     }
     const commentButtonStyle = {
         height: 48,
         marginLeft: "auto",
-        backgroundColor: "transparent",
-        color: "#BF9AFC",
+        backgroundColor: "#BF9AFC",
+        color: "#292833",
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
@@ -85,9 +89,10 @@ function CreateCommentModal(props) {
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true" style={{color: "#BF9AFC"}}>&times;</span>
                         </button>
                     </div>
+                    <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
                     <textarea
                         className="form-control"
                         onChange={() => setCommentText(commentTextRef)}
@@ -96,9 +101,11 @@ function CreateCommentModal(props) {
                         rows="5"
                         style={textAreaStyle}
                     />
+                     <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
                     <div style={{ display: "flex" }}>
                         <button type="button" className="btn btn-primary" onClick={() => handleCommentClick()} data-dismiss="modal" style={commentButtonStyle}>Comment</button>
                     </div>
+                    <br />
                 </div>
             </Modal>
         </div>

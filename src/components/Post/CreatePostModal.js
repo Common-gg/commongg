@@ -15,7 +15,7 @@ function CreatePostModal(props) {
     const [selectedOption, setSelectedOption] = useState(getOptions()[0].label);
     const [isFileTooLarge, setIsFileTooLarge] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [btnText, setBtnText] = useState("Post");
+    const [btnText, setBtnText] = useState("post");
     const [titleLength, setTitleLength] = useState(0);
 
     const handleClose = () => setShow(false);
@@ -32,18 +32,22 @@ function CreatePostModal(props) {
     };
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#202020",
+        backgroundColor: "#292833",
+        borderTop: "0",
+        borderLeft: "0",
+        borderRight: "0",
+        borderBottom: "0",
     };
     const postButtonStyle = {
         height: 48,
         marginLeft: "auto",
+        marginRight: "40px",
         backgroundColor: "#BF9AFC",
         color: "#292833",
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
-        borderWidth: "2px",
-        marginRight: "40px"
+        borderWidth: "2px"
     };
     const fileInputImageStyle = {
         height: 48,
@@ -57,7 +61,7 @@ function CreatePostModal(props) {
     };
     const titleInputStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#202020",
+        backgroundColor: "#292833",
         border: "none",
         marginTop: "none",
 
@@ -65,7 +69,7 @@ function CreatePostModal(props) {
     const textAreaStyle = {
         resize: "none",
         color: "#BF9AFC",
-        backgroundColor: "#202020",
+        backgroundColor: "#292833",
         border: "none",
         marginTop: 0,
         whiteSpace: "pre-wrap"
@@ -265,7 +269,7 @@ function CreatePostModal(props) {
                         <div>
                             <button type="button" style={{ color: "#BF9AFC" }} className="close"
                                 aria-label="Close" onClick={() => removeImage()}>
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" style={{color: "#BF9AFC"}}>&times;</span>
                             </button>
                             <img src={URL.createObjectURL(selectedFile)} alt="preview"
                                 style={{ maxHeight: "200px" }} />
@@ -314,7 +318,7 @@ function CreatePostModal(props) {
                             </button>
                         </div>
                     </div>
-                    <hr style={{ padding: "0", backgroundColor: '#BF9AFC', width: '90%' }} />
+                    <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
                     <div className="col-12">
                         <textarea
                             className="form-control"
@@ -332,7 +336,7 @@ function CreatePostModal(props) {
                         </div>
                     </div>
                     {imagePreview()}
-                    <hr style={{ backgroundColor: '#BF9AFC', width: '90%' }} />
+                    <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                     <div style={{ display: "flex" }}>
                         <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
                         <label htmlFor="fileInput"><img style={fileInputImageStyle} src={ImageIcon}></img></label>

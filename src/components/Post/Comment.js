@@ -19,7 +19,7 @@ function Comment(props) {
 
     const popoverStyle = {
         backgroundColor: "#292833",
-        boxShadow: "4px 4px 200px 0px #171421 ",
+        boxShadow: "4px 4px 25px 0px #171421 ",
         borderRadius: "20px",
         padding: "10px 20px 0px 20px",
         marginTop: "20px"

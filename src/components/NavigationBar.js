@@ -8,14 +8,16 @@ import follow from "../images/icons/followingaccent-1.png";
 import setting from "../images/icons/settingsaccent-1.png";
 import editGame from "../images/icons/editgameaccent-1.png"
 import whitehome from "../images/icons/homewhite-1.png";
+import whitetrend from "../images/icons/trendingwhite-3.png";
 import whitedit from "../images/icons/editgamewhite-1.png";
-import whitesetting from "../images/icons/settingswhite-3.png"
+import whitefollow from "../images/icons/followingwhite-3.png";
+import whitesetting from "../images/icons/settingswhite-3.png";
 
 
 
 function NavigationBar(props) {
 
-    const [gamesArr, setGamesArr] = useState([{title: " "}]);
+    const [gamesArr, setGamesArr] = useState([{ title: " " }]);
     const [pageState, setPageState] = useState("editgames");
     const [pageId, setPageId] = useState();
 
@@ -49,7 +51,7 @@ function NavigationBar(props) {
     }, [props.currentUserInfo.games]);
 
     useEffect(() => {
-        if(gamesArr[0] >= 0) {
+        if (gamesArr[0] >= 0) {
             let tempArr = []
             gamesArr.forEach(game => {
                 tempArr.push(props.allGames[game]);
@@ -79,34 +81,34 @@ function NavigationBar(props) {
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
             <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p style={pageState === "profile" ? selectedStyle : null}><img
-                    src={props.currentUserInfo.profile_picture}
-                    alt={""}
-                    style={{
-                        borderRadius: "50%",
-                        width: "30px",
-                        height: "30px",
-                        marginRight: ".75rem"
-                    }}
-                    className="img">
-                </img> profile</p>
+                <p style={pageState === "profile" ? selectedStyle : null}>
+                    <img src={props.currentUserInfo.profile_picture}
+                        alt={""}
+                        style={{
+                            borderRadius: "50%",
+                            width: "30px",
+                            height: "30px",
+                            marginRight: ".75rem"
+                        }}
+                        className="img">
+                    </img> profile</p>
             </Link>
 
             <Link to="/" style={linkStyle}>
-                <p style={pageState === "" ? selectedStyle : null}><img src={home} style={iconStyle} alt="" /> home</p>
+                <p style={pageState === "" ? selectedStyle : null}><img src={pageState === "" ? whitehome:home} style={iconStyle} alt="" /> home</p>
             </Link>
 
             {<Link to="/following" style={linkStyle}>
-                <p><img src={follow} style={iconStyle} alt="" /> following</p>
+                <p style={pageState === "following" ? selectedStyle : null}><img src={pageState === "following" ? whitefollow:follow} style={iconStyle} alt="" /> following</p>
             </Link>
             /*<Link to="/trending" style={linkStyle}>
-                <p><img src={trend} style={iconStyle} alt="" /> trending</p>
+                <p style={pageState === "trending" ? selectedStyle : null}><img src={pageState === "trending" ? whitetrend:trend} style={iconStyle} alt="" /> trending</p>
                 </Link>*/}
             {gamesArr.map((game) => {
                 if (game.title === undefined) return;
                 return (
                     <Link to={"/games/" + game.title.split(" ").join('').toLowerCase()} key={game.title} style={linkStyle}>
-                        <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}><img src = {game.image} style={{...iconStyle, borderRadius: "100%"}} alt= ""/> {game.title}</p>
+                        <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}><img src={game.image} style={{ ...iconStyle, borderRadius: "100%" }} alt="" /> {game.title}</p>
                     </Link>
                 )
             })}
@@ -115,7 +117,7 @@ function NavigationBar(props) {
                     <img src={editGame} style={iconStyle}></img>edit games</p>
             </a>
             <Link to="/settings" style={linkStyle}>
-                <p style={pageState === "settings" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> settings</p>
+                <p style={pageState === "settings" ? selectedStyle : null}><img src={pageState === "settings" ? whitesetting:setting} style={iconStyle} alt="" /> settings</p>
             </Link>
         </div>
     );
