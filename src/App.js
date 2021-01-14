@@ -343,6 +343,18 @@ function App() {
     const postRef = database.ref('/content/posts/' + postId);
     postRef.remove();
     analytics.logEvent("post_deleted")
+    //delete the comments with the post
+    const commentsRef = database.ref('/content/comments/').orderByChild("postId").equalTo(postId);
+    commentsRef.once('value', function (snapshot) {
+      const comments = snapshot.val()
+      if (comments !== null) {
+        Object.keys(comments).forEach((comment) => {
+          const commentRef = database.ref('/content/comments/' + comment);
+          commentRef.remove();
+          analytics.logEvent("comment_deleted")
+        })
+      }
+    });
   }
 
   const getUser = (userId, callback) => {
