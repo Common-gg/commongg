@@ -369,6 +369,22 @@ function App() {
     })
   }
 
+  const getUserWithUsername = (username) => {
+    // checks if there is a user with the username already
+    // returns true if it exists false if doesn't exist
+    return new Promise(function (resolve, reject) {
+      database.ref('/users/').orderByChild("username").equalTo(username).once('value').then(function (snapshot) {
+        const userData = snapshot.val();
+        //if it's not null, there is some user with the username 
+        if (userData !== null) {
+          return resolve({ ...userData});
+        } else {
+          return resolve(null);
+        }
+      })
+    })
+  }
+
   const updateFollow = (userId, followType, value) => {
     const followRef = database.ref('/users/' + userId + '/followCounts').child(followType)
     followRef.set(firebase.database.ServerValue.increment(value));
@@ -446,11 +462,12 @@ function App() {
     });
   }
 
-  const getPost = (postId, callback, postType) => {
+  const getPost = (postId, callback, postType, nullCallBack) => {
     // Gets a single post from DB
     database.ref('/content/' + postType + '/' + postId).once('value').then((snapshot) => {
       const postData = snapshot.val();
       if (postData !== null) return callback(postData);
+      if (postData === null && nullCallBack !== undefined) return nullCallBack();
     })
   }
 
@@ -770,6 +787,7 @@ function App() {
 
                   getUser={getUser}
                   getUserWithId={getUserWithId}
+                  getUserWithUsername={getUserWithUsername}
                   followUser={followUser}
                   unFollowUser={unFollowUser}
                   storeUserGames={storeUserGames}

@@ -36,10 +36,12 @@ function ProfileContainer(props) {
 
     //check if the current user is self
     useEffect(() => {
+        props.getUser(props.pageId, setUser);
         if (props.currentUserId) {
             if (props.currentUserId === props.pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             } else {
+                setFollowBtnState({text: "Follow", img: plus})
                 setFollowBtnStyle({
                     visibility: "visible",
                     backgroundColor: "transparent",
@@ -52,12 +54,6 @@ function ProfileContainer(props) {
                 });
             }
         }
-    }, [props.pageId]);
-
-
-    //update the current useer when navigating to new page
-    useEffect(() => {
-        props.getUser(props.pageId, setUser);
     }, [props.pageId]);
 
     //update the following icon when switching pages
@@ -129,6 +125,7 @@ function ProfileContainer(props) {
                                     <img src={followBtnState.img} style={{
                                         width: "2.5rem",
                                         height: "2.5rem",
+                                        position: "relative"
                                     }} />
                                 </button>
                             </span>

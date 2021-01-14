@@ -99,7 +99,7 @@ function UsersModal(props) {
     function checkUsersList() {
         return (<>
             {usersList.map((user) => {
-                return <Link to={"/profile/" + user.id}>
+                return user?<Link to={"/profile/" + user.id}>
                     <div className="row" style={{ width: "100%" }}>
                         <img
                             alt={user.username}
@@ -113,7 +113,7 @@ function UsersModal(props) {
                         />
                         <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{user.username}</span>
                     </div>
-                </Link>
+                </Link>:null
             })}
         </>)
     }
