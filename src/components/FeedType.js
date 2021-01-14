@@ -73,6 +73,9 @@ function FeedType(props) {
   useEffect(() => {
     //only changes when we are doing client filtering
     if (clientFilter === true && allPosts) {
+      if(Object.values(props.currentUserInfo.following === null)){
+        return;
+      }
       const following = Object.values(props.currentUserInfo.following);
       following.push(props.currentUserId)
       const games = props.currentUserInfo.games
