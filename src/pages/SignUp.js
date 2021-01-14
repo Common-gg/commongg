@@ -14,6 +14,7 @@ function SignUp(props) {
   const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
   const [missing, setMissing] = useState(false);
   const [tosCheckbox, setTosCheckbox] = useState(false);
+  const [agreeToTos, setAgreeToTos] = useState(true);
 
   const signUp = () => {
     if ((email !== undefined && email.current.value !== "") && (password !== undefined && password.current.value !== "")) {
@@ -39,6 +40,12 @@ function SignUp(props) {
       if (failedEmail === 0 && failedPassword === false) {
         props.signUpUser(email.current.value, password.current.value);
       }
+
+      if(tosCheckbox === false){
+        setAgreeToTos(false);
+      } else {
+        setAgreeToTos(true);
+      }
     } else {
       setMissing(true);
     }
@@ -61,12 +68,22 @@ function SignUp(props) {
       return (
         <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
       )
+    } 
+    
+    if (agreeToTos === false){
+      return (
+        <p style={{ color: "#F34D4D" }}>must agree with the Terms of Service before signing up</p>
+      )
     }
   }
 
   function handleChecked() {
     setTosCheckbox(!tosCheckbox);
     setShowTosModal(false);
+  }
+
+  function showTosModalTrue() {
+    setShowTosModal(true);
   }
 
   const logoCSS = {
@@ -118,11 +135,6 @@ function SignUp(props) {
         <Modal.Body style={modalBodyStyle}>
           <TermsOfService />
           <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
-          <Modal.Footer style={modalFooterStyle}>
-            <Form.Group controlId="tosCheckBox">
-              <Form.Check onChange={handleChecked} type="checkbox" label="I accept the Terms of Service" />
-            </Form.Group>
-          </Modal.Footer>
         </Modal.Body>
 
       </Modal>
@@ -177,18 +189,14 @@ function SignUp(props) {
             </div>
           </div>
           <div className="d-flex justify-content-center text-center">
-            <Link to="/termsofservice" style={{
-              position: "relative",
-              padding: '.3rem',
-              lineHeight: "0.5rem",
-              top: "-11.25rem",
-              color: "#BF9AFC",
-              textDecoration: "underline",
-            }}>
-              <p className="col">
+            
+            <Form.Group controlId="tosCheckBox">
+              <Form.Check onChange={handleChecked} type="checkbox" label="I accept the " />
+              <a href="#" onClick={showTosModalTrue} style={{textDecoration:"underline"}}>
                 Terms Of Service
-              </p>
-            </Link>
+              </a>
+            </Form.Group>
+
           </div>
           <div className="d-flex justify-content-center text-center">
             {failedSignUp()}

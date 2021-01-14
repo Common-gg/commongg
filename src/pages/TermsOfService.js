@@ -60,7 +60,7 @@ function TermsOfService(props) {
                     <button type="button"
                         className="btn"
                         style={backButtonStyle}
-                        onClick={history.goBack}
+                        onClick={()=> {history.goBack();}}
                     >
                         <div>
                             <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
