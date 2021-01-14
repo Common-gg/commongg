@@ -9,6 +9,8 @@ import check from "../../images/icons/followingcheck-1.png";
 
 function ProfileContainer(props) {
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
+    //this represent old page id which is the unique id
+    const [pageId, setPageId] = useState(null)
 
     const [followBtnState, setFollowBtnState] = useState({
         text: "Follow", img: plus
@@ -26,19 +28,26 @@ function ProfileContainer(props) {
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
-            props.followUser(props.currentUserId, props.pageId);
+            props.followUser(props.currentUserId, pageId);
             setFollowBtnState({ ...followBtnState, text: "Following", img: check });
         } else {
-            props.unFollowUser(props.currentUserId, props.pageId);
+            props.unFollowUser(props.currentUserId, pageId);
             setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
         }
     }
 
+    //retrieve the user and pageId from the username
+    useEffect(() => {
+      //if the username exists
+      if (props.username) {
+        props.getUserWithLower(props.username, setUser, setPageId)
+      }
+    }, [props.username, props.getUserWithLower])
+
     //check if the current user is self
     useEffect(() => {
-        props.getUser(props.pageId, setUser);
-        if (props.currentUserId) {
-            if (props.currentUserId === props.pageId) {
+        if (props.currentUserId && pageId) {
+            if (props.currentUserId === pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             } else {
                 setFollowBtnState({text: "Follow", img: plus})
@@ -54,12 +63,12 @@ function ProfileContainer(props) {
                 });
             }
         }
-    }, [props.pageId]);
+    }, [pageId]);
 
     //update the following icon when switching pages
     useEffect(() => {
         //check if user is using follow properly
-        if (props.currentUserId === props.pageId) {
+        if (props.currentUserId === pageId) {
             //already set to invisible since it's self
             return;
         }
@@ -75,9 +84,9 @@ function ProfileContainer(props) {
     }, [user])
 
     const checkId = () => {
-        if (props.pageId !== undefined) {
+        if (pageId != null) {
             return (
-                <FeedType {...props} filter={props.pageId} sort={"author"} />
+                <FeedType {...props} filter={pageId} sort={"author"} />
             )
         }
     }

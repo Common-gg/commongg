@@ -78,7 +78,7 @@ function NavigationBar(props) {
 
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
-            <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
+            <Link to={"/profile/" + props.currentUserInfo.username} style={linkStyle}>
                 <p style={pageState === "profile" ? selectedStyle : null}><img
                     src={props.currentUserInfo.profile_picture}
                     alt={""}
