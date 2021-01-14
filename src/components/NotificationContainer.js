@@ -7,7 +7,7 @@ import NotificationRead from "../images/icons/notificationempty-1.png";
 import { isPlainObject } from "jquery";
 
 function NotificationContainer(props) {
-
+    let tempCounter = 0;
     const [imageSource, setImageSource] = useState(NotificationRead);
     const [unreadNotificationCounter, setUnreadNotificationCounter] = useState(0);
     const [allNotifications, setAllNotifications] = useState({});
@@ -26,13 +26,15 @@ function NotificationContainer(props) {
         })
     }, [readNotifications, unreadNotifications]);
 
+
     function notificationHandler(notifications, type) {
         if (type === "read") {
             setReadNotifications(notifications);
         }
         else {
             setUnreadNotifications({ ...allNotifications, ...notifications });
-            setUnreadNotificationCounter(unreadNotificationCounter + 1);
+            tempCounter++
+            setUnreadNotificationCounter(tempCounter)
             setImageSource(NotificationUnread);
         }
     }
