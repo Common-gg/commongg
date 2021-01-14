@@ -7,10 +7,11 @@ import trend from "../images/icons/trendingaccent-1.png";
 import follow from "../images/icons/followingaccent-1.png";
 import setting from "../images/icons/settingsaccent-1.png";
 import editGame from "../images/icons/editgameaccent-1.png"
-
 import whitehome from "../images/icons/homewhite-1.png";
 import whitedit from "../images/icons/editgamewhite-1.png";
 import whitesetting from "../images/icons/settingswhite-3.png"
+
+
 
 function NavigationBar(props) {
 
@@ -105,7 +106,7 @@ function NavigationBar(props) {
                 if (game.title === undefined) return;
                 return (
                     <Link to={"/games/" + game.title.split(" ").join('').toLowerCase()} key={game.title} style={linkStyle}>
-                        <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}>{game.title}</p>
+                        <p style={(pageState === "games" && game === pageId) ? selectedStyle : null}><img src = {game.image} style={{...iconStyle, borderRadius: "100%"}} alt= ""/> {game.title}</p>
                     </Link>
                 )
             })}
