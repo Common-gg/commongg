@@ -65,6 +65,30 @@ function Post(props) {
     }
   }
 
+  //create maping of emote with a list of the users who reacted
+  function reactionMap() {
+    let map = new Map();
+    const reacted = props.post.reacted;
+    if (reacted) {
+      for (const user in reacted) {
+        const reaction = reacted[user];
+        if (map.has(reaction)) {
+          map.get(reaction).push(user);
+        } else {
+          map.set(reaction, [user])
+        }
+      }
+    }
+    return map
+  }
+
+  function handleShowReactions() {
+    //show the modal and then set the current reactions
+    props.setShowModal(true);
+    //calculate the reaction mapping and set it to modal content
+    props.setModalContent(reactionMap());
+  }
+
   function checkOptions() {
     if (props.currentUserId === props.post.author) {
       return (
@@ -74,6 +98,18 @@ function Post(props) {
           </div>
           <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
             <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p>
+            <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
+         </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
+            <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
+          </div>
+          <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
           </div>
         </div>
       )

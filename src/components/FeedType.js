@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from './Post/Post.js';
 import 'react-on-screen';
+import ReactionsModal from './ReactionsModal.js';
 
 function FeedType(props) {
   const [posts, setPosts] = useState({
@@ -28,6 +29,10 @@ function FeedType(props) {
       type: "text"
     }
   });
+
+  //feedtype toggles both reaction modal state and content by passing callback to post
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(undefined);
 
   const [childRefresh, setChildRefresh] = useState(0);
   function childPostRefresh() {
@@ -102,6 +107,7 @@ function FeedType(props) {
 
   return (
     <div>
+      <ReactionsModal getUserWithUsername={props.getUserWithUsername} setShowModal={setShowModal} showModal={showModal} content={modalContent}></ReactionsModal>
       {Object.values(posts).reverse().map((post, i) => {
         if (post.author !== "404" && i < props.numPostsToLoad)
           return (
@@ -109,6 +115,7 @@ function FeedType(props) {
               <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]}
                 postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
                 childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
+                setShowModal={setShowModal} setModalContent={setModalContent}
               />
               <br />
             </div>

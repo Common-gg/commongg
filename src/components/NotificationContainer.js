@@ -47,7 +47,7 @@ function NotificationContainer(props) {
     }
 
     function deleteNotificationHandler(notificationID) {
-        let tempObj = {...readNotifications};
+        let tempObj = { ...readNotifications };
         delete tempObj[notificationID];
         setReadNotifications(tempObj);
         props.deleteNotification(notificationID);
@@ -59,10 +59,17 @@ function NotificationContainer(props) {
         width: "100%"
     }
 
+    const popoverBodyStyle = {
+        maxHeight: (window.innerHeight * .4),
+        overflowY: "auto",
+        overflowX: "hidden",
+        whiteSpace: "pre-wrap"
+    }
 
     const notificationPopover = (
         <Popover id="notificationPopover" style={notificationPopoverStyle}>
             <Popover.Content>
+              <div className="popover-body" style={popoverBodyStyle}>
                 <div className="row">
                     {allNotifications ?
                         Object.values(allNotifications).reverse().map((notification, i) => {
@@ -78,13 +85,12 @@ function NotificationContainer(props) {
                                                 deleteNotificationHandler={deleteNotificationHandler}
                                                 id={Object.keys(allNotifications).reverse()[i]} 
                                                 />
-                    
+                                            <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                         </div>
-                                        <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                     </div>
-                                </div>
-                            )
-                        }) : null}
+                                )
+                            }) : null}
+                    </div>
                 </div>
             </Popover.Content>
         </Popover>
@@ -92,20 +98,20 @@ function NotificationContainer(props) {
 
     return (
         <div style={{ marginLeft: "40%" }}>
-            <OverlayTrigger 
-                trigger={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : "click"} 
-                rootClose 
-                placement="bottom" 
+            <OverlayTrigger
+                trigger={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : "click"}
+                rootClose
+                placement="bottom"
                 overlay={notificationPopover}>
-                    <img src={imageSource} 
-                        onClick={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : handleNotificationClick}
-                        alt="Notification Icon" 
-                        style={{ 
-                            width: "3rem", 
-                            height: "3rem", 
-                            cursor: "pointer" 
-                        }} 
-                    />
+                <img src={imageSource}
+                    onClick={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : handleNotificationClick}
+                    alt="Notification Icon"
+                    style={{
+                        width: "3rem",
+                        height: "3rem",
+                        cursor: "pointer"
+                    }}
+                />
             </OverlayTrigger>
             {unreadNotificationCounter !== 0 ? <Text text={unreadNotificationCounter}
                 style={{
