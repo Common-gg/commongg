@@ -11,7 +11,11 @@ function SignUpButton(props) {
           borderRadius: "10px",
           borderColor: "#BF9AFC",
           borderWidth: "2px",
-          left: "0.5rem"
+          padding: "1rem",
+          paddingTop: "0.5rem",
+          paddingBottom: "0.5rem",
+          position: "relative",
+          marginTop: "0.5rem",
       }} >
         <img src={arrow} />
       </button>
