@@ -69,18 +69,24 @@ function NotificationContainer(props) {
     const notificationPopover = (
         <Popover id="notificationPopover" style={notificationPopoverStyle}>
             <Popover.Content>
-                <div className="popover-body" style={popoverBodyStyle}>
-                    <div className="row">
-                        {allNotifications ?
-                            Object.values(allNotifications).reverse().map((notification, i) => {
-                                return (
-                                    <div style={{ width: "100%" }} key={Object.keys(allNotifications).reverse()[i]} >
-                                        {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null}
-                                        <div className="row">
-                                            <div style={{ width: "80%" }}>
-                                                <Notification getUser={props.getUser} getPost={props.getPost} notification={notification} />
-                                            </div>
-                                            <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
+              <div className="popover-body" style={popoverBodyStyle}>
+                <div className="row">
+                    {allNotifications ?
+                        Object.values(allNotifications).reverse().map((notification, i) => {
+                            return (
+                                <div style={{ width: "100%" }} key={Object.keys(allNotifications).reverse()[i]} >
+                                    {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null }
+                                    <div className="row">
+                                        <div style={{width: "80%"}}>
+                                            <Notification 
+                                                getUser={props.getUser} 
+                                                getPost={props.getPost} 
+                                                notification={notification} 
+                                                deleteNotificationHandler={deleteNotificationHandler}
+                                                id={Object.keys(allNotifications).reverse()[i]} 
+                                                />
+                                        </div>
+                                        <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                         </div>
                                     </div>
                                 )

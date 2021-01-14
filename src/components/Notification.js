@@ -8,6 +8,7 @@ function Notification(props) {
     const [linkType, setLinkType] = useState("post");
 
     useEffect(() => {
+        
         props.getUser(props.notification.userID, setUser);
     }, [])
 
@@ -29,11 +30,12 @@ function Notification(props) {
             if (props.notification.type === "comments_reaction") {
                 postType = "comments";
             }
-            props.getPost(props.notification.locationID, setText, postType);
+            props.getPost(props.notification.locationID, setText, postType, ()=>props.deleteNotificationHandler(props.id));
         }
     }
 
     function setText(post) {
+        console.log(post);
         let postTitle = "";
 
         if (props.notification.type === "comments_reaction") {
