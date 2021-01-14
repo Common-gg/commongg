@@ -85,7 +85,8 @@ function NotificationContainer(props) {
                                                 deleteNotificationHandler={deleteNotificationHandler}
                                                 id={Object.keys(allNotifications).reverse()[i]} 
                                                 />
-                                            <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
+                                        </div>
+                                        <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                         </div>
                                     </div>
                                 )
