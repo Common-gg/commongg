@@ -56,18 +56,6 @@ function TermsOfService(props) {
     return (
         <div className="Terms Of Service">
             <div>
-                <div className="row">
-                    <button type="button"
-                        className="btn"
-                        style={backButtonStyle}
-                        onClick={()=> {history.goBack();}}
-                    >
-                        <div>
-                            <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
-
-                        </div>
-                    </button>
-                </div>
                 <div style={styleCommonLogo}>
                     <img src={CommonLogoLarge} />
                 </div>
