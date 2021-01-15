@@ -51,7 +51,7 @@ function CreateCommentModal(props) {
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
-        borderWidth: "2px",
+        borderWidth: "1px",
     }
 
     function clearFields() {
