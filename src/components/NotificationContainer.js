@@ -71,24 +71,24 @@ function NotificationContainer(props) {
     const notificationPopover = (
         <Popover id="notificationPopover" style={notificationPopoverStyle}>
             <Popover.Content>
-              <div className="popover-body" style={popoverBodyStyle}>
-                <div className="row">
-                    {allNotifications ?
-                        Object.values(allNotifications).reverse().map((notification, i) => {
-                            return (
-                                <div style={{ width: "100%" }} key={Object.keys(allNotifications).reverse()[i]} >
-                                    {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null }
-                                    <div className="row">
-                                        <div style={{width: "80%"}}>
-                                            <Notification 
-                                                getUser={props.getUser} 
-                                                getPost={props.getPost} 
-                                                notification={notification} 
-                                                deleteNotificationHandler={deleteNotificationHandler}
-                                                id={Object.keys(allNotifications).reverse()[i]} 
+                <div className="popover-body" style={popoverBodyStyle}>
+                    <div className="row">
+                        {allNotifications ?
+                            Object.values(allNotifications).reverse().map((notification, i) => {
+                                return (
+                                    <div style={{ width: "100%" }} key={Object.keys(allNotifications).reverse()[i]} >
+                                        {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null}
+                                        <div className="row">
+                                            <div style={{ width: "80%" }}>
+                                                <Notification
+                                                    getUser={props.getUser}
+                                                    getPost={props.getPost}
+                                                    notification={notification}
+                                                    deleteNotificationHandler={deleteNotificationHandler}
+                                                    id={Object.keys(allNotifications).reverse()[i]}
                                                 />
-                                        </div>
-                                        <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
+                                            </div>
+                                            <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                         </div>
                                     </div>
                                 )
@@ -100,19 +100,20 @@ function NotificationContainer(props) {
     );
 
     return (
-        <div style={{ marginLeft: "40%" }}>
+        <div style={{ marginLeft: "300%", marginBottom: "30%" }}>
             <OverlayTrigger
                 trigger={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : "click"}
                 rootClose
                 placement="bottom"
                 overlay={notificationPopover}>
+
                 <img src={imageSource}
                     onClick={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : handleNotificationClick}
                     alt="Notification Icon"
                     style={{
                         width: "3rem",
                         height: "3rem",
-                        cursor: "pointer"
+                        cursor: "pointer",
                     }}
                 />
             </OverlayTrigger>

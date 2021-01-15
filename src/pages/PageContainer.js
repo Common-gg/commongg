@@ -142,12 +142,11 @@ function PageContainer(props) {
           <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>
               <NotificationContainer {...props} />
-              <div style={{ position: "absolute", bottom: "-2.5rem", right: "8rem" }}>
+              <div style={{ position: "absolute", bottom: "-2.5rem", right: "-7rem" }}>
                 <button className="btn btn-primary" onClick={() => window.scrollTo(0, 0)} style={topOfPageButtonStyle}>
                   <img src={TopOfPageImage} style={topOfPageImageStyle} />
                 </button>
               </div>
-              <Text text="ADS GO HERE TO MAKE $$ YEP" />
             </div>
           </div>
         </div>
