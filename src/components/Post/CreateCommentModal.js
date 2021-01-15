@@ -6,6 +6,7 @@ function CreateCommentModal(props) {
     const [show, setShow] = useState(false);
     const commentTextRef = useRef();
     const [commentText, setCommentText] = useState({ current: { value: "" } });
+    const [displayCommentTextLengthValidationMessage, setDisplayCommentTextLengthValidationMessage] = useState(false);
 
     useEffect(() => {
         //if parent want the modal to show directly do it
@@ -53,9 +54,16 @@ function CreateCommentModal(props) {
     function clearFields() {
         commentTextRef.current.value = "";
         setShow(false);
+        setDisplayCommentTextLengthValidationMessage(false);
     }
 
     function handleCommentClick() {
+        let commentTextCurrentValue = commentText.current.value;
+
+        if ((commentTextCurrentValue !== undefined) && (commentTextCurrentValue !== null) && (commentTextCurrentValue.length > 1000)) {
+            setDisplayCommentTextLengthValidationMessage(true);
+            return;
+        }
         createComment();
     }
 
@@ -82,6 +90,10 @@ function CreateCommentModal(props) {
             </button>
             <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
                 <div className="modal-content" style={modalContentStyle}>
+                    {displayCommentTextLengthValidationMessage ?
+                        <p style={{ color: "#F34D4D" }}>
+                            The length of your comment cannot exceed 1000 characters
+                        </p> : null}
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
@@ -95,6 +107,7 @@ function CreateCommentModal(props) {
                         placeholder="type your comment here..."
                         rows="5"
                         style={textAreaStyle}
+                        maxLength="1000"
                     />
                     <div style={{ display: "flex" }}>
                         <button type="button" className="btn btn-primary" onClick={() => handleCommentClick()} data-dismiss="modal" style={commentButtonStyle}>Comment</button>
