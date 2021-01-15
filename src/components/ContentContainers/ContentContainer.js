@@ -14,6 +14,13 @@ import ModUsersContainer from './ModUsersContainer.js';
 function ContentContainer(props) {
   const [pageState, setPageState] = useState("editgames");
   const [pageId, setPageId] = useState();
+  const [modLevel, setModLevel] = useState(0);
+
+  useEffect(() => {
+    if (props.currentUserInfo.moderationLevel) {
+      setModLevel(props.currentUserInfo.moderationLevel);
+    }
+  }, []);
 
   useEffect(() => {
     if (props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
@@ -50,13 +57,13 @@ function ContentContainer(props) {
     case "":
       return <FeedContainer {...props} />;
     case "following":
-        return <FollowingContainer {...props}/>;
+      return <FollowingContainer {...props} />;
     case "games":
       return <GameFeedContainer {...props} pageId={pageId} />;
-      case "moderateposts":
-        return <ModPostsContainer {...props} />;
-      case "moderateusers":
-      return <ModUsersContainer {...props} />;
+    case "moderateposts":
+      return modLevel > 0 ? <ModPostsContainer {...props} /> : <PageNotFound />;
+    case "moderateusers":
+      return modLevel > 0 ? <ModUsersContainer {...props} />: <PageNotFound />;
     default:
       return <PageNotFound />;
   }
