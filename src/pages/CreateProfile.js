@@ -70,7 +70,12 @@ function CreateProfile(props) {
       if (existsUser === true) {
         setFailedExists(true);
       } else {
-        props.storeBlob(displayName.current.value, img, "");
+        if (img === blankPfp) {
+          props.storeUserProfile(displayName.current.value, blankPfp, "");
+        }
+        else {
+          props.storeBlob(displayName.current.value, img, "");
+        }
       }
     })
   }
@@ -131,11 +136,7 @@ function CreateProfile(props) {
         <h4 style={{ marginTop: "2rem" }}>create your profile</h4>
         <span style={{ marginTop: "2rem" }}>pick a username</span>
         <Input style={inputStyle}
-        maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
-        {failedExists ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username already in use</p> : null}
-        {failedSpace ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username can't contain space</p> : null}
-        {failedProfane ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username contains profanity</p> : null}
-        {failedLength ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username is too short</p> : null}
+          maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
         {displayImageTypeValidationMessage ? <p style={validationMessageStyle}>image type must be png, jpeg, or jpg</p> : null}
         {displayInputValidationText ? <p style={validationMessageStyle}>username length cannot exceed 30 characters</p> : null}
         {failedExists ? <p style={validationMessageStyle}>username already in use</p> : null}
@@ -151,8 +152,6 @@ function CreateProfile(props) {
         </button>
       </div>
     </div>
-
-
   );
 }
 

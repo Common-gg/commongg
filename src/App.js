@@ -10,11 +10,9 @@ import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
 import CommonChat from "./images/games/Common Chat.png";
 import defaultPfp from "./images/icons/empty-pfp-1.png";
 import ForgotPassword from './pages/ForgotPassword.js';
-import ChangePassword from './pages/ChangePassword.js';
+import ActionHandler from "./pages/ActionHandler.js";
 import TermsOfService from './pages/TermsOfService.js';
-import VerifyEmail from './pages/VerifyEmail.js';
 import ReminderVerifyEmail from './pages/ReminderVerifyEmail.js';
-import { data } from 'jquery';
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -391,7 +389,7 @@ function App() {
         const userData = snapshot.val();
         //if it's not null, there is some user with the username 
         if (userData !== null) {
-          return resolve({ ...userData});
+          return resolve({ ...userData });
         } else {
           return resolve(null);
         }
@@ -721,23 +719,23 @@ function App() {
   }
 
   const setModerationLevel = (userId, level) => {
-    database.ref('/users/' + userId).update({moderationLevel: level});
+    database.ref('/users/' + userId).update({ moderationLevel: level });
   }
 
   const verifyUser = (userId, verified) => {
-    database.ref('/users/' + userId).update({verified: verified});
+    database.ref('/users/' + userId).update({ verified: verified });
   }
 
   const report = (type, id) => {
-    database.ref('/' + type + '/' + id).update({reported: true, reports: firebase.database.ServerValue.increment(1)});
+    database.ref('/' + type + '/' + id).update({ reported: true, reports: firebase.database.ServerValue.increment(1) });
   }
 
   const clearReports = (type, id) => {
-    database.ref('/' + type + '/' + id).update({reported: false, reports: 0});
+    database.ref('/' + type + '/' + id).update({ reported: false, reports: 0 });
   }
 
   const resetPfp = (userId) => {
-    database.ref('/users/' + userId).update({profile_picture: defaultPfp});
+    database.ref('/users/' + userId).update({ profile_picture: defaultPfp });
   }
 
   const getReportedUsers = (callback) => {
@@ -759,27 +757,23 @@ function App() {
             (props) => (
               <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
-          <Route path="/verifyemail" render={
+          <Route path="/actions/" render={
             (props) => (
-              <VerifyEmail handleVerifyEmail={handleVerifyEmail} />
+              <ActionHandler handleVerifyEmail={handleVerifyEmail} handleResetPassword={handleResetPassword} />
             )} />
           <Route path="/forgotpassword" render={
             (props) => (
               <ForgotPassword resetPasswordEmail={resetPasswordEmail} />
-            )} />
-          <Route path="/changepassword" render={
-            (props) => (
-              <ChangePassword handleResetPassword={handleResetPassword} />
-            )} />
-          <Route path="/" render={
-            (props) => (
-              <Login signInUser={signInUser} />
             )} />
           <Route path="/termsofservice" render={
             (props) => (
               <TermsOfService />
             )}
           />
+          <Route path="/" render={
+            (props) => (
+              <Login signInUser={signInUser} />
+            )} />
         </Switch>
       </Router>
     )
@@ -787,10 +781,9 @@ function App() {
     return (
       <Router>
         <Switch>
-          {console.log(auth.currentUser.emailVerified)}
-          <Route path="/verifyemail" render={
+          <Route path="/actions" render={
             (props) => (
-              <VerifyEmail handleVerifyEmail={handleVerifyEmail} />
+              <ActionHandler handleVerifyEmail={handleVerifyEmail} handleResetPassword={handleResetPassword} />
             )} />
           <Route path="/" render={
             (props) => (
@@ -806,7 +799,7 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <CreateProfile existsUsername={existsUsername} storeBlob={storeBlob} />
+              <CreateProfile storeUserProfile={storeUserProfile} existsUsername={existsUsername} storeBlob={storeBlob} />
             )} />
         </Switch>
       </Router>
