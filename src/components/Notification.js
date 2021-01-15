@@ -35,7 +35,6 @@ function Notification(props) {
     }
 
     function setText(post) {
-        console.log(post);
         let postTitle = "";
 
         if (props.notification.type === "comments_reaction") {
@@ -48,7 +47,6 @@ function Notification(props) {
         if (props.notification.type === "comment") {
             setNotificationText(` commented on your post \"${postTitle}\"`)
         } else if (props.notification.type === "followed") {
-
             setLinkType("profile");
             setNotificationText(` followed you!`)
         } else if (props.notification.type === "posts_reaction") {

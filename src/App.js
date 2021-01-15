@@ -648,6 +648,7 @@ function App() {
     const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
     postRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) return callback(snapshot.val());
+      if (snapshot.val() === null) return callback({});
     });
   }
 
