@@ -17,6 +17,8 @@ function SettingsContainer(props) {
   const [errorString, setErrorString] = useState("");
   const [updateButtonText, setUpdateButtonText] = useState("update");
   const [displayMaxLengthMessage, setDisplayMaxLengthMessage] = useState(false);
+  const [imageType, setImageType] = useState(false);
+  const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -24,6 +26,8 @@ function SettingsContainer(props) {
     setSelectedFile({ current: { value: props.currentUserInfo.profile_picture } });
     setLoadChangePasswordFields(false);
     setPasswordChangeIsSuccessful(false);
+    setImageType(false);
+    setDisplayImageTypeValidationMessage(false);
   }, []);
 
   useEffect(() => {
@@ -78,6 +82,14 @@ function SettingsContainer(props) {
 
     aboutMe = aboutMeRef.current.value;
 
+
+    if ((imageType === "image/jpeg") || (imageType === "image/jpg") || (imageType === "image/png")) {
+      setDisplayImageTypeValidationMessage(false);
+    }
+    else {
+      setDisplayImageTypeValidationMessage(true);
+      return;
+    }
     if (aboutMe.length > 250) {
       setDisplayMaxLengthMessage(true);
       return;
@@ -154,7 +166,7 @@ function SettingsContainer(props) {
           <h2 className="text-center" style={{ color: "#BF9AFC" }}>edit profile</h2>
           <div style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
-              currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} changedInfo={changedInfo} />
+              currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} changedInfo={changedInfo} setImageType={setImageType} />
             <label htmlFor="fileInput"
               className="btn"
               style={{
@@ -174,6 +186,10 @@ function SettingsContainer(props) {
         {displayMaxLengthMessage ?
           <p style={{ color: "#F34D4D" }}>
             Profile about me cannot exceed 250 characters
+          </p> : null}
+        {displayImageTypeValidationMessage ?
+          <p style={{ color: "#F34D4D" }}>
+            image type must be png, jpeg, or jpg
           </p> : null}
       </div>
       <div className="row">
