@@ -10,6 +10,7 @@ import YoutubeEmbed from './YoutubeEmbed.js';
 import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 import ArrowLeft from "../../images/icons/arrowleft 1.png";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 
 function Post(props) {
@@ -22,8 +23,10 @@ function Post(props) {
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
-    if (props.post.text.length <= 500) {
-      setExpand(true);
+    if (props.post.text !== undefined) {
+      if (props.post.text.length <= 500) {
+        setExpand(true);
+      }
     }
   }, [props.post]);
 
@@ -91,22 +94,22 @@ function Post(props) {
 
   function checkOptions() {
     let modLvl;
-        if (!props.currentUserInfo.moderationLevel) {
-            modLvl = 0;
-        } else {
-            modLvl = props.currentUserInfo.moderationLevel;
-        }
+    if (!props.currentUserInfo.moderationLevel) {
+      modLvl = 0;
+    } else {
+      modLvl = props.currentUserInfo.moderationLevel;
+    }
     return (
       <div>
         <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
           <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
         </div>
         <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null }
-            <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-            <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.pageId)} style={{ cursor: "pointer" }}>Report Post</p>
-            {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}
-         </div>
+          {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
+          <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
+          <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p>
+          {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}
+        </div>
       </div>
     )
   }
@@ -287,21 +290,25 @@ function Post(props) {
 
   const checkExpandText = () => {
     if (expand === false) {
-      let str = props.post.text.substring(0, 500);
-      return (str += "...");
+      if (props.post.text !== undefined) {
+        let str = props.post.text.substring(0, 500);
+        return (str += "...");
+      }
     } else {
       return (props.post.text);
     }
   }
 
   const checkExpandButton = () => {
-    if (props.post.text.length > 500) {
-      if (expand === false) {
-        return (
-          <button onClick={toggleExpand} style={expandButtonStyle}>
-            expand
-          </button>
-        )
+    if (props.post.text !== undefined) {
+      if (props.post.text.length > 500) {
+        if (expand === false) {
+          return (
+            <button onClick={toggleExpand} style={expandButtonStyle}>
+              expand
+            </button>
+          )
+        }
       }
     }
   }
