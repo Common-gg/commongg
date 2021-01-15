@@ -4,10 +4,10 @@ import logo from "../images/icons/logo1light.png";
 function ReminderVerifyEmail(props) {
 
     const logoCSS = {
-        width: "100px",
-        height: "99.01px",
-        left: "393px",
-        top: "179px"
+        width: "4.5rem",
+        height: "auto",
+        marginBottom: "20px",
+        marginTop: "20px"
     }
     const buttonStyle = {
         backgroundColor: "transparent",
@@ -17,7 +17,8 @@ function ReminderVerifyEmail(props) {
         borderColor: "#BF9AFC",
         borderWidth: "2px",
         position: "relative",
-        left: "1rem"
+        left: "1rem",
+        textAlign: "center"
     }
 
     function handleResendVerifyEmailClick() {
@@ -39,10 +40,10 @@ function ReminderVerifyEmail(props) {
                     <div className="mx-auto">
                         <img style={logoCSS} className="mx-auto" src={logo} />
                         <br /><br />
-                        <p>Please verify your email</p>
+                        <p>please verify your email</p>
                         <div style={{ pointerEvents: "none" }}></div>
-                        <button className="btn btn-info" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
-                            re-send verify email
+                        <button className="btn btn-info mx-auto" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
+                            re-send email
                         </button>
                         <div className="form-group" >
                         </div>

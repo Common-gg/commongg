@@ -83,6 +83,36 @@ function CreateProfile(props) {
     top: "calc(50% - 216px/2 + 91px)",
   }
 
+  const buttonStyle = {
+    marginBottom: "20px",
+    padding: "0.4rem",
+    backgroundColor: "transparent",
+    color: "#BF9AFC",
+    border: "solid",
+    borderRadius: "10px",
+    borderColor: "#BF9AFC",
+    borderWidth: "2px",
+    maxWidth: "15%",
+    position: "relative",
+    left: "10rem",
+    marginTop: "1rem",
+    marginBottom: "2.7rem"
+  }
+
+  const inputStyle = {
+    backgroundColor: "transparent #292833",
+    color: "#BF9AFC text-center",
+    border: "solid",
+    borderColor: "#BF9AFC",
+    backgroundColor: "#292833",
+    borderRadius: "2px",
+    borderWidth: "1px",
+    padding: "0.3rem",
+    width: "50%",
+    height: "95%",
+    marginLeft: "25%",
+    marginTop: "1.1rem"
+  }
   const validationMessageStyle = {
     color: "#F34D4D", marginTop: "1rem"
   };
@@ -100,46 +130,22 @@ function CreateProfile(props) {
         <br />
         <h4 style={{ marginTop: "2rem" }}>create your profile</h4>
         <span style={{ marginTop: "2rem" }}>pick a username</span>
-        <Input
-          style={{
-            backgroundColor: "transparent #292833",
-            color: "#BF9AFC text-center",
-            border: "solid",
-            borderColor: "#BF9AFC",
-            backgroundColor: "#292833",
-            borderRadius: "2px",
-            borderWidth: "1px",
-            padding: "0.3rem",
-            width: "50%",
-            height: "95%",
-            marginLeft: "25%",
-            marginTop: "1.1rem"
-          }}
-          bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
+        <Input style={inputStyle}
+        maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
+        {failedExists ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username already in use</p> : null}
+        {failedSpace ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username can't contain space</p> : null}
+        {failedProfane ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username contains profanity</p> : null}
+        {failedLength ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username is too short</p> : null}
         {displayImageTypeValidationMessage ? <p style={validationMessageStyle}>image type must be png, jpeg, or jpg</p> : null}
         {displayInputValidationText ? <p style={validationMessageStyle}>username length cannot exceed 30 characters</p> : null}
         {failedExists ? <p style={validationMessageStyle}>username already in use</p> : null}
         {failedSpace ? <p style={validationMessageStyle}>username can't contain space</p> : null}
         {failedProfane ? <p style={validationMessageStyle}>username contains profanity</p> : null}
         {failedLength ? <p style={validationMessageStyle}>username is too short</p> : null}
-        <span style={{ marginTop: "3rem" }}>Add a Profile Picture</span>
+        <span style={{ marginTop: "2.5rem" }}>add a profile picture</span>
         <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => { }} setImageType={setImageType} />
         <button type="submit" className="btn"
-          style={{
-            marginBottom: "20px",
-            padding: "0.4rem",
-            backgroundColor: "transparent",
-            color: "#BF9AFC",
-            border: "solid",
-            borderRadius: "10px",
-            borderColor: "#BF9AFC",
-            borderWidth: "2px",
-            maxWidth: "15%",
-            position: "relative",
-            left: "10rem",
-            marginTop: "1rem",
-            marginBottom: "2.7rem"
-          }}
+          style={buttonStyle}
           onClick={handleSubmit}>
           <img src={arrow} />
         </button>
