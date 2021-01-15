@@ -16,6 +16,7 @@ function SettingsContainer(props) {
   const [loadChangePasswordFields, setLoadChangePasswordFields] = useState(null);
   const [errorString, setErrorString] = useState("");
   const [updateButtonText, setUpdateButtonText] = useState("update");
+  const [displayMaxLengthMessage, setDisplayMaxLengthMessage] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -76,6 +77,11 @@ function SettingsContainer(props) {
     let profilePictureUpdated = false;
 
     aboutMe = aboutMeRef.current.value;
+
+    if (aboutMe.length > 250) {
+      setDisplayMaxLengthMessage(true);
+      return;
+    }
     //if selected doesn't have current it means it loaded from setImage
     if (selectedFile.current === undefined) {
       profilePictureUpdated = true;
@@ -87,6 +93,7 @@ function SettingsContainer(props) {
       props.storeUserAboutMe(aboutMe);
     }
     setUpdateButtonText("saved");
+    setDisplayMaxLengthMessage(false);
   }
 
   const changedInfo = () => {
@@ -163,6 +170,12 @@ function SettingsContainer(props) {
           </div>
         </div>
       </div>
+      <div className="d-flex justify-content-center">
+        {displayMaxLengthMessage ?
+          <p style={{ color: "#F34D4D" }}>
+            Profile about me cannot exceed 250 characters
+          </p> : null}
+      </div>
       <div className="row">
         <div className="col-1"></div>
         <form className="col-10">
@@ -171,7 +184,7 @@ function SettingsContainer(props) {
               rows="3"
               id="formControlTextarea1"
               placeholder="About me..."
-              maxLength="150"
+              maxLength="250"
               ref={aboutMeRef}
               onClick={changedInfo}
               style={{
