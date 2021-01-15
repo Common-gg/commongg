@@ -117,6 +117,12 @@ function NavigationBar(props) {
             <Link to="/settings" style={linkStyle}>
                 <p style={pageState === "settings" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> settings</p>
             </Link>
+            <Link to="/moderateposts" style={linkStyle}>
+                <p style={pageState === "moderateposts" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate posts</p>
+            </Link>
+            <Link to="/moderateusers" style={linkStyle}>
+                <p style={pageState === "moderateusers" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate users</p>
+            </Link>
         </div>
     );
 }

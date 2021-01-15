@@ -8,11 +8,13 @@ import PageContainer from './pages/PageContainer';
 import firebase from "firebase/app";
 import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
 import CommonChat from "./images/games/Common Chat.png";
+import defaultPfp from "./images/icons/empty-pfp-1.png";
 import ForgotPassword from './pages/ForgotPassword.js';
 import ChangePassword from './pages/ChangePassword.js';
 import TermsOfService from './pages/TermsOfService.js';
 import VerifyEmail from './pages/VerifyEmail.js';
 import ReminderVerifyEmail from './pages/ReminderVerifyEmail.js';
+import { data } from 'jquery';
 
 const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
@@ -684,6 +686,35 @@ function App() {
     });
   }
 
+  const setModerationLevel = (userId, level) => {
+    database.ref('/users/' + userId).update({moderationLevel: level});
+  }
+
+  const verifyUser = (userId, verified) => {
+    database.ref('/users/' + userId).update({verified: verified});
+  }
+
+  const report = (type, id) => {
+    database.ref('/' + type + '/' + id).update({reported: true, reports: firebase.database.ServerValue.increment(1)});
+  }
+
+  const clearReports = (type, id) => {
+    database.ref('/' + type + '/' + id).update({reported: false, reports: 0});
+  }
+
+  const resetPfp = (userId) => {
+    database.ref('/users/' + userId).update({profile_picture: defaultPfp});
+  }
+
+  const getReportedUsers = (callback) => {
+    const usersRef = database.ref('/users/').orderByChild("reported").equalTo(true);
+    usersRef.once('value', function (snapshot) {
+      if (snapshot.val() != null) {
+        return callback(snapshot.val());
+      }
+    })
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -795,6 +826,13 @@ function App() {
                   addNotification={addNotification}
                   readNotifications={readNotifications}
                   firebaseTimeStamp={firebaseTimeStamp}
+
+                  setModerationLevel={setModerationLevel}
+                  report={report}
+                  clearReports={clearReports}
+                  verifyUser={verifyUser}
+                  resetPfp={resetPfp}
+                  getReportedUsers={getReportedUsers}
                 />
               </div>
             )} />
