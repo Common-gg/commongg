@@ -1,5 +1,6 @@
 import React from 'react';
 import ProfilePicture from './ProfilePicture.js';
+import { Link } from "react-router-dom";
 import optionsIcon from '../images/icons/options.png';
 import check from "../images/icons/followingcheck-1.png";
 
@@ -39,23 +40,25 @@ function UserCard(props) {
       paddingLeft: '20px',
       paddingRight: '20px'
     }}>
-      <ProfilePicture
-        currentUserInfo={props.user}
-        width="115px"
-        height="115px"
-        onclick="enlargeImg"
-        style={{ boxShadow: "1px 1px 1px 1px #171421" }}
-        setProfilePictureImage={props.setProfilePictureImage} />
-      <span style={{ paddingLeft: "10px", fontSize: "2rem" }}>
-        {props.user.username + " "}
-        {props.user.verified ?
-          <img src={check} alt={props.user.username + "verified"}
-            style={{
-              width: "1.8rem",
-              height: "1.8rem",
-            }} />
-          : null}
-      </span>
+      <Link to={"/profile/" + props.user.username}>
+        <ProfilePicture
+          currentUserInfo={props.user}
+          width="115px"
+          height="115px"
+          onclick="enlargeImg"
+          style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+          setProfilePictureImage={props.setProfilePictureImage} />
+        <span style={{ paddingLeft: "10px", fontSize: "2rem" }}>
+          {props.user.username + " "}
+          {props.user.verified ?
+            <img src={check} alt={props.user.username + "verified"}
+              style={{
+                width: "1.8rem",
+                height: "1.8rem",
+              }} />
+            : null}
+        </span>
+      </Link>
       <div className="ml-auto pr-3 dropdown">
         {checkOptions()}
       </div>
