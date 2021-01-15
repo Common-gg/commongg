@@ -80,18 +80,18 @@ function NavigationBar(props) {
 
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
-            <Link to={"/profile/" + props.currentUserId} style={linkStyle}>
-                <p style={pageState === "profile" ? selectedStyle : null}>
-                    <img src={props.currentUserInfo.profile_picture}
-                        alt={""}
-                        style={{
-                            borderRadius: "50%",
-                            width: "30px",
-                            height: "30px",
-                            marginRight: ".75rem"
-                        }}
-                        className="img">
-                    </img> profile</p>
+            <Link to={"/profile/" + props.currentUserInfo.username} style={linkStyle}>
+                <p style={pageState === "profile" ? selectedStyle : null}><img
+                    src={props.currentUserInfo.profile_picture}
+                    alt={""}
+                    style={{
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                        marginRight: ".75rem"
+                    }}
+                    className="img">
+                </img> profile</p>
             </Link>
 
             <Link to="/" style={linkStyle}>
@@ -118,6 +118,12 @@ function NavigationBar(props) {
             </a>
             <Link to="/settings" style={linkStyle}>
                 <p style={pageState === "settings" ? selectedStyle : null}><img src={pageState === "settings" ? whitesetting:setting} style={iconStyle} alt="" /> settings</p>
+            </Link>
+            <Link to="/moderateposts" style={linkStyle}>
+                <p style={pageState === "moderateposts" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate posts</p>
+            </Link>
+            <Link to="/moderateusers" style={linkStyle}>
+                <p style={pageState === "moderateusers" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate users</p>
             </Link>
         </div>
     );

@@ -64,7 +64,7 @@ function Notification(props) {
                 style={{ color: '#BF9AFC', fontSize: '.7rem', paddingLeft: "1.8rem", paddingRight: ".2rem" }}
             />
             <div style={{ fontSize: '.9rem', paddingLeft: "1.8rem", paddingRight: ".2rem" }}>
-                <Link to={`/profile/${props.notification.userID}`}>{user.username}</Link>
+                <Link to={`/profile/${user.username.toLowerCase()}`}>{user.username}</Link>
                 <span style={{ color: '#BF9AFC' }}>
                     {notificationText}
                 </span>

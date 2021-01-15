@@ -16,6 +16,9 @@ function SettingsContainer(props) {
   const [loadChangePasswordFields, setLoadChangePasswordFields] = useState(null);
   const [errorString, setErrorString] = useState("");
   const [updateButtonText, setUpdateButtonText] = useState("update");
+  const [displayMaxLengthMessage, setDisplayMaxLengthMessage] = useState(false);
+  const [imageType, setImageType] = useState(false);
+  const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -23,6 +26,8 @@ function SettingsContainer(props) {
     setSelectedFile({ current: { value: props.currentUserInfo.profile_picture } });
     setLoadChangePasswordFields(false);
     setPasswordChangeIsSuccessful(false);
+    setImageType(false);
+    setDisplayImageTypeValidationMessage(false);
   }, []);
 
   useEffect(() => {
@@ -76,6 +81,19 @@ function SettingsContainer(props) {
     let profilePictureUpdated = false;
 
     aboutMe = aboutMeRef.current.value;
+
+
+    if ((imageType === "image/jpeg") || (imageType === "image/jpg") || (imageType === "image/png")) {
+      setDisplayImageTypeValidationMessage(false);
+    }
+    else {
+      setDisplayImageTypeValidationMessage(true);
+      return;
+    }
+    if (aboutMe.length > 250) {
+      setDisplayMaxLengthMessage(true);
+      return;
+    }
     //if selected doesn't have current it means it loaded from setImage
     if (selectedFile.current === undefined) {
       profilePictureUpdated = true;
@@ -87,6 +105,7 @@ function SettingsContainer(props) {
       props.storeUserAboutMe(aboutMe);
     }
     setUpdateButtonText("saved");
+    setDisplayMaxLengthMessage(false);
   }
 
   const changedInfo = () => {
@@ -147,7 +166,7 @@ function SettingsContainer(props) {
           <h2 className="text-center" style={{ color: "#BF9AFC" }}>edit profile</h2>
           <div style={{ cursor: "pointer" }}>
             <DisplayImage type="profileImage" id="fileInput"
-              currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} changedInfo={changedInfo} />
+              currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} changedInfo={changedInfo} setImageType={setImageType} />
             <label htmlFor="fileInput"
               className="btn"
               style={{
@@ -163,6 +182,16 @@ function SettingsContainer(props) {
           </div>
         </div>
       </div>
+      <div className="d-flex justify-content-center">
+        {displayMaxLengthMessage ?
+          <p style={{ color: "#F34D4D" }}>
+            Profile about me cannot exceed 250 characters
+          </p> : null}
+        {displayImageTypeValidationMessage ?
+          <p style={{ color: "#F34D4D" }}>
+            image type must be png, jpeg, or jpg
+          </p> : null}
+      </div>
       <div className="row">
         <div className="col-1"></div>
         <form className="col-10">
@@ -171,7 +200,7 @@ function SettingsContainer(props) {
               rows="3"
               id="formControlTextarea1"
               placeholder="About me..."
-              maxLength="150"
+              maxLength="250"
               ref={aboutMeRef}
               onClick={changedInfo}
               style={{

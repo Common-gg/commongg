@@ -7,6 +7,9 @@ import SettingsContainer from './SettingsContainer.js';
 import GamesContainer from './GamesContainer.js';
 import PageNotFound from './PageNotFound.js';
 import GameFeedContainer from './GameFeedContainer.js';
+import ModPostsContainer from './ModPostsContainer.js';
+import ModUsersContainer from './ModUsersContainer.js';
+
 
 function ContentContainer(props) {
   const [pageState, setPageState] = useState("editgames");
@@ -37,7 +40,7 @@ function ContentContainer(props) {
 
   switch (pageState) {
     case "profile":
-      return <ProfileContainer {...props} pageId={pageId} />;
+      return <ProfileContainer {...props} username={pageId} />;
     case "post":
       return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} />;
     case "settings":
@@ -50,6 +53,10 @@ function ContentContainer(props) {
         return <FollowingContainer {...props}/>;
     case "games":
       return <GameFeedContainer {...props} pageId={pageId} />;
+      case "moderateposts":
+        return <ModPostsContainer {...props} />;
+      case "moderateusers":
+      return <ModUsersContainer {...props} />;
     default:
       return <PageNotFound />;
   }
