@@ -68,6 +68,13 @@ function Post(props) {
     }
   }
 
+  //prevent default of of clicking link
+  function handleLinkClick(e, url) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open(url,url);
+  }
+
   //create maping of emote with a list of the users who reacted
   function reactionMap() {
     let map = new Map();
@@ -386,7 +393,7 @@ function Post(props) {
                 </Link>
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-                <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
+                <div onClick={e => {handleLinkClick(e, decoratedHref)}} key={key} style={{ color: "#BF9AFC" }}>
                   {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>, <ReactTinyLink
                     cardSize="large"
                     showGraphic={true}
@@ -394,7 +401,7 @@ function Post(props) {
                     minLine={1}
                     url={decoratedHref}
                   />)}
-                </a>
+                </div>
               )}>
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
