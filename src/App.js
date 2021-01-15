@@ -787,7 +787,7 @@ function App() {
             )} />
           <Route path="/" render={
             (props) => (
-              <ReminderVerifyEmail sendVerifyEmail={sendVerifyEmail} />
+              <ReminderVerifyEmail sendVerifyEmail={sendVerifyEmail} signOut={signOut} />
             )
           } />
         </Switch>

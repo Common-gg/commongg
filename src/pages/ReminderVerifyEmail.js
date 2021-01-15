@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import logo from "../images/icons/logo1light.png";
+import { Link } from "react-router-dom";
 
 function ReminderVerifyEmail(props) {
 
@@ -23,6 +24,10 @@ function ReminderVerifyEmail(props) {
 
     function handleResendVerifyEmailClick() {
         props.sendVerifyEmail();
+    }
+    const linkStyle = {
+        color: "#BF9AFC",
+        textDecoration: "underline"
     }
 
     return (
@@ -50,6 +55,11 @@ function ReminderVerifyEmail(props) {
                     </div>
                     <br />
                 </div>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: "-10rem" }}>
+                < Link to="/" style={linkStyle} >
+                    <br /><a onClick={() => props.signOut()}>sign out</a> <br />
+                </Link>
             </div>
         </div>
     );
