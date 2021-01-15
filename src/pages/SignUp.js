@@ -19,6 +19,12 @@ function SignUp(props) {
   const [agreeToTos, setAgreeToTos] = useState(true);
 
   const signUp = () => {
+    if (tosCheckbox === false) {
+      setAgreeToTos(false);
+      return;
+    } else {
+      setAgreeToTos(true);
+    }
     if ((email !== undefined && email.current.value !== "") && (password !== undefined && password.current.value !== "")) {
       setMissing(false);
       //email already in use
@@ -42,12 +48,6 @@ function SignUp(props) {
       if (failedEmail === 0 && failedPassword === false) {
         props.signUpUser(email.current.value, password.current.value);
       }
-
-      if(tosCheckbox === false){
-        setAgreeToTos(false);
-      } else {
-        setAgreeToTos(true);
-      }
     } else {
       setMissing(true);
     }
@@ -70,17 +70,17 @@ function SignUp(props) {
       return (
         <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
       )
-    } 
-    
-    if (agreeToTos === false){
+    }
+
+    if (agreeToTos === false) {
       return (
         <p style={{ color: "#F34D4D" }}>must agree with the Terms of Service before signing up</p>
       )
     }
   }
 
-  function handleChecked() {
-    setTosCheckbox(!tosCheckbox);
+  function handleChecked(e) {
+    setTosCheckbox(e.target.checked);
     setShowTosModal(false);
   }
 
@@ -133,9 +133,9 @@ function SignUp(props) {
   }
   const history = useHistory();
   const imageBackButtonStyle = {
-      width: "40px",
-      height: "45px",
-      paddingRight: ".5rem"
+    width: "40px",
+    height: "45px",
+    paddingRight: ".5rem"
   };
   const backButtonStyle = {
     backgroundColor: "transparent",
@@ -154,10 +154,10 @@ function SignUp(props) {
             <button type="button"
               className="btn"
               style={backButtonStyle}
-              onClick={()=> {history.goBack(); setShowTosModal(false);}}
+              onClick={() => { history.goBack(); setShowTosModal(false); }}
             >
               <div>
-                  <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
+                <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
               </div>
             </button>
           </div>
@@ -205,10 +205,10 @@ function SignUp(props) {
             </div>
           </div>
           <div className="d-flex justify-content-center text-center">
-            
+
             <Form.Group controlId="tosCheckBox">
-              <Form.Check onChange={handleChecked} type="checkbox" label="I accept the " />
-              <a href="#" onClick={showTosModalTrue} style={{textDecoration:"underline"}}>
+              <Form.Check onChange={(e) => handleChecked(e)} type="checkbox" label="I accept the " />
+              <a href="#" onClick={showTosModalTrue} style={{ textDecoration: "underline" }}>
                 Terms Of Service
               </a>
             </Form.Group>
