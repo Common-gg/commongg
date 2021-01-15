@@ -20,6 +20,13 @@ function NavigationBar(props) {
     const [gamesArr, setGamesArr] = useState([{ title: " " }]);
     const [pageState, setPageState] = useState("editgames");
     const [pageId, setPageId] = useState();
+    const [modLevel, setModLevel] = useState(0);
+
+    useEffect(() => {
+        if (props.currentUserInfo.moderationLevel) {
+            setModLevel(props.currentUserInfo.moderationLevel);
+        }
+    }, []);
 
     useEffect(() => {
         if (props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
@@ -95,11 +102,11 @@ function NavigationBar(props) {
             </Link>
 
             <Link to="/" style={linkStyle}>
-                <p style={pageState === "" ? selectedStyle : null}><img src={pageState === "" ? whitehome:home} style={iconStyle} alt="" /> home</p>
+                <p style={pageState === "" ? selectedStyle : null}><img src={pageState === "" ? whitehome : home} style={iconStyle} alt="" /> home</p>
             </Link>
 
             {<Link to="/following" style={linkStyle}>
-                <p style={pageState === "following" ? selectedStyle : null}><img src={pageState === "following" ? whitefollow:follow} style={iconStyle} alt="" /> following</p>
+                <p style={pageState === "following" ? selectedStyle : null}><img src={pageState === "following" ? whitefollow : follow} style={iconStyle} alt="" /> following</p>
             </Link>
             /*<Link to="/trending" style={linkStyle}>
                 <p style={pageState === "trending" ? selectedStyle : null}><img src={pageState === "trending" ? whitetrend:trend} style={iconStyle} alt="" /> trending</p>
@@ -117,14 +124,18 @@ function NavigationBar(props) {
                     <img src={editGame} style={iconStyle}></img>edit games</p>
             </a>
             <Link to="/settings" style={linkStyle}>
-                <p style={pageState === "settings" ? selectedStyle : null}><img src={pageState === "settings" ? whitesetting:setting} style={iconStyle} alt="" /> settings</p>
+                <p style={pageState === "settings" ? selectedStyle : null}><img src={pageState === "settings" ? whitesetting : setting} style={iconStyle} alt="" /> settings</p>
             </Link>
-            <Link to="/moderateposts" style={linkStyle}>
-                <p style={pageState === "moderateposts" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate posts</p>
-            </Link>
-            <Link to="/moderateusers" style={linkStyle}>
-                <p style={pageState === "moderateusers" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate users</p>
-            </Link>
+            {modLevel > 0 ? 
+                <Link to="/moderateposts" style={linkStyle}>
+                    <p style={pageState === "moderateposts" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate posts</p>
+                </Link> 
+            : null}
+            {modLevel > 0 ?
+                <Link to="/moderateusers" style={linkStyle}>
+                    <p style={pageState === "moderateusers" ? selectedStyle : null}><img src={setting} style={iconStyle} alt="" /> moderate users</p>
+                </Link>
+            : null}
         </div>
     );
 }
