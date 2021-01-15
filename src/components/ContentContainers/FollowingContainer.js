@@ -16,8 +16,10 @@ function FeedContainer(props) {
         setAllGames={props.setAllGames}
       />
       <br />
+      {props.currentUserInfo.following !== undefined ? 
       <FeedType {...props} filter={"CAPTION_TEXT"} sort={"caption"} postRefresh={postRefresh} clientFilter={true}
         setModalImage={props.setModalImage} />
+      : null}
     </div>
   );
 }
