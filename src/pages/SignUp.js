@@ -5,15 +5,18 @@ import logo from "../images/icons/logo1light.png";
 import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
 import { Modal, Form } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import ArrowLeft from "../images/icons/arrowleft 1.png"
 
 function SignUp(props) {
   const [email, setEmail] = useState();
-  const [showTosModal, setShowTosModal] = useState(true);
+  const [showTosModal, setShowTosModal] = useState(false);
   const [password, setPassword] = useState();
   const [failedPassword, setFailedPassword] = useState(false);
   const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
   const [missing, setMissing] = useState(false);
   const [tosCheckbox, setTosCheckbox] = useState(false);
+  const [agreeToTos, setAgreeToTos] = useState(true);
 
   const signUp = () => {
     if ((email !== undefined && email.current.value !== "") && (password !== undefined && password.current.value !== "")) {
@@ -39,6 +42,12 @@ function SignUp(props) {
       if (failedEmail === 0 && failedPassword === false) {
         props.signUpUser(email.current.value, password.current.value);
       }
+
+      if(tosCheckbox === false){
+        setAgreeToTos(false);
+      } else {
+        setAgreeToTos(true);
+      }
     } else {
       setMissing(true);
     }
@@ -61,12 +70,22 @@ function SignUp(props) {
       return (
         <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
       )
+    } 
+    
+    if (agreeToTos === false){
+      return (
+        <p style={{ color: "#F34D4D" }}>must agree with the Terms of Service before signing up</p>
+      )
     }
   }
 
   function handleChecked() {
     setTosCheckbox(!tosCheckbox);
     setShowTosModal(false);
+  }
+
+  function showTosModalTrue() {
+    setShowTosModal(true);
   }
 
   const logoCSS = {
@@ -85,8 +104,9 @@ function SignUp(props) {
     backgroundColor: "#292833",
     padding: "0.3rem",
     margin: "3%",
-    width: "100%",
+    width: "80%",
     height: "77%",
+    marginLeft: "10%"
   }
   const modalBodyStyle = {
     color: "#BF9AFC",
@@ -111,18 +131,38 @@ function SignUp(props) {
     alignItems: "center",
     border: "none"
   }
+  const history = useHistory();
+  const imageBackButtonStyle = {
+      width: "40px",
+      height: "45px",
+      paddingRight: ".5rem"
+  };
+  const backButtonStyle = {
+    backgroundColor: "transparent",
+    color: "#BF9AFC",
+    borderWidth: "2px",
+    padding: "0.6rem",
+    paddingTop: "4rem",
+    paddingLeft: "8rem"
+  };
 
   return (
     <div>
       <Modal show={showTosModal} style={modalStyle} backdrop="static" keyboard={false}>
         <Modal.Body style={modalBodyStyle}>
+          <div className="row">
+            <button type="button"
+              className="btn"
+              style={backButtonStyle}
+              onClick={()=> {history.goBack(); setShowTosModal(false);}}
+            >
+              <div>
+                  <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
+              </div>
+            </button>
+          </div>
           <TermsOfService />
           <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
-          <Modal.Footer style={modalFooterStyle}>
-            <Form.Group controlId="tosCheckBox">
-              <Form.Check onChange={handleChecked} type="checkbox" label="I accept the Terms of Service" />
-            </Form.Group>
-          </Modal.Footer>
         </Modal.Body>
 
       </Modal>
@@ -139,12 +179,12 @@ function SignUp(props) {
         <div style={{ margin: "20px 20px 0px 20px" }}>
           <div className="row mx-auto">
             <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
-            <img style={logoCSS} src={logo}  />
-            <div style={{ pointerEvents: "none" }}></div>
+              <img style={logoCSS} src={logo} />
+              <div style={{ pointerEvents: "none" }}></div>
             </div>
             <br />
             <div className="form-group col-12">
-              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> Sign up </p>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> sign up </p>
               <div className="row mx-auto">
                 <Input type="email"
                   bootstrap="border-0"
@@ -161,53 +201,46 @@ function SignUp(props) {
                 bootstrap="border-0"
                 placeholder="password"
                 track={setPassword}
-                style={{
-                  backgroundColor: "transparent #292833",
-                  color: "#BF9AFC",
-                  border: "solid",
-                  borderColor: "#BF9AFC",
-                  backgroundColor: "#292833",
-                  borderRadius: "2px",
-                  borderWidth: "1px",
-                  padding: "0.3rem",
-                  margin: "3%",
-                  width: "100%",
-                  height: "77%"
-                }} />
+                style={inputStyle} />
             </div>
+          </div>
+          <div className="d-flex justify-content-center text-center">
+            
+            <Form.Group controlId="tosCheckBox">
+              <Form.Check onChange={handleChecked} type="checkbox" label="I accept the " />
+              <a href="#" onClick={showTosModalTrue} style={{textDecoration:"underline"}}>
+                Terms Of Service
+              </a>
+            </Form.Group>
+
           </div>
           <div className="d-flex justify-content-center text-center">
             {failedSignUp()}
           </div>
-          <div className="row col-12">
-            <div className="col-5"></div>
-            <div className="form-group">
-              <SignUpButton click={signUp} />
-            </div></div></div>
+          <div className="form-group col-12" style={{ textAlign: "center", }}>
+            <SignUpButton click={signUp} />
+          </div>
+        </div>
         <br />
       </div>
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
           <p className="col" style={{
-              position: "relative",
-
-
-              top: "-10.75rem",
-              color: "#BF9AFC",
-              
-            }}>
-              Already have an account? </p>
+            position: "relative",
+            top: "-10rem",
+            color: "#BF9AFC",
+          }}>
+            already have an account? </p>
           <Link to="/">
             <p className="col" style={{
               position: "relative",
               padding: '.3rem',
-
-              top: "-10.75rem",
+              top: "-11rem",
               color: "#BF9AFC",
               textDecoration: "underline",
             }}>
-              Login Here!
+              login here!
       </p>
           </Link>
         </div></div></div>

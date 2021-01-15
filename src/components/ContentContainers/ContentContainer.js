@@ -40,7 +40,7 @@ function ContentContainer(props) {
 
   switch (pageState) {
     case "profile":
-      return <ProfileContainer {...props} pageId={pageId} />;
+      return <ProfileContainer {...props} username={pageId} />;
     case "post":
       return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} />;
     case "settings":

@@ -80,7 +80,7 @@ function SearchBox(props) {
       style={inputStyle}
       renderMenuItemChildren={(option, props) => (
         <Fragment>
-          {option.type === "user" && <Link to={"/profile/" + option.id}>
+          {option.type === "user" && <Link to={"/profile/" + option.name}>
             <div className="row" style={{ width: "100%" }}>
               <img
                 alt={option.name}

@@ -2,12 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import logo from "../images/icons/logo1light.png";
 import arrow from "../images/icons/arrow-right.png";
+import Input from '../components/Input.js';
 
 function Login(props) {
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
   const [loginIsSuccessful, setLoginIsSuccessful] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   const logoCSS = {
     /* logo1light 1 */
@@ -26,12 +27,6 @@ function Login(props) {
     setLoginIsSuccessful(null);
   }, [])
 
-  function handleSignIn(e) {
-    if (e.key === "Enter") {
-      props.signInUser(emailRef.current.value, passwordRef.current.value, setLoginIsSuccessful);
-    }
-  }
-
   function handleMessagingForUnsuccessfulSignIn() {
     if (loginIsSuccessful === null || loginIsSuccessful === true) {
       return (<div></div>);
@@ -47,12 +42,20 @@ function Login(props) {
     color: "#BF9AFC",
     border: "solid",
     borderColor: "#BF9AFC",
-    backgroundColor: "#292833",
+    borderWidth: "1px",
     borderRadius: "2px",
+    backgroundColor: "#292833",
     padding: "0.3rem",
     margin: "3%",
     width: "100%",
-    height: "95%"
+    height: "77%",
+    marginLeft: "0rem"
+  }
+
+  function handleSignIn(e) {
+    if (e.key === "Enter") {
+      props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful);
+    }
   }
 
   return (
@@ -60,12 +63,10 @@ function Login(props) {
       <div className="mx-auto card text-center"
         style={{
           margin: "200px",
-          marginLeft: "100px",
           maxWidth: "20%",
           backgroundColor: "#292833",
           borderRadius: "10px",
           boxShadow: "-1px 7px 25px 1px #171421",
-          position: "static"
         }}>
         <div style={{ margin: "20px 20px 0px 20px" }}>
           {handleMessagingForUnsuccessfulSignIn()}
@@ -75,33 +76,28 @@ function Login(props) {
               <div style={{ pointerEvents: "none" }}></div>
             </div>
             <br />
-            <div className="form-group col-12">
-              <p style={{ position: "relative", color: "#BF9AFC" }}> Login </p>
-              <div className="row">
+            <div className="form-group col-12" style={{ textAlign: "center", }}>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> login </p>
+              <div className="row mx-auto">
                 <div className="Input mx-auto" >
-                  <input style={inputStyle} className="border border-secondary" type="email"
-                    placeholder="email" ref={emailRef}
+                  <Input type="email"
+                    bootstrap="border-0"
+                    placeholder="email"
+                    track={setEmail}
+                    style={inputStyle}
                     onKeyPress={(e) => handleSignIn(e)} />
                 </div>
               </div>
             </div>
           </div>
-          <div className="form-group col-12" >
-            <div className="row">
+          <div className="form-group col-12" style={{ textAlign: "center", }} >
+            <div className="row mx-auto">
               <div className="Input mx-auto" >
-                <input style={{
-                  backgroundColor: "transparent #292833",
-                  color: "#BF9AFC",
-                  border: "solid",
-                  borderColor: "#BF9AFC",
-                  backgroundColor: "#292833",
-                  borderRadius: "2px",
-                  padding: "0.3rem",
-                  margin: "3%",
-                  width: "100%",
-                  height: "95%"
-                }} className="border border-secondary" type="Password"
-                  placeholder="password" ref={passwordRef}
+                <Input type="password"
+                  bootstrap="border-0"
+                  placeholder="password"
+                  track={setPassword}
+                  style={inputStyle}
                   onKeyPress={(e) => handleSignIn(e)} />
               </div>
             </div>
@@ -111,8 +107,9 @@ function Login(props) {
             <div className="col-5" style={{ marginRight: "3%" }}></div>
             <div className="form-group">
               <button type="submit" className="btn"
-                onClick={() => props.signInUser(emailRef.current.value, passwordRef.current.value, setLoginIsSuccessful)} style={{
+                onClick={() => {console.log(email.current.value, password.current.value); props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful)}} style={{
                   marginBottom: "20px",
+                  marginTop: "14px",
                   marginRight: "2.5%",
                   backgroundColor: "transparent",
                   color: "#BF9AFC",
@@ -142,7 +139,7 @@ function Login(props) {
             textDecoration: "underline",
           }}>
             <p className="col">
-              new? sign up
+              new? sign Up
               </p>
           </Link>
           <Link to="/forgotpassword">

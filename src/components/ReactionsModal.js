@@ -66,7 +66,7 @@ function ReactionsModal(props) {
             {reactions}
           </ul>
           <div className="col-8">
-            {usersList.map((user) => user?<Link to={"/profile/" + user.id} onClick={handleClose}><div className="row" style={{ width: "100%", padding: "6px" }}>
+            {usersList.map((user) => user?<Link to={"/profile/" + user.username} onClick={handleClose}><div className="row" style={{ width: "100%", padding: "6px" }}>
                         <img
                             alt={user.username}
                             src={user.profile_picture}

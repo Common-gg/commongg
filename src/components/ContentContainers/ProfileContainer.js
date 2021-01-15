@@ -11,6 +11,9 @@ import optionsIcon from '../../images/icons/options.png';
 function ProfileContainer(props) {
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
     const [verified, setVerified] = useState(false);
+    //this represent old page id which is the unique id
+    const [pageId, setPageId] = useState(null)
+  
     const [followBtnState, setFollowBtnState] = useState({
         text: "Follow", img: plus
     })
@@ -27,19 +30,26 @@ function ProfileContainer(props) {
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
-            props.followUser(props.currentUserId, props.pageId);
+            props.followUser(props.currentUserId, pageId);
             setFollowBtnState({ ...followBtnState, text: "Following", img: check });
         } else {
-            props.unFollowUser(props.currentUserId, props.pageId);
+            props.unFollowUser(props.currentUserId, pageId);
             setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
         }
     }
 
+    //retrieve the user and pageId from the username
+    useEffect(() => {
+      //if the username exists
+      if (props.username) {
+        props.getUserWithLower(props.username, setUser, setPageId)
+      }
+    }, [props.username, props.getUserWithLower])
+
     //check if the current user is self
     useEffect(() => {
-        props.getUser(props.pageId, setUser);
-        if (props.currentUserId) {
-            if (props.currentUserId === props.pageId) {
+        if (props.currentUserId && pageId) {
+            if (props.currentUserId === pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             } else {
                 setFollowBtnState({ text: "Follow", img: plus })
@@ -55,13 +65,13 @@ function ProfileContainer(props) {
                 });
             }
         }
-    }, [props.pageId]);
+    }, [pageId]);
 
     //update the following icon when switching pages
     useEffect(() => {
         //check if user is using follow properly
         if(user.verified) setVerified(true);
-        if (props.currentUserId === props.pageId) {
+        if (props.currentUserId === pageId) {
             //already set to invisible since it's self
             return;
         }
@@ -77,9 +87,9 @@ function ProfileContainer(props) {
     }, [user])
 
     const checkId = () => {
-        if (props.pageId !== undefined) {
+        if (pageId != null) {
             return (
-                <FeedType {...props} filter={props.pageId} sort={"author"} />
+                <FeedType {...props} filter={pageId} sort={"author"} />
             )
         }
     }
@@ -113,13 +123,13 @@ function ProfileContainer(props) {
                     <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
                 </div>
                 <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.verifyUser(props.pageId, !verified)} style={{ cursor: "pointer" }}>Verify User/Revoke Verification</p> : null}
+                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.verifyUser(pageId, !verified)} style={{ cursor: "pointer" }}>Verify User/Revoke Verification</p> : null}
                     <p className="dropdown-item mb-0" onClick={() => props.report("users", props.pageId)} style={{ cursor: "pointer" }}>Report User</p>
                     {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("users", props.pageId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {user.reports ? user.reports : 0})</p> : null}
-                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(props.pageId, 0)} style={{ cursor: "pointer" }}>Set Moderation Level: User</p> : null}
-                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(props.pageId, 1)} style={{ cursor: "pointer" }}>Set Moderation Level: Mod</p> : null}
-                    {modLvl > 2 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(props.pageId, 2)} style={{ cursor: "pointer" }}>Set Moderation Level: Admin</p> : null}
-                    {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.resetPfp(props.pageId)} style={{ cursor: "pointer" }}>Reset Profile Picture</p> : null}
+                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 0)} style={{ cursor: "pointer" }}>Set Moderation Level: User</p> : null}
+                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 1)} style={{ cursor: "pointer" }}>Set Moderation Level: Mod</p> : null}
+                    {modLvl > 2 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 2)} style={{ cursor: "pointer" }}>Set Moderation Level: Admin</p> : null}
+                    {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.resetPfp(pageId)} style={{ cursor: "pointer" }}>Reset Profile Picture</p> : null}
                 </div>
             </div>
         )
@@ -159,6 +169,7 @@ function ProfileContainer(props) {
                                     <img src={followBtnState.img} style={{
                                         width: "2.5rem",
                                         height: "2.5rem",
+                                        position: "relative"
                                     }} />
                                 </button>
                             </span>

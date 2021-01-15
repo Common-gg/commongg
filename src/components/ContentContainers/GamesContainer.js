@@ -31,7 +31,8 @@ function GamesContainer(props) {
 
     const modalStyle = {
         position: "absolute",
-        top: "170px"
+        top: "170px",
+        left: "15px"
     };
 
     const modalHeaderStyle = {
@@ -65,7 +66,7 @@ function GamesContainer(props) {
 
                         <div className="modal-dialog" role="document">
                             <div className="modal-content" style={modalContentStyle}>
-                                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: "#292833" }}>
+                                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: "#292833",}}>
                                     <div className="modal-header" style={modalHeaderStyle}>
                                     </div>
                                     <h5 className="modal-title" id="chooseGameModalLabel">edit your games</h5>

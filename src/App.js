@@ -345,6 +345,18 @@ function App() {
     const postRef = database.ref('/content/posts/' + postId);
     postRef.remove();
     analytics.logEvent("post_deleted")
+    //delete the comments with the post
+    const commentsRef = database.ref('/content/comments/').orderByChild("postId").equalTo(postId);
+    commentsRef.once('value', function (snapshot) {
+      const comments = snapshot.val()
+      if (comments !== null) {
+        Object.keys(comments).forEach((comment) => {
+          const commentRef = database.ref('/content/comments/' + comment);
+          commentRef.remove();
+          analytics.logEvent("comment_deleted")
+        })
+      }
+    });
   }
 
   const getUser = (userId, callback) => {
@@ -384,6 +396,28 @@ function App() {
           return resolve(null);
         }
       })
+    })
+  }
+
+  //we want to retrieve both the user and the unique id with the user
+  const getUserWithLower = (username, setUser, setPageId) => {
+    //this time we don't return pormise
+    database.ref('/users/').orderByChild("lower").equalTo(username.toLowerCase()).once('value').then(function (snapshot) {
+      const userData = snapshot.val();
+      //if it's not null, there is some user with the username 
+      if (userData !== null) {
+        //the returned object has structure of object with value of unique id
+        const id = Object.keys(userData)[0];
+        const user = [...Object.values(userData)][0];
+        user.id = id;
+        // we set the pageId and set the user
+        setPageId(id);
+        setUser(user);
+      } else {
+        setPageId(null);
+        setUser({ profile: [], games: [], followCounts: {} });
+        return null;
+      }
     })
   }
 
@@ -741,6 +775,11 @@ function App() {
             (props) => (
               <Login signInUser={signInUser} />
             )} />
+          <Route path="/termsofservice" render={
+            (props) => (
+              <TermsOfService />
+            )}
+          />
         </Switch>
       </Router>
     )
@@ -814,6 +853,7 @@ function App() {
                   getUser={getUser}
                   getUserWithId={getUserWithId}
                   getUserWithUsername={getUserWithUsername}
+                  getUserWithLower={getUserWithLower}
                   followUser={followUser}
                   unFollowUser={unFollowUser}
                   storeUserGames={storeUserGames}

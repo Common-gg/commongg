@@ -336,7 +336,7 @@ function Post(props) {
                   >
                     <img src={ArrowLeft} style={imageBackButtonStyle} />
                   </button> : null}
-                  <Link to={"/profile/" + props.post.author} className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", bottom: "-0.5rem", left: "0.5rem", textDecoration: 'none' }}>
+                  <Link to={"/profile/" + author.username} className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", bottom: "-0.5rem", left: "0.5rem", textDecoration: 'none' }}>
                     <img
                       src={author.profile_picture}
                       alt={author.username + " picture"}
