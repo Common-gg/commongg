@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../components/Input.js';
 // import Button from '../components/Button.js';
 import DisplayImage from '../components/DisplayImage.js'
@@ -18,26 +18,47 @@ function CreateProfile(props) {
   const [failedSpace, setFailedSpace] = useState(false);
   const [failedProfane, setFailedProfane] = useState(false);
   const [failedLength, setFailedLength] = useState(false);
+  const [displayInputValidationText, setDisplayInputValidationText] = useState(false);
+  const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
+  const [imageType, setImageType] = useState(null);
 
+  useEffect(() => {
+    clearValidationBools();
+  }, []);
 
-
-  function handleSubmit(event) {
-    event.preventDefault();
+  function clearValidationBools() {
     setFailedExists(false);
     setFailedSpace(false);
     setFailedProfane(false);
     setFailedLength(false);
+    setDisplayImageTypeValidationMessage(false);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    clearValidationBools();
     const username = displayName.current.value;
+
+
+    if ((imageType === "image/jpeg") || (imageType === "image/jpg") || (imageType === "image/png")) {
+      setDisplayImageTypeValidationMessage(false);
+    }
+    else {
+      setDisplayImageTypeValidationMessage(true);
+      return;
+    }
+    if ((username !== undefined) && (username !== null) && (username.length > 30)) {
+      setDisplayInputValidationText(true);
+      return;
+    }
     if (filter.isProfane(username)) {
       setFailedProfane(true);
       return;
     }
-    //check if there is space in useername
     if (username.includes(" ")) {
       setFailedSpace(true);
       return;
     }
-
     //check if useername is too short
     if (username.length < 4) {
       setFailedLength(true);
@@ -92,6 +113,9 @@ function CreateProfile(props) {
     marginLeft: "25%",
     marginTop: "1.1rem"
   }
+  const validationMessageStyle = {
+    color: "#F34D4D", marginTop: "1rem"
+  };
 
   return (
     <div className="CreateProfile">
@@ -107,13 +131,19 @@ function CreateProfile(props) {
         <h4 style={{ marginTop: "2rem" }}>create your profile</h4>
         <span style={{ marginTop: "2rem" }}>pick a username</span>
         <Input style={inputStyle}
-          maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
+        maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
         {failedExists ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username already in use</p> : null}
         {failedSpace ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username can't contain space</p> : null}
         {failedProfane ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username contains profanity</p> : null}
         {failedLength ? <p style={{ color: "#F34D4D", marginTop: "1rem", marginBottom: "-2rem" }}>username is too short</p> : null}
+        {displayImageTypeValidationMessage ? <p style={validationMessageStyle}>image type must be png, jpeg, or jpg</p> : null}
+        {displayInputValidationText ? <p style={validationMessageStyle}>username length cannot exceed 30 characters</p> : null}
+        {failedExists ? <p style={validationMessageStyle}>username already in use</p> : null}
+        {failedSpace ? <p style={validationMessageStyle}>username can't contain space</p> : null}
+        {failedProfane ? <p style={validationMessageStyle}>username contains profanity</p> : null}
+        {failedLength ? <p style={validationMessageStyle}>username is too short</p> : null}
         <span style={{ marginTop: "2.5rem" }}>add a profile picture</span>
-        <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => { }} />
+        <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => { }} setImageType={setImageType} />
         <button type="submit" className="btn"
           style={buttonStyle}
           onClick={handleSubmit}>

@@ -17,6 +17,7 @@ function CreatePostModal(props) {
     const [loading, setLoading] = useState(false);
     const [btnText, setBtnText] = useState("post");
     const [titleLength, setTitleLength] = useState(0);
+    const [displayTextLengthMessage, setDisplayLengthMessage] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -125,16 +126,22 @@ function CreatePostModal(props) {
         setSelectedFile(null);
         setShow(false);
         setTitleLength(0);
+        setDisplayLengthMessage(false);
     };
 
     function handlePostClick() {
         let postTitleCurrentValue = postTitleRef.current.value.trim();
         let postTextCurrentvalue = postTextRef.current.value.trim();
 
+        if ((postTitleCurrentValue.length > 150) || (postTextCurrentvalue.length > 10000)) {
+            setDisplayLengthMessage(true);
+            return;
+        }
         if ((postTitleCurrentValue === "") && (postTextCurrentvalue === "")
             && (selectedFile === null)) {
             return;
         }
+
         setLoading(true);
         setBtnText("Posting...")
         if (selectedFile !== null) {
@@ -333,6 +340,10 @@ function CreatePostModal(props) {
                     <div>
                         <div className="d-flex justify-content-center">
                             {handleErrorString()}
+                            {displayTextLengthMessage ?
+                                <p style={{ color: "#F34D4D" }}>
+                                    Verify the title length does not exceed 150 characters, and post body does not exceed 10000
+                                </p> : null}
                         </div>
                     </div>
                     {imagePreview()}
