@@ -10,9 +10,8 @@ function DisplayImage(props) {
 
       let img = event.target.files[0];
       setImage(URL.createObjectURL(img));
-
-      if ((img.type !== "image/png") || (img.type !== "image/jpg") || (img.type !== "image/jpeg")) {
-        props.setImageType(img.type);
+      props.setImageType(img.type);
+      if ((img.type !== "image/png") && (img.type !== "image/jpg") && (img.type !== "image/jpeg")) {
         return;
       }
       else if ((img.type === "image/png") || (img.type === "image/gif")) {
