@@ -146,6 +146,12 @@ function SignUp(props) {
     paddingLeft: "8rem"
   };
 
+  function signUpForApp(e) {
+    if (e.key === "Enter") {
+      signUp();
+    }
+  }
+
   return (
     <div>
       <Modal show={showTosModal} style={modalStyle} backdrop="static" keyboard={false}>
@@ -196,12 +202,13 @@ function SignUp(props) {
           </div>
           <div className="form-group col-12">
             <div className="row mx-auto">
-
-              <Input type="password"
-                bootstrap="border-0"
-                placeholder="password"
-                track={setPassword}
-                style={inputStyle} />
+              <div style={inputStyle} onKeyDown={(e) => signUpForApp(e)}>
+                <Input type="password"
+                  bootstrap="border-0"
+                  placeholder="password"
+                  track={setPassword}
+                />
+              </div>
             </div>
           </div>
           <div className="d-flex justify-content-center text-center">
