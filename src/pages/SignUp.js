@@ -13,18 +13,12 @@ function SignUp(props) {
   const [showTosModal, setShowTosModal] = useState(false);
   const [password, setPassword] = useState();
   const [failedPassword, setFailedPassword] = useState(false);
-  const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
+  const [failedEmail, setFailedEmail] = useState(0); // 0=invalid, 1=in use, 2=doesn't have @/.
   const [missing, setMissing] = useState(false);
   const [tosCheckbox, setTosCheckbox] = useState(false);
   const [agreeToTos, setAgreeToTos] = useState(true);
 
   const signUp = () => {
-    if (tosCheckbox === false) {
-      setAgreeToTos(false);
-      return;
-    } else {
-      setAgreeToTos(true);
-    }
     if ((email !== undefined && email.current.value !== "") && (password !== undefined && password.current.value !== "")) {
       setMissing(false);
       //email already in use
@@ -43,6 +37,7 @@ function SignUp(props) {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
       if (password.current.value.match(regex) === null) {
         setFailedPassword(true);
+        return;
       }
       //sign up user
       if (failedEmail === 0 && failedPassword === false) {
@@ -50,6 +45,12 @@ function SignUp(props) {
       }
     } else {
       setMissing(true);
+    }
+    if (tosCheckbox === false) {
+      setAgreeToTos(false);
+      return;
+    } else {
+      setAgreeToTos(true);
     }
   }
 
@@ -71,8 +72,7 @@ function SignUp(props) {
         <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
       )
     }
-
-    if (agreeToTos === false) {
+    else if (agreeToTos === false) {
       return (
         <p style={{ color: "#F34D4D" }}>must agree with the Terms of Service before signing up</p>
       )
