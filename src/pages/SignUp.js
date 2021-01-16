@@ -34,7 +34,7 @@ function SignUp(props) {
       }
       //failed password
       setFailedPassword(false);
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
+      const regex = /^(?=(.*[a-z])({1,}))(?=(.*[A-Z])({1,}))(?=.*\d).{6,}$/
       if (password.current.value.match(regex) === null) {
         setFailedPassword(true);
         return;
