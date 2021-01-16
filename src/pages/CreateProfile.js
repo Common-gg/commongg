@@ -100,7 +100,7 @@ function CreateProfile(props) {
     borderRadius: "10px",
     borderColor: "#BF9AFC",
     borderWidth: "2px",
-    maxWidth: "15%",
+    maxWidth: "16%",
     position: "relative",
     left: "10rem",
     marginTop: "1rem",
