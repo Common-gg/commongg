@@ -5,6 +5,8 @@ import DisplayImage from '../components/DisplayImage.js'
 import add from "../images/icons/Group-104.png";
 import arrow from "../images/icons/arrow-right.png";
 import blankPfp from '../images/icons/empty-pfp-1.png';
+import { AutosizeInput } from 'react-bootstrap-typeahead';
+import styles from '../App.css';
 
 const Filter = require('bad-words')
 const filter = new Filter();
@@ -88,6 +90,7 @@ function CreateProfile(props) {
     top: "calc(50% - 216px/2 + 91px)",
   }
 
+
   const buttonStyle = {
     marginBottom: "20px",
     padding: "0.4rem",
@@ -104,6 +107,7 @@ function CreateProfile(props) {
     marginBottom: "2.7rem"
   }
 
+
   const inputStyle = {
     backgroundColor: "transparent #292833",
     color: "#BF9AFC text-center",
@@ -119,24 +123,30 @@ function CreateProfile(props) {
     marginTop: "1.1rem"
   }
   const validationMessageStyle = {
-    color: "#F34D4D", marginTop: "1rem"
+    color: "#F34D4D",
+    marginTop: "1rem"
   };
 
   return (
     <div className="CreateProfile">
-      <div className="mx-auto card text-center" style={{
-        margin: "200px",
-        maxWidth: "20%",
-        backgroundColor: "#292833",
-        borderRadius: "10px",
-        boxShadow: "-1px 7px 25px 1px #171421",
-        color: "#BF9AFC"
-      }}>
+      <div className="mx-auto card text-center"
+        style={{
+          margin: "50px",
+          maxWidth: "30%",
+          backgroundColor: "#292833",
+          borderRadius: "10px",
+          boxShadow: "-1px 7px 25px 1px #171421",
+          color: "#BF9AFC"
+        }}>
         <br />
         <h4 style={{ marginTop: "2rem" }}>create your profile</h4>
         <span style={{ marginTop: "2rem" }}>pick a username</span>
         <Input style={inputStyle}
-          maxLength="15" bootstrap="border-0" type="displayName" placeholder="username" track={setDisplayName} />
+          maxLength="15"
+          bootstrap="border-0"
+          type="displayName"
+          placeholder="username"
+          track={setDisplayName} />
         {displayImageTypeValidationMessage ? <p style={validationMessageStyle}>image type must be png, jpeg, or jpg</p> : null}
         {displayInputValidationText ? <p style={validationMessageStyle}>username length cannot exceed 30 characters</p> : null}
         {failedExists ? <p style={validationMessageStyle}>username already in use</p> : null}
@@ -144,8 +154,16 @@ function CreateProfile(props) {
         {failedProfane ? <p style={validationMessageStyle}>username contains profanity</p> : null}
         {failedLength ? <p style={validationMessageStyle}>username is too short</p> : null}
         <span style={{ marginTop: "2.5rem" }}>add a profile picture</span>
-        <DisplayImage type="profileImage" id="createAvatar" currentImg={add} setImg={setImg} changedInfo={() => { }} setImageType={setImageType} />
-        <button type="submit" className="btn"
+        <DisplayImage
+          type="profileImage"
+          id="createAvatar"
+          currentImg={add}
+          setImg={setImg}
+
+          changedInfo={() => { }} setImageType={setImageType} />
+        <button
+          type="submit"
+          className="btn"
           style={buttonStyle}
           onClick={handleSubmit}>
           <img src={arrow} />

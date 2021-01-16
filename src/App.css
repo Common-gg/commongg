@@ -123,3 +123,14 @@ a:hover {
   color: #ffffff;
   text-decoration: none;
 }
+
+.createProfileCard{
+  margin: "50px";
+  max-width: "30%";
+  background-color: "#292833";
+  border-radius: "10px";
+  box-shadow: "-1px 7px 25px 1px #171421";
+  color: "#BF9AFC";
+  text-align: center;
+}
+
