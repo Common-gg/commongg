@@ -21,7 +21,7 @@ background-color: #292833;
   border: none;
   color: white;
   padding: 12px 16px;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -124,7 +124,13 @@ a:hover {
   text-decoration: none;
 }
 
-.modal-100w {
-  width: auto;
-  max-width: auto;
+.createProfileCard{
+  margin: "50px";
+  max-width: "30%";
+  background-color: "#292833";
+  border-radius: "10px";
+  box-shadow: "-1px 7px 25px 1px #171421";
+  color: "#BF9AFC";
+  text-align: center;
 }
+

@@ -26,18 +26,16 @@ function GamesContainer(props) {
 
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#202020",
+        backgroundColor: "#292833",
+        borderRadius: "10px",
+        boxShadow: "-1px 7px 25px 1px #171421",
     }
 
     const modalStyle = {
         position: "absolute",
         top: "170px",
-        left: "15px"
+        left: "15px",
     };
-
-    const modalHeaderStyle = {
-        borderBottom: "0 none",
-    }
 
     const buttonStyle = {
         backgroundColor: "transparent",
@@ -58,7 +56,7 @@ function GamesContainer(props) {
     }
 
     return (
-        <div className="ChooseGames" >
+        <div className="ChooseGames">
             <div className="container">
                 <div className="row">
 
@@ -66,12 +64,10 @@ function GamesContainer(props) {
 
                         <div className="modal-dialog" role="document">
                             <div className="modal-content" style={modalContentStyle}>
-                                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: "#292833",}}>
-                                    <div className="modal-header" style={modalHeaderStyle}>
-                                    </div>
-                                    <h5 className="modal-title" id="chooseGameModalLabel">edit your games</h5>
+                                <div style={{ display: 'flex', justifyContent: 'center', }}>
+                                    <h5 className="modal-title" id="chooseGameModalLabel" style={{ marginTop: "30px", textAlign: "center", fontSize: "30px" }}>edit your games</h5>
                                 </div>
-                                <div className="row">{props.allGames.map((game, i) => {
+                                <div className="row mx-auto">{props.allGames.map((game, i) => {
                                     return <GameCard
                                         key={i}
                                         gameTitle={game.title}
@@ -85,6 +81,7 @@ function GamesContainer(props) {
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     <button style={buttonStyle} type="button" className="btn btn-primary" data-dismiss={modalDismiss} onClick={handleDoneClick}>done</button>
                                 </div>
+                                <br />
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                                     {clicked ? <p style={{ color: "#F34D4D" }}>must pick at least one game</p> : ""}
                                 </div>

@@ -52,11 +52,11 @@ function ReactionsModal(props) {
         //set default to first one cause that's only time it can have none
         if (!curReaction && count === 0) {
           setCurReaction(key);
-        } 
+        }
         count += 1;
         reactions.push(
-          <li onClick={()=>setCurReaction(key)} style={{cursor: "pointer", background: key === curReaction?"#838383":null}}>
-            <span style={{padding: "5px"}}><ReactionImage reaction={key}></ReactionImage></span>
+          <li onClick={() => setCurReaction(key)} style={{ cursor: "pointer", background: key === curReaction ? "#838383" : null }}>
+            <span style={{ padding: "5px" }}><ReactionImage reaction={key}></ReactionImage></span>
             <span>{value.length}</span>
           </li>);
       }
@@ -66,7 +66,7 @@ function ReactionsModal(props) {
             {reactions}
           </ul>
           <div className="col-8">
-            {usersList.map((user) => user?<Link to={"/profile/" + user.id} onClick={handleClose}><div className="row" style={{ width: "100%", padding: "6px" }}>
+            {usersList.map((user) => user?<Link to={"/profile/" + user.username} onClick={handleClose}><div className="row" style={{ width: "100%", padding: "6px" }}>
                         <img
                             alt={user.username}
                             src={user.profile_picture}
@@ -95,42 +95,44 @@ function ReactionsModal(props) {
   }
 
   const modalHeaderStyle = {
-      borderBottom: "0 none",
-      textAlign: "center"
+    borderBottom: "0 none",
+    textAlign: "center", 
+    backgroundColor: "#292833", 
+    color: "#BF9AFC",
   }
 
   const modalContentStyle = {
-      color: "#BF9AFC",
-      backgroundColor: "#202020",
-      borderBottom: ""
+    color: "#BF9AFC",
+    backgroundColor: "#292833",
+    borderBottom: ""
   }
 
   const groupStyle = {
-      minHeight: "60vh",
-      listStyleType: "none",
-      backgroundColor: "#4D4D4D",
-      padding: "0",
+    minHeight: "60vh",
+    listStyleType: "none",
+    backgroundColor: "#292833",
+    padding: "0",
 
   };
 
   return (
-      <div className="CreateCommentModal" >
-          <Modal show={props.showModal} onHide={handleClose}>
-              <div style={modalContentStyle}>
-                  <Modal.Header closeButton style={modalHeaderStyle}>
-                      <p>Reactions</p>
-                  </Modal.Header>
-                  <Modal.Body>
-                      <div className="container">                            
-                          <div className="row">
-                              {checkReactions()}
-                          </div>
-                      </div>
-                  </Modal.Body>
+    <div className="CreateCommentModal" >
+      <Modal show={props.showModal} onHide={handleClose}>
+        <div style={modalContentStyle}>
+          <Modal.Header closeButton style={modalHeaderStyle}>
+            <p>Reactions</p>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="container">
+              <div className="row">
+                {checkReactions()}
               </div>
+            </div>
+          </Modal.Body>
+        </div>
 
-          </Modal>
-      </div>
+      </Modal>
+    </div>
   )
 }
 

@@ -39,8 +39,11 @@ function DisplayImage(props) {
 
       let img = event.target.files[0];
       setImage(URL.createObjectURL(img));
-
-      if ((img.type === "image/png") || (img.type === "image/gif")) {
+      props.setImageType(img.type);
+      if ((img.type !== "image/png") && (img.type !== "image/jpg") && (img.type !== "image/jpeg")) {
+        return;
+      }
+      else if ((img.type === "image/png") || (img.type === "image/gif")) {
         props.setImg(img);
       }
       else {
@@ -65,6 +68,7 @@ function DisplayImage(props) {
     <div>
       <div>
         <div className="mx-auto">
+
           <label htmlFor={props.id} >
             <img src={image || props.currentImg || "https://assets.dryicons.com/uploads/icon/svg/9920/974969e2-49be-4625-99be-25daca02778c.svg"}
               style={{

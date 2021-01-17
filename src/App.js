@@ -8,10 +8,10 @@ import PageContainer from './pages/PageContainer';
 import firebase from "firebase/app";
 import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
 import CommonChat from "./images/games/Common Chat.png";
+import defaultPfp from "./images/icons/empty-pfp-1.png";
 import ForgotPassword from './pages/ForgotPassword.js';
-import ChangePassword from './pages/ChangePassword.js';
+import ActionHandler from "./pages/ActionHandler.js";
 import TermsOfService from './pages/TermsOfService.js';
-import VerifyEmail from './pages/VerifyEmail.js';
 import ReminderVerifyEmail from './pages/ReminderVerifyEmail.js';
 
 const Twitch = require("./api/Twitch.js");
@@ -343,6 +343,18 @@ function App() {
     const postRef = database.ref('/content/posts/' + postId);
     postRef.remove();
     analytics.logEvent("post_deleted")
+    //delete the comments with the post
+    const commentsRef = database.ref('/content/comments/').orderByChild("postId").equalTo(postId);
+    commentsRef.once('value', function (snapshot) {
+      const comments = snapshot.val()
+      if (comments !== null) {
+        Object.keys(comments).forEach((comment) => {
+          const commentRef = database.ref('/content/comments/' + comment);
+          commentRef.remove();
+          analytics.logEvent("comment_deleted")
+        })
+      }
+    });
   }
 
   const getUser = (userId, callback) => {
@@ -377,11 +389,33 @@ function App() {
         const userData = snapshot.val();
         //if it's not null, there is some user with the username 
         if (userData !== null) {
-          return resolve({ ...userData});
+          return resolve({ ...userData });
         } else {
           return resolve(null);
         }
       })
+    })
+  }
+
+  //we want to retrieve both the user and the unique id with the user
+  const getUserWithLower = (username, setUser, setPageId) => {
+    //this time we don't return pormise
+    database.ref('/users/').orderByChild("lower").equalTo(username.toLowerCase()).once('value').then(function (snapshot) {
+      const userData = snapshot.val();
+      //if it's not null, there is some user with the username 
+      if (userData !== null) {
+        //the returned object has structure of object with value of unique id
+        const id = Object.keys(userData)[0];
+        const user = [...Object.values(userData)][0];
+        user.id = id;
+        // we set the pageId and set the user
+        setPageId(id);
+        setUser(user);
+      } else {
+        setPageId(null);
+        setUser({ profile: [], games: [], followCounts: {} });
+        return null;
+      }
     })
   }
 
@@ -614,6 +648,7 @@ function App() {
     const postRef = database.ref('/content/comments/').orderByChild(sort).equalTo(filter);
     postRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) return callback(snapshot.val());
+      if (snapshot.val() === null) return callback({});
     });
   }
 
@@ -684,6 +719,35 @@ function App() {
     });
   }
 
+  const setModerationLevel = (userId, level) => {
+    database.ref('/users/' + userId).update({ moderationLevel: level });
+  }
+
+  const verifyUser = (userId, verified) => {
+    database.ref('/users/' + userId).update({ verified: verified });
+  }
+
+  const report = (type, id) => {
+    database.ref('/' + type + '/' + id).update({ reported: true, reports: firebase.database.ServerValue.increment(1) });
+  }
+
+  const clearReports = (type, id) => {
+    database.ref('/' + type + '/' + id).update({ reported: false, reports: 0 });
+  }
+
+  const resetPfp = (userId) => {
+    database.ref('/users/' + userId).update({ profile_picture: defaultPfp });
+  }
+
+  const getReportedUsers = (callback) => {
+    const usersRef = database.ref('/users/').orderByChild("reported").equalTo(true);
+    usersRef.once('value', function (snapshot) {
+      if (snapshot.val() != null) {
+        return callback(snapshot.val());
+      }
+    })
+  }
+
   if (currentUser === undefined || (currentUserInfo === undefined && currentUser !== null)) {
     return (<div></div>)
   } else if (currentUser === null) {
@@ -694,27 +758,23 @@ function App() {
             (props) => (
               <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
-          <Route path="/verifyemail" render={
+          <Route path="/actions/" render={
             (props) => (
-              <VerifyEmail handleVerifyEmail={handleVerifyEmail} />
+              <ActionHandler handleVerifyEmail={handleVerifyEmail} handleResetPassword={handleResetPassword} />
             )} />
           <Route path="/forgotpassword" render={
             (props) => (
               <ForgotPassword resetPasswordEmail={resetPasswordEmail} />
-            )} />
-          <Route path="/changepassword" render={
-            (props) => (
-              <ChangePassword handleResetPassword={handleResetPassword} />
-            )} />
-          <Route path="/" render={
-            (props) => (
-              <Login signInUser={signInUser} />
             )} />
           <Route path="/termsofservice" render={
             (props) => (
               <TermsOfService />
             )}
           />
+          <Route path="/" render={
+            (props) => (
+              <Login signInUser={signInUser} />
+            )} />
         </Switch>
       </Router>
     )
@@ -722,14 +782,13 @@ function App() {
     return (
       <Router>
         <Switch>
-          {console.log(auth.currentUser.emailVerified)}
-          <Route path="/verifyemail" render={
+          <Route path="/actions" render={
             (props) => (
-              <VerifyEmail handleVerifyEmail={handleVerifyEmail} />
+              <ActionHandler handleVerifyEmail={handleVerifyEmail} handleResetPassword={handleResetPassword} />
             )} />
           <Route path="/" render={
             (props) => (
-              <ReminderVerifyEmail sendVerifyEmail={sendVerifyEmail} />
+              <ReminderVerifyEmail sendVerifyEmail={sendVerifyEmail} signOut={signOut} />
             )
           } />
         </Switch>
@@ -741,7 +800,7 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <CreateProfile existsUsername={existsUsername} storeBlob={storeBlob} />
+              <CreateProfile storeUserProfile={storeUserProfile} existsUsername={existsUsername} storeBlob={storeBlob} />
             )} />
         </Switch>
       </Router>
@@ -788,6 +847,7 @@ function App() {
                   getUser={getUser}
                   getUserWithId={getUserWithId}
                   getUserWithUsername={getUserWithUsername}
+                  getUserWithLower={getUserWithLower}
                   followUser={followUser}
                   unFollowUser={unFollowUser}
                   storeUserGames={storeUserGames}
@@ -800,6 +860,13 @@ function App() {
                   addNotification={addNotification}
                   readNotifications={readNotifications}
                   firebaseTimeStamp={firebaseTimeStamp}
+
+                  setModerationLevel={setModerationLevel}
+                  report={report}
+                  clearReports={clearReports}
+                  verifyUser={verifyUser}
+                  resetPfp={resetPfp}
+                  getReportedUsers={getReportedUsers}
                 />
               </div>
             )} />

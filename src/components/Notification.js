@@ -35,7 +35,6 @@ function Notification(props) {
     }
 
     function setText(post) {
-        console.log(post);
         let postTitle = "";
 
         if (props.notification.type === "comments_reaction") {
@@ -48,7 +47,6 @@ function Notification(props) {
         if (props.notification.type === "comment") {
             setNotificationText(` commented on your post \"${postTitle}\"`)
         } else if (props.notification.type === "followed") {
-
             setLinkType("profile");
             setNotificationText(` followed you!`)
         } else if (props.notification.type === "posts_reaction") {
@@ -59,12 +57,12 @@ function Notification(props) {
     }
 
     return (
-        <Link to={`/${linkType}/${props.notification.locationID}`} className="Notification" >
+        <Link to={`/${linkType}/${props.notification.type === "followed"? user.username.toLowerCase() : props.notification.locationID}`} className="Notification" >
             <Text text={new Date(props.notification.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.notification.timestamp).toLocaleDateString("en-US")}
                 style={{ color: '#BF9AFC', fontSize: '.7rem', paddingLeft: "1.8rem", paddingRight: ".2rem" }}
             />
             <div style={{ fontSize: '.9rem', paddingLeft: "1.8rem", paddingRight: ".2rem" }}>
-                <Link to={`/profile/${props.notification.userID}`}>{user.username}</Link>
+                <Link to={`/profile/${user.username.toLowerCase()}`}>{user.username}</Link>
                 <span style={{ color: '#BF9AFC' }}>
                     {notificationText}
                 </span>

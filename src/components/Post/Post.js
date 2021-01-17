@@ -10,6 +10,7 @@ import YoutubeEmbed from './YoutubeEmbed.js';
 import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 import ArrowLeft from "../../images/icons/arrowleft 1.png";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 
 function Post(props) {
@@ -22,8 +23,10 @@ function Post(props) {
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
-    if (props.post.text.length <= 500) {
-      setExpand(true);
+    if (props.post.text !== undefined) {
+      if (props.post.text.length <= 500) {
+        setExpand(true);
+      }
     }
   }, [props.post]);
 
@@ -90,30 +93,25 @@ function Post(props) {
   }
 
   function checkOptions() {
-    if (props.currentUserId === props.post.author) {
-      return (
-        <div>
-          <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
-            <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
-          </div>
-          <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p>
-            <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-         </div>
-        </div>
-      )
+    let modLvl;
+    if (!props.currentUserInfo.moderationLevel) {
+      modLvl = 0;
     } else {
-      return (
-        <div>
-          <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
-            <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
-          </div>
-          <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-          </div>
-        </div>
-      )
+      modLvl = props.currentUserInfo.moderationLevel;
     }
+    return (
+      <div>
+        <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
+          <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
+        </div>
+        <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
+          <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
+          <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p>
+          {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}
+        </div>
+      </div>
+    )
   }
 
   function checkEmbeded(link, text, preview) {
@@ -184,13 +182,13 @@ function Post(props) {
 
     // video file
     regexp = /\.((mp4)|(MP4))/g
-      if (link.search(regexp) !== -1) {
-        return (
-          <video controls style={{width: "100%", height: "300px"}}>
-            <source src={link} type="video/mp4"/>
-          </video>
-        )
-      }
+    if (link.search(regexp) !== -1) {
+      return (
+        <video controls style={{ width: "100%", height: "300px" }}>
+          <source src={link} type="video/mp4" />
+        </video>
+      )
+    }
 
     // gyazo regex: /(?:i\.gyazo\.com\/thumb\/\S+\/([a-z0-9]{32}))|(?:gyazo\.com\/([a-z0-9]{32}))/g
     // gives the 32 char gyazo id
@@ -292,21 +290,25 @@ function Post(props) {
 
   const checkExpandText = () => {
     if (expand === false) {
-      let str = props.post.text.substring(0, 500);
-      return (str += "...");
+      if (props.post.text !== undefined) {
+        let str = props.post.text.substring(0, 500);
+        return (str += "...");
+      }
     } else {
       return (props.post.text);
     }
   }
 
   const checkExpandButton = () => {
-    if (props.post.text.length > 500) {
-      if (expand === false) {
-        return (
-          <button onClick={toggleExpand} style={expandButtonStyle}>
-            expand
-          </button>
-        )
+    if (props.post.text !== undefined) {
+      if (props.post.text.length > 500) {
+        if (expand === false) {
+          return (
+            <button onClick={toggleExpand} style={expandButtonStyle}>
+              expand
+            </button>
+          )
+        }
       }
     }
   }
@@ -341,7 +343,7 @@ function Post(props) {
                   >
                     <img src={ArrowLeft} style={imageBackButtonStyle} />
                   </button> : null}
-                  <Link to={"/profile/" + props.post.author} className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", bottom: "-0.5rem", left: "0.5rem", textDecoration: 'none' }}>
+                  <Link to={"/profile/" + author.username} className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", bottom: "-0.5rem", left: "0.5rem", textDecoration: 'none' }}>
                     <img
                       src={author.profile_picture}
                       alt={author.username + " picture"}

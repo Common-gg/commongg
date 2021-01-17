@@ -107,7 +107,7 @@ function Login(props) {
             <div className="col-5" style={{ marginRight: "3%" }}></div>
             <div className="form-group">
               <button type="submit" className="btn"
-                onClick={() => {console.log(email.current.value, password.current.value); props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful)}} style={{
+                onClick={() => { props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful) }} style={{
                   marginBottom: "20px",
                   marginTop: "14px",
                   marginRight: "2.5%",

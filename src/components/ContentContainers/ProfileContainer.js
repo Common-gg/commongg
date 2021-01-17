@@ -6,10 +6,14 @@ import UsersModal from '../UsersModal.js';
 import FeedType from '../FeedType.js';
 import plus from "../../images/icons/followingplus-1.png";
 import check from "../../images/icons/followingcheck-1.png";
+import optionsIcon from '../../images/icons/options.png';
 
 function ProfileContainer(props) {
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
-
+    const [verified, setVerified] = useState(false);
+    //this represent old page id which is the unique id
+    const [pageId, setPageId] = useState(null)
+  
     const [followBtnState, setFollowBtnState] = useState({
         text: "Follow", img: plus
     })
@@ -26,22 +30,29 @@ function ProfileContainer(props) {
 
     function followHandler() {
         if (followBtnState.text === "Follow") {
-            props.followUser(props.currentUserId, props.pageId);
+            props.followUser(props.currentUserId, pageId);
             setFollowBtnState({ ...followBtnState, text: "Following", img: check });
         } else {
-            props.unFollowUser(props.currentUserId, props.pageId);
+            props.unFollowUser(props.currentUserId, pageId);
             setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
         }
     }
 
+    //retrieve the user and pageId from the username
+    useEffect(() => {
+      //if the username exists
+      if (props.username) {
+        props.getUserWithLower(props.username, setUser, setPageId)
+      }
+    }, [props.username, props.getUserWithLower])
+
     //check if the current user is self
     useEffect(() => {
-        props.getUser(props.pageId, setUser);
-        if (props.currentUserId) {
-            if (props.currentUserId === props.pageId) {
+        if (props.currentUserId && pageId) {
+            if (props.currentUserId === pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             } else {
-                setFollowBtnState({text: "Follow", img: plus})
+                setFollowBtnState({ text: "Follow", img: plus })
                 setFollowBtnStyle({
                     visibility: "visible",
                     backgroundColor: "transparent",
@@ -54,12 +65,13 @@ function ProfileContainer(props) {
                 });
             }
         }
-    }, [props.pageId]);
+    }, [pageId]);
 
     //update the following icon when switching pages
     useEffect(() => {
         //check if user is using follow properly
-        if (props.currentUserId === props.pageId) {
+        if(user.verified) setVerified(true);
+        if (props.currentUserId === pageId) {
             //already set to invisible since it's self
             return;
         }
@@ -75,16 +87,16 @@ function ProfileContainer(props) {
     }, [user])
 
     const checkId = () => {
-        if (props.pageId !== undefined) {
+        if (pageId != null) {
             return (
-                <FeedType {...props} filter={props.pageId} sort={"author"} />
+                <FeedType {...props} filter={pageId} sort={"author"} />
             )
         }
     }
 
     const checkAboutMe = () => {
         if (user.about_me !== "") {
-            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px", whiteSpace: "pre-wrap"}} text={user.about_me} />)
+            return (<Text style={{ overflowWrap: 'break-word', paddingLeft: "5px", paddingRight: "5px", whiteSpace: "pre-wrap" }} text={user.about_me} />)
         }
     }
 
@@ -97,6 +109,31 @@ function ProfileContainer(props) {
     const numberStyle = {
         fontSize: "1.6rem"
     };
+
+    function checkOptions() {
+        let modLvl;
+        if (!props.currentUserInfo.moderationLevel) {
+            modLvl = 0;
+        } else {
+            modLvl = props.currentUserInfo.moderationLevel;
+        }
+        return (
+            <div>
+                <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
+                    <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
+                </div>
+                <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.verifyUser(pageId, !verified)} style={{ cursor: "pointer" }}>Verify User/Revoke Verification</p> : null}
+                    <p className="dropdown-item mb-0" onClick={() => props.report("users", pageId)} style={{ cursor: "pointer" }}>Report User</p>
+                    {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("users", props.pageId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {user.reports ? user.reports : 0})</p> : null}
+                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 0)} style={{ cursor: "pointer" }}>Set Moderation Level: User</p> : null}
+                    {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 1)} style={{ cursor: "pointer" }}>Set Moderation Level: Mod</p> : null}
+                    {modLvl > 2 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 2)} style={{ cursor: "pointer" }}>Set Moderation Level: Admin</p> : null}
+                    {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.resetPfp(pageId)} style={{ cursor: "pointer" }}>Reset Profile Picture</p> : null}
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div>
@@ -113,7 +150,14 @@ function ProfileContainer(props) {
                         setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
                         <h2 style={{ marginTop: "5%" }}>
-                            {user.username}
+                            {user.username + " "}
+                            {verified ?
+                            <img src={check} alt={user.username + "verified"}
+                                style={{
+                                    width: "1.8rem",
+                                    height: "1.8rem",
+                                }} />
+                            : null}
                         </h2>
                         <div className="d-flex flex-wrap">
 
@@ -129,6 +173,9 @@ function ProfileContainer(props) {
                                     }} />
                                 </button>
                             </span>
+                        </div>
+                        <div className="ml-auto pr-3 dropdown">
+                            {checkOptions()}
                         </div>
                     </div>
                 </div>

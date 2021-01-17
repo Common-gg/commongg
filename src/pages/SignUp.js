@@ -9,20 +9,35 @@ import { useHistory } from "react-router-dom";
 import ArrowLeft from "../images/icons/arrowleft 1.png"
 
 function SignUp(props) {
-  const [email, setEmail] = useState();
+  const initialCurrentValue = { current: { value: "" } };
+  const [email, setEmail] = useState(initialCurrentValue);
+  const [password, setPassword] = useState(initialCurrentValue);
+
   const [showTosModal, setShowTosModal] = useState(false);
-  const [password, setPassword] = useState();
   const [failedPassword, setFailedPassword] = useState(false);
   const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
   const [missing, setMissing] = useState(false);
   const [tosCheckbox, setTosCheckbox] = useState(false);
-  const [agreeToTos, setAgreeToTos] = useState(true);
+  const [agreeToTos, setAgreeToTos] = useState(null);
+
+  function resetValidationVariables() {
+    setShowTosModal(false);
+    setFailedPassword(false);
+    setFailedEmail(0);
+    setMissing(false);
+    setTosCheckbox(null);
+  }
 
   const signUp = () => {
+    if (email.current.value === "" || password.current.value === "") {
+      setMissing(true);
+      return;
+    }
     if ((email !== undefined && email.current.value !== "") && (password !== undefined && password.current.value !== "")) {
       setMissing(false);
       //email already in use
       setFailedEmail(0);
+
       if (!(email.current.value.includes('@')) || !(email.current.value.includes('.'))) {
         setFailedEmail(2);
       } else {
@@ -34,22 +49,27 @@ function SignUp(props) {
       }
       //failed password
       setFailedPassword(false);
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
-      if (password.current.value.match(regex) === null) {
-        setFailedPassword(true);
-      }
-      //sign up user
-      if (failedEmail === 0 && failedPassword === false) {
-        props.signUpUser(email.current.value, password.current.value);
-      }
+      const validatePasswordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{6,}$/
+      let passwordStrength = password.current.value.match(validatePasswordRegex);
 
-      if(tosCheckbox === false){
+      if (passwordStrength === null) {
+        setFailedPassword(true);
+        return;
+      }
+      if (tosCheckbox === false) {
         setAgreeToTos(false);
+        return;
       } else {
         setAgreeToTos(true);
       }
-    } else {
-      setMissing(true);
+      //sign up user
+      props.signUpUser(email.current.value, password.current.value);
+    }
+    else {
+      if (failedEmail === 0 && !failedPassword && agreeToTos && !missing) {
+        props.signUpUser(email.current.value, password.current.value);
+      }
+      resetValidationVariables();
     }
   }
 
@@ -70,17 +90,18 @@ function SignUp(props) {
       return (
         <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
       )
-    } 
-    
-    if (agreeToTos === false){
+    }
+    else if (agreeToTos === false) {
       return (
         <p style={{ color: "#F34D4D" }}>must agree with the Terms of Service before signing up</p>
       )
+    } else {
+      return (<div></div>);
     }
   }
 
-  function handleChecked() {
-    setTosCheckbox(!tosCheckbox);
+  function handleChecked(e) {
+    setTosCheckbox(e.target.checked);
     setShowTosModal(false);
   }
 
@@ -124,45 +145,24 @@ function SignUp(props) {
     margin: "auto",
     border: "none"
   }
-  const modalFooterStyle = {
-    position: "flex",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    border: "none"
+
+  function signUpForApp(e) {
+    if (e.key === "Enter") {
+      signUp();
+    }
   }
-  const history = useHistory();
-  const imageBackButtonStyle = {
-      width: "40px",
-      height: "45px",
-      paddingRight: ".5rem"
-  };
-  const backButtonStyle = {
-    backgroundColor: "transparent",
-    color: "#BF9AFC",
-    borderWidth: "2px",
-    padding: "0.6rem",
-    paddingTop: "4rem",
-    paddingLeft: "8rem"
-  };
 
   return (
-    <div>
-      <Modal show={showTosModal} style={modalStyle} backdrop="static" keyboard={false}>
+    <div className="SignUp">
+      <Modal show={showTosModal} style={modalStyle} >
         <Modal.Body style={modalBodyStyle}>
           <div className="row">
-            <button type="button"
-              className="btn"
-              style={backButtonStyle}
-              onClick={()=> {history.goBack(); setShowTosModal(false);}}
-            >
-              <div>
-                  <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
-              </div>
+            <button type="button" style={{ marginLeft: "42rem", color: "#BF9AFC" }} className="close" aria-label="Close">
+              <span id="createPostX" aria-hidden="true" onClick={() => { setShowTosModal(false) }}>&times;</span>
             </button>
+            <TermsOfService />
+            <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
           </div>
-          <TermsOfService />
-          <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
         </Modal.Body>
 
       </Modal>
@@ -196,19 +196,20 @@ function SignUp(props) {
           </div>
           <div className="form-group col-12">
             <div className="row mx-auto">
-
-              <Input type="password"
-                bootstrap="border-0"
-                placeholder="password"
-                track={setPassword}
-                style={inputStyle} />
+              <div style={inputStyle} onKeyDown={(e) => signUpForApp(e)}>
+                <Input type="password"
+                  bootstrap="border-0"
+                  placeholder="password"
+                  track={setPassword}
+                />
+              </div>
             </div>
           </div>
           <div className="d-flex justify-content-center text-center">
-            
+
             <Form.Group controlId="tosCheckBox">
-              <Form.Check onChange={handleChecked} type="checkbox" label="I accept the " />
-              <a href="#" onClick={showTosModalTrue} style={{textDecoration:"underline"}}>
+              <Form.Check onChange={(e) => handleChecked(e)} type="checkbox" label="I accept the " />
+              <a href="#" onClick={showTosModalTrue} style={{ textDecoration: "underline" }}>
                 Terms Of Service
               </a>
             </Form.Group>

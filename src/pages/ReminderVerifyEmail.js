@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import logo from "../images/icons/logo1light.png";
+import { Link } from "react-router-dom";
 
 function ReminderVerifyEmail(props) {
 
     const logoCSS = {
-        width: "100px",
-        height: "99.01px",
-        left: "393px",
-        top: "179px"
+        width: "4.5rem",
+        height: "auto",
+        marginBottom: "20px",
+        marginTop: "20px"
     }
     const buttonStyle = {
         backgroundColor: "transparent",
@@ -17,11 +18,16 @@ function ReminderVerifyEmail(props) {
         borderColor: "#BF9AFC",
         borderWidth: "2px",
         position: "relative",
-        left: "1rem"
+        left: "1rem",
+        textAlign: "center"
     }
 
     function handleResendVerifyEmailClick() {
         props.sendVerifyEmail();
+    }
+    const linkStyle = {
+        color: "#BF9AFC",
+        textDecoration: "underline"
     }
 
     return (
@@ -39,16 +45,21 @@ function ReminderVerifyEmail(props) {
                     <div className="mx-auto">
                         <img style={logoCSS} className="mx-auto" src={logo} />
                         <br /><br />
-                        <p>Please verify your email</p>
+                        <p>please verify your email</p>
                         <div style={{ pointerEvents: "none" }}></div>
                         <button className="btn btn-info" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
-                            re-send verify email
+                            re-send verification email
                         </button>
                         <div className="form-group" >
                         </div>
                     </div>
                     <br />
                 </div>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: "-10rem" }}>
+                < Link to="/" style={linkStyle} >
+                    <br /><a onClick={() => props.signOut()}>sign out</a> <br />
+                </Link>
             </div>
         </div>
     );
