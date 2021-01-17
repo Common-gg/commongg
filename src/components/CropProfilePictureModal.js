@@ -20,10 +20,6 @@ function CropProfilePictureModal(props) {
         setCroppedImage(props.croppedImage);
     }, [props.croppedImage])
 
-    useEffect(() => {
-        //console.log(croppedImage);
-    }, [croppedImage])
-
     let buttonStyle = {
         backgroundColor: "transparent",
         position: "relative",
@@ -65,11 +61,8 @@ function CropProfilePictureModal(props) {
             crop.height * scaleY
         );
 
-        //const base64Image = canvas.toDataURL('image/png')
-        //console.log(base64Image);
-        //props.setImage(base64Image);
-
         canvas.toBlob(blob => {
+            if (blob === null) return;
             blob.name = fileName;
             props.setCropBlob(blob);
         }, 'image/png', 1);
@@ -79,15 +72,6 @@ function CropProfilePictureModal(props) {
         getCroppedImg(document.getElementById("imageId"), croppedImage.crop, "profile_picture.png");
         props.setShowCropModal(false);
     }
-
-    const onImageLoaded = (image) => {
-        //console.log("onCropComplete", image);
-
-    };
-
-    const onCropComplete = (crop) => {
-        //console.log("onCropComplete", crop);
-    };
 
     const onCropChange = (crop) => {
         setCroppedImage({ ...croppedImage, crop });
@@ -101,8 +85,6 @@ function CropProfilePictureModal(props) {
                         <ReactCrop
                             src={croppedImage.src}
                             crop={croppedImage.crop}
-                            onImageLoaded={onImageLoaded}
-                            onComplete={onCropComplete}
                             onChange={onCropChange}
                             circularCrop={true}
                         />

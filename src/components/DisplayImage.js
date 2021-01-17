@@ -10,10 +10,10 @@ function DisplayImage(props) {
 
   useEffect(() => {
     if (cropBlob === undefined) return;
-    console.log(cropBlob);
     setImage(URL.createObjectURL(cropBlob));
+    props.setImageType(cropBlob.type);
     props.setImg(cropBlob);
-  }, [cropBlob])
+  }, [cropBlob]);
 
   const onSelectFile = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -33,36 +33,36 @@ function DisplayImage(props) {
     }
   }
 
-  const onImageChange = event => {
-    if (event.target.files && event.target.files[0]) {
-      const compress = new Compress();
+  // const onImageChange = event => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     const compress = new Compress();
 
-      let img = event.target.files[0];
-      setImage(URL.createObjectURL(img));
-      props.setImageType(img.type);
-      if ((img.type !== "image/png") && (img.type !== "image/jpg") && (img.type !== "image/jpeg")) {
-        return;
-      }
-      else if ((img.type === "image/png") || (img.type === "image/gif")) {
-        props.setImg(img);
-      }
-      else {
-        compress.compress([img], {
-          size: 5,
-          quality: .9,
-          maxWidth: 1200,
-          maxHeight: 675,
-          resize: true
-        }).then((data) => {
-          const imgToCompress = data[0];
-          let compressedImage = Compress.convertBase64ToFile(imgToCompress.data, imgToCompress.ext);
+  //     let img = event.target.files[0];
+  //     setImage(URL.createObjectURL(img));
+  //     props.setImageType(img.type);
+  //     if ((img.type !== "image/png") && (img.type !== "image/jpg") && (img.type !== "image/jpeg")) {
+  //       return;
+  //     }
+  //     else if ((img.type === "image/png") || (img.type === "image/gif")) {
+  //       props.setImg(img);
+  //     }
+  //     else {
+  //       compress.compress([img], {
+  //         size: 5,
+  //         quality: .9,
+  //         maxWidth: 1200,
+  //         maxHeight: 675,
+  //         resize: true
+  //       }).then((data) => {
+  //         const imgToCompress = data[0];
+  //         let compressedImage = Compress.convertBase64ToFile(imgToCompress.data, imgToCompress.ext);
 
-          props.setImg(compressedImage);
-        });
-      }
-    }
-    props.changedInfo();
-  };
+  //         props.setImg(compressedImage);
+  //       });
+  //     }
+  //   }
+  //   props.changedInfo();
+  // };
 
   return (
     <div>
