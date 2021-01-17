@@ -145,27 +145,6 @@ function SignUp(props) {
     margin: "auto",
     border: "none"
   }
-  const modalFooterStyle = {
-    position: "flex",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    border: "none"
-  }
-  const history = useHistory();
-  const imageBackButtonStyle = {
-    width: "40px",
-    height: "45px",
-    paddingRight: ".5rem"
-  };
-  const backButtonStyle = {
-    backgroundColor: "transparent",
-    color: "#BF9AFC",
-    borderWidth: "2px",
-    padding: "0.6rem",
-    paddingTop: "4rem",
-    paddingLeft: "8rem"
-  };
 
   function signUpForApp(e) {
     if (e.key === "Enter") {
@@ -174,22 +153,16 @@ function SignUp(props) {
   }
 
   return (
-    <div>
-      <Modal show={showTosModal} style={modalStyle} backdrop="static" keyboard={false}>
+    <div className="SignUp">
+      <Modal show={showTosModal} style={modalStyle} >
         <Modal.Body style={modalBodyStyle}>
           <div className="row">
-            <button type="button"
-              className="btn"
-              style={backButtonStyle}
-              onClick={() => { history.goBack(); setShowTosModal(false); }}
-            >
-              <div>
-                <p style={{ fontSize: "25px" }}><img src={ArrowLeft} style={imageBackButtonStyle}></img>back</p>
-              </div>
+            <button type="button" style={{ marginLeft: "42rem", color: "#BF9AFC" }} className="close" aria-label="Close">
+              <span id="createPostX" aria-hidden="true" onClick={() => { setShowTosModal(false) }}>&times;</span>
             </button>
+            <TermsOfService />
+            <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
           </div>
-          <TermsOfService />
-          <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
         </Modal.Body>
 
       </Modal>
