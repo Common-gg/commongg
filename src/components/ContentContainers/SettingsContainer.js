@@ -17,7 +17,7 @@ function SettingsContainer(props) {
   const [errorString, setErrorString] = useState("");
   const [updateButtonText, setUpdateButtonText] = useState("update");
   const [displayMaxLengthMessage, setDisplayMaxLengthMessage] = useState(false);
-  const [imageType, setImageType] = useState(false);
+  const [imageType, setImageType] = useState("image/jpeg");
   const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
   const history = useHistory();
 
@@ -26,7 +26,7 @@ function SettingsContainer(props) {
     setSelectedFile({ current: { value: props.currentUserInfo.profile_picture } });
     setLoadChangePasswordFields(false);
     setPasswordChangeIsSuccessful(false);
-    setImageType(false);
+    setImageType("image/jpeg");
     setDisplayImageTypeValidationMessage(false);
   }, []);
 
@@ -80,13 +80,12 @@ function SettingsContainer(props) {
     let profilePicture = props.currentUserInfo.profile_picture;
     let profilePictureUpdated = false;
 
-    aboutMe = aboutMeRef.current.value;
-
-
-    if ((imageType === "image/jpeg") || (imageType === "image/jpg") || (imageType === "image/png")) {
-      setDisplayImageTypeValidationMessage(false);
+    if (aboutMeRef.current.value !== "") {
+      aboutMe = aboutMeRef.current.value;
     }
-    else {
+    if (imageType === "image/jpeg" || imageType === "image/png" || imageType === "image/jpg") {
+      setDisplayImageTypeValidationMessage(false);
+    } else {
       setDisplayImageTypeValidationMessage(true);
       return;
     }
@@ -94,8 +93,10 @@ function SettingsContainer(props) {
       setDisplayMaxLengthMessage(true);
       return;
     }
-    //if selected doesn't have current it means it loaded from setImage
-    if (selectedFile.current === undefined) {
+    // if selected doesn't have current it means it loaded from setImage
+    // using display validation bool to determine if the image type is valid
+    // if its false we never got message and is therefore valid image type
+    if (selectedFile.current === undefined && !displayImageTypeValidationMessage) {
       profilePictureUpdated = true;
       profilePicture = selectedFile;
     }
@@ -115,14 +116,14 @@ function SettingsContainer(props) {
   }
 
   function handlePasswordMessageChange() {
-    if (passwordChangeIsSuccessful === null) {
-      return setErrorString(<div></div>);
-    }
-    else if (passwordChangeIsSuccessful === false) {
+    if (passwordChangeIsSuccessful === false) {
       return setErrorString(<p style={{ color: "#F34D4D" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
     }
-    else {
+    else if (passwordChangeIsSuccessful === true) {
       return setErrorString(<p style={{ color: "green" }}>password changed successfully!</p>);
+    }
+    else {
+      return setErrorString(<div></div>);
     }
   }
 
