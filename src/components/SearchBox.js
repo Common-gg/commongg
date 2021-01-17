@@ -5,9 +5,6 @@ import { Link, Redirect } from "react-router-dom";
 
 const AsyncTypeahead = withAsync(Typeahead);
 
-console.log();
-
-
 function SearchBox(props) {
 
   const [isLoading, setIsLoading] = useState(false);
@@ -73,8 +70,6 @@ function SearchBox(props) {
   
   const [enteredValue, setEntered] = useState(null);
   const Arrowhead = (input) => {
-    console.log("Arrowhead")
-    console.log(input)
     if(input && input[0] && input[0]["name"] && input[0]["type"] === "game"){
       let url = "/games/".concat(input[0]["name"]).split(" ").join('').toLowerCase();
       setEntered(url);
