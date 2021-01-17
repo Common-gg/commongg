@@ -123,3 +123,8 @@ a:hover {
   color: #ffffff;
   text-decoration: none;
 }
+
+.modal-100w {
+  width: auto;
+  max-width: auto;
+}
