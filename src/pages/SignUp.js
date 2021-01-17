@@ -9,20 +9,35 @@ import { useHistory } from "react-router-dom";
 import ArrowLeft from "../images/icons/arrowleft 1.png"
 
 function SignUp(props) {
-  const [email, setEmail] = useState();
+  const initialCurrentValue = { current: { value: "" } };
+  const [email, setEmail] = useState(initialCurrentValue);
+  const [password, setPassword] = useState(initialCurrentValue);
+
   const [showTosModal, setShowTosModal] = useState(false);
-  const [password, setPassword] = useState();
   const [failedPassword, setFailedPassword] = useState(false);
-  const [failedEmail, setFailedEmail] = useState(0); // 0=invalid, 1=in use, 2=doesn't have @/.
+  const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
   const [missing, setMissing] = useState(false);
   const [tosCheckbox, setTosCheckbox] = useState(false);
-  const [agreeToTos, setAgreeToTos] = useState(true);
+  const [agreeToTos, setAgreeToTos] = useState(null);
+
+  function resetValidationVariables() {
+    setShowTosModal(false);
+    setFailedPassword(false);
+    setFailedEmail(0);
+    setMissing(false);
+    setTosCheckbox(null);
+  }
 
   const signUp = () => {
+    if (email.current.value === "" || password.current.value === "") {
+      setMissing(true);
+      return;
+    }
     if ((email !== undefined && email.current.value !== "") && (password !== undefined && password.current.value !== "")) {
       setMissing(false);
       //email already in use
       setFailedEmail(0);
+
       if (!(email.current.value.includes('@')) || !(email.current.value.includes('.'))) {
         setFailedEmail(2);
       } else {
@@ -34,23 +49,27 @@ function SignUp(props) {
       }
       //failed password
       setFailedPassword(false);
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/
-      if (password.current.value.match(regex) === null) {
+      const validatePasswordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{6,}$/
+      let passwordStrength = password.current.value.match(validatePasswordRegex);
+
+      if (passwordStrength === null) {
         setFailedPassword(true);
         return;
       }
+      if (tosCheckbox === false) {
+        setAgreeToTos(false);
+        return;
+      } else {
+        setAgreeToTos(true);
+      }
       //sign up user
-      if (failedEmail === 0 && failedPassword === false) {
+      props.signUpUser(email.current.value, password.current.value);
+    }
+    else {
+      if (failedEmail === 0 && !failedPassword && agreeToTos && !missing) {
         props.signUpUser(email.current.value, password.current.value);
       }
-    } else {
-      setMissing(true);
-    }
-    if (tosCheckbox === false) {
-      setAgreeToTos(false);
-      return;
-    } else {
-      setAgreeToTos(true);
+      resetValidationVariables();
     }
   }
 
@@ -76,6 +95,8 @@ function SignUp(props) {
       return (
         <p style={{ color: "#F34D4D" }}>must agree with the Terms of Service before signing up</p>
       )
+    } else {
+      return (<div></div>);
     }
   }
 
