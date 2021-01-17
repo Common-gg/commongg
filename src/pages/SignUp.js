@@ -5,8 +5,6 @@ import logo from "../images/icons/logo1light.png";
 import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
 import { Modal, Form } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import ArrowLeft from "../images/icons/arrowleft 1.png"
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };

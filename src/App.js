@@ -156,7 +156,7 @@ function App() {
     window.history.pushState(null, null, "/");
     analytics.logEvent("signup")
     auth.createUserWithEmailAndPassword(email, password).then(() => {
-      sendVerifyEmail();
+      sendVerifyEmail(() => { });
     }).catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -164,11 +164,12 @@ function App() {
     });
   }
 
-  const sendVerifyEmail = () => {
+  const sendVerifyEmail = (callback) => {
     auth.currentUser.sendEmailVerification().then(() => {
+      return callback(true);
+    }).catch((error) => {
+      return callback(false);
     })
-      .catch((error) => {
-      })
   }
 
   const handleVerifyEmail = (actionCode, callback) => {

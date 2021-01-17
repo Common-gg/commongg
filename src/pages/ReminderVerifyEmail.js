@@ -3,6 +3,7 @@ import logo from "../images/icons/logo1light.png";
 import { Link } from "react-router-dom";
 
 function ReminderVerifyEmail(props) {
+    const [isVerifyEmailSentSuccessful, setIsVerifyEmailSentSuccessful] = useState();
 
     const logoCSS = {
         width: "4.5rem",
@@ -21,13 +22,32 @@ function ReminderVerifyEmail(props) {
         left: "1rem",
         textAlign: "center"
     }
-
-    function handleResendVerifyEmailClick() {
-        props.sendVerifyEmail();
-    }
     const linkStyle = {
         color: "#BF9AFC",
         textDecoration: "underline"
+    }
+
+    async function handleResendVerifyEmailClick() {
+        await props.sendVerifyEmail(setIsVerifyEmailSentSuccessful);
+        handleVerificationEmailFeedbackMessage();
+    }
+
+    function handleVerificationEmailFeedbackMessage() {
+        if (isVerifyEmailSentSuccessful === true) {
+            return (
+                <p style={{ color: "green" }}>Verification email successfully re-sent!</p>
+            );
+        }
+        else if (isVerifyEmailSentSuccessful === false) {
+            return (
+                <p style={{ color: "#F34D4D" }}>Something went wrong when re-sending verification email.</p>
+            );
+        }
+        else {
+            return (
+                <div></div>
+            );
+        }
     }
 
     return (
@@ -42,10 +62,13 @@ function ReminderVerifyEmail(props) {
                     color: "#BF9AFC",
                 }}>
                 <div style={{ margin: "20px 20px 0px 20px" }}>
+                    <div className="d-flex justify-content-center text-center">
+                        {handleVerificationEmailFeedbackMessage()}
+                    </div>
                     <div className="mx-auto">
                         <img style={logoCSS} className="mx-auto" src={logo} />
                         <br /><br />
-                        <p>please verify your email</p>
+                        <p>Please check your email for a verification email</p>
                         <div style={{ pointerEvents: "none" }}></div>
                         <button className="btn btn-info" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
                             re-send verification email
