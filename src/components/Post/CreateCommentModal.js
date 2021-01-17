@@ -62,10 +62,13 @@ function CreateCommentModal(props) {
     }
 
     function handleCommentClick() {
-        let commentTextCurrentValue = commentText.current.value;
+        let commentTextCurrentValue = commentText.current.value.trim();
 
         if ((commentTextCurrentValue !== undefined) && (commentTextCurrentValue !== null) && (commentTextCurrentValue.length > 1000)) {
             setDisplayCommentTextLengthValidationMessage(true);
+            return;
+        }
+        else if (commentTextCurrentValue === "") {
             return;
         }
         createComment();
@@ -74,7 +77,7 @@ function CreateCommentModal(props) {
     function createComment() {
         props.createComment({
             author: props.currentUserId,
-            commentText: commentText.current.value,
+            commentText: commentText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
             postId: props.postId,
             timestamp: props.firebaseTimeStamp()
         }, props.post.author);
@@ -101,7 +104,7 @@ function CreateCommentModal(props) {
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
-                            <span aria-hidden="true" style={{color: "#BF9AFC"}}>&times;</span>
+                            <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
                         </button>
                     </div>
                     <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
@@ -114,7 +117,7 @@ function CreateCommentModal(props) {
                         style={textAreaStyle}
                         maxLength="1000"
                     />
-                     <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
+                    <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
                     <div style={{ display: "flex" }}>
                         <button type="button" className="btn btn-primary" onClick={() => handleCommentClick()} data-dismiss="modal" style={commentButtonStyle}>Comment</button>
                     </div>
