@@ -20,6 +20,7 @@ function CreateProfile(props) {
   const [failedSpace, setFailedSpace] = useState(false);
   const [failedProfane, setFailedProfane] = useState(false);
   const [failedLength, setFailedLength] = useState(false);
+  const [isInvalidUsername, setIsInvalidUsername] = useState(false);
   const [displayInputValidationText, setDisplayInputValidationText] = useState(false);
   const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
   const [imageType, setImageType] = useState(null);
@@ -41,6 +42,8 @@ function CreateProfile(props) {
     clearValidationBools();
     const username = displayName.current.value;
 
+    const usernameRegex = /^(?=.{4,30}$)([_]{0,})([a-zA-Z0-9]{1,})([a-zA-Z0-9_])(?:([a-zA-Z0-9_]))+$/;
+    let validUserName = username.match(usernameRegex);
 
     if ((imageType === "image/jpeg") || (imageType === "image/jpg") || (imageType === "image/png")) {
       setDisplayImageTypeValidationMessage(false);
@@ -53,20 +56,24 @@ function CreateProfile(props) {
       setDisplayInputValidationText(true);
       return;
     }
-    if (filter.isProfane(username)) {
+    else if (filter.isProfane(username)) {
       setFailedProfane(true);
       return;
     }
-    if (username.includes(" ")) {
+    else if (username.includes(" ")) {
       setFailedSpace(true);
       return;
     }
     //check if useername is too short
-    if (username.length < 4) {
+    else if (username.length < 4) {
       setFailedLength(true);
       return;
     }
-
+    else if (validUserName === null) {
+      // If the regex expression is null there was no match and username is invalid
+      setIsInvalidUsername(true);
+      return;
+    }
     //check if username exists
     props.existsUsername(displayName.current.value).then((existsUser) => {
       if (existsUser === true) {
@@ -79,18 +86,9 @@ function CreateProfile(props) {
           props.storeBlob(displayName.current.value, img, "");
         }
       }
-    })
+    });
+    displayValidationMessage();
   }
-
-  const addCSS = {
-    /* add image */
-    width: "216px",
-    height: "216px",
-    left: "calc(50% - 216px/2)",
-    top: "calc(50% - 216px/2 + 91px)",
-  }
-
-
   const buttonStyle = {
     marginBottom: "20px",
     padding: "0.4rem",
@@ -100,14 +98,12 @@ function CreateProfile(props) {
     borderRadius: "10px",
     borderColor: "#BF9AFC",
     borderWidth: "2px",
-    maxWidth: "16%",
+    maxWidth: "50%",
     position: "relative",
     left: "10rem",
     marginTop: "1rem",
     marginBottom: "2.7rem"
   }
-
-
   const inputStyle = {
     backgroundColor: "transparent #292833",
     color: "#BF9AFC text-center",
@@ -126,6 +122,44 @@ function CreateProfile(props) {
     color: "#F34D4D",
     marginTop: "1rem"
   };
+
+  function displayValidationMessage() {
+    if (displayImageTypeValidationMessage === true) {
+      return (
+        <p style={validationMessageStyle}>image type must be png, jpeg, or jpg</p>
+      );
+    }
+    else if (displayInputValidationText === true) {
+      return (
+        <p style={validationMessageStyle}>username length cannot exceed 30 characters</p>
+      );
+    }
+    else if (failedExists === true) {
+      return (
+        <p style={validationMessageStyle}>username already in use</p>
+      );
+    }
+    else if (failedSpace === true) {
+      return (
+        <p style={validationMessageStyle}>username contains profanity</p>
+      );
+    }
+    else if (failedLength === true) {
+      return (
+        <p style={validationMessageStyle}>username is too short</p>
+      );
+    }
+    else if (isInvalidUsername === true) {
+      return (
+        <p style={validationMessageStyle}>Username may only contain numbers, characters, and underscores. It cannot purely be numbers, and must contain alphabetic characters.</p>
+      );
+    }
+    else {
+      return (
+        <div></div>
+      );
+    }
+  }
 
   return (
     <div className="CreateProfile">
@@ -147,19 +181,13 @@ function CreateProfile(props) {
           type="displayName"
           placeholder="username"
           track={setDisplayName} />
-        {displayImageTypeValidationMessage ? <p style={validationMessageStyle}>image type must be png, jpeg, or jpg</p> : null}
-        {displayInputValidationText ? <p style={validationMessageStyle}>username length cannot exceed 30 characters</p> : null}
-        {failedExists ? <p style={validationMessageStyle}>username already in use</p> : null}
-        {failedSpace ? <p style={validationMessageStyle}>username can't contain space</p> : null}
-        {failedProfane ? <p style={validationMessageStyle}>username contains profanity</p> : null}
-        {failedLength ? <p style={validationMessageStyle}>username is too short</p> : null}
+        {displayValidationMessage()}
         <span style={{ marginTop: "2.5rem" }}>add a profile picture</span>
         <DisplayImage
           type="profileImage"
           id="createAvatar"
           currentImg={add}
           setImg={setImg}
-
           changedInfo={() => { }} setImageType={setImageType} />
         <button
           type="submit"
