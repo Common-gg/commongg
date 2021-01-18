@@ -11,6 +11,7 @@ import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 import ArrowLeft from "../../images/icons/arrowleft 1.png";
 import { propTypes } from "react-bootstrap/esm/Image";
+import { post } from "jquery";
 
 
 function Post(props) {
@@ -107,7 +108,7 @@ function Post(props) {
         <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
           <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-          <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p>
+          {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> :null}
           {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}
         </div>
       </div>
