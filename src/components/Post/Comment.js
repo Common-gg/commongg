@@ -16,8 +16,7 @@ function Comment(props) {
         postId: ""
     });
     const [commentId, setCommentId] = useState(null);
-
-    let deleteStarted = 0;
+    const [deleteStarted, setDeleteStarted] = useState(0);
 
     const popoverStyle = {
         backgroundColor: "#292833",
@@ -86,14 +85,13 @@ function Comment(props) {
     };
 
     const handleDeleteClicked = (tempCommentId, tempPostId) => {
-        if (deleteStarted === 0) {
-            deleteStarted++;
-            if (deleteStarted === 1) {
-                props.deleteComment(tempCommentId, tempPostId);
-                document.body.click();
-                props.updateRefresh();
-            }
-        }
+      //each comment delete can once be triggered once
+      if (deleteStarted === 0) {
+        props.deleteComment(tempCommentId, tempPostId);
+        document.body.click();
+        props.updateRefresh();
+      }
+      setDeleteStarted(deleteStarted + 1)
     }
 
     return (
