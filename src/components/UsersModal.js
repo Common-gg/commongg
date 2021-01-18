@@ -51,13 +51,17 @@ function UsersModal(props) {
 
     const modalHeaderStyle = {
         borderBottom: "0 none",
-        textAlign: "center"
+        textAlign: "center",
     }
 
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#202020",
-        borderBottom: ""
+        margin: "30px" ,
+        backgroundColor: "#292833" ,
+        borderTop: "0",
+        borderLeft: "0",
+        borderRight: "0",
+        borderBottom: "0",
     }
 
     const followStyle = {
@@ -119,7 +123,7 @@ function UsersModal(props) {
     }
 
     return (
-        <div className="CreateCommentModal" >
+        <div className="CreateUserModal" >
             {checkButton()}
 
             <Modal show={show} onHide={handleClose}>

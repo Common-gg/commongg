@@ -32,21 +32,27 @@ function CreateCommentModal(props) {
     }
     const modalHeaderStyle = {
         borderBottom: "0 none",
-        textAlign: "center"
+        textAlign: "center", 
+        paddingLeft: "5%",
     }
     const textAreaStyle = {
         resize: "none",
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "transparent",
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",
         borderBottom: "0",
-        whiteSpace: "pre-wrap"
+        whiteSpace: "pre-wrap",
+        paddingLeft: "5%",
+        paddingRight: "5%", 
+        overflow: "wrap"
     }
     const commentButtonStyle = {
         height: 48,
+        margin: "1%" ,
         marginLeft: "auto",
+        marginRight: "5%",
         backgroundColor: "#BF9AFC",
         color: "#292833",
         border: "solid",
@@ -103,7 +109,7 @@ function CreateCommentModal(props) {
                         </p> : null}
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close"  style={{ color: "#BF9AFC" }} onClick={() => clearFields()}>
                             <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
                         </button>
                     </div>

@@ -69,7 +69,7 @@ function ReactionIcon(props) {
               }} src={image} alt=" "
             />
           </div>
-          {" " + props.text}
+         <span style= {{color: "white"}}>{" " + props.text}</span>
         </label>
       </button>
       <ReactToolTip id={props.id + "tt"} className="tooltip" />

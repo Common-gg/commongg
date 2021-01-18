@@ -17,12 +17,13 @@ background-color: #292833;
 }
 
 .btn {
-  background-color: purple;
-  border: none;
-  color: white;
-  padding: 12px 16px;
-  font-size: 20px;
-  cursor: pointer;
+  background-color: #BF9AFC;
+  border: none ;
+  padding: 12px 16px ;
+  font-size: 20px ;
+  cursor: pointer ;
+  height: 48 ;
+  color: #292833 ;
 }
 
 .testimonial-group > .row {
@@ -125,12 +126,16 @@ a:hover {
 }
 
 .createProfileCard{
-  margin: "50px";
-  max-width: "30%";
-  background-color: "#292833";
-  border-radius: "10px";
-  box-shadow: "-1px 7px 25px 1px #171421";
-  color: "#BF9AFC";
+  margin: 50px;
+  max-width: 30%;
+  background-color: #292833;
+  border-radius: 10px;
+  box-shadow: -1px 7px 25px 1px #171421;
+  color: #BF9AFC;
   text-align: center;
 }
 
+
+.modal-content{
+  background-color: #292833 ;
+}

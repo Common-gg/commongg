@@ -116,7 +116,7 @@ function ReactionsModal(props) {
   };
 
   return (
-    <div className="CreateCommentModal" >
+    <div className="CreateReactionModal" >
       <Modal show={props.showModal} onHide={handleClose}>
         <div style={modalContentStyle}>
           <Modal.Header closeButton style={modalHeaderStyle}>

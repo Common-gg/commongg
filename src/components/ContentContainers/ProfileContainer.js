@@ -122,7 +122,7 @@ function ProfileContainer(props) {
                 <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
                     <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
                 </div>
-                <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ color: "#BF9AFC", backgroundColor: "#BF9AFC" }}>
                     {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.verifyUser(pageId, !verified)} style={{ cursor: "pointer" }}>Verify User/Revoke Verification</p> : null}
                     <p className="dropdown-item mb-0" onClick={() => props.report("users", pageId)} style={{ cursor: "pointer" }}>Report User</p>
                     {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("users", props.pageId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {user.reports ? user.reports : 0})</p> : null}
@@ -149,7 +149,7 @@ function ProfileContainer(props) {
                     <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
                         setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
-                        <h2 style={{ marginTop: "5%" }}>
+                        <h2 className="row" style={{ marginTop: "5%", marginLeft: "0.5%" }}>
                             {user.username + " "}
                             {verified ?
                             <img src={check} alt={user.username + "verified"}
@@ -158,8 +158,11 @@ function ProfileContainer(props) {
                                     height: "1.8rem",
                                 }} />
                             : null}
+                         <div className="ml-auto pr-3 dropdown" style={{marginTop: "-1rem", marginRight: "-1rem" }}>
+                            {checkOptions()}
+                        </div>
                         </h2>
-                        <div className="d-flex flex-wrap">
+                        <div className="d-flex flex-wrap" style={{marginBottom: "-8%"}}>
 
                             <UsersModal {...props} user={user} type="followers"></UsersModal>
                             <UsersModal {...props} user={user} type="following"></UsersModal>
@@ -174,9 +177,6 @@ function ProfileContainer(props) {
                                 </button>
                             </span>
                         </div>
-                        <div className="ml-auto pr-3 dropdown">
-                            {checkOptions()}
-                        </div>
                     </div>
                 </div>
                 <div className="container text-wrap row" style={{ margin: "auto" }}>
@@ -184,8 +184,8 @@ function ProfileContainer(props) {
                         <br />{checkAboutMe()}
                     </div></div>
                 <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
-                <div className="flex-wrap d-flex flex-row justify-content-center">
-                    <div className="row justify-content-center" style={{ width: "70%", paddingBottom: '20px' }}>
+                <div className="row mx-auto justify-content-center">
+                    <div className="row mx-auto justify-content-center" style={{ width: "70%", paddingBottom: '20px' }}>
                         {user.games.map(index => {
                             if (props.currentUserInfo.games.includes(index)) {
                                 return (
@@ -197,12 +197,9 @@ function ProfileContainer(props) {
                                                 alt={props.allGames[index].title}
                                                 className="rounded"
                                                 style={{
-                                                    width: '8rem',
+                                                    width: '100%',
                                                     height: 'auto',
-                                                    margin: '3%',
-                                                    padding: '.3rem',
-                                                    marginBottom: "10%",
-                                                    marginTop: "4%"
+                                                    marginBottom: "10%"
                                                 }}
                                             />
                                         </Link>
