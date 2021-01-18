@@ -83,7 +83,7 @@ function CreateCommentModal(props) {
     function createComment() {
         props.createComment({
             author: props.currentUserId,
-            commentText: commentText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
+            commentText: commentText.current.value, //.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
             postId: props.postId,
             timestamp: props.firebaseTimeStamp()
         }, props.post.author);

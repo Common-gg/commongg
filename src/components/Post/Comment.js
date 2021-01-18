@@ -3,8 +3,8 @@ import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
 import { Link } from "react-router-dom";
 import optionsIcon from '../../images/icons/options.png';
-import { Popover, OverlayTrigger } from 'react-bootstrap'
 import CommentFooter from './CommentFooter.js';
+import TruncateText from '../TruncateText.js';
 
 function Comment(props) {
 
@@ -122,7 +122,8 @@ function Comment(props) {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <Text text={comment.commentText} style={{ whiteSpace: "pre-wrap" }} />
+                        {/*<Text text={comment.commentText} style={{ whiteSpace: "pre-wrap" }} />*/}
+                        <TruncateText text={comment.commentText} maxLines={5} maxChars={300}/>
                     </div>
                 </div>
                 <div className="row">
