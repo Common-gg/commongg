@@ -20,15 +20,25 @@ function CropProfilePictureModal(props) {
         setCroppedImage(props.croppedImage);
     }, [props.croppedImage])
 
-    let buttonStyle = {
-        backgroundColor: "transparent",
-        position: "relative",
-        left: "-.74rem"
-    }
+    const buttonStyle = {
+        height: 48,
+        marginLeft: "auto",
+        marginRight: "40px",
+        backgroundColor: "#BF9AFC",
+        color: "#292833",
+        border: "solid",
+        borderRadius: "10px",
+        borderColor: "#BF9AFC",
+        borderWidth: "2px",
+    }; 
+    
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#202020",
-        borderBottom: "",
+        backgroundColor: "#292833",
+        borderTop: "0",
+        borderLeft: "0",
+        borderRight: "0",
+        borderBottom: "0",
     }
     const modalHeaderStyle = {
         borderBottom: "0 none",
@@ -101,13 +111,13 @@ function CropProfilePictureModal(props) {
                 <div className="modal-content" style={modalContentStyle}>
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="cropProfilePictureModalLabel">Crop Profile Picture</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close"  style={{ color: "#BF9AFC" }} onClick={() => clearFields()}>
+                            <span aria-hidden="true"  style={{ color: "#BF9AFC" }}>&times;</span>
                         </button>
                     </div>
                     {modalBody(croppedImage)}
-                    <div style={{ display: "flex" }}>
-                        <button type="button" className="btn btn-primary" onClick={() => handleCropClick()} data-dismiss="modal">Crop</button>
+                    <div style={{ display: "flex", paddingBottom: "5%" }}>
+                        <button type="button" className="btn btn-primary" style={buttonStyle} onClick={() => handleCropClick()} data-dismiss="modal">Crop</button>
                     </div>
                 </div>
             </Modal>

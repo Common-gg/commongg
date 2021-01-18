@@ -103,7 +103,7 @@ function Post(props) {
     return (
       <div>
         <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
-          <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
+          <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent", marginTop: "-8rem", marginRight: "-1rem" }} />
         </div>
         <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
@@ -334,8 +334,7 @@ function Post(props) {
           <div className="Post" style={getStyle()}>
             <div className="container">
               <br />
-              <div className="row">
-
+              <div className="row" style={{marginBottom: "-5%"}}>
                 <div className="col-12 row" >
                   {renderBackButton ? <button type="button"
                     className="btn"
