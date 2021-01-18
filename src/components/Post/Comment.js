@@ -78,7 +78,7 @@ function Comment(props) {
                 <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {props.currentUserId === comment.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => handleDeleteClicked(commentId, comment.postId)} style={{ cursor: "pointer" }}>Delete Comment</p> : null}
                     <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-                    <p className="dropdown-item mb-0" onClick={() => props.report("content/comments", commentId)} style={{ cursor: "pointer" }}>Report Comment</p>
+                    {props.currentUserId !== comment.author ?<p className="dropdown-item mb-0" onClick={() => props.report("content/comments", commentId)} style={{ cursor: "pointer" }}>Report Comment</p> : null}
                     {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/comments", commentId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {comment.reports ? comment.reports : 0})</p> : null}
                 </div>
             </div>
