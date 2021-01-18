@@ -330,10 +330,17 @@ function App() {
     if (currentUser === undefined) return;
     if (commentId === undefined || commentId === "") return;
     const commentRef = database.ref('/content/comments/' + commentId);
-    commentRef.remove();
-    analytics.logEvent("comment_deleted")
-    //update the number of comments
-    updateNumComments(postId, -1);
+    commentRef.once('value').then((snapshot) => {
+      const commentData = snapshot.val();
+      //we only actually remove the comment when the comment is still there
+      if (commentData !== null) {
+        commentRef.remove();
+        analytics.logEvent("comment_deleted")
+        //update the number of comments
+        updateNumComments(postId, -1);
+      }
+    })
+    
   }
 
   //delete post with post id
@@ -427,19 +434,13 @@ function App() {
 
   const followUser = (follower, followed) => {
     // follows the desired user
-    const followerRef = database.ref('/users/' + follower + '/following/').push();
-    const followedRef = database.ref('/users/' + followed + '/followers/').push();
+    const followerRef = database.ref('/users/' + follower + '/following/');
+    const followedRef = database.ref('/users/' + followed + '/followers/');
 
-    followerRef.set(followed);
-    followedRef.set(follower);
-    updateFollow(follower, "following", 1);
-    updateFollow(followed, "follower", 1);
+    followerRef.update({[followed]: followed});
+    followedRef.update({[follower]: follower});
     setCurrentUserInfo({
       ...currentUserInfo,
-      followCounts: {
-        follower: currentUserInfo.followCounts.follower,
-        following: currentUserInfo.followCounts.following + 1
-      },
       following: {
         ...currentUserInfo.following,
         [firebaseTimeStamp()]: followed

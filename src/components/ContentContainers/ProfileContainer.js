@@ -12,7 +12,9 @@ function ProfileContainer(props) {
     const [user, setUser] = useState({ profile: [], games: [], followCounts: {} });
     const [verified, setVerified] = useState(false);
     //this represent old page id which is the unique id
-    const [pageId, setPageId] = useState(null)
+    const [pageId, setPageId] = useState(null);
+    const username = props.username;
+    const getUserWithLower = props.getUserWithLower;
   
     const [followBtnState, setFollowBtnState] = useState({
         text: "Follow", img: plus
@@ -29,22 +31,24 @@ function ProfileContainer(props) {
     });
 
     function followHandler() {
-        if (followBtnState.text === "Follow") {
-            props.followUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "Following", img: check });
-        } else {
-            props.unFollowUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
-        }
+      if (followBtnState.text === "Follow") {
+        props.followUser(props.currentUserId, pageId);
+        setFollowBtnState({ ...followBtnState, text: "Following", img: check });
+      } else if (followBtnState.text === "Following") {
+        props.unFollowUser(props.currentUserId, pageId);
+        setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
+      }
     }
+
+    //useEffect handler for when button state changes
 
     //retrieve the user and pageId from the username
     useEffect(() => {
       //if the username exists
-      if (props.username) {
-        props.getUserWithLower(props.username, setUser, setPageId)
+      if (username) {
+        getUserWithLower(username, setUser, setPageId)
       }
-    }, [props.username, props.getUserWithLower])
+    }, [username, getUserWithLower])
 
     //check if the current user is self
     useEffect(() => {
@@ -52,7 +56,6 @@ function ProfileContainer(props) {
             if (props.currentUserId === pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             } else {
-                setFollowBtnState({ text: "Follow", img: plus })
                 setFollowBtnStyle({
                     visibility: "visible",
                     backgroundColor: "transparent",
