@@ -10,6 +10,7 @@ function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };
   const [email, setEmail] = useState(initialCurrentValue);
   const [password, setPassword] = useState(initialCurrentValue);
+  const [confirmPassword, setConfirmPassword] = useState(initialCurrentValue);
 
   const [showTosModal, setShowTosModal] = useState(false);
   const [failedPassword, setFailedPassword] = useState(false);
@@ -17,6 +18,7 @@ function SignUp(props) {
   const [missing, setMissing] = useState(false);
   const [tosCheckbox, setTosCheckbox] = useState(false);
   const [agreeToTos, setAgreeToTos] = useState(null);
+  const [displayNonMatchingPasswordFieldsValidation, setDisplayNonMatchingPasswordFieldsValidation] = useState(false);
 
   function resetValidationVariables() {
     setShowTosModal(false);
@@ -24,6 +26,7 @@ function SignUp(props) {
     setFailedEmail(0);
     setMissing(false);
     setTosCheckbox(null);
+    setDisplayNonMatchingPasswordFieldsValidation(false);
   }
 
   const signUp = () => {
@@ -60,6 +63,10 @@ function SignUp(props) {
       } else {
         setAgreeToTos(true);
       }
+      if (password.current.value !== confirmPassword.current.value) {
+        setDisplayNonMatchingPasswordFieldsValidation(true);
+        return;
+      }
       //sign up user
       props.signUpUser(email.current.value, password.current.value);
     }
@@ -75,24 +82,29 @@ function SignUp(props) {
     if (missing === true) {
       return (
         <p style={{ color: "#F34D4D" }}>missing email or password</p>
-      )
+      );
     } else if (failedEmail === 1) {
       return (
         <p style={{ color: "#F34D4D" }}>email already in use</p>
-      )
+      );
     } else if (failedEmail === 2) {
       return (
         <p style={{ color: "#F34D4D" }}>not a valid email format</p>
-      )
+      );
     } else if (failedPassword === true) {
       return (
-        <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number</p>
-      )
+        <p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character</p>
+      );
     }
     else if (agreeToTos === false) {
       return (
         <p style={{ color: "#F34D4D" }}>must agree with the Terms of Service before signing up</p>
-      )
+      );
+    }
+    else if (displayNonMatchingPasswordFieldsValidation === true) {
+      return (
+        <p style={{ color: "#F34D4D" }}>Password field and confirm password field do not match. Ensure they match and try again.</p>
+      );
     } else {
       return (<div></div>);
     }
@@ -162,7 +174,6 @@ function SignUp(props) {
             <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
           </div>
         </Modal.Body>
-
       </Modal>
       <div className="mx-auto card"
         style={{
@@ -203,8 +214,18 @@ function SignUp(props) {
               </div>
             </div>
           </div>
+          <div className="form-group col-12">
+            <div className="row mx-auto">
+              <div style={inputStyle} onKeyDown={(e) => signUpForApp(e)}>
+                <Input type="password"
+                  bootstrap="border-0"
+                  placeholder="confirm password"
+                  track={setConfirmPassword}
+                />
+              </div>
+            </div>
+          </div>
           <div className="d-flex justify-content-center text-center">
-
             <Form.Group controlId="tosCheckBox">
               <Form.Check onChange={(e) => handleChecked(e)} type="checkbox" label="I accept the " />
               <a href="#" onClick={showTosModalTrue} style={{ textDecoration: "underline" }}>
