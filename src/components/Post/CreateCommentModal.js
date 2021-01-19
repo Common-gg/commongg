@@ -109,7 +109,7 @@ function CreateCommentModal(props) {
                     }} />
             </button>
             <div onMouseDown={handleMouseDown} >
-                <Modal show={show} onHide={handleClose} backdrop={props.showClickOutsideCommentModal ? "static" : "dynamic"} style={{ zIndex: "99998" }} onEntered={() => commentTextRef.current.focus()}>
+                <Modal show={show} onHide={handleClose} style={{ zIndex: "99998" }} onEntered={() => commentTextRef.current.focus()}>
                     <div className="modal-content" ref={modalRef} style={modalContentStyle}>
                         {displayCommentTextLengthValidationMessage ?
                             <p style={{ color: "#F34D4D" }}>

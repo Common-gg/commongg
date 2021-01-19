@@ -14,6 +14,7 @@ function PageContainer(props) {
   const [numPostsToLoad, setNumPostsToLoad] = useState(10);
   const [backClicked, setBackClicked] = useState(false);
   const [showClickOutsideCommentModal, setShowClickOutsideCommentModal] = useState(false);
+  const [yesClick, setYesClick] = useState(false);
   const [numPostsLoaded, setNumPostsLoaded] = useState();
   const [offSet, setOffSet] = useState(0, 0);
   const history = useHistory();
@@ -84,6 +85,10 @@ function PageContainer(props) {
     }
   }, [backClicked]);
 
+  useEffect(() => {
+    setYesClick(yesClick);
+  }, [yesClick])
+
   const checkRatio = (image, setImage) => {
     const wRatio = (window.innerWidth * .9) / image.width;
     const hRatio = (window.innerHeight * .9) / image.height;
@@ -95,7 +100,6 @@ function PageContainer(props) {
       height: image.height * Math.min(wRatio, hRatio)
     });
   }
-
   const clickOutsideModalContentStyle = {
     color: "#BF9AFC",
     backgroundColor: "#292833",
@@ -106,6 +110,9 @@ function PageContainer(props) {
     width: "600px",
     height: "150px",
   }
+  function handleYesClick() {
+    setShowClickOutsideCommentModal(false);
+  }
   return (
     <div className="PageContainer">
       <GamesContainer {...props} />
@@ -113,12 +120,16 @@ function PageContainer(props) {
       } onHide={() => { setShowClickOutsideCommentModal(false) }}>
         <div className="modal-content" style={clickOutsideModalContentStyle}>
           <div className="modal-header" style={modalHeaderStyle}>
-            <h5 className="modal-title" >You clicked outside the comment area. This box was to prevent you from losing your comment.</h5>
+            <h5 className="modal-title" >Are you sure you want to click outside comment?</h5>
           </div>
           <div>
             <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
-            <div style={{ display: "flex" }}>
-              <button type="button" className="btn btn-primary" onClick={() => setShowClickOutsideCommentModal(false)} style={buttonStyle}>close</button>
+            <div style={{ display: "flex", justify: "center" }}>
+              <button type="button" className="btn btn-primary" onClick={() => setShowClickOutsideCommentModal(false)}
+                style={{
+                  ...buttonStyle, marginLeft: "25rem"
+                }}>no, i'll stay</button>
+              <button type="button" className="btn btn-primary" onClick={handleYesClick} style={buttonStyle}>yes</button>
             </div>
           </div>
         </div>
@@ -178,7 +189,7 @@ function PageContainer(props) {
             </div>
             <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} offSet={offSet}
               setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
-              setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded}
+              setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} setYesClick={setYesClick}
               showClickOutsideCommentModal={showClickOutsideCommentModal} setShowClickOutsideCommentModal={setShowClickOutsideCommentModal}
             />
           </div>

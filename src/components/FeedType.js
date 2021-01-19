@@ -78,7 +78,7 @@ function FeedType(props) {
   useEffect(() => {
     //only changes when we are doing client filtering
     if (clientFilter === true && allPosts) {
-      if(props.currentUserInfo.following === null){
+      if (props.currentUserInfo.following === null) {
         return;
       }
       const following = Object.values(props.currentUserInfo.following);
