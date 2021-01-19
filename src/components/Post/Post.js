@@ -103,12 +103,12 @@ function Post(props) {
     return (
       <div>
         <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
-          <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent", marginTop: "-8rem", marginRight: "-1rem" }} />
+          <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent", marginTop: "-5.8rem", marginRight: "-1rem" }} />
         </div>
-        <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ backgroundColor: "#BF9AFC", marginTop: "-3rem", marginRight: "-1rem" }}>
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
           <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-          {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> :null}
+          {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> : null}
           {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}
         </div>
       </div>
@@ -334,7 +334,7 @@ function Post(props) {
           <div className="Post" style={getStyle()}>
             <div className="container">
               <br />
-              <div className="row" style={{marginBottom: "-5%"}}>
+              <div className="row" style={{ marginBottom: "-5%" }}>
                 <div className="col-12 row" >
                   {renderBackButton ? <button type="button"
                     className="btn"
@@ -343,13 +343,21 @@ function Post(props) {
                   >
                     <img src={ArrowLeft} style={imageBackButtonStyle} />
                   </button> : null}
-                  <Link to={"/profile/" + author.username} className="col-10 row" style={{ marginBottom: '5px', lineHeight: '5px', position: "relative", bottom: "-0.5rem", left: "0.5rem", textDecoration: 'none' }}>
+                  <Link to={"/profile/" + author.username} className="col-10 row"
+                    style={{
+                      marginBottom: '5px',
+                      lineHeight: '5px',
+                      position: "relative",
+                      bottom: "-0.5rem",
+                      left: "0.5rem",
+                      textDecoration: 'none'
+                    }}>
                     <img
                       src={author.profile_picture}
                       alt={author.username + " picture"}
                       width="40px"
                       height="40px"
-                      style={{ borderRadius: "50%", cursor: "pointer" }}
+                      style={{ borderRadius: "50%", cursor: "pointer", marginTop: "-8px" }}
                       className="img">
                     </img>
                     <div className="col-8">
@@ -378,9 +386,12 @@ function Post(props) {
                         borderStyle: 'solid',
                         borderWidth: '1px',
                         borderRadius: '5px',
-                        height: '25px',
+                        padding: "5px",
+                        marginBottom: "10px", 
+                        height: '32px',
                         color: '#BF9AFC',
-                        borderColor: '#BF9AFC'
+                        borderColor: '#BF9AFC',
+                        whiteSpace: "nowrap"
                       }} />
                   </div>
                 </Link>

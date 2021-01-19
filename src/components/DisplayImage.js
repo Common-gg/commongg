@@ -75,7 +75,7 @@ function DisplayImage(props) {
                 width: "150px",
                 height: "150px",
                 borderRadius: "50%",
-                margin: "20px",
+                margin: "6%",
                 cursor: "pointer",
                 boxShadow: "3px 3px 25px #171421"
               }}

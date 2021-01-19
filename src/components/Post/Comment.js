@@ -72,9 +72,9 @@ function Comment(props) {
         return (
             <div>
                 <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
-                    <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
+                    <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent",  marginTop: "-1rem", marginRight: "-18rem" }} />
                 </div>
-                <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{backgroundColor: "#BF9AFC", marginTop: "-1rem", marginRight: "-18rem" }}>
                     {props.currentUserId === comment.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => handleDeleteClicked(commentId, comment.postId)} style={{ cursor: "pointer" }}>Delete Comment</p> : null}
                     <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
                     {props.currentUserId !== comment.author ?<p className="dropdown-item mb-0" onClick={() => props.report("content/comments", commentId)} style={{ cursor: "pointer" }}>Report Comment</p> : null}

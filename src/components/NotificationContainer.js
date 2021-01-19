@@ -117,18 +117,19 @@ function NotificationContainer(props) {
                     }}
                 />
             </OverlayTrigger>
-            {unreadNotificationCounter !== 0 ? <Text text={unreadNotificationCounter}
+            {unreadNotificationCounter !== 0 ? <Text text={unreadNotificationCounter < 100 ? unreadNotificationCounter : "99+"}
                 style={{
                     backgroundColor: "#8F00FF",
                     borderRadius: "50%",
                     width: "2rem",
                     height: "2rem",
-                    fontSize: "1.4rem",
-                    paddingLeft: ".5rem",
-                    paddingTop: ".1rem",
+                    fontSize: "1rem",
+                    paddingTop: "0.4rem",
                     position: "relative",
                     top: "-1.4rem",
-                    left: "1.9rem"
+                    left: "1.9rem",
+                    whiteSpace: "nowrap",
+                    textAlign: "center",
                 }} /> : null}
 
         </div>

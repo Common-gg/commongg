@@ -77,7 +77,7 @@ function Login(props) {
             </div>
             <br />
             <div className="form-group col-12" style={{ textAlign: "center", }}>
-              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> login </p>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> The Social Network for Gaming </p>
               <div className="row mx-auto">
                 <div className="Input mx-auto" >
                   <Input type="email"
@@ -139,12 +139,12 @@ function Login(props) {
             textDecoration: "underline",
           }}>
             <p className="col">
-              new? sign Up
+              New? Sign Up
               </p>
           </Link>
           <Link to="/forgotpassword">
             <p className="col" style={linkStyle}>
-              forgot password?
+              Forgot Password?
               </p>
           </Link>
         </div>
