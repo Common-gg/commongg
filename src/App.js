@@ -115,7 +115,7 @@ function App() {
 
     if (currentUser.uid === targetUserID) return;
 
-    database.ref(`/users/${targetUserID}/notifications/unread`).push({
+    database.ref(`/users/${targetUserID}/notifications/unread/${currentUser.uid + type + locationID}`).update({
       userID: currentUser.uid,
       type: type,
       timestamp: firebaseTimeStamp(),
