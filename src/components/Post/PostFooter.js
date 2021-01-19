@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap'
-import IconButton from '../IconButton';
 import CreateCommentModal from './CreateCommentModal.js';
 import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
@@ -102,7 +101,7 @@ function PostFooter(props) {
     } else {
       //we are in the post page so we create modal
       return (
-        <CreateCommentModal {...props} post={post} postId={props.postId} />
+        <CreateCommentModal {...props} post={post} showClickOutsideCommentModal={props.showClickOutsideCommentModal} setShowClickOutsideCommentModal={props.setShowClickOutsideCommentModal} postId={props.postId} />
       )
     }
   }
@@ -137,7 +136,6 @@ function PostFooter(props) {
     const times = Math.floor(Object.keys(post.reactions).length / 3);
     return <div className={`col-${12 * times}`}></div>;
   }
-
   const reactionsPopoverStyle = {
     backgroundColor: "#292833",
     boxShadow: "4px 4px 25px 0px #171421 ",

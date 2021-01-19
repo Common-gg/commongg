@@ -5,6 +5,7 @@ import { Modal } from "react-bootstrap";
 function CreateCommentModal(props) {
     const [show, setShow] = useState(false);
     const commentTextRef = useRef();
+    const modalRef = useRef(null);
     const [commentText, setCommentText] = useState({ current: { value: "" } });
     const [displayCommentTextLengthValidationMessage, setDisplayCommentTextLengthValidationMessage] = useState(false);
 
@@ -14,8 +15,6 @@ function CreateCommentModal(props) {
             setShow(true);
         };
     }, [props.show])
-
-    const handleClose = () => setShow(false);
 
     let buttonStyle = {
         backgroundColor: "transparent",
@@ -32,7 +31,7 @@ function CreateCommentModal(props) {
     }
     const modalHeaderStyle = {
         borderBottom: "0 none",
-        textAlign: "center", 
+        textAlign: "center",
         paddingLeft: "5%",
     }
     const textAreaStyle = {
@@ -45,12 +44,12 @@ function CreateCommentModal(props) {
         borderBottom: "0",
         whiteSpace: "pre-wrap",
         paddingLeft: "5%",
-        paddingRight: "5%", 
+        paddingRight: "5%",
         overflow: "wrap"
     }
     const commentButtonStyle = {
         height: 48,
-        margin: "1%" ,
+        margin: "1%",
         marginLeft: "auto",
         marginRight: "5%",
         backgroundColor: "#BF9AFC",
@@ -80,6 +79,8 @@ function CreateCommentModal(props) {
         createComment();
     }
 
+    const handleClose = () => setShow(false);
+
     function createComment() {
         props.createComment({
             author: props.currentUserId,
@@ -89,6 +90,12 @@ function CreateCommentModal(props) {
         }, props.post.author);
         props.updateRefresh();
         clearFields();
+    }
+
+    function handleMouseDown(e) {
+        if (modalRef.current && !modalRef.current.contains(e.target)) {
+            props.setShowClickOutsideCommentModal(true);
+        }
     }
 
     return (
@@ -101,35 +108,37 @@ function CreateCommentModal(props) {
                         height: "1.625rem"
                     }} />
             </button>
-            <Modal show={show} onHide={handleClose} onEntered={() => commentTextRef.current.focus()}>
-                <div className="modal-content" style={modalContentStyle}>
-                    {displayCommentTextLengthValidationMessage ?
-                        <p style={{ color: "#F34D4D" }}>
-                            The length of your comment cannot exceed 1000 characters
+            <div onMouseDown={handleMouseDown} >
+                <Modal show={show} onHide={handleClose} backdrop={props.showClickOutsideCommentModal ? "static" : "dynamic"} style={{ zIndex: "99998" }} onEntered={() => commentTextRef.current.focus()}>
+                    <div className="modal-content" ref={modalRef} style={modalContentStyle}>
+                        {displayCommentTextLengthValidationMessage ?
+                            <p style={{ color: "#F34D4D" }}>
+                                The length of your comment cannot exceed 1000 characters
                         </p> : null}
-                    <div className="modal-header" style={modalHeaderStyle}>
-                        <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close"  style={{ color: "#BF9AFC" }} onClick={() => clearFields()}>
-                            <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
-                        </button>
+                        <div className="modal-header" style={modalHeaderStyle}>
+                            <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
+                                <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
+                            </button>
+                        </div>
+                        <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
+                        <textarea
+                            className="form-control"
+                            onChange={() => setCommentText(commentTextRef)}
+                            ref={commentTextRef}
+                            placeholder="type your comment here..."
+                            rows="5"
+                            style={textAreaStyle}
+                            maxLength="1000"
+                        />
+                        <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
+                        <div style={{ display: "flex" }}>
+                            <button type="button" className="btn btn-primary" onClick={() => handleCommentClick()} data-dismiss="modal" style={commentButtonStyle}>Comment</button>
+                        </div>
+                        <br />
                     </div>
-                    <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
-                    <textarea
-                        className="form-control"
-                        onChange={() => setCommentText(commentTextRef)}
-                        ref={commentTextRef}
-                        placeholder="type your comment here..."
-                        rows="5"
-                        style={textAreaStyle}
-                        maxLength="1000"
-                    />
-                    <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
-                    <div style={{ display: "flex" }}>
-                        <button type="button" className="btn btn-primary" onClick={() => handleCommentClick()} data-dismiss="modal" style={commentButtonStyle}>Comment</button>
-                    </div>
-                    <br />
-                </div>
-            </Modal>
+                </Modal>
+            </div>
         </div>
     )
 }

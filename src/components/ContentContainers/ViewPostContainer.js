@@ -78,6 +78,8 @@ function ViewPostContainer(props) {
                     paddingLeft: '20px',
                     paddingRight: '20px'
                 }}
+                showClickOutsideCommentModal={props.showClickOutsideCommentModal}
+                setShowClickOutsideCommentModal={props.setShowClickOutsideCommentModal}
             />
             <br />
             {sortedComments.map((comment) => {

@@ -10,12 +10,8 @@ import YoutubeEmbed from './YoutubeEmbed.js';
 import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 import ArrowLeft from "../../images/icons/arrowleft 1.png";
-import { propTypes } from "react-bootstrap/esm/Image";
-import { post } from "jquery";
-
 
 function Post(props) {
-
   const [author, setAuthor] = useState({ profile: "" });
   const [expand, setExpand] = useState(false);
   const [renderBackButton, setRenderBackButton] = useState(false);
@@ -108,7 +104,7 @@ function Post(props) {
         <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton">
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
           <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-          {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> :null}
+          {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> : null}
           {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}
         </div>
       </div>
@@ -334,7 +330,7 @@ function Post(props) {
           <div className="Post" style={getStyle()}>
             <div className="container">
               <br />
-              <div className="row" style={{marginBottom: "-5%"}}>
+              <div className="row" style={{ marginBottom: "-5%" }}>
                 <div className="col-12 row" >
                   {renderBackButton ? <button type="button"
                     className="btn"
@@ -364,7 +360,6 @@ function Post(props) {
                   {checkOptions()}
                 </div>
               </div>
-
               <div className="row">
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
@@ -402,7 +397,7 @@ function Post(props) {
               </Linkify>
               {checkExpandButton()}
               {checkType()}
-              <PostFooter {...props} />
+              <PostFooter {...props} showClickOutsideCommentModal={props.showClickOutsideCommentModal} setShowClickOutsideCommentModal={props.setShowClickOutsideCommentModal} />
             </div>
             <br />
           </div>

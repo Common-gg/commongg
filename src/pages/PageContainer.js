@@ -7,11 +7,13 @@ import SearchBar from '../components/SearchBar.js';
 import NotificationContainer from "../components/NotificationContainer.js";
 import TopOfPageImage from "../images/icons/top 1.png";
 import { useHistory } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 
 function PageContainer(props) {
 
   const [numPostsToLoad, setNumPostsToLoad] = useState(10);
   const [backClicked, setBackClicked] = useState(false);
+  const [showClickOutsideCommentModal, setShowClickOutsideCommentModal] = useState(false);
   const [numPostsLoaded, setNumPostsLoaded] = useState();
   const [offSet, setOffSet] = useState(0, 0);
   const history = useHistory();
@@ -29,11 +31,6 @@ function PageContainer(props) {
   const sticky = {
     position: "fixed"
   }
-  const modalContentStyle = {
-    color: "#BF9AFC",
-    backgroundColor: "transparent",
-    borderColor: "transparent"
-  };
   const topOfPageButtonStyle = {
     visibility: "visible",
     backgroundColor: "transparent",
@@ -50,7 +47,28 @@ function PageContainer(props) {
     height: "2.5rem",
     position: "relative"
   }
-
+  const modalContentStyle = {
+    color: "#BF9AFC",
+    backgroundColor: "#292833",
+    borderTop: "0",
+    borderLeft: "0",
+    borderRight: "0",
+    borderBottom: "0",
+  }
+  const modalHeaderStyle = {
+    borderBottom: "0 none",
+    textAlign: "center"
+  }
+  const buttonStyle = {
+    height: 48,
+    marginLeft: "auto",
+    backgroundColor: "#BF9AFC",
+    color: "#292833",
+    border: "solid",
+    borderRadius: "10px",
+    borderColor: "#BF9AFC",
+    borderWidth: "1px",
+  }
   useEffect(() => {
     checkRatio(modalImage, setModalImage);
   }, [modalImage])
@@ -78,10 +96,33 @@ function PageContainer(props) {
     });
   }
 
-
+  const clickOutsideModalContentStyle = {
+    color: "#BF9AFC",
+    backgroundColor: "#292833",
+    borderTop: "0",
+    borderLeft: "0",
+    borderRight: "0",
+    borderBottom: "0",
+    width: "600px",
+    height: "150px",
+  }
   return (
     <div className="PageContainer">
       <GamesContainer {...props} />
+      <Modal show={showClickOutsideCommentModal} style={{ marginRight: "5rem", marginTop: "5rem", zIndex: "99999" }
+      } onHide={() => { setShowClickOutsideCommentModal(false) }}>
+        <div className="modal-content" style={clickOutsideModalContentStyle}>
+          <div className="modal-header" style={modalHeaderStyle}>
+            <h5 className="modal-title" >You clicked outside the comment area. This box was to prevent you from losing your comment.</h5>
+          </div>
+          <div>
+            <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
+            <div style={{ display: "flex" }}>
+              <button type="button" className="btn btn-primary" onClick={() => setShowClickOutsideCommentModal(false)} style={buttonStyle}>close</button>
+            </div>
+          </div>
+        </div>
+      </Modal>
       <div className="modal fade show" id="enlargedImageModal" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document" style={{
           marginTop: (window.innerHeight - modalImage.height) / 2 + "px",
@@ -137,7 +178,9 @@ function PageContainer(props) {
             </div>
             <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} offSet={offSet}
               setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
-              setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} />
+              setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded}
+              showClickOutsideCommentModal={showClickOutsideCommentModal} setShowClickOutsideCommentModal={setShowClickOutsideCommentModal}
+            />
           </div>
           <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
             <div style={sticky}>
