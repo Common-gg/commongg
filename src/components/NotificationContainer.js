@@ -7,7 +7,6 @@ import NotificationRead from "../images/icons/notificationempty-1.png";
 import { isPlainObject } from "jquery";
 
 function NotificationContainer(props) {
-    let tempCounter = 0;
     const [imageSource, setImageSource] = useState(NotificationRead);
     const [unreadNotificationCounter, setUnreadNotificationCounter] = useState(0);
     const [allNotifications, setAllNotifications] = useState({});
@@ -23,7 +22,7 @@ function NotificationContainer(props) {
         setAllNotifications({
             ...readNotifications,
             ...unreadNotifications
-        })
+        })      
     }, [readNotifications, unreadNotifications]);
 
 
@@ -32,9 +31,10 @@ function NotificationContainer(props) {
             setReadNotifications(notifications);
         }
         else {
-            setUnreadNotifications({ ...allNotifications, ...notifications });
-            tempCounter++
-            setUnreadNotificationCounter(tempCounter)
+            setUnreadNotifications((curUnread) => {
+                return {...curUnread, ...notifications}
+            });
+            setUnreadNotificationCounter(prevState => prevState + 1)
             setImageSource(NotificationUnread);
         }
     }
@@ -74,7 +74,7 @@ function NotificationContainer(props) {
                 <div className="popover-body" style={popoverBodyStyle}>
                     <div className="row">
                         {allNotifications ?
-                            Object.values(allNotifications).reverse().map((notification, i) => {
+                            Object.values(allNotifications).sort((a,b) => a.timestamp - b.timestamp).reverse().map((notification, i) => {
                                 return (
                                     <div style={{ width: "100%" }} key={Object.keys(allNotifications).reverse()[i]} >
                                         {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null}

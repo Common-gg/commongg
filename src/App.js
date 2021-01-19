@@ -141,10 +141,10 @@ function App() {
 
   const notificationListener = (callback) => {
 
-    database.ref(`/users/${currentUser.uid}/notifications/read`).once("value", (snapshot) => {
+    database.ref(`/users/${currentUser.uid}/notifications/read`).orderByChild('timestamp').once("value", (snapshot) => {
       callback(snapshot.val(), "read");
 
-      database.ref(`/users/${currentUser.uid}/notifications/unread`).on("child_added", (data) => {
+      database.ref(`/users/${currentUser.uid}/notifications/unread`).orderByChild('timestamp').on("child_added", (data) => {
         callback({ [data.key]: data.val() }, "unread");
       });
     });

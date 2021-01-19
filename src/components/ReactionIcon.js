@@ -13,7 +13,8 @@ function ReactionIcon(props) {
     } else {
       import(`../images/reactions/${props.reaction}.png`).then(reactionImg => {
         setImage(reactionImg.default);
-      });
+      }).catch(err => {console.log(`image for ${props.reaction} can't be found`)});
+      
     }
     if (props.usersReacted) {
       if (props.usersReacted.length > 0) {
@@ -66,7 +67,7 @@ function ReactionIcon(props) {
                 width: "30px",
                 height: "30px",
 
-              }} src={image} alt=" "
+              }} src={image} alt={props.reaction}
             />
           </div>
          <span style= {{color: "white"}}>{" " + props.text}</span>
