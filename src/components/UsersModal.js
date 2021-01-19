@@ -67,7 +67,7 @@ function UsersModal(props) {
     const followStyle = {
         color: "#BF9AFC",
         fontSize: "1.6rem",
-        marginRight: "1rem"
+        marginRight: ".5rem"
     };
 
     const numberStyle = {
