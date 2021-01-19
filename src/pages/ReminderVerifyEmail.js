@@ -19,7 +19,6 @@ function ReminderVerifyEmail(props) {
         borderColor: "#BF9AFC",
         borderWidth: "2px",
         position: "relative",
-        left: "1rem",
         textAlign: "center"
     }
     const linkStyle = {
@@ -61,7 +60,7 @@ function ReminderVerifyEmail(props) {
                     boxShadow: "-1px 7px 25px 1px #171421",
                     color: "#BF9AFC",
                 }}>
-                <div style={{ margin: "20px 20px 0px 20px" }}>
+                <div style={{ margin: "20px 20px 0px 20px" }} >
                     <div className="d-flex justify-content-center text-center">
                         {handleVerificationEmailFeedbackMessage()}
                     </div>
@@ -70,8 +69,8 @@ function ReminderVerifyEmail(props) {
                         <br /><br />
                         <p>Please check your email for a verification email</p>
                         <div style={{ pointerEvents: "none" }}></div>
-                        <button className="btn btn-info" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
-                            re-send verification email
+                        <button className="btn btn-info mx-auto" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
+                            re-send email
                         </button>
                         <div className="form-group" >
                         </div>

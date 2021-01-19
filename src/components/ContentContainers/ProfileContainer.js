@@ -192,16 +192,17 @@ function ProfileContainer(props) {
                                     <div key={index} className="col-4">
                                         <Link to={"/games/" + (props.allGames[index].title.split(" ")).join('').toLowerCase()}>
                                             <img
-                                                src={props.allGames[index].image}
+                                                src={props.allGames[index].icon}
                                                 key={"game-image2" + index}
                                                 alt={props.allGames[index].title}
                                                 className="rounded"
                                                 style={{
-                                                    width: '100%',
+                                                    width: '55%',
                                                     height: 'auto',
-                                                    marginBottom: "10%"
+                                                    marginBottom: "10%",
                                                 }}
                                             />
+                                            <p>{props.allGames[index].title}</p>
                                         </Link>
                                     </div>
                                 )
@@ -209,7 +210,7 @@ function ProfileContainer(props) {
                                 return (
                                     <div key={index} className="col-4">
                                         <img
-                                            src={props.allGames[index].image}
+                                            src={props.allGames[index].icon}
                                             key={"game-image2" + index}
                                             alt={props.allGames[index].title}
                                             className="rounded"
@@ -222,6 +223,7 @@ function ProfileContainer(props) {
                                                 marginTop: "4%"
                                             }}
                                         />
+                                        <p>{props.allGames[index].title}</p>
                                     </div>
                                 )
                             }

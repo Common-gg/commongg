@@ -153,7 +153,7 @@ function SettingsContainer(props) {
   return (
     <div className="SettingsContainer" style={settingsContainerStyle}>
       <div className="row">
-        <div className="col-4">
+        <div className="col-sm-4">
           <button type="button"
             className="btn"
             style={backButtonStyle}
@@ -162,12 +162,15 @@ function SettingsContainer(props) {
             <img src={ArrowLeft} style={imageBackButtonStyle} />
           </button>
         </div>
-        <div className="col-4">
+        <div className="col-sm-4">
           <br />
-          <h2 className="text-center" style={{ color: "#BF9AFC" }}>edit profile</h2>
-          <div style={{ cursor: "pointer" }}>
+          <h2 className="text-center" style={{ color: "#BF9AFC", whiteSpace: "nowrap" }}>edit profile</h2>
+          <div style={{ cursor: "pointer" }} className="mx-auto">
             <DisplayImage type="profileImage" id="fileInput"
-              currentImg={props.currentUserInfo.profile_picture} setImg={setSelectedFile} changedInfo={changedInfo} setImageType={setImageType} />
+              currentImg={props.currentUserInfo.profile_picture}
+              setImg={setSelectedFile}
+              changedInfo={changedInfo}
+              setImageType={setImageType} />
             <label htmlFor="fileInput"
               className="btn"
               style={{
@@ -175,12 +178,14 @@ function SettingsContainer(props) {
                 height: "30px",
                 background: "transparent",
                 position: 'relative',
-                top: "-6rem",
+                top: "-5rem",
                 right: "-6.5rem"
               }}>
               <img src={edit} style={editButtonStyle} />
             </label>
           </div>
+        </div>
+        <div className="col-sm-4">
         </div>
       </div>
       <div className="d-flex justify-content-center">
@@ -278,12 +283,12 @@ function SettingsContainer(props) {
       <div className="row">
         <div className="col text-center">
           <Link to="/" style={linkStyle}>
-            <br /><a onClick={() => props.signOut()}>sign out</a> <br />
+            <br /><a onClick={() => props.signOut()}>Sign Out</a> <br />
           </Link>
-          <br /><p style={{ color: "#BF9AFC" }}>suggestions? <br /> join our <a href="https://discord.gg/dsEAEGGaHn" style={linkStyle}>discord</a></p>
+          <br /><p style={{ color: "#BF9AFC" }}>Suggestions? <br /> Join Our <a href="https://discord.gg/dsEAEGGaHn" style={linkStyle}>Discord</a></p>
           <Link to="/termsofservice">
             <a className="col" style={linkStyle}>
-              privacy policy, cookie policy & terms of service
+              Privacy Policy, Cookie Policy & Terms of Service
               </a>
           </Link>
         </div>

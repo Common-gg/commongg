@@ -193,7 +193,7 @@ function SignUp(props) {
             </div>
             <br />
             <div className="form-group col-12">
-              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> sign up </p>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> Sign Up </p>
               <div className="row mx-auto">
                 <Input type="email"
                   bootstrap="border-0"
@@ -251,7 +251,7 @@ function SignUp(props) {
             top: "-10rem",
             color: "#BF9AFC",
           }}>
-            already have an account? </p>
+            Already Have an Account? </p>
           <Link to="/">
             <p className="col" style={{
               position: "relative",
@@ -260,7 +260,7 @@ function SignUp(props) {
               color: "#BF9AFC",
               textDecoration: "underline",
             }}>
-              login here!
+              Login Here!
       </p>
           </Link>
         </div></div></div>

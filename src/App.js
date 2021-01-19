@@ -7,7 +7,11 @@ import SignUp from "./pages/SignUp";
 import PageContainer from './pages/PageContainer';
 import firebase from "firebase/app";
 import TeamfightTactics from "./images/games/Teamfight Tactics.jpg";
+import TeamfightTacticsIcon from "./images/icons/tft-1.png";
+import TeamfightTacticsWhiteIcon from "./images/icons/tftwhite-1.png";
 import CommonChat from "./images/games/Common Chat.png";
+import CommonChatIcon from "./images/icons/chat-1.png";
+import CommonChatWhiteIcon from "./images/icons/chatwhite-1.png";
 import defaultPfp from "./images/icons/empty-pfp-1.png";
 import ForgotPassword from './pages/ForgotPassword.js';
 import ActionHandler from "./pages/ActionHandler.js";
@@ -49,11 +53,15 @@ function App() {
   const [allGames, setAllGames] = useState([
     {
       title: "Common Chat",
-      image: CommonChat
+      image: CommonChat, 
+      icon: CommonChatIcon, 
+      whiteIcon: CommonChatWhiteIcon
     },
     {
-      title: "TFT",
-      image: TeamfightTactics
+      title: "Teamfight Tactics",
+      image: TeamfightTactics,
+      icon: TeamfightTacticsIcon,
+      whiteIcon: TeamfightTacticsWhiteIcon
     }
   ]);
 

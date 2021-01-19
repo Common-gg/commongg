@@ -7,7 +7,7 @@ function Text(props) {
       color: "#ffffff",
       overflowWrap: 'break-word', 
       paddingLeft: "0px", 
-      paddingRight: "0px"
+      paddingRight: "0px",
     };
     if (props.style === undefined) {
       return (defaultStyle);
