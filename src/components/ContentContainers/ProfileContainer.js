@@ -13,37 +13,39 @@ function ProfileContainer(props) {
     const [verified, setVerified] = useState(false);
     //this represent old page id which is the unique id
     const [pageId, setPageId] = useState(null)
-  
+
     const [followBtnState, setFollowBtnState] = useState({
-        text: "Follow", img: plus
+        text: "follow"
     })
     const [followBtnStyle, setFollowBtnStyle] = useState({
         visibility: "visible",
+        height: 40,
+        padding: "5px 8px 5px",
         backgroundColor: "transparent",
-        width: "2.5rem",
-        height: "2.5rem",
-        borderRadius: "50%",
-        position: "relative",
-        top: "-1.6vh",
-        left: "-1vw"
+        color: "#BF9AFC",
+        border: "solid",
+        borderRadius: "10px",
+        borderColor: "#BF9AFC",
+        borderWidth: "2px",
+        cursor: "pointer"
     });
 
     function followHandler() {
-        if (followBtnState.text === "Follow") {
+        if (followBtnState.text === "follow") {
             props.followUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "Following", img: check });
+            setFollowBtnState({ ...followBtnState, text: "following" });
         } else {
             props.unFollowUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
+            setFollowBtnState({ ...followBtnState, text: "follow" });
         }
     }
 
     //retrieve the user and pageId from the username
     useEffect(() => {
-      //if the username exists
-      if (props.username) {
-        props.getUserWithLower(props.username, setUser, setPageId)
-      }
+        //if the username exists
+        if (props.username) {
+            props.getUserWithLower(props.username, setUser, setPageId)
+        }
     }, [props.username, props.getUserWithLower])
 
     //check if the current user is self
@@ -52,16 +54,18 @@ function ProfileContainer(props) {
             if (props.currentUserId === pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             } else {
-                setFollowBtnState({ text: "Follow", img: plus })
+                setFollowBtnState({ text: "follow" })
                 setFollowBtnStyle({
                     visibility: "visible",
+                    height: 40,
+                    padding: "5px 8px 5px",
                     backgroundColor: "transparent",
-                    width: "2.5rem",
-                    height: "2.5rem",
-                    borderRadius: "50%",
-                    position: "relative",
-                    top: "-1.6vh",
-                    left: "-1vw"
+                    color: "#BF9AFC",
+                    border: "solid",
+                    borderRadius: "10px",
+                    borderColor: "#BF9AFC",
+                    borderWidth: "2px",
+                    cursor: "pointer"
                 });
             }
         }
@@ -70,7 +74,7 @@ function ProfileContainer(props) {
     //update the following icon when switching pages
     useEffect(() => {
         //check if user is using follow properly
-        if(user.verified) setVerified(true);
+        if (user.verified) setVerified(true);
         if (props.currentUserId === pageId) {
             //already set to invisible since it's self
             return;
@@ -79,9 +83,9 @@ function ProfileContainer(props) {
             let temp = Object.values(user.followers);
             //check if current user
             if (temp.includes(props.currentUserId)) {
-                setFollowBtnState({ ...followBtnState, text: "Following", img: check });
+                setFollowBtnState({ ...followBtnState, text: "following" });
             } else {
-                setFollowBtnState({ ...followBtnState, text: "Follow", img: plus });
+                setFollowBtnState({ ...followBtnState, text: "follow" });
             }
         }
     }, [user])
@@ -152,30 +156,38 @@ function ProfileContainer(props) {
                         <h2 className="row" style={{ marginTop: "5%", marginLeft: "0.5%" }}>
                             {user.username + " "}
                             {verified ?
-                            <img src={check} alt={user.username + "verified"}
-                                style={{
-                                    width: "1.8rem",
-                                    height: "1.8rem",
-                                }} />
-                            : null}
-                         <div className="ml-auto pr-3 dropdown" style={{marginTop: "-1rem", marginRight: "-1rem" }}>
-                            {checkOptions()}
-                        </div>
+                                <img src={check} alt={user.username + "verified"}
+                                    style={{
+                                        width: "1.8rem",
+                                        height: "1.8rem",
+                                    }} />
+                                : null}
+                            <div className="ml-auto pr-3 dropdown" style={{ marginTop: "-1rem", marginRight: "-1rem" }}>
+                                {checkOptions()}
+                            </div>
                         </h2>
-                        <div className="d-flex flex-wrap" style={{marginBottom: "-8%"}}>
+                        {/*<div className="d-flex flex-wrap" style={{ marginBottom: "-8%" }}>
 
                             <UsersModal {...props} user={user} type="followers"></UsersModal>
                             <UsersModal {...props} user={user} type="following"></UsersModal>
 
                             <span>
                                 <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
-                                    <img src={followBtnState.img} style={{
-                                        width: "2.5rem",
-                                        height: "2.5rem",
-                                        position: "relative"
-                                    }} />
+
+                                    {followBtnState.text}
                                 </button>
                             </span>
+                                </div>*/}
+                        <div className="row">
+                            <div className="col-6" style={{ paddingLeft: "16px", paddingRight: "0px" }}>
+                                <UsersModal {...props} user={user} type="followers"></UsersModal>
+                                <UsersModal {...props} user={user} type="following"></UsersModal>
+                            </div>
+                            <div className="col-3" style={{ padding: "0px" }}>
+                                <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
+                                    {followBtnState.text}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -230,7 +242,7 @@ function ProfileContainer(props) {
                 </div>
             </div>
             <br />
-            { checkId()}
+            {checkId()}
         </div>
     );
 }
