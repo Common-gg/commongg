@@ -10,6 +10,7 @@ import YoutubeEmbed from './YoutubeEmbed.js';
 import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 import ArrowLeft from "../../images/icons/arrowleft 1.png";
+import check from "../../images/icons/followingcheck-1.png";
 import { propTypes } from "react-bootstrap/esm/Image";
 import { post } from "jquery";
 
@@ -353,7 +354,17 @@ function Post(props) {
                       className="img">
                     </img>
                     <div className="col-8">
-                      <Text text={author.username} />
+                      <span className="row" style={{marginLeft: 0}}>
+                        <Text text={author.username} />
+                        {author.verified ? <img src={check} alt={author.username + "verified"}
+                          style={{
+                            width: "1.1rem",
+                            height: "1.1rem",
+                            marginTop: "-3%",
+                            marginLeft: "2%"
+                          }} />
+                          : null}
+                      </span>
                       <Text text={new Date(props.convertTimeStamp(props.post.timestamp)).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.convertTimeStamp(props.post.timestamp)).toLocaleDateString("en-US")}
                         style={{ color: '#BF9AFC', fontSize: '.9rem', }}
                       />
@@ -390,7 +401,7 @@ function Post(props) {
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
                 <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
-                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>{decoratedText}</p>, null)}
+                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>, null)}
                 </a>
               )}>
                 {/*<Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
