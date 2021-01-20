@@ -69,10 +69,7 @@ function FeedType(props) {
   }, [postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
 
   useEffect(() => {
-    if(Object.keys(posts).length < 10) {
-      props.setNumPostsToLoad(Object.keys(posts).length);
-      return;
-    }
+    if(Object.keys(posts).length < props.numPostsToLoad) return;
     props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
     setLoading(false);
   }, [posts])
