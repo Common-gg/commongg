@@ -230,19 +230,22 @@ function Post(props) {
       return;
     } else if (props.post.type === "image") {
       return (
-        <img
-          id={props.postId + "img"}
-          data-toggle="modal"
-          data-target="#enlargedImageModal"
-          ref={postImageRef}
-          src={props.post.link}
-          onClick={handleImageClick}
-          alt="posted image"
-          style={{
-            maxWidth: "100%",
-            cursor: "pointer"
-          }}>
-        </img>
+        <div>
+          <img
+            id={props.postId + "img"}
+            data-toggle="modal"
+            data-target="#enlargedImageModal"
+            ref={postImageRef}
+            src={props.post.link}
+            onClick={handleImageClick}
+            alt="posted image"
+            style={{
+              maxWidth: "100%",
+              cursor: "pointer",
+              marginBottom: "1.5rem"
+            }}>
+          </img>
+        </div>
       )
     }
     // Code to turn on video later!
@@ -355,7 +358,7 @@ function Post(props) {
                       className="img">
                     </img>
                     <div className="col-8">
-                      <span className="row" style={{marginLeft: 0}}>
+                      <span className="row" style={{ marginLeft: 0 }}>
                         <Text text={author.username} />
                         {author.verified ? <img src={check} alt={author.username + "verified"}
                           style={{
