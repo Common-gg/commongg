@@ -113,10 +113,8 @@ function App() {
   }, []);
 
   const firebaseTimeStamp = (callback) => {
-    console.log("stamping");
     database.ref("/.info/serverTimeOffset").on('value', function (offset) {
       let offsetVal = offset.val() || 0;
-      console.log(callback);
       return callback(9999999999999 - Date.now() + offsetVal);
     });
   }
@@ -536,6 +534,7 @@ function App() {
     postRef = postRef.orderByChild("timestamp").startAt(begin);
     postRef = postRef.limitToFirst(filter);
     postRef.on('value', function (snapshot) {
+      postRef.off();
       if (snapshot.val() !== null) {
         let postData = {};
         snapshot.forEach(function (child) {
@@ -652,14 +651,11 @@ function App() {
     })
   }
 
-  const existsUsername = (original) => {
+  const existsUsername = (username) => {
     // checks if there is a user with the username already
     // returns true if it exists false if doesn't exist
-    //username is the lowercase of the actual input
-    const username = original.toLowerCase();
     return new Promise(function (resolve, reject) {
-      //check for user
-      const userRef = database.ref('/users/').orderByChild("lower").equalTo(username);
+      const userRef = database.ref('/users/').orderByChild("username").equalTo(username);
       userRef.once('value').then((snapshot) => {
         const usersWithUsername = snapshot.val();
 
@@ -667,7 +663,6 @@ function App() {
         if (usersWithUsername !== null) {
           return resolve(true);
         } else {
-          //check for reserved
           const reservedRef = database.ref('/reservedNames/' + username);
           reservedRef.once('value').then((snap2) => {
             if (snap2.val() !== null) return resolve(true)

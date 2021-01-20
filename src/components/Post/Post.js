@@ -288,7 +288,7 @@ function Post(props) {
   };
 
   const checkPostNum = isVisible => {
-    if (isVisible && !props.loading && props.postNum >= props.numPostsLoaded - 7) {
+    if (isVisible && !props.loading && props.postNum >= props.numPostsLoaded - 5) {
       props.setLoading(true);
       props.setNumPostsToLoad(props.numPostsToLoad + 10);
     }
