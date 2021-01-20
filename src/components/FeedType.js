@@ -38,8 +38,7 @@ function FeedType(props) {
   function childPostRefresh() {
     setChildRefresh(childRefresh + 1);
   }
-  const filter = props.filter;
-  const sort = props.sort;
+
   const postRefresh = props.postRefresh;
   const getPosts = props.getPosts;
   const getAllPosts = props.getAllPosts;
@@ -65,20 +64,22 @@ function FeedType(props) {
     if (clientFilter === true) {
       //we get all post and filter it on our side based on game and people
       getAllPosts(setAllPosts);
-    } else {
-      if (filter !== "") {
-        getPosts(filter, sort, setPosts);
-      } else {
-        setPosts([]);
-      }
     }
-  }, [filter, sort, postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
+  }, [postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
+
+  useEffect(() => {
+    props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
+  }, [posts])
+
+  useEffect(() => {
+    if(props.lastPostRetrieved > 0) getPosts(props.lastPostRetrieved, 10, addPosts);
+  }, [props.numPostsToLoad])
 
   //when we are done with retrieving allPosts we set the posts by filtering
   useEffect(() => {
     //only changes when we are doing client filtering
     if (clientFilter === true && allPosts) {
-      if(props.currentUserInfo.following === null){
+      if (props.currentUserInfo.following === null) {
         return;
       }
       const following = Object.values(props.currentUserInfo.following);
@@ -97,8 +98,14 @@ function FeedType(props) {
 
   //when the filter changes make the page go back to top
   useEffect(() => {
+    props.setLastPostRetrieved(0);
+    getPosts(0, props.numPostsToLoad, setPosts);
     window.scrollTo(0, 0)
-  }, [filter])
+  }, [props.pageId])
+
+  function addPosts(data) {
+    setPosts({...posts, ...data});
+  }
 
   function handleScroll() {
     const position = window.pageYOffset;
@@ -108,16 +115,16 @@ function FeedType(props) {
   return (
     <div>
       <ReactionsModal getUserWithUsername={props.getUserWithUsername} setShowModal={setShowModal} showModal={showModal} content={modalContent}></ReactionsModal>
-      {Object.values(posts).reverse().map((post, i) => {
+      {Object.values(posts).map((post, i) => {
         if (post.author !== "404" && i < props.numPostsToLoad)
           return (
-            <div key={Object.keys(posts).reverse()[i]}>
-              <Post {...props} post={post} postId={Object.keys(posts).reverse()[i]}
+            <div key={Object.keys(posts)[i]}>
+              {post.game === props.game || props.game === undefined ? <div><Post {...props} post={post} postId={post.postId}
                 postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
                 childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
                 setShowModal={setShowModal} setModalContent={setModalContent}
               />
-              <br />
+                <br /></div> : null}
             </div>
           );
       })}

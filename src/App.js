@@ -53,8 +53,8 @@ function App() {
   const [allGames, setAllGames] = useState([
     {
       title: "Common Chat",
-      image: CommonChat, 
-      icon: CommonChatIcon, 
+      image: CommonChat,
+      icon: CommonChatIcon,
       whiteIcon: CommonChatWhiteIcon
     },
     {
@@ -108,7 +108,11 @@ function App() {
   }, []);
 
   const firebaseTimeStamp = () => {
-    return firebase.database.ServerValue.TIMESTAMP;
+    return 9999999999999 - firebase.database.ServerValue.TIMESTAMP;
+  }
+
+  const convertTimeStamp = (timestamp) => {
+    return 9999999999999 - timestamp;
   }
 
   const addNotification = (targetUserID, type, locationID = "") => {
@@ -514,12 +518,18 @@ function App() {
     })
   }
 
-  const getPosts = (filter, sort, callback) => {
+  const getPosts = (begin, filter, callback) => {
     // gets all posts for the DB
-    const postRef = database.ref('/content/posts/').orderByChild(sort).equalTo(filter);
-    postRef.once('value', function (snapshot) {
+    let postRef = database.ref('/content/posts/');
+    postRef = postRef.orderByChild("timestamp").startAt(begin);
+    postRef = postRef.limitToFirst(filter);
+    postRef.on('value', function (snapshot) {
       if (snapshot.val() !== null) {
-        return callback(snapshot.val());
+        let postData = {};
+        snapshot.forEach(function(child) {
+          postData[child.val().timestamp] = {...child.val(), postId: child.key};
+        });
+        return callback(postData);
       } else {
         return callback({
           "00000000": {
@@ -869,6 +879,7 @@ function App() {
                   addNotification={addNotification}
                   readNotifications={readNotifications}
                   firebaseTimeStamp={firebaseTimeStamp}
+                  convertTimeStamp={convertTimeStamp}
 
                   setModerationLevel={setModerationLevel}
                   report={report}

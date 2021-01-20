@@ -110,7 +110,7 @@ function Comment(props) {
                                 <Link to={"/profile/" + author.username} >
                                     <Text text={author.username} />
                                 </Link>
-                                <Text text={new Date(comment.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(comment.timestamp).toLocaleDateString("en-US")}
+                                <Text text={new Date(props.convertTimeStamp(comment.timestamp)).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.convertTimeStamp(comment.timestamp)).toLocaleDateString("en-US")}
                                     style={{ color: '#BF9AFC', fontSize: '12px' }}
                                 />
                             </div>
