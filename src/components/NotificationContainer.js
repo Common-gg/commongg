@@ -45,7 +45,8 @@ function NotificationContainer(props) {
         setImageSource(NotificationRead);
         setReadNotifications(allNotifications);
         setUnreadNotifications({});
-        setUnreadNotificationCounter(0);
+        tempCounter=0;
+        setUnreadNotificationCounter(tempCounter);
     }
 
     function deleteNotificationHandler(notificationID) {
