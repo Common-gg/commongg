@@ -80,12 +80,14 @@ function Login(props) {
               <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> The Social Network for Gaming </p>
               <div className="row mx-auto">
                 <div className="Input mx-auto" >
-                  <Input type="email"
-                    bootstrap="border-0"
-                    placeholder="email"
-                    track={setEmail}
-                    style={inputStyle}
-                    onKeyPress={(e) => handleSignIn(e)} />
+                  <div onKeyPress={(e) => handleSignIn(e)}>
+                    <Input type="email"
+                      bootstrap="border-0"
+                      placeholder="email"
+                      track={setEmail}
+                      style={inputStyle}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -93,12 +95,14 @@ function Login(props) {
           <div className="form-group col-12" style={{ textAlign: "center", }} >
             <div className="row mx-auto">
               <div className="Input mx-auto" >
-                <Input type="password"
-                  bootstrap="border-0"
-                  placeholder="password"
-                  track={setPassword}
-                  style={inputStyle}
-                  onKeyPress={(e) => handleSignIn(e)} />
+                <div onKeyPress={(e) => handleSignIn(e)}>
+                  <Input type="password"
+                    bootstrap="border-0"
+                    placeholder="password"
+                    track={setPassword}
+                    style={inputStyle}
+                  />
+                </div>
               </div>
             </div>
 
