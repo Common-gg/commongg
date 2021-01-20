@@ -30,10 +30,8 @@ function TruncateText(props) {
         } else {
             if (countNumNewLines(props.text) <= props.maxLines) {
                 setShownText(props.text.subString(0, props.maxChars) + "...");
-                console.log("3");
             } else {
                 setShownText(firstLines(props.text.substring(0, props.maxChars)) + "...");
-                console.log("4");
             }
         }
     }, [props.text])
@@ -48,7 +46,6 @@ function TruncateText(props) {
 
     const firstLines = (text) => {
         let lines = text.split(/\r\n|\r|\n/);
-        console.log(lines);
         let returnText = lines[0];
         var i;
         for (i = 1; i < lines.length && i < props.maxLines; i++) {
