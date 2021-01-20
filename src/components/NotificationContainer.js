@@ -81,6 +81,7 @@ function NotificationContainer(props) {
                                         <div className="row">
                                             <div style={{ width: "80%" }}>
                                                 <Notification
+                                                    convertTimeStamp={props.convertTimeStamp}
                                                     getUser={props.getUser}
                                                     getPost={props.getPost}
                                                     notification={notification}

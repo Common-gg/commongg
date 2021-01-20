@@ -69,6 +69,10 @@ function FeedType(props) {
   }, [postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
 
   useEffect(() => {
+    if(Object.keys(posts).length < 10) {
+      props.setNumPostsToLoad(Object.keys(posts).length);
+      return;
+    }
     props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
     setLoading(false);
   }, [posts])
@@ -121,7 +125,7 @@ function FeedType(props) {
         if (post.author !== "404" && i < props.numPostsToLoad)
           return (
             <div key={Object.keys(posts)[i]}>
-              {post.game === props.game || props.game === undefined ? <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
+              {(post.author === props.game || post.game === props.game || props.game === undefined)? <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
                 postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
                 childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
                 setShowModal={setShowModal} setModalContent={setModalContent}

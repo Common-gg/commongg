@@ -92,7 +92,7 @@ function ProfileContainer(props) {
     const checkId = () => {
         if (pageId != null) {
             return (
-                <FeedType {...props} filter={pageId} sort={"author"} />
+                <FeedType {...props} game={pageId} />
             )
         }
     }
