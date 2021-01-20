@@ -115,7 +115,7 @@ function Post(props) {
     )
   }
 
-  function checkEmbeded(link, text, preview) {
+  function checkEmbeded(link, text) {
     if (typeof link !== "string") return;
 
     //twitch clip
@@ -195,11 +195,11 @@ function Post(props) {
     // gives the 32 char gyazo id
 
     // imgur regex:
-
-    return (<div>
-      {text}
-      {preview}
-    </div>);
+    return (
+      <div>
+        {link}
+      </div>
+    )
   }
 
   function handleImageClick() {
@@ -284,8 +284,8 @@ function Post(props) {
   };
 
   const checkPostNum = isVisible => {
-    if (isVisible && props.postNum >= props.numPostsToLoad - 3) {
-      props.setNumPostsToLoad(props.numPostsToLoad + 5);
+    if (isVisible && props.postNum >= props.numPostsToLoad - 10) {
+      props.setNumPostsToLoad(props.numPostsToLoad + 10);
     }
   }
 
@@ -362,7 +362,7 @@ function Post(props) {
                     </img>
                     <div className="col-8">
                       <Text text={author.username} />
-                      <Text text={new Date(props.post.timestamp).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.post.timestamp).toLocaleDateString("en-US")}
+                      <Text text={new Date(props.convertTimeStamp(props.post.timestamp)).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.convertTimeStamp(props.post.timestamp)).toLocaleDateString("en-US")}
                         style={{ color: '#BF9AFC', fontSize: '.9rem', }}
                       />
                     </div>
@@ -398,13 +398,7 @@ function Post(props) {
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
                 <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
-                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>, <ReactTinyLink
-                    cardSize="large"
-                    showGraphic={true}
-                    maxLine={2}
-                    minLine={1}
-                    url={decoratedHref}
-                  />)}
+                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>{decoratedText}</p>, null)}
                 </a>
               )}>
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>

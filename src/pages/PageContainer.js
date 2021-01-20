@@ -13,6 +13,7 @@ function PageContainer(props) {
   const [numPostsToLoad, setNumPostsToLoad] = useState(10);
   const [backClicked, setBackClicked] = useState(false);
   const [numPostsLoaded, setNumPostsLoaded] = useState();
+  const [lastPostRetrieved, setLastPostRetrieved] = useState(0);
   const [offSet, setOffSet] = useState(0, 0);
   const history = useHistory();
   const [modalImage, setModalImage] = useState({
@@ -61,6 +62,7 @@ function PageContainer(props) {
 
   useEffect(() => {
     if (backClicked) {
+      setLastPostRetrieved(0);
       setBackClicked(false);
       history.goBack();
     }
@@ -135,7 +137,7 @@ function PageContainer(props) {
               <SearchBar search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
             </div>
-            <ContentContainer {...props} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} offSet={offSet}
+            <ContentContainer {...props} lastPostRetrieved={lastPostRetrieved} setLastPostRetrieved={setLastPostRetrieved} setModalImage={setModalImage} setProfilePictureImage={setProfilePictureImage} offSet={offSet}
               setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
               setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} />
           </div>

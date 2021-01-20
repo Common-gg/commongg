@@ -24,7 +24,7 @@ function GameFeedContainer(props) {
         firebaseTimeStamp={props.firebaseTimeStamp}
       />
       <br />
-      <FeedType {...props} filter={props.pageId} sort={"game"}/>
+      <FeedType {...props} game={props.pageId} />
     </div>
   );
 }
