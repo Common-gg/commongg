@@ -119,12 +119,12 @@ function ProfileContainer(props) {
         }
         return (
             <div>
-                <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
+                 {props.currentUserId !== user.id || modLvl > 0 ?  <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
                     <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
-                </div>
+                </div> : null}
                 <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ color: "#BF9AFC", backgroundColor: "#BF9AFC" }}>
                     {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.verifyUser(pageId, !verified)} style={{ cursor: "pointer" }}>Verify User/Revoke Verification</p> : null}
-                    <p className="dropdown-item mb-0" onClick={() => props.report("users", pageId)} style={{ cursor: "pointer" }}>Report User</p>
+                    {props.currentUserId !== user.id ? <p className="dropdown-item mb-0" onClick={() => props.report("users", pageId)} style={{ cursor: "pointer" }}>Report User</p> : null}
                     {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("users", props.pageId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {user.reports ? user.reports : 0})</p> : null}
                     {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 0)} style={{ cursor: "pointer" }}>Set Moderation Level: User</p> : null}
                     {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.setModerationLevel(pageId, 1)} style={{ cursor: "pointer" }}>Set Moderation Level: Mod</p> : null}
