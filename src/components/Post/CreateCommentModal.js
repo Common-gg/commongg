@@ -93,14 +93,19 @@ function CreateCommentModal(props) {
     const handleClose = () => setShow(false);
 
     function createComment() {
-        props.createComment({
-            author: props.currentUserId,
-            commentText: commentText.current.value, //.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
-            postId: props.postId,
-            timestamp: props.firebaseTimeStamp()
-        }, props.post.author);
-        props.updateRefresh();
-        clearFields();
+        console.log("creating!");
+        props.firebaseTimeStamp(storeComment);    
+
+        function storeComment(timestamp) {
+            props.createComment({
+                author: props.currentUserId,
+                commentText: commentText.current.value, //.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
+                postId: props.postId,
+                timestamp: timestamp
+            }, props.post.author);
+            props.updateRefresh();
+            clearFields();
+        }
     }
 
     function handleMouseDown(e) {

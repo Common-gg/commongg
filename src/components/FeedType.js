@@ -33,6 +33,7 @@ function FeedType(props) {
   //feedtype toggles both reaction modal state and content by passing callback to post
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(undefined);
+  const [loading, setLoading] = useState(true);
 
   const [childRefresh, setChildRefresh] = useState(0);
   function childPostRefresh() {
@@ -69,6 +70,7 @@ function FeedType(props) {
 
   useEffect(() => {
     props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
+    setLoading(false);
   }, [posts])
 
   useEffect(() => {
@@ -119,7 +121,7 @@ function FeedType(props) {
         if (post.author !== "404" && i < props.numPostsToLoad)
           return (
             <div key={Object.keys(posts)[i]}>
-              {post.game === props.game || props.game === undefined ? <div><Post {...props} post={post} postId={post.postId}
+              {post.game === props.game || props.game === undefined ? <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
                 postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
                 childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
                 setShowModal={setShowModal} setModalContent={setModalContent}
