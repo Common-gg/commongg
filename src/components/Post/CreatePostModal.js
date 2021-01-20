@@ -152,27 +152,31 @@ function CreatePostModal(props) {
     }
 
     function createPost(url) {
-        let postType = getPostType();
-        //find the game id by game selected
-        let gameId = props.allGames.findIndex((element) => {
-            return element.title === selectedOption;
-        });
-
-        props.createPost({
-            text: postText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
-            author: props.currentUserId,
-            caption: "CAPTION_TEXT",
-            game: gameId.toString(),
-            link: url,
-            timestamp: props.firebaseTimeStamp(),
-            title: postTitleRef.current.value.trim(),
-            type: postType,
-            numComments: 0,
-            category: selectedOption
-        });
-        clearFields();
-        //get the feedcontainer to update posts from db
-        props.updatePostRefresh();
+        props.firebaseTimeStamp(storePost);
+        
+        function storePost(timestamp) {
+            let postType = getPostType();
+            //find the game id by game selected
+            let gameId = props.allGames.findIndex((element) => {
+                return element.title === selectedOption;
+            });
+    
+            props.createPost({
+                text: postText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
+                author: props.currentUserId,
+                caption: "CAPTION_TEXT",
+                game: gameId.toString(),
+                link: url,
+                timestamp: timestamp,
+                title: postTitleRef.current.value.trim(),
+                type: postType,
+                numComments: 0,
+                category: selectedOption
+            });
+            clearFields();
+            //get the feedcontainer to update posts from db
+            props.updatePostRefresh();
+        }
     }
 
     function getPostType() {
