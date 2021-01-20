@@ -71,49 +71,51 @@ function NavigationBar(props) {
         }
     }, [gamesArr]);
 
+    const profileStyle = {
+        borderRadius: "50%",
+        width: "35px",
+        height: "35px",
+        marginRight: "0.5rem",
+    }
+
     const iconStyle = {
-        width: "30px",
-        height: "30px",
-        marginRight: "1rem"
+        width: "35px",
+        height: "35px",
+        marginRight: "0.5rem",
     };
 
     const gameIconStyle = {
-        width: "30px",
-        height: "30px",
-        marginRight: "1rem",
+        width: "35px",
+        height: "35px",
+        marginRight: "0.5rem",
         borderRadius: "100%",
     };
 
     const linkStyle = {
         color: "#BF9AFC",
         textDecoration: 'none',
-        fontSize: "25px"
+        fontSize: "25px",
     };
 
     const selectedStyle = {
         color: "white",
         textDecoration: 'none',
-        fontSize: "25px"
+        fontSize: "25px",
     }
 
     return (
         <div className="NavigationBar" style={{ color: "#BF9AFC" }}>
+            <Link to="/" style={linkStyle}>
+                <p style={pageState === "" ? selectedStyle : null}><img src={pageState === "" ? whitehome : home} style={iconStyle} alt="" /> Home</p>
+            </Link>
+
             <Link to={"/profile/" + props.currentUserInfo.username} style={linkStyle}>
                 <p style={pageState === "profile" ? selectedStyle : null}><img
                     src={props.currentUserInfo.profile_picture}
                     alt={""}
-                    style={{
-                        borderRadius: "50%",
-                        width: "30px",
-                        height: "30px",
-                        marginRight: ".75rem"
-                    }}
+                    style={profileStyle}
                     className="img">
                 </img> Profile</p>
-            </Link>
-
-            <Link to="/" style={linkStyle}>
-                <p style={pageState === "" ? selectedStyle : null}><img src={pageState === "" ? whitehome : home} style={iconStyle} alt="" /> Home</p>
             </Link>
 
             {<Link to="/following" style={linkStyle}>

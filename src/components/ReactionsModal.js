@@ -13,6 +13,31 @@ function ReactionsModal(props) {
     props.setShowModal(false);
   }
 
+  
+  const modalHeaderStyle = {
+    borderBottom: "0 none",
+    textAlign: "center",
+    marginBottom: "-30px", 
+    marginTop: "-10px",
+    backgroundColor: "#292833",
+    color: "#BF9AFC",
+  }
+
+  const modalContentStyle = {
+    color: "#BF9AFC",
+    backgroundColor: "#292833",
+    borderBottom: "",
+    margin: "5%"
+  }
+
+  const groupStyle = {
+    minHeight: "60vh",
+    listStyleType: "none",
+    backgroundColor: "#292833",
+    padding: "0",
+
+  };
+
   useEffect(() => {
     setCurReaction(null);
   }, [props.content])
@@ -55,7 +80,7 @@ function ReactionsModal(props) {
         }
         count += 1;
         reactions.push(
-          <li onClick={() => setCurReaction(key)} style={{ cursor: "pointer", background: key === curReaction ? "#838383" : null }}>
+          <li onClick={() => setCurReaction(key)} style={{ cursor: "pointer", background: key === curReaction ? "#373241" : null, padding: "5%" }}>
             <span style={{ padding: "5px" }}><ReactionImage reaction={key}></ReactionImage></span>
             <span>{value.length}</span>
           </li>);
@@ -94,33 +119,12 @@ function ReactionsModal(props) {
     }
   }
 
-  const modalHeaderStyle = {
-    borderBottom: "0 none",
-    textAlign: "center",
-    backgroundColor: "#292833",
-    color: "#BF9AFC",
-  }
-
-  const modalContentStyle = {
-    color: "#BF9AFC",
-    backgroundColor: "#292833",
-    borderBottom: ""
-  }
-
-  const groupStyle = {
-    minHeight: "60vh",
-    listStyleType: "none",
-    backgroundColor: "#292833",
-    padding: "0",
-
-  };
-
   return (
     <div className="CreateReactionModal" >
       <Modal show={props.showModal} onHide={handleClose}>
         <div style={modalContentStyle}>
           <Modal.Header closeButton style={modalHeaderStyle}>
-            <p>Reactions</p>
+            <p style={{fontSize: "1.75rem"}}>Reactions</p>
           </Modal.Header>
           <Modal.Body>
             <div className="container">

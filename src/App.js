@@ -13,6 +13,8 @@ import TeamfightTacticsWhiteIcon from "./images/icons/tftwhite-1.png";
 import CommonChat from "./images/games/Common Chat.png";
 import CommonChatIcon from "./images/icons/chat-1.png";
 import CommonChatWhiteIcon from "./images/icons/chatwhite-1.png";
+import TFTGameCard from "./images/icons/TFTGameCard.png";
+import CCGameCard from "./images/icons/CCGameCard.png";
 import defaultPfp from "./images/icons/empty-pfp-1.png";
 import ForgotPassword from './pages/ForgotPassword.js';
 import ActionHandler from "./pages/ActionHandler.js";
@@ -57,13 +59,15 @@ function App() {
       title: "Common Chat",
       image: CommonChat,
       icon: CommonChatIcon,
-      whiteIcon: CommonChatWhiteIcon
+      whiteIcon: CommonChatWhiteIcon,
+      gameCard:  CCGameCard
     },
     {
       title: "Teamfight Tactics",
       image: TeamfightTactics,
       icon: TeamfightTacticsIcon,
-      whiteIcon: TeamfightTacticsWhiteIcon
+      whiteIcon: TeamfightTacticsWhiteIcon,
+      gameCard: TFTGameCard
     }
   ]);
 

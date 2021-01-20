@@ -137,7 +137,8 @@ function SignUp(props) {
     margin: "3%",
     width: "80%",
     height: "77%",
-    marginLeft: "10%"
+    marginLeft: "10%",
+    overflow: "hidden"
   }
   const modalBodyStyle = {
     color: "#BF9AFC",

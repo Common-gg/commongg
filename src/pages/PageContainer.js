@@ -42,8 +42,8 @@ function PageContainer(props) {
     height: "2.5rem",
     borderRadius: "50%",
     position: "relative",
-    top: "-1.6vh",
-    left: "-1vw",
+    top: "1vh",
+    left: "-2vw",
     borderTop: "4rem"
   };
   const topOfPageImageStyle = {
@@ -126,13 +126,12 @@ function PageContainer(props) {
       <div className="container-fluid">
         <br /><br />
         <div className="row">
-          <div className="col-xl-2 col-lg-1 col-md-0 col-sm-0"></div>
-          <div className="col-xl-2 col-lg-2 col-md-3 col-sm-3 col-4">
+          <div style={{ maxWidth: "33.33%", width: "33.33%", paddingLeft: "10%",}}>
             <div style={sticky}>
               <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames} />
             </div>
           </div>
-          <div className="col-xl-4 col-lg-6 col-md-8 col-sm-8 col-8">
+          <div style={{ width: "33.33%"}}>
             <div className="text-center">
               <SearchBar search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
@@ -141,7 +140,7 @@ function PageContainer(props) {
               setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
               setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} />
           </div>
-          <div className="col-xl-4 col-lg-3 col-md-1 col-sm-0 col-0">
+          <div style={{ width: "33.33%"}}>
             <div style={sticky}>
               <NotificationContainer {...props} />
               <div style={{ position: "absolute", bottom: "-2.5rem", right: "-7rem" }}>

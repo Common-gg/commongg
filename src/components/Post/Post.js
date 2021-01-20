@@ -312,7 +312,7 @@ function Post(props) {
       return (
         <Link to={"/post/" + props.postId}>
           <button style={expandButtonStyle}>
-            view post
+            View Post
           </button>
         </Link>
       )
@@ -370,7 +370,7 @@ function Post(props) {
                           : null}
                       </span>
                       <Text text={new Date(props.convertTimeStamp(props.post.timestamp)).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.convertTimeStamp(props.post.timestamp)).toLocaleDateString("en-US")}
-                        style={{ color: '#BF9AFC', fontSize: '.9rem', }}
+                        style={{ color: '#BF9AFC', fontSize: '.9rem', whiteSpace: "nowrap" }}
                       />
                     </div>
                   </Link>
@@ -382,8 +382,18 @@ function Post(props) {
 
               <div className="row">
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
-                  <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
-                    <Text text={props.post.title} style={{ fontSize: '25px', maxWidth: "33rem", whiteSpace: "pre-wrap", wordWrap: "break-word" }} />
+                  <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px', whiteSpace: "pre-wrap", 
+                      overflowWrap: "break-word",  }}>
+                    <Text text={props.post.title} style={{ 
+                      fontSize: '25px', 
+                      maxWidth: "100%",
+                      width: "100%", 
+                      whiteSpace: "pre-wrap", 
+                      overflowWrap: "break-word", 
+                      wordWrap: "break-word",
+                      hyphens: "auto",
+                      wordBreak: "break-word",
+                      }} />
                   </div>
                 </Link>
                 <Link to={"/games/" + (props.post.category !== undefined ? props.post.category.toLowerCase().split(" ").join("") : null)}>

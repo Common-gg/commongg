@@ -90,33 +90,31 @@ function CreateProfile(props) {
     displayValidationMessage();
   }
   const buttonStyle = {
-    marginBottom: "20px",
-    padding: "0.4rem",
+    marginBottom: "15%",
+    marginTop: "10%",
+    padding: "2% 7% 2% 7%",
     backgroundColor: "transparent",
     color: "#BF9AFC",
     border: "solid",
     borderRadius: "10px",
     borderColor: "#BF9AFC",
-    borderWidth: "2px",
+    borderWidth: "1px",
     maxWidth: "50%",
     position: "relative",
-    left: "10rem",
-    marginTop: "1rem",
-    marginBottom: "2.7rem"
   }
   const inputStyle = {
-    backgroundColor: "transparent #292833",
+    backgroundColor: "transparent",
     color: "#BF9AFC text-center",
     border: "solid",
     borderColor: "#BF9AFC",
-    backgroundColor: "#292833",
     borderRadius: "2px",
     borderWidth: "1px",
-    padding: "0.3rem",
-    width: "50%",
+    padding: "0.7%",
+    width: "40%",
     height: "95%",
-    marginLeft: "25%",
-    marginTop: "1.1rem"
+    marginLeft: "30%",
+    marginTop: "5%",
+    overflow: "hidden"
   }
   const validationMessageStyle = {
     color: "#F34D4D",
@@ -126,32 +124,32 @@ function CreateProfile(props) {
   function displayValidationMessage() {
     if (displayImageTypeValidationMessage === true) {
       return (
-        <p style={validationMessageStyle}>image type must be png, jpeg, or jpg</p>
+        <p style={validationMessageStyle}>Image type must be png, jpeg, or jpg</p>
       );
     }
     else if (displayInputValidationText === true) {
       return (
-        <p style={validationMessageStyle}>username length cannot exceed 30 characters</p>
+        <p style={validationMessageStyle}>Username length cannot exceed 30 characters</p>
       );
     }
     else if (failedExists === true) {
       return (
-        <p style={validationMessageStyle}>username already in use</p>
+        <p style={validationMessageStyle}>Username already in use</p>
       );
     }
     else if (failedSpace === true) {
       return (
-        <p style={validationMessageStyle}>username cannot contain space</p>
+        <p style={validationMessageStyle}>Username cannot contain space</p>
       );
     }
     else if (failedProfane === true) {
       return (
-        <p style={validationMessageStyle}>username cannot contain profanity</p>
+        <p style={validationMessageStyle}>Username cannot contain profanity</p>
       );
     }
     else if (failedLength === true) {
       return (
-        <p style={validationMessageStyle}>username is too short</p>
+        <p style={validationMessageStyle}>Username is too short</p>
       );
     }
     else if (isInvalidUsername === true) {
@@ -168,27 +166,21 @@ function CreateProfile(props) {
 
   return (
     <div className="CreateProfile">
-      <div className="mx-auto card text-center"
-        style={{
-          margin: "50px",
-          maxWidth: "30%",
-          backgroundColor: "#292833",
-          borderRadius: "10px",
-          boxShadow: "-1px 7px 25px 1px #171421",
-          color: "#BF9AFC"
-        }}>
+      <div className="mx-auto card text-center createProfileCard">
         <br />
-        <h4 style={{ marginTop: "2rem" }}>create your profile</h4>
-        <span style={{ marginTop: "2rem" }}>pick a username</span>
+        <h4 style={{ marginTop: "7%" }}>Create Your Profile</h4>
+        <span style={{ marginTop: "7%" }}>Pick a Username</span>
         <Input style={inputStyle}
+          className= "mx-auto"
           maxLength="15"
           bootstrap="border-0"
           type="displayName"
           placeholder="username"
           track={setDisplayName} />
         {displayValidationMessage()}
-        <span style={{ marginTop: "2.5rem" }}>add a profile picture</span>
+        <span style={{ marginTop: "9%", marginBottom: "5%" }}>Add a Profile Picture</span>
         <DisplayImage
+          className="mx-auto"
           type="profileImage"
           id="createAvatar"
           currentImg={add}
@@ -196,7 +188,7 @@ function CreateProfile(props) {
           changedInfo={() => { }} setImageType={setImageType} />
         <button
           type="submit"
-          className="btn"
+          className="btn mx-auto"
           style={buttonStyle}
           onClick={handleSubmit}>
           <img src={arrow} />

@@ -37,10 +37,11 @@ function ForgotPassword(props) {
         borderRadius: "2px",
         borderWidth: "0.1rem",
         padding: "0.3rem",
-        width: "100%",
+        width: "50%",
         height: "65%",
         position: "relative",
-       
+        overflow: "hidden",
+       marginLeft: "25%"
     }
 
     function handleForgotPasswordClick() {
@@ -54,10 +55,10 @@ function ForgotPassword(props) {
             return (<div></div>);
         }
         else if (isResetPasswordEmailSent === false) {
-            return (<p style={{ color: "#F34D4D" }}>there was an error when trying to send reset password email</p>);
+            return (<p style={{ color: "#F34D4D" }}>There was an error when trying to send reset password email</p>);
         }
         else {
-            return (<p style={{ color: "green" }}>password reset email sent successfully!</p>);
+            return (<p style={{ color: "green" }}>Password reset email sent successfully!</p>);
         }
     }
 
@@ -77,10 +78,11 @@ function ForgotPassword(props) {
                         <img style={logoCSS} className="mx-auto" src={logo} />
                         <div style={{ pointerEvents: "none" }}></div>
                         <br /><br />
-                        <p style={{ position: "relative", }}> forgot password </p>
+                        <p style={{ position: "relative", }}> Forgot Password </p>
                         <div className="form-group" >
                             <div className="row mx-auto">
                                 <Input type="email"
+                                    className="mx-auto"
                                     bootstrap="border-0"
                                     placeholder="email"
                                     style={inputStyle}

@@ -15,7 +15,7 @@ function SettingsContainer(props) {
   const [passwordChangeIsSuccessful, setPasswordChangeIsSuccessful] = useState(null);
   const [loadChangePasswordFields, setLoadChangePasswordFields] = useState(null);
   const [errorString, setErrorString] = useState("");
-  const [updateButtonText, setUpdateButtonText] = useState("update");
+  const [updateButtonText, setUpdateButtonText] = useState("Update");
   const [displayMaxLengthMessage, setDisplayMaxLengthMessage] = useState(false);
   const [imageType, setImageType] = useState("image/jpeg");
   const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
@@ -164,7 +164,7 @@ function SettingsContainer(props) {
         </div>
         <div className="col-sm-4">
           <br />
-          <h2 className="text-center" style={{ color: "#BF9AFC", whiteSpace: "nowrap" }}>edit profile</h2>
+          <h2 className="text-center" style={{ color: "#BF9AFC", whiteSpace: "nowrap" }}>Edit Profile</h2>
           <div style={{ cursor: "pointer" }} className="mx-auto">
             <DisplayImage type="profileImage" id="fileInput"
               currentImg={props.currentUserInfo.profile_picture}
@@ -241,7 +241,7 @@ function SettingsContainer(props) {
         <form className="col-4">
           {loadChangePasswordFields ? (
             <div className="form-group">
-              <Label htmlFor="currentPassword" text="current password" />
+              <Label htmlFor="currentPassword" text="Current Password" />
               <Input type="password"
                 bootstrap="border border-secondary"
                 style={{ backgroundColor: "#292833", }}
@@ -249,7 +249,7 @@ function SettingsContainer(props) {
                 id="currentPassword"
               />
               <br />
-              <Label htmlFor="newPassword" text="new password" />
+              <Label htmlFor="newPassword" text="New Password" />
               <Input type="password"
                 bootstrap="border border-secondary"
                 style={{ backgroundColor: "#292833" }}
@@ -257,7 +257,7 @@ function SettingsContainer(props) {
                 id="newPassword"
               />
               <br />
-              <Label htmlFor="confirmNewPassword" text="confirm new password" />
+              <Label htmlFor="confirmNewPassword" text="Confirm New Password" />
               <Input type="password"
                 bootstrap="border border-secondary"
                 style={{ backgroundColor: "#292833", }}
@@ -273,7 +273,7 @@ function SettingsContainer(props) {
               style={buttonStyle}
               onClick={() => handlePasswordButtonClick()}
             >
-              change password
+              Change Password
           </button>
           </div>
         </form>

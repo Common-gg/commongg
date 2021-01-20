@@ -96,7 +96,10 @@ function PostFooter(props) {
           <img src={commentIcon} style={{
             backgroundColor: "transparent",
             position: "relative",
-            bottom: "-12px"
+            bottom: "-12px",
+            height: "70%",
+            width: "100%",
+            paddingRight: "30%"
           }} />
         </Link>)
     } else {
@@ -122,8 +125,19 @@ function PostFooter(props) {
         Object.keys(sortable).reverse().map(reaction => {
           if (post.reactions[reaction] > 0) {
             return (
-              <div style={{ padding: ".8rem", marginRight: "1rem", position: "relative", bottom: "-1rem", left: "-.7rem" }} key={reaction}>
-                <ReactionIcon reaction={reaction} usersReacted={usersReacted(reaction)} reacted={reacted(reaction)} react={react} text={convertNum(post.reactions[reaction])} id={props.postId + reaction} />
+              <div style={{ 
+                padding: ".8rem", 
+                marginRight: "1rem", 
+                position: "relative", 
+                bottom: "-1rem", 
+                left: "-.7rem" 
+                }} key={reaction}>
+                <ReactionIcon reaction={reaction} 
+                usersReacted={usersReacted(reaction)} 
+                reacted={reacted(reaction)} 
+                react={react} 
+                text={convertNum(post.reactions[reaction])} 
+                id={props.postId + reaction} />
               </div>
             )
           }
@@ -142,8 +156,8 @@ function PostFooter(props) {
     backgroundColor: "#292833",
     boxShadow: "4px 4px 25px 0px #171421 ",
     borderRadius: "20px",
-    padding: "10px 0px 10px 20px",
-    marginTop: "20px"
+    padding: "10px 0px 10px 10px",
+    marginTop: "1%",
   }
 
   const sharePopoverStyle = {
@@ -227,38 +241,34 @@ function PostFooter(props) {
   }
 
   return (
-    <div className="row justify-content-between" style={{
-      paddingBottom: "20px"
-    }}>
+    <div className="row justify-content-between" style={{ paddingBottom: "20px" }}>
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={reactionsPopover}>
-          <div>
             <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
               <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
             </div>
-          </div>
         </OverlayTrigger>
       </div>
       <div className="col-4 text-right" style={{ position: 'relative', bottom: '-20px' }}>
-        <div className="row justify-content-end">
-          <div className="col-3" style={{ padding: "0px 0px" }}>
+        <div className="row justify-content-end" style={{padding: "6%"}}>
+          <div style={{ padding: "0px 0px" }}>
             <Text text={convertNum(props.post.numComments)} style={{
               position: "relative",
-              bottom: "-12px"
+              bottom: "-35%"
             }} />
           </div>
-          <div className="col-3" style={{ padding: "0px 0px 0px 12px" }}>
+          <div style={{ padding: "0px 0px 0px 12px" }}>
             {checkCommentButton()}
           </div>
-          <div className="col-3" style={{ padding: "0px 0px" }}>
+          <div style={{ padding: "0px 0px" }}>
             <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={sharePopover}>
               <img src={shareIcon} style={{
                 backgroundColor: "transparent",
                 position: "relative",
                 bottom: "-6px",
-                width: "2.5rem",
-                height: "2.5rem",
+                width: "100%",
+                height: "100%",
                 cursor: "pointer"
               }} />
             </OverlayTrigger>

@@ -65,7 +65,7 @@ function GamesContainer(props) {
                         <div className="modal-dialog" role="document">
                             <div className="modal-content" style={modalContentStyle}>
                                 <div style={{ display: 'flex', justifyContent: 'center', }}>
-                                    <h5 className="modal-title" id="chooseGameModalLabel" style={{ marginTop: "30px", textAlign: "center", fontSize: "30px" }}>edit your games</h5>
+                                    <h5 className="modal-title" id="chooseGameModalLabel" style={{ marginTop: "30px", textAlign: "center", fontSize: "30px" }}>Edit Your Games</h5>
                                 </div>
                                 <div className="row mx-auto">{props.allGames.map((game, i) => {
                                     return <GameCard
@@ -79,7 +79,7 @@ function GamesContainer(props) {
                                     />;
                                 })}</div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <button style={buttonStyle} type="button" className="btn btn-primary" data-dismiss={modalDismiss} onClick={handleDoneClick}>done</button>
+                                    <button style={buttonStyle} type="button" className="btn btn-primary" data-dismiss={modalDismiss} onClick={handleDoneClick}>Done</button>
                                 </div>
                                 <br />
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>

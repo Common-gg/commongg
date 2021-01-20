@@ -30,12 +30,12 @@ function ProfileContainer(props) {
     });
 
     function followHandler() {
-        if (followBtnState.text === "follow") {
+        if (followBtnState.text === "Follow") {
             props.followUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "following" });
+            setFollowBtnState({ ...followBtnState, text: "Following" });
         } else {
             props.unFollowUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "follow" });
+            setFollowBtnState({ ...followBtnState, text: "Follow" });
         }
     }
 
@@ -53,7 +53,7 @@ function ProfileContainer(props) {
             if (props.currentUserId === pageId) {
                 setFollowBtnStyle({ visibility: "hidden" });
             } else {
-                setFollowBtnState({ text: "follow" })
+                setFollowBtnState({ text: "Follow" })
                 setFollowBtnStyle({
                     visibility: "visible",
                     height: 40,
@@ -82,9 +82,9 @@ function ProfileContainer(props) {
             let temp = Object.values(user.followers);
             //check if current user
             if (temp.includes(props.currentUserId)) {
-                setFollowBtnState({ ...followBtnState, text: "following" });
+                setFollowBtnState({ ...followBtnState, text: "Following" });
             } else {
-                setFollowBtnState({ ...followBtnState, text: "follow" });
+                setFollowBtnState({ ...followBtnState, text: "Follow" });
             }
         }
     }, [user])
@@ -191,17 +191,17 @@ function ProfileContainer(props) {
                                     <div key={index} className="col-4">
                                         <Link to={"/games/" + (props.allGames[index].title.split(" ")).join('').toLowerCase()}>
                                             <img
-                                                src={props.allGames[index].icon}
+                                                src={props.allGames[index].gameCard}
                                                 key={"game-image2" + index}
                                                 alt={props.allGames[index].title}
                                                 className="rounded"
                                                 style={{
-                                                    width: '55%',
+                                                    width: '100%',
                                                     height: 'auto',
                                                     marginBottom: "10%",
+                                                    marginTop: "10%"
                                                 }}
                                             />
-                                            <p>{props.allGames[index].title}</p>
                                         </Link>
                                     </div>
                                 )
@@ -209,7 +209,7 @@ function ProfileContainer(props) {
                                 return (
                                     <div key={index} className="col-4">
                                         <img
-                                            src={props.allGames[index].icon}
+                                            src={props.allGames[index].gameCard}
                                             key={"game-image2" + index}
                                             alt={props.allGames[index].title}
                                             className="rounded"

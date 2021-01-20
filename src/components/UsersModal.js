@@ -52,16 +52,18 @@ function UsersModal(props) {
     const modalHeaderStyle = {
         borderBottom: "0 none",
         textAlign: "center",
+        marginBottom: "-30px"
     }
 
     const modalContentStyle = {
         color: "#BF9AFC",
-        margin: "30px" ,
+        margin: "3%" ,
         backgroundColor: "#292833" ,
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",
         borderBottom: "0",
+        borderRadius: "10px"
     }
 
     const followStyle = {
@@ -89,12 +91,12 @@ function UsersModal(props) {
         if (props.type === "following") {
             return (
                 <span role="button" onClick={handleShow} style={numberStyle}>{props.user.following ? Object.keys(props.user.following).length : 0}
-                    <span style={followStyle}> following</span>
+                    <span style={followStyle}> Following</span>
                 </span>)
         } else if (props.type === "followers") {
             return (
                 <span role="button" onClick={handleShow} style={numberStyle}>{props.user.followers ? Object.keys(props.user.followers).length : 0}
-                    <span style={followStyle}> followers</span>
+                    <span style={followStyle}> Followers</span>
                 </span>)
         }
 
@@ -104,7 +106,7 @@ function UsersModal(props) {
         return (<>
             {usersList.map((user) => {
                 return user?<Link to={"/profile/" + user.username}>
-                    <div className="row" style={{ width: "100%" }}>
+                    <div className="row" style={{ width: "100%", marginLeft: "0px", marginTop: "10px"}}>
                         <img
                             alt={user.username}
                             src={user.profile_picture}
