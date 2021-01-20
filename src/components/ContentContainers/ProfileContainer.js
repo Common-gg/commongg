@@ -4,7 +4,6 @@ import Text from '../Text.js';
 import ProfilePicture from '../ProfilePicture.js';
 import UsersModal from '../UsersModal.js';
 import FeedType from '../FeedType.js';
-import plus from "../../images/icons/followingplus-1.png";
 import check from "../../images/icons/followingcheck-1.png";
 import optionsIcon from '../../images/icons/options.png';
 
@@ -166,18 +165,6 @@ function ProfileContainer(props) {
                                 {checkOptions()}
                             </div>
                         </h2>
-                        {/*<div className="d-flex flex-wrap" style={{ marginBottom: "-8%" }}>
-
-                            <UsersModal {...props} user={user} type="followers"></UsersModal>
-                            <UsersModal {...props} user={user} type="following"></UsersModal>
-
-                            <span>
-                                <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
-
-                                    {followBtnState.text}
-                                </button>
-                            </span>
-                                </div>*/}
                         <div className="row">
                             <div className="col-6" style={{ paddingLeft: "16px", paddingRight: "0px" }}>
                                 <UsersModal {...props} user={user} type="followers"></UsersModal>
