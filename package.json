@@ -60,5 +60,14 @@
   },
   "devDependencies": {
     "gh-pages": "^3.1.0"
+  },
+  "hosting": {
+    "appAssociation": "AUTO",
+    "rewrites": [
+      {
+        "source": "/referral/**",
+        "dynamicLinks": true
+      }
+    ]
   }
 }
