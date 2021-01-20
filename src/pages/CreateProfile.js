@@ -141,7 +141,12 @@ function CreateProfile(props) {
     }
     else if (failedSpace === true) {
       return (
-        <p style={validationMessageStyle}>username contains profanity</p>
+        <p style={validationMessageStyle}>username cannot contain space</p>
+      );
+    }
+    else if (failedProfane === true) {
+      return (
+        <p style={validationMessageStyle}>username cannot contain profanity</p>
       );
     }
     else if (failedLength === true) {
