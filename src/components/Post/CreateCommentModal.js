@@ -93,7 +93,6 @@ function CreateCommentModal(props) {
     const handleClose = () => setShow(false);
 
     function createComment() {
-        console.log("creating!");
         props.firebaseTimeStamp(storeComment);    
 
         function storeComment(timestamp) {

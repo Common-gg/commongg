@@ -113,10 +113,8 @@ function App() {
   }, []);
 
   const firebaseTimeStamp = (callback) => {
-    console.log("stamping");
     database.ref("/.info/serverTimeOffset").on('value', function (offset) {
       let offsetVal = offset.val() || 0;
-      console.log(callback);
       return callback(9999999999999 - Date.now() + offsetVal);
     });
   }
