@@ -300,25 +300,17 @@ function Post(props) {
     }
   }
 
-  const checkExpandButton = () => {
-    if (props.post.text !== undefined) {
-      if (props.post.text.length > 500) {
-        if (expand === false) {
-          return (
-            <button onClick={toggleExpand} style={expandButtonStyle}>
-              expand
-            </button>
-          )
-        }
-      }
-    }
-  }
-
-  const toggleExpand = () => {
-    if (expand === false) {
-      setExpand(true);
-    } else {
-      setExpand(false);
+  const checkViewPostButton = () => {
+    let url = window.location.href;
+    url = url.split('/');
+    if (url[url.length - 2] !== "post" && url[url.length - 3] !== "post") {
+      return (
+        <Link to={"/post/" + props.postId}>
+          <button style={expandButtonStyle}>
+            view post
+          </button>
+        </Link>
+      )
     }
   }
 
@@ -387,7 +379,7 @@ function Post(props) {
                         borderWidth: '1px',
                         borderRadius: '5px',
                         padding: "5px",
-                        marginBottom: "10px", 
+                        marginBottom: "10px",
                         height: '32px',
                         color: '#BF9AFC',
                         borderColor: '#BF9AFC',
@@ -407,12 +399,13 @@ function Post(props) {
                   />)}
                 </a>
               )}>
-                <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
+                {/*<Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
-                </Link>
+              </Link>*/}
+                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
               </Linkify>
-              {checkExpandButton()}
               {checkType()}
+              {checkViewPostButton()}
               <PostFooter {...props} />
             </div>
             <br />
