@@ -50,7 +50,7 @@ function SignUp(props) {
       }
       //failed password
       setFailedPassword(false);
-      const validatePasswordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{6,}$/
+      const validatePasswordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-_+.:;,"?={}[\]`~><|]){1,}).{6,}$/
       let passwordStrength = password.current.value.match(validatePasswordRegex);
 
       if (passwordStrength === null) {
