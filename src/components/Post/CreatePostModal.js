@@ -306,7 +306,7 @@ function CreatePostModal(props) {
                         height: "25px",
                         marginRight: ".5rem"
                     }} />
-                    make a post
+                    Make a Post
                 </button>
             <Modal show={show} onHide={handleClose} onEntered={() => postTitleRef.current.focus()}>
                 <div className="modal-content" style={modalContentStyle}>

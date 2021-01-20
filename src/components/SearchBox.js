@@ -91,7 +91,7 @@ function SearchBox(props) {
         minLength={3}
         onSearch={handleSearch}
         options={options}
-        placeholder="search users and games"
+        placeholder="Search Users and Games"
         style={inputStyle}
         onChange={Arrowhead}
         renderMenuItemChildren={(option, props) => (

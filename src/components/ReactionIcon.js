@@ -56,20 +56,25 @@ function ReactionIcon(props) {
           height: "30px",
 
         }}>
-        <label style={{ cursor: "pointer", }} htmlFor={props.id}>
-          <div style={{ border: (props.reacted ? "3px solid #BF9AFC" : null), display: "inline-block", borderRadius: "8px" }}>
+        <label style={{
+          cursor: "pointer",
+          backgroundColor: (props.reaction !== "reactionplus" ? (props.reacted ? "#5F5177" : "#373241") : null ),
+          borderRadius: "8px",
+          padding: "27%"
+        }} htmlFor={props.id}>
+          <div style={{
+            display: "inline-block",
+          }}>
             <img
               data-tip={toolTipText}
               data-for={props.id + "tt"}
               style={{
-                background: "transparent",
                 width: "30px",
                 height: "30px",
-
               }} src={image} alt=" "
             />
           </div>
-         <span style= {{color: "white"}}>{" " + props.text}</span>
+          <span style={{ color: "white" }}>{" " + props.text}</span>
         </label>
       </button>
       <ReactToolTip id={props.id + "tt"} className="tooltip" />

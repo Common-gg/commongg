@@ -126,16 +126,23 @@ a:hover {
 }
 
 .createProfileCard{
-  margin: 50px;
+  margin: 10%;
   max-width: 30%;
   background-color: #292833;
   border-radius: 10px;
   box-shadow: -1px 7px 25px 1px #171421;
   color: #BF9AFC;
-  text-align: center;
 }
 
 
 .modal-content{
   background-color: #292833 ;
+}
+
+.close {
+  color: #BF9AFC;
+}
+
+.close:not(:disabled):not(.disabled):hover {
+  color: #BF9AFC;
 }

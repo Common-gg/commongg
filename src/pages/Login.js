@@ -77,7 +77,7 @@ function Login(props) {
             </div>
             <br />
             <div className="form-group col-12" style={{ textAlign: "center", }}>
-              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> The Social Network for Gaming </p>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> The Best Social Network for TFT Content </p>
               <div className="row mx-auto">
                 <div className="Input mx-auto" >
                   <div onKeyPress={(e) => handleSignIn(e)}>

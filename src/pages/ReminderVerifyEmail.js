@@ -70,7 +70,7 @@ function ReminderVerifyEmail(props) {
                         <p>Please check your email for a verification email</p>
                         <div style={{ pointerEvents: "none" }}></div>
                         <button className="btn btn-info mx-auto" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
-                            re-send email
+                            Re-send Email
                         </button>
                         <div className="form-group" >
                         </div>
