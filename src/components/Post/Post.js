@@ -368,7 +368,7 @@ function Post(props) {
               <div className="row">
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px' }}>
-                    <Text text={props.post.title} style={{ fontSize: '25px' }} />
+                    <Text text={props.post.title} style={{ fontSize: '25px', maxWidth: "33rem", whiteSpace: "pre-wrap", wordWrap: "break-word" }} />
                   </div>
                 </Link>
                 <Link to={"/games/" + (props.post.category !== undefined ? props.post.category.toLowerCase().split(" ").join("") : null)}>
