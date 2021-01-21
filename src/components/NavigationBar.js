@@ -82,6 +82,7 @@ function NavigationBar(props) {
         width: "35px",
         height: "35px",
         marginRight: "0.5rem",
+        marginBottom: "0.6rem"
     };
 
     const gameIconStyle = {
