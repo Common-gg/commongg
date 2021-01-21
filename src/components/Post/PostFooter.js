@@ -125,19 +125,19 @@ function PostFooter(props) {
         Object.keys(sortable).reverse().map(reaction => {
           if (post.reactions[reaction] > 0) {
             return (
-              <div style={{
-                padding: ".8rem",
-                marginRight: "1rem",
-                position: "relative",
-                bottom: "-1rem",
-                left: "-.7rem"
-              }} key={reaction}>
-                <ReactionIcon reaction={reaction}
-                  usersReacted={usersReacted(reaction)}
-                  reacted={reacted(reaction)}
-                  react={react}
-                  text={convertNum(post.reactions[reaction])}
-                  id={props.postId + reaction} />
+              <div style={{ 
+                padding: ".8rem", 
+                marginRight: "1rem", 
+                position: "relative", 
+                bottom: "-1rem", 
+                left: "-.7rem" 
+                }} key={reaction}>
+                <ReactionIcon reaction={reaction} 
+                usersReacted={usersReacted(reaction)} 
+                reacted={reacted(reaction)} 
+                react={react} 
+                text={convertNum(post.reactions[reaction])} 
+                id={props.postId + reaction} />
               </div>
             )
           }
@@ -245,13 +245,13 @@ function PostFooter(props) {
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={reactionsPopover}>
-          <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
-            <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
-          </div>
+            <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
+              <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
+            </div>
         </OverlayTrigger>
       </div>
       <div className="col-4 text-right" style={{ position: 'relative', bottom: '-20px' }}>
-        <div className="row justify-content-end" style={{ padding: "6%" }}>
+        <div className="row justify-content-end" style={{padding: "6%"}}>
           <div style={{ padding: "0px 0px" }}>
             <Text text={convertNum(props.post.numComments)} style={{
               position: "relative",

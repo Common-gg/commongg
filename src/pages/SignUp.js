@@ -123,8 +123,7 @@ function SignUp(props) {
     /* logo1light 1 */
     width: "4.5rem",
     height: "auto",
-    marginBottom: "20px",
-    marginTop: "0.5rem"
+    marginBottom: "20px"
   }
   const inputStyle = {
     backgroundColor: "transparent #292833",
@@ -195,7 +194,7 @@ function SignUp(props) {
             </div>
             <br />
             <div className="form-group col-12">
-              <p style={{ fontSize: "1.4rem", position: "relative", color: "#BF9AFC", textAlign: "center", }}> Sign Up </p>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> Sign Up </p>
               <div className="row mx-auto">
                 <Input type="email"
                   bootstrap="border-0"

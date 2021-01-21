@@ -14,14 +14,13 @@ function Login(props) {
     /* logo1light 1 */
     width: "4.5rem",
     height: "auto",
-    marginBottom: "20px",
-    marginTop: "0.5rem"
+    marginBottom: "20px"
   }
 
   const linkStyle = {
     color: "#BF9AFC",
     textDecoration: "underline",
-    top: "-12rem"
+    top: "-12rem",
   }
 
   useEffect(() => {
@@ -78,7 +77,7 @@ function Login(props) {
             </div>
             <br />
             <div className="form-group col-12" style={{ textAlign: "center", }}>
-              <p style={{ fontSize: "1.4rem", position: "relative", color: "#BF9AFC", textAlign: "center" }}> The Best Social Network for TFT Content </p>
+              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> The Best Social Network for TFT Content </p>
               <div className="row mx-auto">
                 <div className="Input mx-auto" >
                   <div onKeyPress={(e) => handleSignIn(e)}>
@@ -93,7 +92,7 @@ function Login(props) {
               </div>
             </div>
           </div>
-          <div className="form-group col-12" >
+          <div className="form-group col-12" style={{ textAlign: "center", }} >
             <div className="row mx-auto">
               <div className="Input mx-auto" >
                 <div onKeyPress={(e) => handleSignIn(e)}>
@@ -106,6 +105,7 @@ function Login(props) {
                 </div>
               </div>
             </div>
+
           </div>
           <div className="row col-12">
             <div className="col-5" style={{ marginRight: "3%" }}></div>
@@ -142,7 +142,7 @@ function Login(props) {
             color: "#BF9AFC",
             textDecoration: "underline",
           }}>
-            <p className="col" style={{ fontSize: "1.4rem" }}>
+            <p className="col">
               New? Sign Up
               </p>
           </Link>
