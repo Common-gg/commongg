@@ -538,6 +538,7 @@ function App() {
     postRef = postRef.orderByChild("timestamp").startAt(begin);
     postRef = postRef.limitToFirst(filter);
     postRef.on('value', function (snapshot) {
+      postRef.off();
       if (snapshot.val() !== null) {
         let postData = {};
         snapshot.forEach(function (child) {
