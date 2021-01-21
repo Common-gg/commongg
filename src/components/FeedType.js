@@ -59,23 +59,14 @@ function FeedType(props) {
     }
   }, [props.numPostsLoaded])
 
-  //gets the post based on filter
   useEffect(() => {
-    //check if we are doing client side filtering
-    if (clientFilter === true) {
-      //we get all post and filter it on our side based on game and people
-      getAllPosts(setAllPosts);
-    }
-  }, [postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
-
-  useEffect(() => {
-    if(Object.keys(posts).length < props.numPostsToLoad) return;
     props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
+    if(Object.keys(posts).length < props.numPostsToLoad) return;
     setLoading(false);
   }, [posts])
 
   useEffect(() => {
-    if(props.lastPostRetrieved > 0) getPosts(props.lastPostRetrieved, 10, addPosts);
+    if(props.lastPostRetrieved > 0) getPosts(props.lastPostRetrieved+1, 10, addPosts);
   }, [props.numPostsToLoad])
 
   //when we are done with retrieving allPosts we set the posts by filtering
