@@ -33,10 +33,10 @@ function ChangePassword(props) {
     }
     const logoCSS = {
         /* logo1light 1 */
-        width: "4.5rem",
-        height: "auto",
-        marginBottom: "20px",
-        marginTop: "0.5rem"
+        width: "100px",
+        height: "99.01px",
+        left: "393px",
+        top: "179px"
     }
     const buttonStyle = {
         backgroundColor: "transparent",
@@ -44,8 +44,7 @@ function ChangePassword(props) {
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
-        borderWidth: "2px",
-        fontSize: "1.1rem"
+        borderWidth: "2px"
     }
 
     function clearValidationBools() {
@@ -107,15 +106,14 @@ function ChangePassword(props) {
                     maxWidth: "410px",
                     backgroundColor: "#292833",
                     borderRadius: "10px",
-                    boxShadow: "-1px 7px 25px 1px #171421"
+                    boxShadow: "-1px 10px 250px 1px #171421"
                 }}>
                 <div style={{ margin: "20px 20px 0px 20px" }}>
-                    <div className="row mx-auto">
-                        <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
-                            <img style={logoCSS} src={logo} />
-                            <div style={{ pointerEvents: "none" }}></div>
-                        </div>
+                    <div className="row">
+                        <div className="col-4"></div>
+                        <img src={logo} style={logoCSS} />
                         <div className="col-5" style={{ pointerEvents: "none" }}></div>
+                        <br />
                         <div className="form-group col-12">
                             <div className="row mx-auto">
                                 <Input type="password"
@@ -154,13 +152,15 @@ function ChangePassword(props) {
                     </div>
                 </div>
             </div>
-            <div className="d-flex justify-content-center">
-                <Link to="/">
-                    <p className="col" style={{ marginTop: "-8rem", fontSize: "1.1rem", color: "#BF9AFC", textDecoration: "underline" }}>
-                        Login
-                        </p>
-                </Link>
-            </div>
+            <div className="row">
+                <div className="col-4"></div>
+                <div className="text-center col-4">
+                    <Link to="/">
+                        <p className="col" style={{ color: "#BF9AFC", textDecoration: "underline" }}>
+                            Login
+                            </p>
+                    </Link>
+                </div></div>
         </div>
     );
 }

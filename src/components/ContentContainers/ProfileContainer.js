@@ -122,7 +122,7 @@ function ProfileContainer(props) {
         }
         return (
             <div>
-                {props.currentUserId !== user.id || modLvl > 0 ? <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent", marginLeft: "235%" }}>
+                 {props.currentUserId !== user.id || modLvl > 0 ?  <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
                     <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
                 </div> : null}
                 <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ color: "#BF9AFC", backgroundColor: "#BF9AFC" }}>
@@ -149,17 +149,16 @@ function ProfileContainer(props) {
                 <br />
                 <div className="row p-0">
                     <div className="col-1"></div>
-                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" setProfilePictureImage={props.setProfilePictureImage} />
-                    <div className="col-6">
-                        <h2 className="row" style={{ marginTop: "5%", marginLeft: "15%" }}>
+                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+                        setProfilePictureImage={props.setProfilePictureImage} />
+                    <div className="col-8">
+                        <h2 className="row" style={{ marginTop: "5%", marginLeft: "0.5%" }}>
                             {user.username + " "}
                             {verified ?
                                 <img src={check} alt={user.username + "verified"}
                                     style={{
                                         width: "1.8rem",
                                         height: "1.8rem",
-                                        marginLeft: "0.5rem",
-                                        marginTop: "0.3rem"
                                     }} />
                                 : null}
                             <div className="ml-auto pr-3 dropdown" style={{ marginTop: "-1rem", marginRight: "-1rem" }}>
@@ -167,9 +166,9 @@ function ProfileContainer(props) {
                             </div>
                         </h2>
                         <div className="row">
-                            <div className="col-8" style={{ paddingLeft: "16px", paddingRight: "0px" }}>
-                                <UsersModal {...props} user={user} type="following"></UsersModal>
+                            <div className="col-6" style={{ paddingLeft: "16px", paddingRight: "0px" }}>
                                 <UsersModal {...props} user={user} type="followers"></UsersModal>
+                                <UsersModal {...props} user={user} type="following"></UsersModal>
                             </div>
                             <div className="col-3" style={{ padding: "0px" }}>
                                 <button onClick={() => followHandler()} type="button" className="btn btn-primary" style={followBtnStyle}>
