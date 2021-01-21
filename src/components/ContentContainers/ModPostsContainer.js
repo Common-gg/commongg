@@ -3,7 +3,7 @@ import FeedType from '../FeedType.js';
 
 function ModPostsContainer(props) {
   return (
-    <FeedType {...props} filter={true} sort="reported"/>
+    <FeedType {...props} clientFilter="reported"/>
   );
 }
 
