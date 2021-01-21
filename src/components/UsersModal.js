@@ -57,8 +57,8 @@ function UsersModal(props) {
 
     const modalContentStyle = {
         color: "#BF9AFC",
-        margin: "3%" ,
-        backgroundColor: "#292833" ,
+        margin: "3%",
+        backgroundColor: "#292833",
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",
@@ -69,12 +69,13 @@ function UsersModal(props) {
     const followStyle = {
         color: "#BF9AFC",
         fontSize: "1.6rem",
-        marginRight: ".5rem"
+        marginRight: ".5rem",
     };
 
     const numberStyle = {
         fontSize: "1.6rem",
-        cursor: "pointer"
+        cursor: "pointer",
+        marginLeft: "3rem"
     };
 
     function checkTitle() {
@@ -105,8 +106,8 @@ function UsersModal(props) {
     function checkUsersList() {
         return (<>
             {usersList.map((user) => {
-                return user?<Link to={"/profile/" + user.username}>
-                    <div className="row" style={{ width: "100%", marginLeft: "0px", marginTop: "10px"}}>
+                return user ? <Link to={"/profile/" + user.username}>
+                    <div className="row" style={{ width: "100%", marginLeft: "0px", marginTop: "10px" }}>
                         <img
                             alt={user.username}
                             src={user.profile_picture}
@@ -119,7 +120,7 @@ function UsersModal(props) {
                         />
                         <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{user.username}</span>
                     </div>
-                </Link>:null
+                </Link> : null
             })}
         </>)
     }

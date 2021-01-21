@@ -32,7 +32,7 @@ function ProfilePicture(props) {
       alt={props.currentUserInfo.username + " picture"}
       width={props.width}
       height={props.height}
-      style={{ borderRadius: "50%", cursor: "pointer" }}
+      style={{ marginRight: "-2rem", marginTop: "0.9rem", borderRadius: "50%", cursor: "pointer" }}
     >
     </img>
   );

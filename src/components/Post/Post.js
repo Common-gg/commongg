@@ -382,18 +382,20 @@ function Post(props) {
 
               <div className="row">
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
-                  <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px', whiteSpace: "pre-wrap", 
-                      overflowWrap: "break-word",  }}>
-                    <Text text={props.post.title} style={{ 
-                      fontSize: '25px', 
+                  <div className="col-auto" style={{
+                    maxWidth: '100%', paddingRight: '0px', whiteSpace: "pre-wrap",
+                    overflowWrap: "break-word",
+                  }}>
+                    <Text text={props.post.title} style={{
+                      fontSize: '23px',
                       maxWidth: "100%",
-                      width: "100%", 
-                      whiteSpace: "pre-wrap", 
-                      overflowWrap: "break-word", 
+                      width: "100%",
+                      whiteSpace: "pre-wrap",
+                      overflowWrap: "break-word",
                       wordWrap: "break-word",
                       hyphens: "auto",
                       wordBreak: "break-word",
-                      }} />
+                    }} />
                   </div>
                 </Link>
                 <Link to={"/games/" + (props.post.category !== undefined ? props.post.category.toLowerCase().split(" ").join("") : null)}>
@@ -421,7 +423,7 @@ function Post(props) {
                 {/*<Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
               </Link>*/}
-                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
+                <p style={{ fontSize: '16px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
               </Linkify>
               {checkType()}
               {checkViewPostButton()}
