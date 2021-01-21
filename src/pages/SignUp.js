@@ -1,10 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import SignUpButton from "../components/SignUp/SignUpButton.js";
 import TermsOfService from "./TermsOfService.js"
 import logo from "../images/icons/logo1light.png";
 import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
 import { Modal, Form } from "react-bootstrap";
+import InputHelpers from "../helpers/InputHelpers.js";
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };
@@ -30,6 +31,8 @@ function SignUp(props) {
   }
 
   const signUp = () => {
+    resetValidationVariables();
+
     if (email.current.value === "" || password.current.value === "") {
       setMissing(true);
       return;
@@ -48,23 +51,25 @@ function SignUp(props) {
           }
         })
       }
-      //failed password
-      setFailedPassword(false);
-      const validatePasswordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-_+.:;,"?={}[\]`~><|]){1,}).{6,}$/
-      let passwordStrength = password.current.value.match(validatePasswordRegex);
 
-      if (passwordStrength === null) {
+      let inputHelper = new InputHelpers();
+      let isPasswordTooWeak = inputHelper.verifyPasswordStrength(password.current.value);
+
+      if (isPasswordTooWeak === true) {
         setFailedPassword(true);
+        failedSignUp();
         return;
       }
       if (tosCheckbox === false) {
         setAgreeToTos(false);
+        failedSignUp();
         return;
       } else {
         setAgreeToTos(true);
       }
       if (password.current.value !== confirmPassword.current.value) {
         setDisplayNonMatchingPasswordFieldsValidation(true);
+        failedSignUp();
         return;
       }
       //sign up user
@@ -74,8 +79,8 @@ function SignUp(props) {
       if (failedEmail === 0 && !failedPassword && agreeToTos && !missing) {
         props.signUpUser(email.current.value, password.current.value);
       }
-      resetValidationVariables();
     }
+    failedSignUp();
   }
 
   const failedSignUp = () => {
