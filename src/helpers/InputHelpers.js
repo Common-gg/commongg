@@ -6,4 +6,4 @@ class InputHelpers {
         return passwordValue.match(validatePasswordRegex) === null;
     };
 }
-module.exports = InputHelpers;
+export default InputHelpers;
