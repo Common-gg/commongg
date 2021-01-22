@@ -11,7 +11,6 @@ function ReactionIcon(props) {
         setImage(reactionImg.default);
       });
     } else {
-      console.log(props.reaction)
       import(`../images/reactions/${props.reaction}.webp`).then(reactionImg => {
         setImage(reactionImg.default);
       });

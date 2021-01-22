@@ -34,7 +34,7 @@ function PostFooter(props) {
     "emyyAww",
     "emyyHiYo",
     "muffiS",
-    "dqatHi",
+    "dqaHi",
     "eschatHwak2",
     "josepa3Riot",
     "treebeardMeep",
@@ -124,6 +124,10 @@ function PostFooter(props) {
       return (
         Object.keys(sortable).reverse().map(reaction => {
           if (post.reactions[reaction] > 0) {
+            let reactImg = reaction
+            reactions.forEach(r => { 
+              if (reaction.toLowerCase() === r.toLowerCase()) reactImg = r;
+            });
             return (
               <div style={{ 
                 padding: ".8rem", 
@@ -132,7 +136,7 @@ function PostFooter(props) {
                 bottom: "-1rem", 
                 left: "-.7rem" 
                 }} key={reaction}>
-                <ReactionIcon reaction={reaction} 
+                <ReactionIcon reaction={reactImg} 
                 usersReacted={usersReacted(reaction)} 
                 reacted={reacted(reaction)} 
                 react={react} 
@@ -203,9 +207,13 @@ function PostFooter(props) {
       <Popover.Content>
         <div className="row">
           {popoverReactions.map(reaction => {
+            let reactImg = reaction
+            reactions.forEach(r => {
+              if (reaction.toLowerCase() === r.toLowerCase()) reaction = r;
+            });
             return (
               <div style={{ padding: ".8rem", marginRight: ".3vw" }} key={reaction} className="col-2">
-                <ReactionIcon reaction={reaction} react={react} text="" id={props.postId + reaction} />
+                <ReactionIcon reaction={reactImg} react={react} text="" id={props.postId + reaction} />
               </div>
             )
           })}
