@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import Linkify from 'react-linkify';
-import { ReactTinyLink } from 'react-tiny-link';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js';
 import optionsIcon from '../../images/icons/options.png';
@@ -11,9 +10,6 @@ import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 import ArrowLeft from "../../images/icons/arrowleft 1.png";
 import check from "../../images/icons/followingcheck-1.png";
-import { propTypes } from "react-bootstrap/esm/Image";
-import { post } from "jquery";
-
 
 function Post(props) {
 
@@ -22,6 +18,12 @@ function Post(props) {
   const [renderBackButton, setRenderBackButton] = useState(false);
   const history = useHistory();
   const postImageRef = useRef();
+  const linkRegex = /(([a-z]+:\/\/)?(([a-z0-9\-]+\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal))(:[0-9]{1,5})?(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@/?]*)?)(\s+|$)/gi;
+  const twitchClipRegexp = /(?:twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:clips\.twitch\.tv\/([a-zA-Z]+))/g;
+  const twitchStreamRegexp = /twitch\.tv\/([a-zA-Z0-9_]{4,25})/g;
+  const youtubeRegexp = /(?:youtube\.com\/watch\?v=([0-9a-zA-Z-_]{11}))|(?:youtu\.be\/([0-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([0-9a-zA-Z-_]{11}))/g;
+  const imageRegexp = /\.((jpe?g)|(JPE?G)|(png)|(PNG)|(gif)|(gifv))/g;
+  const videoRegexp = /\.((mp4)|(MP4))/g;
 
   useEffect(() => {
     props.getUser(props.post.author, setAuthor)
@@ -120,8 +122,7 @@ function Post(props) {
     if (typeof link !== "string") return;
 
     //twitch clip
-    let regexp = /(?:twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:clips\.twitch\.tv\/([a-zA-Z]+))/g;
-    let matches = link.matchAll(regexp);
+    let matches = link.matchAll(twitchClipRegexp);
     let clip = [];
     for (const match of matches) {
       if (match[1] !== undefined) {
@@ -135,8 +136,7 @@ function Post(props) {
     }
 
     //twitch stream
-    regexp = /twitch\.tv\/([a-zA-Z0-9_]{4,25})/g;
-    matches = link.matchAll(regexp);
+    matches = link.matchAll(twitchStreamRegexp);
     let channel = [];
     for (const match of matches) {
       if (match[1] !== undefined) {
@@ -148,8 +148,7 @@ function Post(props) {
     }
 
     //youtube video
-    regexp = /(?:youtube\.com\/watch\?v=([0-9a-zA-Z-_]{11}))|(?:youtu\.be\/([0-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([0-9a-zA-Z-_]{11}))/g;
-    matches = link.matchAll(regexp);
+    matches = link.matchAll(youtubeRegexp);
     let video = [];
     for (const match of matches) {
       if (match[1] !== undefined) {
@@ -165,8 +164,7 @@ function Post(props) {
     }
 
     // image file
-    regexp = /\.((jpe?g)|(JPE?G)|(png)|(PNG)|(gif)|(gifv))/g
-    if (link.search(regexp) !== -1) {
+    if (link.search(imageRegexp) !== -1) {
       return (
         <img
           id={link + "img"}
@@ -183,8 +181,7 @@ function Post(props) {
     }
 
     // video file
-    regexp = /\.((mp4)|(MP4))/g
-    if (link.search(regexp) !== -1) {
+    if (link.search(videoRegexp) !== -1) {
       return (
         <video controls style={{ width: "100%", height: "300px" }}>
           <source src={link} type="video/mp4" />
@@ -225,44 +222,6 @@ function Post(props) {
     })
   }
 
-  const checkType = () => {
-    if (props.post.type === "text") {
-      return;
-    } else if (props.post.type === "image") {
-      return (
-        <div>
-          <img
-            id={props.postId + "img"}
-            data-toggle="modal"
-            data-target="#enlargedImageModal"
-            ref={postImageRef}
-            src={props.post.link}
-            onClick={handleImageClick}
-            alt="posted image"
-            style={{
-              maxWidth: "100%",
-              cursor: "pointer",
-              marginBottom: "1.5rem"
-            }}>
-          </img>
-        </div>
-      )
-    }
-    // Code to turn on video later!
-    // else if (props.post.type === "video") {
-    //   return (
-    //     <video controls name="posted video"
-    //       style={{
-    //         width: "100%"
-    //       }}>
-    //       <source
-    //         src={props.post.link}
-    //       />
-    //     </video>
-    //   )
-    // }
-  }
-
   const expandButtonStyle = {
     height: 32,
     marginLeft: "auto",
@@ -298,24 +257,16 @@ function Post(props) {
     if (expand === false) {
       if (props.post.text !== undefined) {
         let str = props.post.text.substring(0, 500);
+        let match;
+        while ((match = linkRegex.exec(props.post.text)) != null) {
+          if (match.index <= 500 && (match.index + match[0].length) > 500) {
+            str += props.post.text.substring(500, match.index + match[0].length);
+          }
+        }
         return (str += "...");
       }
     } else {
       return (props.post.text);
-    }
-  }
-
-  const checkViewPostButton = () => {
-    let url = window.location.href;
-    url = url.split('/');
-    if (url[url.length - 2] !== "post" && url[url.length - 3] !== "post") {
-      return (
-        <Link to={"/post/" + props.postId}>
-          <button style={expandButtonStyle}>
-            View Post
-          </button>
-        </Link>
-      )
     }
   }
 
@@ -382,18 +333,20 @@ function Post(props) {
 
               <div className="row">
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
-                  <div className="col-auto" style={{ maxWidth: '100%', paddingRight: '0px', whiteSpace: "pre-wrap", 
-                      overflowWrap: "break-word",  }}>
-                    <Text text={props.post.title} style={{ 
-                      fontSize: '25px', 
+                  <div className="col-auto" style={{
+                    maxWidth: '100%', paddingRight: '0px', whiteSpace: "pre-wrap",
+                    overflowWrap: "break-word",
+                  }}>
+                    <Text text={props.post.title} style={{
+                      fontSize: '25px',
                       maxWidth: "100%",
-                      width: "100%", 
-                      whiteSpace: "pre-wrap", 
-                      overflowWrap: "break-word", 
+                      width: "100%",
+                      whiteSpace: "pre-wrap",
+                      overflowWrap: "break-word",
                       wordWrap: "break-word",
                       hyphens: "auto",
                       wordBreak: "break-word",
-                      }} />
+                    }} />
                   </div>
                 </Link>
                 <Link to={"/games/" + (props.post.category !== undefined ? props.post.category.toLowerCase().split(" ").join("") : null)}>
@@ -423,8 +376,29 @@ function Post(props) {
               </Link>*/}
                 <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
               </Linkify>
-              {checkType()}
-              {checkViewPostButton()}
+              {props.post.type === "image" ?
+                (<div>
+                  <img
+                    id={props.postId + "img"}
+                    data-toggle="modal"
+                    data-target="#enlargedImageModal"
+                    ref={postImageRef}
+                    src={props.post.link}
+                    onClick={handleImageClick}
+                    alt="posted image"
+                    style={{
+                      maxWidth: "100%",
+                      cursor: "pointer",
+                      marginBottom: "1.5rem"
+                    }}>
+                  </img>
+                </div>
+                ) : null}
+              {props.pageState === undefined ? (<Link to={"/post/" + props.postId}>
+                <button style={expandButtonStyle}>
+                  View Post
+                </button>
+              </Link>) : null}
               <PostFooter {...props} />
             </div>
             <br />
