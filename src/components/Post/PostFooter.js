@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap'
-import IconButton from '../IconButton';
 import CreateCommentModal from './CreateCommentModal.js';
 import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
@@ -117,7 +116,6 @@ function PostFooter(props) {
 
   const checkReactions = () => {
     if (post.reactions !== undefined) {
-      let reactArr = Object.keys(post.reactions);
       const sortable = Object.fromEntries(
         Object.entries(post.reactions).sort(([, a], [, b]) => a - b)
       );
@@ -148,12 +146,6 @@ function PostFooter(props) {
         })
       )
     }
-  }
-
-  const checkReactionLines = () => {
-    if (post.reactions === undefined) return;
-    const times = Math.floor(Object.keys(post.reactions).length / 3);
-    return <div className={`col-${12 * times}`}></div>;
   }
 
   const reactionsPopoverStyle = {

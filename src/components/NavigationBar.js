@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import ProfilePicture from './ProfilePicture.js';
 
 import home from "../images/icons/logo1accent.png";
-import trend from "../images/icons/trendingaccent-1.png";
 import follow from "../images/icons/followingaccent-1.png";
 import setting from "../images/icons/settingsaccent-1.png";
 import editGame from "../images/icons/editgameaccent-1.png"
 import whitehome from "../images/icons/homewhite-1.png";
-import whitetrend from "../images/icons/trendingwhite-3.png";
-import whitedit from "../images/icons/editgamewhite-1.png";
 import whitefollow from "../images/icons/followingwhite-3.png";
 import whitesetting from "../images/icons/settingswhite-3.png";
-import chat from "../images/icons/chat-1.png";
-import whitechat from "../images/icons/chatwhite-1.png";
-import tft from "../images/icons/tft-1.png";
-import whitetft from "../images/icons/tftwhite-1.png";
 
 
 
@@ -121,9 +113,7 @@ function NavigationBar(props) {
             {<Link to="/following" style={linkStyle}>
                 <p style={pageState === "following" ? selectedStyle : null}><img src={pageState === "following" ? whitefollow : follow} style={iconStyle} alt="" /> Following</p>
             </Link>
-            /*<Link to="/trending" style={linkStyle}>
-                <p style={pageState === "trending" ? selectedStyle : null}><img src={pageState === "trending" ? whitetrend:trend} style={iconStyle} alt="" /> Trending</p>
-                </Link>*/}
+            }
             {gamesArr.map((game) => {
                 if (game.title === undefined) return;
                 return (

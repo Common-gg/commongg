@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FeedType from '../FeedType.js';
 import CreatePostModal from '../Post/CreatePostModal.js';
-import { useLocation } from 'react-router-dom'
 
 function GameFeedContainer(props) {
   const [postRefresh, setPostRefresh] = useState(0);

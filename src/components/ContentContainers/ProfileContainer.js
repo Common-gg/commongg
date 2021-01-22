@@ -103,15 +103,6 @@ function ProfileContainer(props) {
         }
     }
 
-    const followStyle = {
-        color: "#BF9AFC",
-        fontSize: "1.6rem",
-        marginRight: "1rem"
-    };
-
-    const numberStyle = {
-        fontSize: "1.6rem"
-    };
 
     function checkOptions() {
         let modLvl;
