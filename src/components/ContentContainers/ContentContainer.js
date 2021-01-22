@@ -49,7 +49,7 @@ function ContentContainer(props) {
     case "profile":
       return <ProfileContainer {...props} username={pageId} />;
     case "post":
-      return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} />;
+      return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} pageState={pageState}/>;
     case "settings":
       return <SettingsContainer {...props} />;
     case "editgames":
