@@ -107,13 +107,13 @@ function SettingsContainer(props) {
     } else {
       props.storeUserAboutMe(aboutMe);
     }
-    setUpdateButtonText("saved");
+    setUpdateButtonText("Saved");
     setDisplayMaxLengthMessage(false);
   }
 
   const changedInfo = () => {
-    if (updateButtonText === "saved") {
-      setUpdateButtonText("update");
+    if (updateButtonText === "Saved") {
+      setUpdateButtonText("Update");
     }
   }
 

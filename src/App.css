@@ -127,13 +127,32 @@ a:hover {
 
 .createProfileCard{
   margin: 10%;
-  max-width: 30%;
+  max-width: 25%;
   background-color: #292833;
   border-radius: 10px;
   box-shadow: -1px 7px 25px 1px #171421;
   color: #BF9AFC;
 }
 
+@media screen and (max-width: 1300px) 
+{
+.createProfileCard {
+  max-width: 30%;
+} }
+
+
+@media screen and (max-width: 850px) and (min-width: 500px) 
+{
+.createProfileCard {
+  max-width: 50%;
+} }
+
+
+@media screen and (max-width: 500px) 
+{
+.createProfileCard {
+  max-width: 60%;
+} }
 
 .modal-content{
   background-color: #292833 ;
@@ -154,7 +173,6 @@ a:hover {
   color: #BF9AFC;
   border-radius: 10px;
   box-shadow: -1px 7px 25px 1px #171421;
-
 } 
 
 @media screen and (max-width: 1300px) 

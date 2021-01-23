@@ -13,7 +13,7 @@ function TermsOfService(props) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col" style={{ color: "white", fontSize: "40px" }}> {text}</p>
+                <p className="col" style={{ color: "white", fontSize: "40px", backgroundColor: "#292833", }}> {text}</p>
             </div>
         );
     }
@@ -22,7 +22,7 @@ function TermsOfService(props) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col" style={{ color: "white", fontSize: "20px" }}> {text}</p>
+                <p className="col" style={{ color: "white", fontSize: "20px", backgroundColor: "#292833", }}> {text}</p>
             </div>
         );
     }
@@ -31,7 +31,7 @@ function TermsOfService(props) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px" }}>{text}</p>
+                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px", backgroundColor: "#292833", }}>{text}</p>
             </div>
         );
     }
