@@ -6,7 +6,8 @@ function TermsOfService(props) {
     const styleCommonLogo = {
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center", 
+        backgroundColor: "#292833",
     }
 
     function largeHeaderStyle(text) {
@@ -37,7 +38,7 @@ function TermsOfService(props) {
     }
 
     return (
-        <div className="Terms Of Service">
+        <div className="Terms Of Service modalContent">
             <div>
                 <div style={styleCommonLogo}>
                     <img src={CommonLogoLarge} />

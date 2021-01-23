@@ -160,10 +160,12 @@ a:hover {
 
 .close {
   color: #BF9AFC;
+  background-color: #292833;
 }
 
 .close:not(:disabled):not(.disabled):hover {
   color: #BF9AFC;
+  background-color: #292833;
 }
 
 .loginCard {
