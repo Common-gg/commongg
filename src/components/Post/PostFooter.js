@@ -95,8 +95,8 @@ function PostFooter(props) {
           <img src={commentIcon} style={{
             backgroundColor: "transparent",
             position: "relative",
-            bottom: "-12px",
-            height: "70%",
+            bottom: "-32%",
+            height: "auto",
             width: "100%",
             paddingRight: "30%"
           }} />
@@ -266,9 +266,9 @@ function PostFooter(props) {
               <img src={shareIcon} style={{
                 backgroundColor: "transparent",
                 position: "relative",
-                bottom: "-6px",
+                bottom: "-16%",
                 width: "100%",
-                height: "100%",
+                height: "auto",
                 cursor: "pointer"
               }} />
             </OverlayTrigger>

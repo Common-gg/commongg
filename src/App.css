@@ -146,3 +146,77 @@ a:hover {
 .close:not(:disabled):not(.disabled):hover {
   color: #BF9AFC;
 }
+
+.loginCard {
+  margin: 200px;
+  max-width: 20%;
+  background-color: #292833;
+  color: #BF9AFC;
+  border-radius: 10px;
+  box-shadow: -1px 7px 25px 1px #171421;
+
+} 
+
+@media screen and (max-width: 1300px) 
+{
+.loginCard {
+  max-width: 30%;
+} }
+
+
+@media screen and (max-width: 850px) and (min-width: 500px) 
+{
+.loginCard {
+  max-width: 50%;
+} }
+
+
+@media screen and (max-width: 500px) 
+{
+.loginCard {
+  max-width: 60%;
+} }
+
+.signUpCard {
+  margin: 200px;
+  max-width: 20%;
+  max-height: 100%;
+  background-color: #292833;
+  border-radius: 10px;
+  box-shadow: -1px 7px 25px 1px #171421;
+}
+
+@media screen and (max-width: 1300px) 
+{
+.signUpCard {
+  max-width: 30%;
+} }
+
+
+@media screen and (max-width: 850px) and (min-width: 500px) 
+{
+.signUpCard {
+  max-width: 50%;
+} }
+
+
+@media screen and (max-width: 500px) 
+{
+.signUpCard {
+  max-width: 60%;
+} }
+
+.cardBtnStyle { 
+  margin-bottom: 20px;
+  margin-top: 14px;
+  margin-right: 2.5%;
+  background-color: transparent;
+  color: #BF9AFC;
+  padding: 0.4rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border: solid;
+  border-radius: 10px;
+  border-color: #BF9AFC;
+  border-width: 2px;
+}

@@ -181,15 +181,7 @@ function SignUp(props) {
           </div>
         </Modal.Body>
       </Modal>
-      <div className="mx-auto card"
-        style={{
-          margin: "200px",
-          maxWidth: "20%",
-          maxHeight: "100%",
-          backgroundColor: "#292833",
-          borderRadius: "10px",
-          boxShadow: "-1px 7px 25px 1px #171421"
-        }}>
+      <div className="mx-auto card signUpCard">
 
         <div style={{ margin: "20px 20px 0px 20px" }}>
           <div className="row mx-auto">
