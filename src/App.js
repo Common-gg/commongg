@@ -527,6 +527,19 @@ function App() {
     })
   }
 
+  const defaultNoPostCallback = {
+    "00000000": {
+      author: "404",
+      caption: "Nothing here",
+      game: "",
+      link: "",
+      text: "There are no posts to see",
+      timestamp: 0,
+      title: "No Content",
+      type: "text"
+    }
+  };
+
   const getPosts = (begin, filter, callback) => {
     // gets all posts for the DB
     console.log("GETTING ", begin, filter)
@@ -542,18 +555,31 @@ function App() {
         });
         return callback(postData);
       } else {
-        return callback({
-          "00000000": {
-            author: "404",
-            caption: "Nothing here",
-            game: "",
-            link: "",
-            text: "There are no posts to see",
-            timestamp: 0,
-            title: "No Content",
-            type: "text"
+        return callback(defaultNoPostCallback)
+      }
+    });
+  }
+
+  const getPostsForProfilePage = (begin, filter, id, callback) => {
+    let postRef = database.ref("content/posts/").orderByChild("timestamp").startAt(begin).limitToFirst(filter);
+
+    postRef.on("value", (snapshot) => {
+      postRef.off();
+
+      if (snapshot.val() !== null) {
+        let postData = {};
+
+        snapshot.forEach((child) => {
+          if (child.author === id) {
+            postData[child.val().timestamp] = {
+              ...child.val()
+            }
           }
-        })
+        });
+        return callback(postData);
+      }
+      else {
+        return callback(defaultNoPostCallback);
       }
     });
   }
@@ -565,18 +591,7 @@ function App() {
       if (snapshot.val() !== null) {
         return callback(snapshot.val());
       } else {
-        return callback({
-          "00000000": {
-            author: "404",
-            caption: "Nothing here",
-            game: "",
-            link: "",
-            text: "There are no posts to see",
-            timestamp: 0,
-            title: "No Content",
-            type: "text"
-          }
-        })
+        return callback(defaultNoPostCallback)
       }
     });
   }
@@ -904,6 +919,7 @@ function App() {
                   verifyUser={verifyUser}
                   resetPfp={resetPfp}
                   getReportedUsers={getReportedUsers}
+                  getPostsForProfilePage={getPostsForProfilePage}
                 />
               </div>
             )} />
