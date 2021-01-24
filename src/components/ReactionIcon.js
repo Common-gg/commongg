@@ -16,26 +16,17 @@ function ReactionIcon(props) {
       });
     }
     if (props.usersReacted) {
-      if (props.usersReacted.length > 0) {
-        let toolTipString = props.usersReacted[0];
-        if (props.usersReacted.length > 1) {
-          if (props.usersReacted.length === 2) {
-            toolTipString += ' and ' + props.usersReacted[1];
-          } else {
-            toolTipString += ', ' + props.usersReacted[1];
-          }
-          if (props.usersReacted.length > 2) {
-            if (props.usersReacted.length === 3) {
-              toolTipString += ', and ' + props.usersReacted[2];
-            } else {
-              toolTipString += ', ' + props.usersReacted[2];
-            }
-            if (props.usersReacted.length > 3) {
-              toolTipString += ', and ' + (props.usersReacted.length - 3) + ' other users';
-            }
-          }
-        }
-        toolTipString += " reacted with " + props.reaction;
+      if (props.usersReacted.length === 1) {
+        const toolTipString = `${props.usersReacted[0]} reacted with ${props.reaction}`;
+        setToolTipText(toolTipString);
+      } else if (props.usersReacted.length === 2) {
+        const toolTipString = `${props.usersReacted[0]} and ${props.usersReacted[1]} reacted with ${props.reaction}`;
+        setToolTipText(toolTipString);
+      } else if (props.usersReacted.length === 3) {
+        const toolTipString = `${props.usersReacted[0]}, ${props.usersReacted[1]}, and ${props.usersReacted[2]} reacted with ${props.reaction}`;
+        setToolTipText(toolTipString);
+      } else if (props.usersReacted.length > 3) {
+        const toolTipString = `${props.usersReacted[0]}, ${props.usersReacted[1]}, ${props.usersReacted[2]}, and ${props.usersReacted.length - 3} other users reacted with ${props.reaction}`;
         setToolTipText(toolTipString);
       }
     }
