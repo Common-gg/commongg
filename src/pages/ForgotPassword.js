@@ -17,17 +17,6 @@ function ForgotPassword(props) {
 
     }
 
-    const buttonStyle = {
-        backgroundColor: "transparent",
-        color: "#BF9AFC",
-        border: "solid",
-        borderRadius: "10px",
-        borderColor: "#BF9AFC",
-        borderWidth: "2px",
-        position: "relative",
-        left: "1rem"
-    }
-
     const inputStyle = {
         backgroundColor: "transparent #292833",
         color: "#BF9AFC",
@@ -37,11 +26,11 @@ function ForgotPassword(props) {
         borderRadius: "2px",
         borderWidth: "0.1rem",
         padding: "0.3rem",
-        width: "50%",
+        width: "80%",
         height: "65%",
         position: "relative",
         overflow: "hidden",
-       marginLeft: "25%"
+        marginLeft: "12%"
     }
 
     function handleForgotPasswordClick() {
@@ -64,15 +53,7 @@ function ForgotPassword(props) {
 
     return (
         <div>
-            <div className="mx-auto card text-center"
-                style={{
-                    margin: "200px",
-                    maxWidth: "20%",
-                    backgroundColor: "#292833",
-                    borderRadius: "10px",
-                    boxShadow: "-1px 7px 25px 1px #171421",
-                    color: "#BF9AFC",
-                }}>
+            <div className="mx-auto card text-center loginCard">
                 <div style={{ margin: "20px 20px 0px 20px" }}>
                     <div className="mx-auto">
                         <img style={logoCSS} className="mx-auto" src={logo} />
@@ -92,13 +73,9 @@ function ForgotPassword(props) {
                     <div className="d-flex justify-content-center">
                         {handleMessagingForForgotPassword()}
                     </div>
-                    <div className="row col-12" style={{
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}>
+                    <div className="row col-12 mx-auto" style={{ justifyContent: "center", alignItems: "center" }}>
                         <div className="form-group">
-                            <button className="btn btn-info" onClick={handleForgotPasswordClick}
-                                style={buttonStyle} >
+                            <button className="btn btn-info cardBtnStyle" onClick={handleForgotPasswordClick} >
                                 <img src={arrow} />
                             </button>
                         </div>

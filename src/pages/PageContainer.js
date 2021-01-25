@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Text from '../components/Text.js'
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../components/NavigationBar.js';
 import ContentContainer from '../components/ContentContainers/ContentContainer.js';
 import GamesContainer from '../components/ContentContainers/GamesContainer.js';

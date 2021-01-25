@@ -1,9 +1,6 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React from 'react';
 import searchIcon from '../images/icons/search.png'
-import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
 import SearchBox from './SearchBox';
-
-const AsyncTypeahead = withAsync(Typeahead);
 
 function SearchBar(props) {
 

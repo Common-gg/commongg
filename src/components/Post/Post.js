@@ -189,15 +189,50 @@ function Post(props) {
       )
     }
 
-    // gyazo regex: /(?:i\.gyazo\.com\/thumb\/\S+\/([a-z0-9]{32}))|(?:gyazo\.com\/([a-z0-9]{32}))/g
-    // gives the 32 char gyazo id
-
-    // imgur regex:
+    // basic link
     return (
       <div>
         {link}
       </div>
     )
+  }
+
+  const checkType = () => {
+    if (props.post.type === "text") {
+      return;
+    } else if (props.post.type === "image") {
+      return (
+        <div>
+          <img
+            id={props.postId + "img"}
+            data-toggle="modal"
+            data-target="#enlargedImageModal"
+            ref={postImageRef}
+            src={props.post.link}
+            onClick={handleImageClick}
+            alt="posted image"
+            style={{
+              maxWidth: "100%",
+              cursor: "pointer",
+              marginBottom: "1.5rem"
+            }}>
+          </img>
+        </div>
+      )
+    }
+    // Code to turn on video later!
+    // else if (props.post.type === "video") {
+    //   return (
+    //     <video controls name="posted video"
+    //       style={{
+    //         width: "100%"
+    //       }}>
+    //       <source
+    //         src={props.post.link}
+    //       />
+    //     </video>
+    //   )
+    // }
   }
 
   function handleImageClick() {
@@ -376,24 +411,7 @@ function Post(props) {
               </Link>*/}
                 <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
               </Linkify>
-              {props.post.type === "image" ?
-                (<div>
-                  <img
-                    id={props.postId + "img"}
-                    data-toggle="modal"
-                    data-target="#enlargedImageModal"
-                    ref={postImageRef}
-                    src={props.post.link}
-                    onClick={handleImageClick}
-                    alt="posted image"
-                    style={{
-                      maxWidth: "100%",
-                      cursor: "pointer",
-                      marginBottom: "1.5rem"
-                    }}>
-                  </img>
-                </div>
-                ) : null}
+              {checkType()}
               {props.pageState === undefined ? (<Link to={"/post/" + props.postId}>
                 <button style={expandButtonStyle}>
                   View Post

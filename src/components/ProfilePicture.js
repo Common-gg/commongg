@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 function ProfilePicture(props) {
   const profileImageRef = useRef();

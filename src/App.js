@@ -21,7 +21,6 @@ import ActionHandler from "./pages/ActionHandler.js";
 import TermsOfService from './pages/TermsOfService.js';
 import ReminderVerifyEmail from './pages/ReminderVerifyEmail.js';
 
-const Twitch = require("./api/Twitch.js");
 require("firebase/auth");
 require("firebase/database");
 require("firebase/storage");
@@ -52,8 +51,6 @@ function App() {
   const [currentUserInfo, setCurrentUserInfo] = useState();
   const [startUp, setStartUp] = useState(false);
   const [displayMobileWarning, setDisplayMobileWarning] = useState(false);
-
-  const [twitchToken, setTwitchToken] = useState();
   const [allGames, setAllGames] = useState([
     {
       title: "Common Chat",
@@ -500,27 +497,6 @@ function App() {
         following: currentUserInfo.followCounts.following
       }
     })
-  }
-
-  const getTitleOfGameById = (gameId) => {
-    // Gets the title of a game by it's ID
-    let gameTitle = "";
-
-    database.ref("/games/").once("value").then((snapshot) => {
-      let games = snapshot.val();
-
-      if (games.hasOwnProperty(gameId)) {
-        gameTitle = games[gameId].title;
-      }
-      return gameTitle;
-    });
-  }
-
-  const getAllGames = (callback) => {
-    // gets all games from the db
-    database.ref("/games/").once("value").then((snapshot) => {
-      return callback(snapshot.val());
-    });
   }
 
   const getPost = (postId, callback, postType, nullCallBack) => {

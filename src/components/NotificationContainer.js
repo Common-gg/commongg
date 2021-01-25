@@ -4,7 +4,6 @@ import Text from "./Text.js";
 import Notification from "./Notification.js"
 import NotificationUnread from "../images/icons/notificationfull-1.png";
 import NotificationRead from "../images/icons/notificationempty-1.png";
-import { isPlainObject } from "jquery";
 
 function NotificationContainer(props) {
     let tempCounter = 0;

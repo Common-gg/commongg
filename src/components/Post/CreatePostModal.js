@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import excludeIcon from "../../images/icons/exclude-1.png";
 import Select from 'react-select';
 import ImageIcon from "../../images/icons/image22.png";

@@ -5,8 +5,6 @@ import DisplayImage from '../components/DisplayImage.js'
 import add from "../images/icons/Group-104.png";
 import arrow from "../images/icons/arrow-right.png";
 import blankPfp from '../images/icons/empty-pfp-1.png';
-import { AutosizeInput } from 'react-bootstrap-typeahead';
-import styles from '../App.css';
 
 const Filter = require('bad-words')
 const filter = new Filter();

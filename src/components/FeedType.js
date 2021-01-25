@@ -59,15 +59,45 @@ function FeedType(props) {
     }
   }, [props.numPostsLoaded])
 
+  //gets the post based on filter
   useEffect(() => {
-    props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
+    //check if we are doing client side filtering
+    if (clientFilter === true) {
+      //we get all post and filter it on our side based on game and people
+      getAllPosts(setAllPosts);
+    }
+  }, [postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
+
+  useEffect(() => {
     if(Object.keys(posts).length < props.numPostsToLoad) return;
+    props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
     setLoading(false);
   }, [posts])
 
   useEffect(() => {
-    if(props.lastPostRetrieved > 0) getPosts(props.lastPostRetrieved+1, 10, addPosts);
+    if(props.lastPostRetrieved > 0) getPosts(props.lastPostRetrieved, 10, addPosts);
   }, [props.numPostsToLoad])
+
+  //when we are done with retrieving allPosts we set the posts by filtering
+  useEffect(() => {
+    //only changes when we are doing client filtering
+    if (clientFilter === true && allPosts) {
+      if (props.currentUserInfo.following === null) {
+        return;
+      }
+      const following = Object.values(props.currentUserInfo.following);
+      following.push(props.currentUserId)
+      const games = props.currentUserInfo.games
+      const filteredPosts = Object.fromEntries(Object.entries(allPosts).filter(
+        ([key, value]) => {
+          //filter based on value
+          const postGame = parseInt(value.game);
+          const postAuthor = value.author;
+          return (games.includes(postGame) && following.includes(postAuthor))
+        }))
+      setPosts(filteredPosts);
+    }
+  }, [allPosts, clientFilter, props.currentUserInfo, props.currentUserId])
 
   //when the filter changes make the page go back to top
   useEffect(() => {
@@ -92,29 +122,15 @@ function FeedType(props) {
         if (post.author !== "404" && i < props.numPostsToLoad)
           return (
             <div key={Object.keys(posts)[i]}>
-              {
-              (props.clientFilter === undefined && (post.author === props.game || post.game === props.game || props.game === undefined)) 
-              || (props.clientFilter === "reported" && post.reported)
-              || (props.clientFilter === "following" && (Object.values(props.currentUserInfo.following).includes(post.author)))
-              ? <div>
-                  <Post {...props} 
-                    loading={loading} 
-                    setLoading={setLoading} 
-                    post={post} 
-                    postId={post.postId}
-                    postNum={i + 1} 
-                    numPostsToLoad={props.numPostsToLoad} 
-                    setNumPostsToLoad={props.setNumPostsToLoad} 
-                    setNumPostsLoaded={props.setNumPostsLoaded}
-                    childPostRefresh={childPostRefresh} 
-                    setModalImage={props.setModalImage} 
-                    setBackClicked={props.setBackClicked}
-                    setShowModal={setShowModal} 
-                    setModalContent={setModalContent}
+              {(post.author === props.game || post.game === props.game || props.game === undefined)? <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
+                postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
+                childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
+                setShowModal={setShowModal} setModalContent={setModalContent}
               />
                 <br /></div> : null}
             </div>
           );
+        return null;
       })}
     </div>
   );
