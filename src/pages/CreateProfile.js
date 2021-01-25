@@ -43,13 +43,6 @@ function CreateProfile(props) {
     const usernameRegex = /^(?=.{4,30}$)([_]{0,})([a-zA-Z0-9]{1,})([a-zA-Z0-9_])(?:([a-zA-Z0-9_]))+$/;
     let validUserName = username.match(usernameRegex);
 
-    if ((imageType === "image/jpeg") || (imageType === "image/jpg") || (imageType === "image/png")) {
-      setDisplayImageTypeValidationMessage(false);
-    }
-    else {
-      setDisplayImageTypeValidationMessage(true);
-      return;
-    }
     if ((username !== undefined) && (username !== null) && (username.length > 30)) {
       setDisplayInputValidationText(true);
       return;
