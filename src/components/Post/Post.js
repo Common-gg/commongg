@@ -105,10 +105,24 @@ function Post(props) {
     }
     return (
       <div>
-        <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
-          <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent", marginTop: "-5.8rem", marginRight: "-1rem" }} />
+        <div id="dropdownMenuButton"
+          className="btn"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          style={{ background: "transparent" }}>
+          <img src={optionsIcon} 
+          alt={"options"} 
+          style={{ 
+            backgroundColor: "transparent", 
+            marginTop: "-5.8rem", 
+            marginRight: "-1rem" }} />
         </div>
-        <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ backgroundColor: "#BF9AFC", marginTop: "-3rem", marginRight: "-1rem" }}>
+        <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" 
+        style={{ 
+          backgroundColor: "#BF9AFC", 
+          marginTop: "-3rem", 
+          marginRight: "-1rem" }}>
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
           <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
           {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> : null}

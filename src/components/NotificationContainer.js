@@ -101,7 +101,7 @@ function NotificationContainer(props) {
     );
 
     return (
-        <div style={{ marginLeft: "300%", marginBottom: "30%" }}>
+        <div style={{ marginLeft: "125%", marginBottom: "50%" }}>
             <OverlayTrigger
                 trigger={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : "click"}
                 rootClose
