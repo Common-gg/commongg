@@ -20,6 +20,7 @@ import ForgotPassword from './pages/ForgotPassword.js';
 import ActionHandler from "./pages/ActionHandler.js";
 import TermsOfService from './pages/TermsOfService.js';
 import ReminderVerifyEmail from './pages/ReminderVerifyEmail.js';
+import Sidebar from './components/Sidebar.js';
 
 require("firebase/auth");
 require("firebase/database");
@@ -27,6 +28,8 @@ require("firebase/storage");
 require("firebase/analytics")
 
 function App() {
+
+  
 
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_apiKey,
@@ -118,6 +121,7 @@ function App() {
       setCurrentUser(user);
     });
   }, []);
+
 
   const firebaseTimeStamp = (callback) => {
     database.ref("/.info/serverTimeOffset").on('value', function (offset) {
@@ -847,7 +851,7 @@ function App() {
           />
           <Route path="/" render={
             (props) => (
-              <div>
+              <div id="outer-container"> 
                 <PageContainer
                   currentUserId={currentUser.uid}
                   currentUserInfo={currentUserInfo}
@@ -904,8 +908,11 @@ function App() {
             )} />
         </Switch>
       </Router>
+      
     );
+    
   }
+
 }
 
 export default App;

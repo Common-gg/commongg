@@ -9,13 +9,13 @@ function Feed(props) {
         <div className="Feed">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-2">
+                    <div className="col" style= {{ width: "25%",}}>
                         <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames}/>
                     </div>
-                    <div className="col-lg-7">
+                    <div className="col" style={{ width: "50%"}}>
                         <FeedContainer currentUserId={props.currentUserId} setCreatePost={props.setCreatePost} storeImage={props.storeImage} />
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col" style={{ width: "25%"}}>
                         <Text text="PUT ADS HERE TO MAKE $$ YEP" />
                     </div>
                 </div>

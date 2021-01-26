@@ -205,7 +205,7 @@ function ProfileContainer(props) {
                                             alt={props.allGames[index].title}
                                             className="rounded"
                                             style={{
-                                                width: '8rem',
+                                                width: '100%',
                                                 height: 'auto',
                                                 margin: '3%',
                                                 padding: '.3rem',
@@ -213,7 +213,7 @@ function ProfileContainer(props) {
                                                 marginTop: "4%"
                                             }}
                                         />
-                                        <p>{props.allGames[index].title}</p>
+                                        {/* <p>{props.allGames[index].title}</p> */}
                                     </div>
                                 )
                             }
