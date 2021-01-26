@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+#page-wrap {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+
 .App {
   text-align: center;
 }
@@ -127,13 +137,32 @@ a:hover {
 
 .createProfileCard{
   margin: 10%;
-  max-width: 30%;
+  max-width: 25%;
   background-color: #292833;
   border-radius: 10px;
   box-shadow: -1px 7px 25px 1px #171421;
   color: #BF9AFC;
 }
 
+@media screen and (max-width: 1300px) 
+{
+.createProfileCard {
+  max-width: 30%;
+} }
+
+
+@media screen and (max-width: 850px) and (min-width: 500px) 
+{
+.createProfileCard {
+  max-width: 50%;
+} }
+
+
+@media screen and (max-width: 500px) 
+{
+.createProfileCard {
+  max-width: 60%;
+} }
 
 .modal-content{
   background-color: #292833 ;
@@ -141,10 +170,12 @@ a:hover {
 
 .close {
   color: #BF9AFC;
+  background-color: #292833;
 }
 
 .close:not(:disabled):not(.disabled):hover {
   color: #BF9AFC;
+  background-color: #292833;
 }
 
 .loginCard {
@@ -154,28 +185,7 @@ a:hover {
   color: #BF9AFC;
   border-radius: 10px;
   box-shadow: -1px 7px 25px 1px #171421;
-
 } 
-
-@media screen and (max-width: 1300px) 
-{
-.loginCard {
-  max-width: 30%;
-} }
-
-
-@media screen and (max-width: 850px) and (min-width: 500px) 
-{
-.loginCard {
-  max-width: 50%;
-} }
-
-
-@media screen and (max-width: 500px) 
-{
-.loginCard {
-  max-width: 60%;
-} }
 
 .signUpCard {
   margin: 200px;
@@ -185,26 +195,6 @@ a:hover {
   border-radius: 10px;
   box-shadow: -1px 7px 25px 1px #171421;
 }
-
-@media screen and (max-width: 1300px) 
-{
-.signUpCard {
-  max-width: 30%;
-} }
-
-
-@media screen and (max-width: 850px) and (min-width: 500px) 
-{
-.signUpCard {
-  max-width: 50%;
-} }
-
-
-@media screen and (max-width: 500px) 
-{
-.signUpCard {
-  max-width: 60%;
-} }
 
 .cardBtnStyle { 
   margin-bottom: 20px;
@@ -219,4 +209,175 @@ a:hover {
   border-radius: 10px;
   border-color: #BF9AFC;
   border-width: 2px;
+}
+
+.navLinkStyle{
+  color: #BF9AFC;
+  text-decoration: none;
+  font-size: 25px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.navIconStyle{
+  width: 35px;
+  height: 35px;
+  margin-right: 0.5rem;
+}
+
+.navProfileIconStyle{
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  margin-right: 0.5rem;
+}
+
+
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+  z-index: 9999999;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #BF9AFC;
+  z-index: 9999999;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #FFFFFF;
+  z-index: 9999999;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+  z-index: 9999999;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #BF9AFC;
+  z-index: 9999999;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+  z-index: 9999999;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #292833;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+  z-index: 9999999;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #292833;
+  z-index: 9999999;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #BF9AFC;
+  padding: 0.8em;
+  z-index: 9999999;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+  z-index: 9999999;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999999;
+}
+
+.NavigationBar{
+  margin-left: 25%
+}
+
+@media screen and (max-width: 1300px) 
+{
+.signUpCard {
+  max-width: 30%;
+} 
+
+.loginCard {
+  max-width: 30%;
+}
+
+}
+
+
+@media screen and (max-width: 850px) and (min-width: 500px) 
+{
+.signUpCard {
+  max-width: 50%;
+} 
+
+.loginCard {
+  max-width: 50%;
+}
+
+/* .NavigationBar {
+  visibility: hidden;
+} */
+
+}
+
+
+@media screen and (max-width: 500px) 
+{
+.signUpCard {
+  max-width: 60%;
+} 
+
+.loginCard {
+  max-width: 60%;
+}
+
+.navLinkStyle{
+  font-size: 20px;
+
+}
+
+.navIconStyle{
+  width: 20px;
+  height: 20px;
+
+}
+
+.navProfileIconStyle{
+  width: 20px;
+  height: 20px;
+}
+
+/* .NavigationBar {
+  visibility: hidden;
+
+} */
+
 }

@@ -107,13 +107,13 @@ function SettingsContainer(props) {
     } else {
       props.storeUserAboutMe(aboutMe);
     }
-    setUpdateButtonText("saved");
+    setUpdateButtonText("Saved");
     setDisplayMaxLengthMessage(false);
   }
 
   const changedInfo = () => {
-    if (updateButtonText === "saved") {
-      setUpdateButtonText("update");
+    if (updateButtonText === "Saved") {
+      setUpdateButtonText("Update");
     }
   }
 
@@ -308,7 +308,7 @@ function SettingsContainer(props) {
             <br /><a onClick={() => props.signOut()}>Sign Out</a> <br />
           </Link>
           <br /><p style={{ color: "#BF9AFC" }}>Suggestions? <br /> Join Our <a href="https://discord.gg/dsEAEGGaHn" style={linkStyle}>Discord</a></p>
-          <Link to="/termsofservice">
+          <Link to="/termsofservice" target="_blank">
             <a className="col" style={linkStyle}>
               Privacy Policy, Cookie Policy & Terms of Service
               </a>

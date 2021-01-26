@@ -7,6 +7,7 @@ import NotificationContainer from "../components/NotificationContainer.js";
 import TopOfPageImage from "../images/icons/top 1.png";
 import { useHistory } from "react-router-dom";
 import Imgix from 'react-imgix';
+import Sidebar from '../components/Sidebar';
 
 function PageContainer(props) {
 
@@ -34,17 +35,13 @@ function PageContainer(props) {
   const topOfPageButtonStyle = {
     visibility: "visible",
     backgroundColor: "transparent",
-    width: "2.5rem",
-    height: "2.5rem",
     borderRadius: "50%",
     position: "relative",
-    top: "1vh",
-    left: "-2vw",
     borderTop: "4rem"
   };
   const topOfPageImageStyle = {
-    width: "6rem",
-    height: "2.5rem",
+    width: "5rem",
+    height: "auto",
     position: "relative"
   }
 
@@ -105,12 +102,13 @@ function PageContainer(props) {
       <div className="container-fluid">
         <br /><br />
         <div className="row">
-          <div style={{ maxWidth: "33.33%", width: "33.33%", paddingLeft: "10%", }}>
+          <div style={{ width: "25%", height:"100%"}}>
             <div style={sticky}>
               <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames} />
+              {/* <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} /> */}
             </div>
           </div>
-          <div style={{ width: "33.33%" }}>
+          <div style={{ width: "50%"}}>
             <div className="text-center">
               <SearchBar search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
@@ -119,10 +117,10 @@ function PageContainer(props) {
               setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
               setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} />
           </div>
-          <div style={{ width: "33.33%" }}>
+          <div  style={{ width: "20%"}}>
             <div style={sticky}>
               <NotificationContainer {...props} />
-              <div style={{ position: "absolute", bottom: "-2.5rem", right: "-7rem" }}>
+              <div style={{ position: "absolute", bottom: "-2.5rem", left: "88%" }}>
                 <button className="btn btn-primary" onClick={() => window.scrollTo(0, 0)} style={topOfPageButtonStyle}>
                   <img src={TopOfPageImage} style={topOfPageImageStyle} />
                 </button>

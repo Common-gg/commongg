@@ -11,34 +11,7 @@ function PostFooter(props) {
   const [post, setPost] = useState(props.post)
   const [popoverReactions, setPopoverReactions] = useState([]);
   const [allowClick, setAllowClick] = useState(true);
-  const reactions = [
-    "thumbsup",
-    "Pog",
-    "peepoHappy",
-    "peepoLove",
-    "monkaHmm",
-    "pepeLaugh",
-    "KEKW",
-    "Madge",
-    "monkaS",
-    "Sadge",
-    "influrUWU",
-    "AYAYA",
-    "agontfHi",
-    "agontfConcern",
-    "agontfSure",
-    "agontfGift",
-    "soulessFF",
-    "soulessG",
-    "emyyAww",
-    "emyyHiYo",
-    "muffiS",
-    "dqaHi",
-    "eschatHwak2",
-    "josepa3Riot",
-    "treebeardMeep",
-    "fluffyBlanket"
-  ];
+  const reactions = props.reactions;
 
   useEffect(() => {
     setPost(props.post);

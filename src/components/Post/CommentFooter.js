@@ -6,34 +6,7 @@ function CommentFooter(props) {
   const [comment, setComment] = useState(props.comment)
   const [popoverReactions, setPopoverReactions] = useState([]);
   const [allowClick, setAllowClick] = useState(true);
-  const reactions = [
-    "thumbsup",
-    "Pog",
-    "peepoHappy",
-    "peepoLove",
-    "monkaHmm",
-    "pepeLaugh",
-    "KEKW",
-    "Madge",
-    "monkaS",
-    "Sadge",
-    "influrUWU",
-    "AYAYA",
-    "agontfHi",
-    "agontfConcern",
-    "agontfSure",
-    "agontfGift",
-    "soulessFF",
-    "soulessG",
-    "emyyAww",
-    "emyyHiYo",
-    "muffiS",
-    "dqatHi",
-    "eschatHwak2",
-    "josepa3Riot",
-    "treebeardMeep",
-    "fluffyBlanket"
-  ];
+  const reactions = props.reactions;
 
   useEffect(() => {
     setComment(props.comment);
