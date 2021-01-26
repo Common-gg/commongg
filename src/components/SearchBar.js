@@ -22,14 +22,19 @@ function SearchBar(props) {
     height: "30px",
     cursor: "pointer",
     margin: "10px",
-  
+
   }
 
   return (
     <div>
       <div className="Input" style={barStyle} >
-        <SearchBox search={props.search} allGames={props.allGames} setAllGames={props.setAllGames}/>
-        <img src={searchIcon} alt="search bar" style={imgStyle} />
+        <SearchBox
+          search={props.search}
+          allGames={props.allGames}
+          setAllGames={props.setAllGames} />
+        <img src={searchIcon}
+          alt="search bar"
+          style={imgStyle} />
       </div>
     </div>
   );

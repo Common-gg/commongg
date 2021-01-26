@@ -207,7 +207,11 @@ function SignUp(props) {
             </div>
             <br />
             <div className="form-group col-12">
-              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center", }}> Sign Up </p>
+              <p style={{ 
+                position: "relative", 
+                color: "#BF9AFC", 
+                textAlign: "center", 
+                }}> Sign Up </p>
               <div className="row mx-auto">
                 <Input type="email"
                   bootstrap="border-0"

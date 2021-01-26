@@ -72,25 +72,27 @@ function NavigationBar(props) {
     }
 
     return (
-        <div className="NavigationBar" 
-        style={{ color: "#BF9AFC" }}>
+        <div className="NavigationBar"
+            style={{ color: "#BF9AFC" }}>
             <Link to="/" className="navLinkStyle">
-                <p style={pageState === "" ? selectedStyle : null}><img className="navIconStyle" src={pageState === "" ? whitehome : home}  alt="" /> Home</p>
+                <p style={pageState === "" ? selectedStyle : null}>
+                    <img className="navIconStyle" src={pageState === "" ? whitehome : home} alt="" /> Home</p>
             </Link>
 
             <Link to={"/profile/" + props.currentUserInfo.username} className="navLinkStyle">
-                <p style={pageState === "profile" ? selectedStyle : null}><img
-                    src={
+                <p style={pageState === "profile" ? selectedStyle : null}>
+                    <img src={
                         props.currentUserInfo.profile_picture ? (
-                        props.currentUserInfo.profile_picture.includes('firebasestorage') ?
-                        `https://${process.env.REACT_APP_imgixURL}/users/${props.currentUserId}?fit=fill&h=35&w=35&auto=format,enhance&q=75` : props.currentUserInfo.profile_picture) : null}
-                    alt={""}
-                    className="img navProfileIconStyle">
-                </img> Profile</p>
+                            props.currentUserInfo.profile_picture.includes('firebasestorage') ?
+                                `https://${process.env.REACT_APP_imgixURL}/users/${props.currentUserId}?fit=fill&h=35&w=35&auto=format,enhance&q=75` : props.currentUserInfo.profile_picture) : null}
+                        alt={""}
+                        className="img navProfileIconStyle">
+                    </img> Profile</p>
             </Link>
 
             {<Link to="/following" className="navLinkStyle">
-                <p style={pageState === "following" ? selectedStyle : null}><img className="navIconStyle" src={pageState === "following" ? whitefollow : follow}  alt="" /> Following</p>
+                <p style={pageState === "following" ? selectedStyle : null}>
+                    <img className="navIconStyle" src={pageState === "following" ? whitefollow : follow} alt="" /> Following</p>
             </Link>
             }
             {gamesArr.map((game) => {
@@ -107,16 +109,19 @@ function NavigationBar(props) {
                     <img src={editGame} className="navIconStyle"></img> Edit Games</p>
             </a>
             <Link to="/settings" className="navLinkStyle">
-                <p style={pageState === "settings" ? selectedStyle : null}><img src={pageState === "settings" ? whitesetting : setting} className="navIconStyle" alt="" /> Settings</p>
+                <p style={pageState === "settings" ? selectedStyle : null}>
+                    <img src={pageState === "settings" ? whitesetting : setting} className="navIconStyle" alt="" /> Settings</p>
             </Link>
             {modLevel > 0 ?
                 <Link to="/moderateposts" className="navLinkStyle">
-                    <p style={pageState === "moderateposts" ? selectedStyle : null}><img src={setting} className="navIconStyle" alt="" /> Moderate Posts</p>
+                    <p style={pageState === "moderateposts" ? selectedStyle : null}>
+                        <img src={setting} className="navIconStyle" alt="" /> Moderate Posts</p>
                 </Link>
                 : null}
             {modLevel > 0 ?
                 <Link to="/moderateusers" className="navLinkStyle">
-                    <p style={pageState === "moderateusers" ? selectedStyle : null}><img src={setting} className="navIconStyle" alt="" /> Moderate Users</p>
+                    <p style={pageState === "moderateusers" ? selectedStyle : null}>
+                        <img src={setting} className="navIconStyle" alt="" /> Moderate Users</p>
                 </Link>
                 : null}
         </div>

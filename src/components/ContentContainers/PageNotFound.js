@@ -7,7 +7,9 @@ function PageNotFound(props) {
   return (
     <div className="text-center">
       <br />
-      <img src={noPage} alt="404 page not found" style={{width: "321px", height: "171px"}}/>
+      <img src={noPage} 
+      alt="404 page not found" 
+      style={{width: "321px", height: "171px"}}/>
       <br /><br />
       <Link  to="/" style={{color: "#BF9AFC"}} ><p>Home</p></Link>
     </div>

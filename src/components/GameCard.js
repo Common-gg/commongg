@@ -24,7 +24,10 @@ function GameCard(props) {
     }
 
     return (
-        <div className="col-6" style={{ marginTop: "30px", marginBottom: "30px", marginRight: "-15px" }} >
+        <div className="col-6" style={{ 
+            marginTop: "30px", 
+            marginBottom: "30px", 
+            marginRight: "-15px" }} >
             <div className="GameCard" id={"GameCard " + props.index}>
                 <div className="col-2" >
                     <label htmlFor={"GameCardButton " + props.index}>
