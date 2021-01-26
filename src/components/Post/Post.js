@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Linkify from 'react-linkify';
+import Imgix from 'react-imgix';
 import Text from '../Text.js';
 import PostFooter from './PostFooter.js';
 import optionsIcon from '../../images/icons/options.png';
@@ -10,6 +11,8 @@ import { Link, useHistory } from "react-router-dom";
 import TrackVisibility from "react-on-screen";
 import ArrowLeft from "../../images/icons/arrowleft 1.png";
 import check from "../../images/icons/followingcheck-1.png";
+import loading from '../../images/icons/loading.svg';
+import ProfilePicture from "../ProfilePicture.js";
 
 function Post(props) {
 
@@ -201,22 +204,38 @@ function Post(props) {
     if (props.post.type === "text") {
       return;
     } else if (props.post.type === "image") {
+      let link = props.post.link;
+      if (props.post.link.includes('firebasestorage')) {
+        const start = link.indexOf('%2F') + 3;
+        const end = link.indexOf('?alt'); 
+        link =`https://commongg.imgix.net/postImage/${(link.substring(start, end))}`;
+      }
       return (
         <div>
-          <img
-            id={props.postId + "img"}
-            data-toggle="modal"
-            data-target="#enlargedImageModal"
-            ref={postImageRef}
-            src={props.post.link}
-            onClick={handleImageClick}
-            alt="posted image"
-            style={{
+          <Imgix
+            src={link + '?fit=max&auto=format,compress&q=75'}
+            sizes='
+              (max-width: 375px) 113px,
+              (max-width: 414px) 125px,
+              (max-width: 601px) 181px,
+              (max-width: 768px) 231px,
+              (max-width: 1024px) 307px,
+              (max-width: 1280px) 384px,
+              (max-width: 1440px) 430px,
+              (max-width: 1600px) 480px,
+              (max-width: 1920px) 561px,
+              768px'
+            htmlAttributes={{
+              id: props.postId + "img",
+              alt: "posted image",
+              "data-toggle": "modal",
+              "data-target": "#enlargedImageModal",
+              onClick: () => handleImageClick(link),
+              style: {
               maxWidth: "100%",
               cursor: "pointer",
               marginBottom: "1.5rem"
-            }}>
-          </img>
+            }}} />
         </div>
       )
     }
@@ -235,14 +254,9 @@ function Post(props) {
     // }
   }
 
-  function handleImageClick() {
-    const img = document.getElementById(`${props.postId}img`);
-    const natWidth = img.naturalWidth;
-    const natHeight = img.naturalHeight;
+  function handleImageClick(link) {
     props.setModalImage({
-      link: postImageRef.current.currentSrc,
-      width: natWidth,
-      height: natHeight
+      link: link + '?fit=max&auto=format'
     });
   }
 
@@ -335,14 +349,7 @@ function Post(props) {
                       left: "0.5rem",
                       textDecoration: 'none'
                     }}>
-                    <img
-                      src={author.profile_picture}
-                      alt={author.username + " picture"}
-                      width="40px"
-                      height="40px"
-                      style={{ borderRadius: "50%", cursor: "pointer", marginTop: "-8px" }}
-                      className="img">
-                    </img>
+                    <ProfilePicture user={{...author, id: props.post.author}} width={40} height={40} />
                     <div className="col-8">
                       <span className="row" style={{ marginLeft: 0 }}>
                         <Text text={author.username} />
