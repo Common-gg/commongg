@@ -40,11 +40,6 @@ function FeedType(props) {
     setChildRefresh(childRefresh + 1);
   }
 
-  const postRefresh = props.postRefresh;
-  const getPosts = props.getPosts;
-  const getAllPosts = props.getAllPosts;
-  const clientFilter = props.clientFilter;
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
 
@@ -59,55 +54,46 @@ function FeedType(props) {
     }
   }, [props.numPostsLoaded])
 
-  //gets the post based on filter
   useEffect(() => {
-    //check if we are doing client side filtering
-    if (clientFilter === true) {
-      //we get all post and filter it on our side based on game and people
-      getAllPosts(setAllPosts);
-    }
-  }, [postRefresh, childRefresh, getPosts, clientFilter, getAllPosts]);
-
-  useEffect(() => {
-    if(Object.keys(posts).length < props.numPostsToLoad) return;
+    if (Object.keys(posts).length < props.numPostsToLoad) return;
     props.setLastPostRetrieved(Object.values(posts)[Object.values(posts).length - 1].timestamp);
     setLoading(false);
   }, [posts])
 
   useEffect(() => {
-    if(props.lastPostRetrieved > 0) getPosts(props.lastPostRetrieved, 10, addPosts);
-  }, [props.numPostsToLoad])
+    if (props.clientFilter) {
 
-  //when we are done with retrieving allPosts we set the posts by filtering
-  useEffect(() => {
-    //only changes when we are doing client filtering
-    if (clientFilter === true && allPosts) {
-      if (props.currentUserInfo.following === null) {
-        return;
-      }
-      const following = Object.values(props.currentUserInfo.following);
-      following.push(props.currentUserId)
-      const games = props.currentUserInfo.games
-      const filteredPosts = Object.fromEntries(Object.entries(allPosts).filter(
-        ([key, value]) => {
-          //filter based on value
-          const postGame = parseInt(value.game);
-          const postAuthor = value.author;
-          return (games.includes(postGame) && following.includes(postAuthor))
-        }))
-      setPosts(filteredPosts);
+    } else {
+      if (props.lastPostRetrieved > 0) props.getPosts(props.lastPostRetrieved, 10, addPosts);
     }
-  }, [allPosts, clientFilter, props.currentUserInfo, props.currentUserId])
+  }, [props.numPostsToLoad])
 
   //when the filter changes make the page go back to top
   useEffect(() => {
-    props.setLastPostRetrieved(0);
-    getPosts(0, props.numPostsToLoad, setPosts);
-    window.scrollTo(0, 0)
+    if (props.clientFilter) {
+
+      let filter;
+
+      switch (props.clientFilter) {
+        case "profile":
+          filter = "author";
+          break;
+        case props.pageId:
+          filter = "game";
+        default:
+          return;
+      }
+
+      props.getFilteredPosts(filter, props.pageId, setPosts);
+    } else {
+      props.setLastPostRetrieved(0);
+      props.getPosts(0, props.numPostsToLoad, setPosts);
+      window.scrollTo(0, 0)
+    }
   }, [props.pageId])
 
   function addPosts(data) {
-    setPosts({...posts, ...data});
+    setPosts({ ...posts, ...data });
   }
 
   function handleScroll() {
@@ -118,11 +104,11 @@ function FeedType(props) {
   return (
     <div>
       <ReactionsModal getUserWithUsername={props.getUserWithUsername} setShowModal={setShowModal} showModal={showModal} content={modalContent}></ReactionsModal>
-      {Object.values(posts).map((post, i) => {
+      {(props.clientFilter ? Object.values(posts).reverse() : Object.values(posts)).map((post, i) => {
         if (post.author !== "404" && i < props.numPostsToLoad)
           return (
             <div key={Object.keys(posts)[i]}>
-              {(post.author === props.game || post.game === props.game || props.game === undefined)? <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
+              {(post.author === props.pageId || post.game === props.pageId || props.pageId === undefined) ? <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
                 postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
                 childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
                 setShowModal={setShowModal} setModalContent={setModalContent} reactions={props.reactions}
