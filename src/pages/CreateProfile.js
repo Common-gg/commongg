@@ -5,6 +5,7 @@ import DisplayImage from '../components/DisplayImage.js'
 import add from "../images/icons/Group-104.png";
 import arrow from "../images/icons/arrow-right.png";
 import blankPfp from '../images/icons/empty-pfp-1.png';
+import { Link } from "react-router-dom";
 
 const Filter = require('bad-words')
 const filter = new Filter();
@@ -111,6 +112,14 @@ function CreateProfile(props) {
     color: "#F34D4D",
     marginTop: "1rem"
   };
+  const linkStyle = {
+    position: "relative",
+    padding: '.3rem',
+    lineHeight: "0.5rem",
+    top: "-10.75rem",
+    color: "#BF9AFC",
+    textDecoration: "underline",
+  };
 
   function displayValidationMessage() {
     if (displayImageTypeValidationMessage === true) {
@@ -162,7 +171,7 @@ function CreateProfile(props) {
         <h4 style={{ marginTop: "7%" }}>Create Your Profile</h4>
         <span style={{ marginTop: "7%" }}>Pick a Username</span>
         <Input style={inputStyle}
-          className= "mx-auto"
+          className="mx-auto"
           maxLength="15"
           bootstrap="border-0"
           type="displayName"
@@ -184,6 +193,14 @@ function CreateProfile(props) {
           onClick={handleSubmit}>
           <img src={arrow} />
         </button>
+      </div>
+      <div className="row">
+        <div className="col-4"></div>
+        <div className="text-center col-4">
+          <Link to="/" style={linkStyle}>
+            <br /><a onClick={() => props.signOut()}>Sign Out</a> <br />
+          </Link>
+        </div>
       </div>
     </div>
   );

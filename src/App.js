@@ -29,7 +29,7 @@ require("firebase/analytics")
 
 function App() {
 
-  
+
 
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_apiKey,
@@ -842,7 +842,7 @@ function App() {
         <Switch>
           <Route path="/" render={
             (props) => (
-              <CreateProfile storeUserProfile={storeUserProfile} existsUsername={existsUsername} storeBlob={storeBlob} />
+              <CreateProfile signOut={signOut} storeUserProfile={storeUserProfile} existsUsername={existsUsername} storeBlob={storeBlob} />
             )} />
         </Switch>
       </Router>
@@ -858,7 +858,7 @@ function App() {
           />
           <Route path="/" render={
             (props) => (
-              <div id="outer-container"> 
+              <div id="outer-container">
                 <PageContainer
                   currentUserId={currentUser.uid}
                   currentUserInfo={currentUserInfo}
@@ -916,9 +916,9 @@ function App() {
             )} />
         </Switch>
       </Router>
-      
+
     );
-    
+
   }
 
 }
