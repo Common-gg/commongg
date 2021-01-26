@@ -125,7 +125,7 @@ function FeedType(props) {
               {(post.author === props.game || post.game === props.game || props.game === undefined)? <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
                 postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
                 childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
-                setShowModal={setShowModal} setModalContent={setModalContent}
+                setShowModal={setShowModal} setModalContent={setModalContent} reactions={props.reactions}
               />
                 <br /></div> : null}
             </div>
