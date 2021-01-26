@@ -21,7 +21,7 @@ function ProfilePicture(props) {
     <Imgix
       src={
         props.user.profile_picture ? (props.user.profile_picture.includes('firebasestorage') ?
-          `https://commongg.imgix.net/users/${props.user.id}?fit=max&auto=format,compress&q=75` : props.user.profile_picture) : ""}
+          `https://${process.env.REACT_APP_imgixURL}/users/${props.user.id}?fit=max&auto=format,compress&q=75` : props.user.profile_picture) : ""}
 
       width={props.width}
       height={props.height}
@@ -30,7 +30,7 @@ function ProfilePicture(props) {
         alt: props.user.username + " picture",
         "data-toggle": props.setProfilePictureImage ? "modal" : null,
         "data-target": props.setProfilePictureImage ? "#enlargedProfilePicture" : null,
-        onClick: props.setProfilePictureImage ? () => handleClick(`https://commongg.imgix.net/users/${props.user.id}?fit=max&auto=format,compress`) : null,
+        onClick: props.setProfilePictureImage ? () => handleClick(`https://${process.env.REACT_APP_imgixURL}/users/${props.user.id}?fit=max&auto=format,compress`) : null,
         ref: profileImageRef,
         style: { borderRadius: "50%", cursor: "pointer" }
       }}

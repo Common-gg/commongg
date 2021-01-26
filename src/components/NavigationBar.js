@@ -83,7 +83,7 @@ function NavigationBar(props) {
                     src={
                         props.currentUserInfo.profile_picture ? (
                         props.currentUserInfo.profile_picture.includes('firebasestorage') ?
-                        `https://commongg.imgix.net/users/${props.currentUserId}?fit=fill&h=35&w=35&auto=format,enhance&q=75` : props.currentUserInfo.profile_picture) : null}
+                        `https://${process.env.REACT_APP_imgixURL}/users/${props.currentUserId}?fit=fill&h=35&w=35&auto=format,enhance&q=75` : props.currentUserInfo.profile_picture) : null}
                     alt={""}
                     className="img navProfileIconStyle">
                 </img> Profile</p>
