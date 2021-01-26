@@ -222,7 +222,7 @@ function Post(props) {
       if (props.post.link.includes('firebasestorage')) {
         const start = link.indexOf('%2F') + 3;
         const end = link.indexOf('?alt'); 
-        link =`https://commongg.imgix.net/postImage/${(link.substring(start, end))}`;
+        link =`https://${process.env.REACT_APP_imgixURL}/postImage/${(link.substring(start, end))}`;
       }
       return (
         <div>
