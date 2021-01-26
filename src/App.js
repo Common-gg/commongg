@@ -57,7 +57,7 @@ function App() {
       image: CommonChat,
       icon: CommonChatIcon,
       whiteIcon: CommonChatWhiteIcon,
-      gameCard:  CCGameCard
+      gameCard: CCGameCard
     },
     {
       title: "Teamfight Tactics",
@@ -173,16 +173,25 @@ function App() {
     });
   }
 
+  const ERROR_CODE_ENUM = {
+    "success": 0,
+    "auth/email-already-in-use": 1,
+    "auth/invalid-email": 2,
+    "auth/operation-not-allowed": 3,
+    "auth/weak-password": 4
+  }
 
-  const signUpUser = (email, password) => {
+  const signUpUser = (email, password, callback) => {
     // Signs user up
     window.history.pushState(null, null, "/");
     analytics.logEvent("signup")
     auth.createUserWithEmailAndPassword(email, password).then(() => {
       sendVerifyEmail(() => { });
+      return callback(ERROR_CODE_ENUM["success"]);
     }).catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      return callback({ ErrorCode: ERROR_CODE_ENUM[errorCode], ErrorMessage: errorMessage });
       //todo:: implement logic here to tell user they couldnt sign up 
     });
   }
