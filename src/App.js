@@ -529,6 +529,7 @@ function App() {
 
   const getPosts = (begin, filter, callback) => {
     // gets all posts for the DB
+    console.log("GETTING ", begin, filter)
     let postRef = database.ref('/content/posts/');
     postRef = postRef.orderByChild("timestamp").startAt(begin);
     postRef = postRef.limitToFirst(filter);

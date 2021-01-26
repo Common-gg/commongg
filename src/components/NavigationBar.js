@@ -80,7 +80,10 @@ function NavigationBar(props) {
 
             <Link to={"/profile/" + props.currentUserInfo.username} className="navLinkStyle">
                 <p style={pageState === "profile" ? selectedStyle : null}><img
-                    src={props.currentUserInfo.profile_picture}
+                    src={
+                        props.currentUserInfo.profile_picture ? (
+                        props.currentUserInfo.profile_picture.includes('firebasestorage') ?
+                        `https://commongg.imgix.net/users/${props.currentUserId}?fit=fill&h=35&w=35&auto=format,enhance&q=75` : props.currentUserInfo.profile_picture) : null}
                     alt={""}
                     className="img navProfileIconStyle">
                 </img> Profile</p>

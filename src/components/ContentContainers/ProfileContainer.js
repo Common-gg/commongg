@@ -140,7 +140,7 @@ function ProfileContainer(props) {
                 <br />
                 <div className="row p-0">
                     <div className="col-1"></div>
-                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+                    <ProfilePicture user={user} width={115} height={115} onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
                         setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
                         <h2 className="row" style={{ marginTop: "5%", marginLeft: "0.5%" }}>
