@@ -6,14 +6,15 @@ function TermsOfService(props) {
     const styleCommonLogo = {
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center", 
+        backgroundColor: "#292833",
     }
 
     function largeHeaderStyle(text) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col" style={{ color: "white", fontSize: "40px" }}> {text}</p>
+                <p className="col" style={{ color: "white", fontSize: "40px", backgroundColor: "#292833", }}> {text}</p>
             </div>
         );
     }
@@ -22,7 +23,7 @@ function TermsOfService(props) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col" style={{ color: "white", fontSize: "20px" }}> {text}</p>
+                <p className="col" style={{ color: "white", fontSize: "20px", backgroundColor: "#292833", }}> {text}</p>
             </div>
         );
     }
@@ -31,13 +32,13 @@ function TermsOfService(props) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px" }}>{text}</p>
+                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px", backgroundColor: "#292833", }}>{text}</p>
             </div>
         );
     }
 
     return (
-        <div className="Terms Of Service">
+        <div className="Terms Of Service modalContent">
             <div>
                 <div style={styleCommonLogo}>
                     <img src={CommonLogoLarge} />
