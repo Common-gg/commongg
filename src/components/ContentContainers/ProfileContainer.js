@@ -92,7 +92,7 @@ function ProfileContainer(props) {
     const checkId = () => {
         if (pageId != null) {
             return (
-                <FeedType {...props} game={pageId} />
+                <FeedType {...props} pageId={pageId} clientFilter="profile" />
             )
         }
     }
@@ -113,7 +113,7 @@ function ProfileContainer(props) {
         }
         return (
             <div>
-                 {props.currentUserId !== user.id || modLvl > 0 ?  <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
+                {props.currentUserId !== user.id || modLvl > 0 ? <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
                     <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
                 </div> : null}
                 <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ color: "#BF9AFC", backgroundColor: "#BF9AFC" }}>

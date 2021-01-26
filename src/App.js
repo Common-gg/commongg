@@ -560,23 +560,14 @@ function App() {
     });
   }
 
-  const getPostsForProfilePage = (begin, filter, id, callback) => {
-    let postRef = database.ref("content/posts/").orderByChild("timestamp").startAt(begin).limitToFirst(filter);
+  const getFilteredPosts = (filterType, filterValue, callback) => {
 
-    postRef.on("value", (snapshot) => {
-      postRef.off();
+    let postRef = database.ref("/content/posts/").orderByChild(filterType).equalTo(filterValue);
+
+    postRef.once("value", (snapshot) => {
 
       if (snapshot.val() !== null) {
-        let postData = {};
-
-        snapshot.forEach((child) => {
-          if (child.author === id) {
-            postData[child.val().timestamp] = {
-              ...child.val()
-            }
-          }
-        });
-        return callback(postData);
+        return callback(snapshot.val());
       }
       else {
         return callback(defaultNoPostCallback);
@@ -919,7 +910,7 @@ function App() {
                   verifyUser={verifyUser}
                   resetPfp={resetPfp}
                   getReportedUsers={getReportedUsers}
-                  getPostsForProfilePage={getPostsForProfilePage}
+                  getFilteredPosts={getFilteredPosts}
                 />
               </div>
             )} />

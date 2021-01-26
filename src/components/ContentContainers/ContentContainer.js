@@ -75,23 +75,23 @@ function ContentContainer(props) {
 
   switch (pageState) {
     case "profile":
-      return <ProfileContainer {...props} username={pageId} reactions={reactions}/>;
+      return <ProfileContainer {...props} username={pageId} reactions={reactions} />;
     case "post":
-      return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} pageState={pageState} reactions={reactions}/>;
+      return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} pageState={pageState} reactions={reactions} />;
     case "settings":
       return <SettingsContainer {...props} />;
     case "editgames":
-      return <GamesContainer {...props} reactions={reactions}/>;
+      return <GamesContainer {...props} reactions={reactions} />;
     case "":
-      return <FeedContainer {...props} reactions={reactions}/>;
+      return <FeedContainer {...props} reactions={reactions} />;
     case "following":
-      return <FollowingContainer {...props} reactions={reactions}/>;
+      return <FollowingContainer {...props} reactions={reactions} />;
     case "games":
-      return <GameFeedContainer {...props} pageId={pageId} reactions={reactions}/>;
+      return <GameFeedContainer {...props} pageId={pageId} reactions={reactions} />;
     case "moderateposts":
       return modLevel > 0 ? <ModPostsContainer {...props} /> : <PageNotFound />;
     case "moderateusers":
-      return modLevel > 0 ? <ModUsersContainer {...props} />: <PageNotFound />;
+      return modLevel > 0 ? <ModUsersContainer {...props} /> : <PageNotFound />;
     default:
       return <PageNotFound />;
   }
