@@ -170,14 +170,14 @@ function PostFooter(props) {
   const reactionsPopover = (
     <Popover id={props.postId + "popvoer"} style={reactionsPopoverStyle}>
       <Popover.Content>
-        <div className="row">
+        <div className="row" style={{paddingBottom: "3vh", paddingRight: "2vw"}}>
           {popoverReactions.map(reaction => {
             let reactImg = reaction
             reactions.forEach(r => {
               if (reaction.toLowerCase() === r.toLowerCase()) reaction = r;
             });
             return (
-              <div style={{ padding: ".8rem", marginRight: ".3vw" }} key={reaction} className="col-2">
+              <div style={{ padding: "1rem", marginRight: ".3vw" }} key={reaction} className="col-2">
                 <ReactionIcon reaction={reactImg} react={react} text="" id={props.postId + reaction} />
               </div>
             )

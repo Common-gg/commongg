@@ -194,8 +194,8 @@ function App() {
   const signUpUser = (email, password, callback) => {
     // Signs user up
     window.history.pushState(null, null, "/");
-    analytics.logEvent("signup")
     auth.createUserWithEmailAndPassword(email, password).then(() => {
+      analytics.logEvent("signup");
       sendVerifyEmail(() => { });
       return callback(ERROR_CODE_ENUM["success"]);
     }).catch(function (error) {
