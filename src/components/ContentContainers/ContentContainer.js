@@ -15,6 +15,34 @@ function ContentContainer(props) {
   const [pageState, setPageState] = useState("editgames");
   const [pageId, setPageId] = useState();
   const [modLevel, setModLevel] = useState(0);
+  const reactions = [
+    "thumbsup",
+    "Pog",
+    "peepoHappy",
+    "peepoLove",
+    "monkaHmm",
+    "pepeLaugh",
+    "KEKW",
+    "Madge",
+    "monkaS",
+    "Sadge",
+    "influrUWU",
+    "AYAYA",
+    "agontfHi",
+    "agontfConcern",
+    "agontfSure",
+    "agontfGift",
+    "soulessFF",
+    "soulessG",
+    "emyyAww",
+    "emyyHiYo",
+    "muffiS",
+    "dqaHi",
+    "eschatHwak2",
+    "josepa3Riot",
+    "treebeardMeep",
+    "fluffyBlanket"
+  ];
 
   useEffect(() => {
     if (props.currentUserInfo.moderationLevel) {
@@ -47,23 +75,23 @@ function ContentContainer(props) {
 
   switch (pageState) {
     case "profile":
-      return <ProfileContainer {...props} username={pageId} />;
+      return <ProfileContainer {...props} username={pageId} reactions={reactions} />;
     case "post":
-      return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} />;
+      return <ViewPostContainer {...props} pageId={pageId} setBackClicked={props.setBackClicked} pageState={pageState} reactions={reactions} />;
     case "settings":
       return <SettingsContainer {...props} />;
     case "editgames":
-      return <GamesContainer {...props} />;
+      return <GamesContainer {...props} reactions={reactions} />;
     case "":
-      return <FeedContainer {...props} />;
+      return <FeedContainer {...props} reactions={reactions} />;
     case "following":
-      return <FollowingContainer {...props} />;
+      return <FollowingContainer {...props} reactions={reactions} />;
     case "games":
-      return <GameFeedContainer {...props} pageId={pageId} />;
+      return <GameFeedContainer {...props} pageId={pageId} reactions={reactions} />;
     case "moderateposts":
       return modLevel > 0 ? <ModPostsContainer {...props} /> : <PageNotFound />;
     case "moderateusers":
-      return modLevel > 0 ? <ModUsersContainer {...props} />: <PageNotFound />;
+      return modLevel > 0 ? <ModUsersContainer {...props} /> : <PageNotFound />;
     default:
       return <PageNotFound />;
   }

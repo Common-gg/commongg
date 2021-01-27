@@ -1,17 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import SignUpButton from "../components/SignUp/SignUpButton.js";
 import TermsOfService from "./TermsOfService.js"
 import logo from "../images/icons/logo1light.png";
 import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
 import { Modal, Form } from "react-bootstrap";
+import InputHelpers from "../helpers/InputHelpers.js";
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };
   const [email, setEmail] = useState(initialCurrentValue);
   const [password, setPassword] = useState(initialCurrentValue);
   const [confirmPassword, setConfirmPassword] = useState(initialCurrentValue);
-
+  const [databaseError, setDatabaseError] = useState({
+    ErrorCode: "",
+    ErrorMessage: ""
+  });
   const [showTosModal, setShowTosModal] = useState(false);
   const [failedPassword, setFailedPassword] = useState(false);
   const [failedEmail, setFailedEmail] = useState(0); // 0=valid, 1=in use, 2=doesn't have @/.
@@ -19,6 +23,7 @@ function SignUp(props) {
   const [tosCheckbox, setTosCheckbox] = useState(false);
   const [agreeToTos, setAgreeToTos] = useState(null);
   const [displayNonMatchingPasswordFieldsValidation, setDisplayNonMatchingPasswordFieldsValidation] = useState(false);
+  const [displayDatabaseErrorMessage, setDisplayDatabaseErrorMessage] = useState(false);
 
   function resetValidationVariables() {
     setShowTosModal(false);
@@ -27,9 +32,12 @@ function SignUp(props) {
     setMissing(false);
     setTosCheckbox(null);
     setDisplayNonMatchingPasswordFieldsValidation(false);
+    setDisplayDatabaseErrorMessage(false);
   }
 
-  const signUp = () => {
+  const signUp = async () => {
+    resetValidationVariables();
+
     if (email.current.value === "" || password.current.value === "") {
       setMissing(true);
       return;
@@ -48,34 +56,42 @@ function SignUp(props) {
           }
         })
       }
-      //failed password
-      setFailedPassword(false);
-      const validatePasswordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-_+.:;,"?={}[\]`~><|]){1,}).{6,}$/
-      let passwordStrength = password.current.value.match(validatePasswordRegex);
 
-      if (passwordStrength === null) {
+      let inputHelper = new InputHelpers();
+      let isPasswordTooWeak = inputHelper.verifyPasswordStrength(password.current.value);
+
+      if (isPasswordTooWeak === true) {
         setFailedPassword(true);
+        failedSignUp();
         return;
       }
       if (tosCheckbox === false) {
         setAgreeToTos(false);
+        failedSignUp();
         return;
       } else {
         setAgreeToTos(true);
       }
       if (password.current.value !== confirmPassword.current.value) {
         setDisplayNonMatchingPasswordFieldsValidation(true);
+        failedSignUp();
         return;
       }
       //sign up user
-      props.signUpUser(email.current.value, password.current.value);
+      await props.signUpUser(email.current.value, password.current.value, setDatabaseError);
+
+      if (databaseError.ErrorCode !== 0) {
+        setDisplayDatabaseErrorMessage(true);
+        failedSignUp();
+        return;
+      }
     }
     else {
       if (failedEmail === 0 && !failedPassword && agreeToTos && !missing) {
         props.signUpUser(email.current.value, password.current.value);
       }
-      resetValidationVariables();
     }
+    failedSignUp();
   }
 
   const failedSignUp = () => {
@@ -104,6 +120,11 @@ function SignUp(props) {
     else if (displayNonMatchingPasswordFieldsValidation === true) {
       return (
         <p style={{ color: "#F34D4D" }}>Password field and confirm password field do not match. Ensure they match and try again.</p>
+      );
+    }
+    else if (displayDatabaseErrorMessage === true) {
+      return (
+        <p style={{ color: "#F34D4D" }}>{databaseError.ErrorMessage}</p>
       );
     } else {
       return (<div></div>);
@@ -176,15 +197,7 @@ function SignUp(props) {
           </div>
         </Modal.Body>
       </Modal>
-      <div className="mx-auto card"
-        style={{
-          margin: "200px",
-          maxWidth: "20%",
-          maxHeight: "100%",
-          backgroundColor: "#292833",
-          borderRadius: "10px",
-          boxShadow: "-1px 7px 25px 1px #171421"
-        }}>
+      <div className="mx-auto card signUpCard">
 
         <div style={{ margin: "20px 20px 0px 20px" }}>
           <div className="row mx-auto">

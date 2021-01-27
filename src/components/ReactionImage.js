@@ -4,7 +4,7 @@ function ReactionImage(props) {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    import(`../images/reactions/${props.reaction}.png`).then(reactionImg => {
+    import(`../images/reactions/${props.reaction}.webp`).then(reactionImg => {
         setImage(reactionImg.default);
     });  
   }, []);

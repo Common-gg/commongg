@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Text from '../components/Text.js';
 import NavigationBar from '../components/NavigationBar.js';
 
@@ -18,12 +17,6 @@ function Following(props) {
     useEffect(() => {
         props.getUser(userId, setUser);
     }, [userId]);
-
-    function mutualUsers() {
-        //return an array of mutual in user and currentUser
-        //and an array of nonmutual users
-        return [null, null];
-    }
 
     let carrot = {
         username: "Carrot",

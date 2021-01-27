@@ -5,8 +5,7 @@ import DisplayImage from '../components/DisplayImage.js'
 import add from "../images/icons/Group-104.png";
 import arrow from "../images/icons/arrow-right.png";
 import blankPfp from '../images/icons/empty-pfp-1.png';
-import { AutosizeInput } from 'react-bootstrap-typeahead';
-import styles from '../App.css';
+import { Link } from "react-router-dom";
 
 const Filter = require('bad-words')
 const filter = new Filter();
@@ -45,13 +44,6 @@ function CreateProfile(props) {
     const usernameRegex = /^(?=.{4,30}$)([_]{0,})([a-zA-Z0-9]{1,})([a-zA-Z0-9_])(?:([a-zA-Z0-9_]))+$/;
     let validUserName = username.match(usernameRegex);
 
-    if ((imageType === "image/jpeg") || (imageType === "image/jpg") || (imageType === "image/png")) {
-      setDisplayImageTypeValidationMessage(false);
-    }
-    else {
-      setDisplayImageTypeValidationMessage(true);
-      return;
-    }
     if ((username !== undefined) && (username !== null) && (username.length > 30)) {
       setDisplayInputValidationText(true);
       return;
@@ -110,15 +102,23 @@ function CreateProfile(props) {
     borderRadius: "2px",
     borderWidth: "1px",
     padding: "0.7%",
-    width: "40%",
+    width: "60%",
     height: "95%",
-    marginLeft: "30%",
+    marginLeft: "20%",
     marginTop: "5%",
     overflow: "hidden"
   }
   const validationMessageStyle = {
     color: "#F34D4D",
     marginTop: "1rem"
+  };
+  const linkStyle = {
+    position: "relative",
+    padding: '.3rem',
+    lineHeight: "0.5rem",
+    top: "-10.75rem",
+    color: "#BF9AFC",
+    textDecoration: "underline",
   };
 
   function displayValidationMessage() {
@@ -171,7 +171,7 @@ function CreateProfile(props) {
         <h4 style={{ marginTop: "7%" }}>Create Your Profile</h4>
         <span style={{ marginTop: "7%" }}>Pick a Username</span>
         <Input style={inputStyle}
-          className= "mx-auto"
+          className="mx-auto"
           maxLength="15"
           bootstrap="border-0"
           type="displayName"
@@ -193,6 +193,14 @@ function CreateProfile(props) {
           onClick={handleSubmit}>
           <img src={arrow} />
         </button>
+      </div>
+      <div className="row">
+        <div className="col-4"></div>
+        <div className="text-center col-4">
+          <Link to="/" style={linkStyle}>
+            <br /><a onClick={() => props.signOut()}>Sign Out</a> <br />
+          </Link>
+        </div>
       </div>
     </div>
   );

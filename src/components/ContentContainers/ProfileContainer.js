@@ -92,7 +92,7 @@ function ProfileContainer(props) {
     const checkId = () => {
         if (pageId != null) {
             return (
-                <FeedType {...props} game={pageId} />
+                <FeedType {...props} pageId={pageId} clientFilter="profile" />
             )
         }
     }
@@ -103,15 +103,6 @@ function ProfileContainer(props) {
         }
     }
 
-    const followStyle = {
-        color: "#BF9AFC",
-        fontSize: "1.6rem",
-        marginRight: "1rem"
-    };
-
-    const numberStyle = {
-        fontSize: "1.6rem"
-    };
 
     function checkOptions() {
         let modLvl;
@@ -122,7 +113,7 @@ function ProfileContainer(props) {
         }
         return (
             <div>
-                 {props.currentUserId !== user.id || modLvl > 0 ?  <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
+                {props.currentUserId !== user.id || modLvl > 0 ? <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
                     <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
                 </div> : null}
                 <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ color: "#BF9AFC", backgroundColor: "#BF9AFC" }}>
@@ -149,7 +140,7 @@ function ProfileContainer(props) {
                 <br />
                 <div className="row p-0">
                     <div className="col-1"></div>
-                    <ProfilePicture currentUserInfo={user} width="115px" height="115px" onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+                    <ProfilePicture user={user} width={115} height={115} onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
                         setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
                         <h2 className="row" style={{ marginTop: "5%", marginLeft: "0.5%" }}>
@@ -214,7 +205,7 @@ function ProfileContainer(props) {
                                             alt={props.allGames[index].title}
                                             className="rounded"
                                             style={{
-                                                width: '8rem',
+                                                width: '100%',
                                                 height: 'auto',
                                                 margin: '3%',
                                                 padding: '.3rem',
@@ -222,7 +213,7 @@ function ProfileContainer(props) {
                                                 marginTop: "4%"
                                             }}
                                         />
-                                        <p>{props.allGames[index].title}</p>
+                                        {/* <p>{props.allGames[index].title}</p> */}
                                     </div>
                                 )
                             }

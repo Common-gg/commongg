@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import logo from "../images/icons/logo1light.png";
 import { Link } from "react-router-dom";
 
@@ -51,15 +51,7 @@ function ReminderVerifyEmail(props) {
 
     return (
         <div>
-            <div className="mx-auto card text-center"
-                style={{
-                    margin: "200px",
-                    maxWidth: "20%",
-                    backgroundColor: "#292833",
-                    borderRadius: "10px",
-                    boxShadow: "-1px 7px 25px 1px #171421",
-                    color: "#BF9AFC",
-                }}>
+            <div className="mx-auto card text-center loginCard" >
                 <div style={{ margin: "20px 20px 0px 20px" }} >
                     <div className="d-flex justify-content-center text-center">
                         {handleVerificationEmailFeedbackMessage()}

@@ -6,34 +6,7 @@ function CommentFooter(props) {
   const [comment, setComment] = useState(props.comment)
   const [popoverReactions, setPopoverReactions] = useState([]);
   const [allowClick, setAllowClick] = useState(true);
-  const reactions = [
-    "thumbsup",
-    "pog",
-    "peepohappy",
-    "peepolove",
-    "monkaHmm",
-    "pepelaugh",
-    "kekw",
-    "madge",
-    "monkaS",
-    "sadge",
-    "influrUWU",
-    "AYAYA",
-    "agontfHi",
-    "agontfConcern",
-    "agontfSure",
-    "agontfGift",
-    "soulessFF",
-    "soulessG",
-    "emyyAww",
-    "emyyHiYo",
-    "muffiS",
-    "dqaHi",
-    "eschatHwak2",
-    "josepa3Riot",
-    "treebeardMeep",
-    "fluffyBlanket"
-  ];
+  const reactions = props.reactions;
 
   useEffect(() => {
     setComment(props.comment);
@@ -83,16 +56,19 @@ function CommentFooter(props) {
 
   const checkReactions = () => {
     if (comment.reactions !== undefined) {
-      let reactArr = Object.keys(comment.reactions);
       const sortable = Object.fromEntries(
         Object.entries(comment.reactions).sort(([, a], [, b]) => a - b)
       );
       return (
         Object.keys(sortable).reverse().map(reaction => {
           if (comment.reactions[reaction] > 0) {
+            let reactImg = reaction
+            reactions.forEach(r => {
+              if (reaction.toLowerCase() === r.toLowerCase()) reaction = r;
+            });
             return (
               <div style={{ padding: ".8rem", marginRight: "1rem", position: "relative", bottom: "-1rem", left: "-.7rem" }} key={reaction}>
-                <ReactionIcon reaction={reaction} usersReacted={usersReacted(reaction)} reacted={reacted(reaction)} react={react} text={convertNum(comment.reactions[reaction])} id={props.commentId + reaction} />
+                <ReactionIcon reaction={reactImg} usersReacted={usersReacted(reaction)} reacted={reacted(reaction)} react={react} text={convertNum(comment.reactions[reaction])} id={props.commentId + reaction} />
               </div>
             )
           }
@@ -144,9 +120,13 @@ function CommentFooter(props) {
       <Popover.Content>
         <div className="row">
           {popoverReactions.map(reaction => {
+            let reactImg = reaction
+            reactions.forEach(r => {
+              if (reaction.toLowerCase() === r.toLowerCase()) reaction = r;
+            });
             return (
               <div style={{ padding: ".8rem", marginRight: ".3vw" }} key={reaction} className="col-2">
-                <ReactionIcon reaction={reaction} react={react} text="" id={props.commentId + reaction} />
+                <ReactionIcon reaction={reactImg} react={react} text="" id={props.commentId + reaction} />
               </div>
             )
           })}
@@ -162,9 +142,9 @@ function CommentFooter(props) {
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
-            <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
-              <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.commentId} />
-            </div>
+          <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
+            <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.commentId} />
+          </div>
         </OverlayTrigger>
       </div>
     </div>

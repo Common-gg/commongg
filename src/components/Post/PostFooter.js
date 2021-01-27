@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap'
-import IconButton from '../IconButton';
 import CreateCommentModal from './CreateCommentModal.js';
 import { Link } from "react-router-dom";
 import ReactionIcon from '../ReactionIcon';
@@ -12,34 +11,7 @@ function PostFooter(props) {
   const [post, setPost] = useState(props.post)
   const [popoverReactions, setPopoverReactions] = useState([]);
   const [allowClick, setAllowClick] = useState(true);
-  const reactions = [
-    "thumbsup",
-    "pog",
-    "peepohappy",
-    "peepolove",
-    "monkaHmm",
-    "pepelaugh",
-    "kekw",
-    "madge",
-    "monkaS",
-    "sadge",
-    "influrUWU",
-    "AYAYA",
-    "agontfHi",
-    "agontfConcern",
-    "agontfSure",
-    "agontfGift",
-    "soulessFF",
-    "soulessG",
-    "emyyAww",
-    "emyyHiYo",
-    "muffiS",
-    "dqaHi",
-    "eschatHwak2",
-    "josepa3Riot",
-    "treebeardMeep",
-    "fluffyBlanket"
-  ];
+  const reactions = props.reactions;
 
   useEffect(() => {
     setPost(props.post);
@@ -96,8 +68,8 @@ function PostFooter(props) {
           <img src={commentIcon} style={{
             backgroundColor: "transparent",
             position: "relative",
-            bottom: "-12px",
-            height: "70%",
+            bottom: "-32%",
+            height: "auto",
             width: "100%",
             paddingRight: "30%"
           }} />
@@ -112,44 +84,41 @@ function PostFooter(props) {
 
   const usersReacted = reaction => {
     if (!post.reacted) return;
-    return Object.keys(post.reacted).filter((user, i) => Object.values(post.reacted)[i] === reaction);
+    // return Object.keys(post.reacted).filter((user, i) => Object.values(post.reacted)[i] === reaction);
   }
 
   const checkReactions = () => {
     if (post.reactions !== undefined) {
-      let reactArr = Object.keys(post.reactions);
       const sortable = Object.fromEntries(
         Object.entries(post.reactions).sort(([, a], [, b]) => a - b)
       );
       return (
         Object.keys(sortable).reverse().map(reaction => {
           if (post.reactions[reaction] > 0) {
+            let reactImg = reaction
+            reactions.forEach(r => {
+              if (reaction.toLowerCase() === r.toLowerCase()) reactImg = r;
+            });
             return (
-              <div style={{ 
-                padding: ".8rem", 
-                marginRight: "1rem", 
-                position: "relative", 
-                bottom: "-1rem", 
-                left: "-.7rem" 
-                }} key={reaction}>
-                <ReactionIcon reaction={reaction} 
-                usersReacted={usersReacted(reaction)} 
-                reacted={reacted(reaction)} 
-                react={react} 
-                text={convertNum(post.reactions[reaction])} 
-                id={props.postId + reaction} />
+              <div style={{
+                padding: ".8rem",
+                marginRight: "1rem",
+                position: "relative",
+                bottom: "-1rem",
+                left: "-.7rem"
+              }} key={reaction}>
+                <ReactionIcon reaction={reactImg}
+                  usersReacted={usersReacted(reaction)}
+                  reacted={reacted(reaction)}
+                  react={react}
+                  text={convertNum(post.reactions[reaction])}
+                  id={props.postId + reaction} />
               </div>
             )
           }
         })
       )
     }
-  }
-
-  const checkReactionLines = () => {
-    if (post.reactions === undefined) return;
-    const times = Math.floor(Object.keys(post.reactions).length / 3);
-    return <div className={`col-${12 * times}`}></div>;
   }
 
   const reactionsPopoverStyle = {
@@ -203,9 +172,13 @@ function PostFooter(props) {
       <Popover.Content>
         <div className="row">
           {popoverReactions.map(reaction => {
+            let reactImg = reaction
+            reactions.forEach(r => {
+              if (reaction.toLowerCase() === r.toLowerCase()) reaction = r;
+            });
             return (
               <div style={{ padding: ".8rem", marginRight: ".3vw" }} key={reaction} className="col-2">
-                <ReactionIcon reaction={reaction} react={react} text="" id={props.postId + reaction} />
+                <ReactionIcon reaction={reactImg} react={react} text="" id={props.postId + reaction} />
               </div>
             )
           })}
@@ -245,13 +218,13 @@ function PostFooter(props) {
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={reactionsPopover}>
-            <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
-              <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
-            </div>
+          <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
+            <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
+          </div>
         </OverlayTrigger>
       </div>
       <div className="col-4 text-right" style={{ position: 'relative', bottom: '-20px' }}>
-        <div className="row justify-content-end" style={{padding: "6%"}}>
+        <div className="row justify-content-end" style={{ padding: "6%" }}>
           <div style={{ padding: "0px 0px" }}>
             <Text text={convertNum(props.post.numComments)} style={{
               position: "relative",
@@ -266,9 +239,9 @@ function PostFooter(props) {
               <img src={shareIcon} style={{
                 backgroundColor: "transparent",
                 position: "relative",
-                bottom: "-6px",
+                bottom: "-16%",
                 width: "100%",
-                height: "100%",
+                height: "auto",
                 cursor: "pointer"
               }} />
             </OverlayTrigger>

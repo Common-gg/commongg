@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import logo from "../images/icons/logo1light.png";
 import arrow from "../images/icons/arrow-right.png";
@@ -60,14 +60,7 @@ function Login(props) {
 
   return (
     <div className="Login">
-      <div className="mx-auto card text-center"
-        style={{
-          margin: "200px",
-          maxWidth: "20%",
-          backgroundColor: "#292833",
-          borderRadius: "10px",
-          boxShadow: "-1px 7px 25px 1px #171421",
-        }}>
+      <div className="mx-auto card text-center loginCard">
         <div style={{ margin: "20px 20px 0px 20px" }}>
           {handleMessagingForUnsuccessfulSignIn()}
           <div className="row mx-auto">
@@ -77,7 +70,7 @@ function Login(props) {
             </div>
             <br />
             <div className="form-group col-12" style={{ textAlign: "center", }}>
-              <p style={{ position: "relative", color: "#BF9AFC", textAlign: "center" }}> The Best Social Network for TFT Content </p>
+              <p style={{ position: "relative", textAlign: "center" }}> The Best Social Network for TFT Content </p>
               <div className="row mx-auto">
                 <div className="Input mx-auto" >
                   <div onKeyPress={(e) => handleSignIn(e)}>
@@ -110,21 +103,8 @@ function Login(props) {
           <div className="row col-12">
             <div className="col-5" style={{ marginRight: "3%" }}></div>
             <div className="form-group">
-              <button type="submit" className="btn"
-                onClick={() => { props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful) }} style={{
-                  marginBottom: "20px",
-                  marginTop: "14px",
-                  marginRight: "2.5%",
-                  backgroundColor: "transparent",
-                  color: "#BF9AFC",
-                  padding: "0.4rem",
-                  paddingRight: "1rem",
-                  paddingLeft: "1rem",
-                  border: "solid",
-                  borderRadius: "10px",
-                  borderColor: "#BF9AFC",
-                  borderWidth: "2px",
-                }}>
+              <button type="submit" className="btn cardBtnStyle"
+                onClick={() => { props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful) }} >
                 <img src={arrow} />
               </button>
             </div>

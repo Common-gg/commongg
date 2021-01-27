@@ -11,7 +11,7 @@ function ReactionIcon(props) {
         setImage(reactionImg.default);
       });
     } else {
-      import(`../images/reactions/${props.reaction}.png`).then(reactionImg => {
+      import(`../images/reactions/${props.reaction}.webp`).then(reactionImg => {
         setImage(reactionImg.default);
       });
     }
@@ -60,7 +60,8 @@ function ReactionIcon(props) {
           cursor: "pointer",
           backgroundColor: (props.reaction !== "reactionplus" ? (props.reacted ? "#5F5177" : "#373241") : null ),
           borderRadius: "8px",
-          padding: "27%"
+          padding: "27%",
+          margin: "25%"
         }} htmlFor={props.id}>
           <div style={{
             display: "inline-block",

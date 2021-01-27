@@ -4,7 +4,6 @@ import Text from "./Text.js";
 import Notification from "./Notification.js"
 import NotificationUnread from "../images/icons/notificationfull-1.png";
 import NotificationRead from "../images/icons/notificationempty-1.png";
-import { isPlainObject } from "jquery";
 
 function NotificationContainer(props) {
     let tempCounter = 0;
@@ -111,7 +110,7 @@ function NotificationContainer(props) {
     );
 
     return (
-        <div style={{ marginLeft: "300%", marginBottom: "30%" }}>
+        <div style={{ marginLeft: "125%", marginBottom: "50%" }}>
             <OverlayTrigger
                 trigger={(allNotifications === undefined || allNotifications === null || Object.keys(allNotifications).length === 0) ? "" : "click"}
                 rootClose

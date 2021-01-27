@@ -8,7 +8,7 @@ function Notification(props) {
     const [linkType, setLinkType] = useState("post");
 
     useEffect(() => {
-        
+
         props.getUser(props.notification.userID, setUser);
     }, [])
 
@@ -30,7 +30,7 @@ function Notification(props) {
             if (props.notification.type === "comments_reaction") {
                 postType = "comments";
             }
-            props.getPost(props.notification.locationID, setText, postType, ()=>props.deleteNotificationHandler(props.id));
+            props.getPost(props.notification.locationID, setText, postType, () => props.deleteNotificationHandler(props.id));
         }
     }
 
@@ -44,20 +44,22 @@ function Notification(props) {
             postTitle = post.title;
         }
 
+        postTitle = postTitle === "" ? "" : `\"${postTitle}\"`;
+
         if (props.notification.type === "comment") {
-            setNotificationText(` commented on your post \"${postTitle}\"`)
+            setNotificationText(` commented on your post ${postTitle}`)
         } else if (props.notification.type === "followed") {
             setLinkType("profile");
-            setNotificationText(` followed you!`)
+            setNotificationText(` followed you!`);
         } else if (props.notification.type === "posts_reaction") {
-            setNotificationText(` reacted to your post \"${postTitle}\"`)
+            setNotificationText(` reacted to your post ${postTitle}`);
         } else if (props.notification.type === "comments_reaction") {
-            setNotificationText(` reacted to your comment \"${postTitle}\"`)
+            setNotificationText(` reacted to your comment ${postTitle}`);
         }
     }
 
     return (
-        <Link to={`/${linkType}/${props.notification.type === "followed"? user.username.toLowerCase() : props.notification.locationID}`} className="Notification" >
+        <Link to={`/${linkType}/${props.notification.type === "followed" ? user.username.toLowerCase() : props.notification.locationID}`} className="Notification" >
             <Text text={new Date(props.convertTimeStamp(props.notification.timestamp)).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' }) + " - " + new Date(props.convertTimeStamp(props.notification.timestamp)).toLocaleDateString("en-US")}
                 style={{ color: '#BF9AFC', fontSize: '.7rem', paddingLeft: "1.8rem", paddingRight: ".2rem" }}
             />

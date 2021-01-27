@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Text from '../Text.js';
 import Post from '../Post/Post.js';
 import Comment from '../Post/Comment';

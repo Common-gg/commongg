@@ -5,6 +5,7 @@ import edit from "../../images/icons/edit-1.png";
 import Input from "../Input.js";
 import Label from "../Label.js";
 import ArrowLeft from "../../images/icons/arrowleft 1.png"
+import InputHelpers from "../../helpers/InputHelpers.js";
 
 function SettingsContainer(props) {
   const aboutMeRef = useRef();
@@ -19,6 +20,7 @@ function SettingsContainer(props) {
   const [displayMaxLengthMessage, setDisplayMaxLengthMessage] = useState(false);
   const [imageType, setImageType] = useState("image/jpeg");
   const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
+  const [displayPasswordTooWeakvalidationMessage, setDisplayPasswordTooWeakvalidationMessage] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -105,18 +107,21 @@ function SettingsContainer(props) {
     } else {
       props.storeUserAboutMe(aboutMe);
     }
-    setUpdateButtonText("saved");
+    setUpdateButtonText("Saved");
     setDisplayMaxLengthMessage(false);
   }
 
   const changedInfo = () => {
-    if (updateButtonText === "saved") {
-      setUpdateButtonText("update");
+    if (updateButtonText === "Saved") {
+      setUpdateButtonText("Update");
     }
   }
 
   function handlePasswordMessageChange() {
-    if (passwordChangeIsSuccessful === false) {
+    if (displayPasswordTooWeakvalidationMessage === true) {
+      return setErrorString(<p style={{ color: "#F34D4D" }}>passwords must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character</p>);
+    }
+    else if (passwordChangeIsSuccessful === false) {
       return setErrorString(<p style={{ color: "#F34D4D" }}>Unable to reset password. Double check that your current password was typed correctly and your new and confirmed passwords match</p>);
     }
     else if (passwordChangeIsSuccessful === true) {
@@ -128,8 +133,25 @@ function SettingsContainer(props) {
   }
 
   async function handlePasswordButtonClick() {
-    if (loadChangePasswordFields === false || loadChangePasswordFields === null) {
+    setDisplayPasswordTooWeakvalidationMessage(false);
+
+    if (newPassword !== undefined) {
+
+
+      let inputHelper = new InputHelpers();
+      let isPasswordTooWeak = inputHelper.verifyPasswordStrength(newPassword.current.value);
+
+      if (isPasswordTooWeak === true) {
+        setDisplayPasswordTooWeakvalidationMessage(true);
+        handlePasswordMessageChange();
+        return;
+      }
+    }
+    else if (loadChangePasswordFields === false || loadChangePasswordFields === null) {
       setLoadChangePasswordFields(true);
+      return;
+    }
+    if (newPassword.current.value === "" && confirmNewPassword.current.value === "") {
       return;
     }
     else {
@@ -286,7 +308,7 @@ function SettingsContainer(props) {
             <br /><a onClick={() => props.signOut()}>Sign Out</a> <br />
           </Link>
           <br /><p style={{ color: "#BF9AFC" }}>Suggestions? <br /> Join Our <a href="https://discord.gg/dsEAEGGaHn" style={linkStyle}>Discord</a></p>
-          <Link to="/termsofservice">
+          <Link to="/termsofservice" target="_blank">
             <a className="col" style={linkStyle}>
               Privacy Policy, Cookie Policy & Terms of Service
               </a>
