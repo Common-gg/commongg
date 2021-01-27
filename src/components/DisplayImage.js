@@ -10,26 +10,31 @@ function DisplayImage(props) {
   useEffect(() => {
     if (cropBlob === undefined) return;
     setImage(URL.createObjectURL(cropBlob));
-    props.setImageType(cropBlob.type);
     props.setImg(cropBlob);
   }, [cropBlob]);
 
   const onSelectFile = (event) => {
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.addEventListener(
-        "load",
-        () => (
-          setCroppedImage({
-            ...croppedImage,
-            src: reader.result
-          })
-        ),
-        false
-      );
-      reader.readAsDataURL(event.target.files[0]);
-      setShowCropModal(true);
-    }
+      let imageType = event.target.files[0].type;
+      if ((imageType === "image/png") || (imageType === "image/jpg") || (imageType === "image/jpeg")) {
+        const reader = new FileReader();
+        reader.addEventListener(
+          "load",
+          () => (
+            setCroppedImage({
+              ...croppedImage,
+              src: reader.result
+            })
+          ),
+          false
+        );
+        reader.readAsDataURL(event.target.files[0]);
+        setShowCropModal(true);
+      }
+      else {
+        props.setDisplayImageTypeValidationMessage(true);
+      }
+    } 
   }
 
   // const onImageChange = event => {
