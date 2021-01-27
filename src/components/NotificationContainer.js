@@ -7,7 +7,6 @@ import NotificationRead from "../images/icons/notificationempty-1.png";
 
 function NotificationContainer(props) {
     let tempCounter = 0;
-    let wasClicked = false;
     const [imageSource, setImageSource] = useState(NotificationRead);
     const [unreadNotificationCounter, setUnreadNotificationCounter] = useState(0);
     const [allNotifications, setAllNotifications] = useState({});
@@ -33,28 +32,20 @@ function NotificationContainer(props) {
         }
         else {
             setUnreadNotifications({ ...allNotifications, ...notifications });
-            adjustCounter(1);
-            console.log(tempCounter);
-            setUnreadNotificationCounter(tempCounter);
+            tempCounter++
+            setUnreadNotificationCounter(tempCounter)
             setImageSource(NotificationUnread);
         }
     }
 
-    function adjustCounter(x) {
-        if (x===1){
-            tempCounter+=x;
-        } else if (x==tempCounter){
-            tempCounter=0;
-        }
-    }
 
     function handleNotificationClick() {
         props.readNotifications();
         setImageSource(NotificationRead);
         setReadNotifications(allNotifications);
         setUnreadNotifications({});
-        adjustCounter(tempCounter);
-        setUnreadNotificationCounter(0);
+        tempCounter=0;
+        setUnreadNotificationCounter(tempCounter);
     }
 
     function deleteNotificationHandler(notificationID) {
