@@ -114,13 +114,13 @@ function PageContainer(props) {
       <div className="container-fluid">
         <br /><br />
         <div className="row">
-          <div style={{ width: "25%", height:"100%"}}>
+          <div style={{ width: "33%", height:"100%", paddingLeft: "10%"}}>
             <div style={sticky}>
               <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut} allGames={props.allGames} setAllGames={props.setAllGames} />
               {/* <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} /> */}
             </div>
           </div>
-          <div style={{ width: "50%"}}>
+          <div style={{ width: "33%"}}>
             <div className="text-center">
               <SearchBar search={props.search} allGames={props.allGames} setAllGames={props.setAllGames} />
               <br />
@@ -129,7 +129,7 @@ function PageContainer(props) {
               setBackClicked={setBackClicked} setOffSet={setOffSet} setNumPostsToLoad={setNumPostsToLoad} numPostsToLoad={numPostsToLoad}
               setNumPostsLoaded={setNumPostsLoaded} numPostsLoaded={numPostsLoaded} />
           </div>
-          <div  style={{ width: "20%"}}>
+          <div  style={{ width: "33%"}}>
             <div style={sticky}>
               <NotificationContainer {...props} />
               <div style={{ position: "absolute", bottom: "-2.5rem", left: "88%" }}>

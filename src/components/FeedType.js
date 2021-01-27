@@ -61,36 +61,58 @@ function FeedType(props) {
   }, [posts])
 
   useEffect(() => {
-    if (props.clientFilter) {
-
-    } else if (props.lastPostRetrieved > 0) {
-      props.getPosts(props.lastPostRetrieved, 10, addPosts);
-    }
+    if (props.clientFilter) return
+    if (props.lastPostRetrieved > 0) props.getPosts(props.lastPostRetrieved + 1, 10, addPosts);
   }, [props.numPostsToLoad])
 
   //when the filter changes make the page go back to top
   useEffect(() => {
     if (props.clientFilter) {
-
       let filter;
-
+      let filterValue = props.pageId;
       switch (props.clientFilter) {
         case "profile":
           filter = "author";
           break;
+        case "following":
+          filter = "caption";
+          filterValue = "CAPTION_TEXT";
+          break;
         case props.pageId:
           filter = "game";
+          break;
         default:
           return;
       }
 
-      props.getFilteredPosts(filter, props.pageId, setPosts);
+      props.getFilteredPosts(filter, filterValue, checkPosts);
     } else {
       props.setLastPostRetrieved(0);
       props.getPosts(0, props.numPostsToLoad, setPosts);
       window.scrollTo(0, 0)
     }
   }, [props.pageId])
+
+  function checkPosts(posts) {
+    if (props.clientFilter !== "following") {
+      setPosts(posts);
+    } else {
+      if (props.currentUserInfo.following === null) {
+        return;
+      }
+      const following = Object.values(props.currentUserInfo.following);
+      following.push(props.currentUserId)
+      const games = props.currentUserInfo.games
+      const filteredPosts = Object.fromEntries(Object.entries(posts).filter(
+        ([key, value]) => {
+          //filter based on value
+          const postGame = parseInt(value.game);
+          const postAuthor = value.author;
+          return (games.includes(postGame) && following.includes(postAuthor))
+        }))
+      setPosts(filteredPosts);
+    }
+  }
 
   function addPosts(data) {
     setPosts({ ...posts, ...data });

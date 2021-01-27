@@ -18,7 +18,6 @@ function SettingsContainer(props) {
   const [errorString, setErrorString] = useState("");
   const [updateButtonText, setUpdateButtonText] = useState("Update");
   const [displayMaxLengthMessage, setDisplayMaxLengthMessage] = useState(false);
-  const [imageType, setImageType] = useState("image/jpeg");
   const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
   const [displayPasswordTooWeakvalidationMessage, setDisplayPasswordTooWeakvalidationMessage] = useState(false);
   const history = useHistory();
@@ -28,7 +27,6 @@ function SettingsContainer(props) {
     setSelectedFile({ current: { value: props.currentUserInfo.profile_picture } });
     setLoadChangePasswordFields(false);
     setPasswordChangeIsSuccessful(false);
-    setImageType("image/jpeg");
     setDisplayImageTypeValidationMessage(false);
   }, []);
 
@@ -84,12 +82,6 @@ function SettingsContainer(props) {
 
     if (aboutMeRef.current.value !== "") {
       aboutMe = aboutMeRef.current.value;
-    }
-    if (imageType === "image/jpeg" || imageType === "image/png" || imageType === "image/jpg") {
-      setDisplayImageTypeValidationMessage(false);
-    } else {
-      setDisplayImageTypeValidationMessage(true);
-      return;
     }
     if (aboutMe.length > 250) {
       setDisplayMaxLengthMessage(true);
@@ -192,7 +184,7 @@ function SettingsContainer(props) {
               currentImg={props.currentUserInfo.profile_picture}
               setImg={setSelectedFile}
               changedInfo={changedInfo}
-              setImageType={setImageType} />
+              setDisplayImageTypeValidationMessage={setDisplayImageTypeValidationMessage}/>
             <label htmlFor="fileInput"
               className="btn"
               style={{
