@@ -54,16 +54,18 @@ function PageContainer(props) {
   }, [backClicked]);
 
   const handleScroll = () =>{
-    if (window.pageYOffset < 1000) {
+    if (window.pageYOffset < 2000) {
       document.getElementById("topBtn").style.visibility="hidden";
-    } else{
+    } else {
       document.getElementById("topBtn").style.visibility="visible";
     }
   }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  window.addEventListener('scroll', handleScroll);
+
+  //useEffect(() => {
+    
+  //}, [handleScroll]);
 
   return (
     <div className="PageContainer">

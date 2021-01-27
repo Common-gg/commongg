@@ -71,8 +71,13 @@ function Post(props) {
       props.childPostRefresh();
     } else {
       //we deleted and redirect to home
+      history.goBack.pageYOffset= historyScrollPosition;
       history.goBack();
     }
+  }
+
+  const historyScrollPosition = () => {
+    return window.pageYOffset;
   }
 
   //create maping of emote with a list of the users who reacted
@@ -435,7 +440,7 @@ function Post(props) {
               </Linkify>
               {checkType()}
               {props.pageState === undefined ? (<Link to={"/post/" + props.postId}>
-                <button style={expandButtonStyle}>
+                <button onClick = {historyScrollPosition} style={expandButtonStyle}>
                   View Post
                 </button>
               </Link>) : null}
