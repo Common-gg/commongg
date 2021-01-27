@@ -33,7 +33,7 @@ function PageContainer(props) {
     borderColor: "transparent"
   };
   const topOfPageButtonStyle = {
-    visibility: "visible",
+    visibility: "hidden",
     backgroundColor: "transparent",
     borderRadius: "50%",
     position: "relative",
@@ -52,6 +52,18 @@ function PageContainer(props) {
       history.goBack();
     }
   }, [backClicked]);
+
+  const handleScroll = () =>{
+    if (window.pageYOffset < 1000) {
+      document.getElementById("topBtn").style.visibility="hidden";
+    } else{
+      document.getElementById("topBtn").style.visibility="visible";
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   return (
     <div className="PageContainer">
@@ -121,7 +133,7 @@ function PageContainer(props) {
             <div style={sticky}>
               <NotificationContainer {...props} />
               <div style={{ position: "absolute", bottom: "-2.5rem", left: "88%" }}>
-                <button className="btn btn-primary" onClick={() => window.scrollTo(0, 0)} style={topOfPageButtonStyle}>
+                <button id="topBtn" className="btn btn-primary" onClick={() => window.scrollTo(0, 0)} style={topOfPageButtonStyle}>
                   <img src={TopOfPageImage} style={topOfPageImageStyle} />
                 </button>
               </div>
