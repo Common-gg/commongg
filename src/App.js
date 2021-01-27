@@ -567,7 +567,14 @@ function App() {
     postRef.once("value", (snapshot) => {
 
       if (snapshot.val() !== null) {
-        return callback(snapshot.val());
+        let postData = {};
+
+        snapshot.forEach((child) => {
+          postData[child.val().timestamp] = {
+            ...child.val(), postId: child.key
+          }
+        });
+        return callback(postData);
       }
       else {
         return callback(defaultNoPostCallback);

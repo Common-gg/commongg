@@ -61,7 +61,6 @@ function FeedType(props) {
   }, [posts])
 
   useEffect(() => {
-    console.log(props.numPostsToLoad);
     if (props.clientFilter) return
     if (props.lastPostRetrieved > 0) props.getPosts(props.lastPostRetrieved + 1, 10, addPosts);
   }, [props.numPostsToLoad])
@@ -132,12 +131,14 @@ function FeedType(props) {
           return (
             <div key={Object.keys(posts)[i]}>
               {(post.author === props.pageId || post.game === props.pageId || props.pageId === undefined) ?
-                <div><Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
-                  postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
-                  childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
-                  setShowModal={setShowModal} setModalContent={setModalContent} reactions={props.reactions}
-                />
-                  <br /></div> : null}
+                <div>
+                  <Post {...props} loading={loading} setLoading={setLoading} post={post} postId={post.postId}
+                    postNum={i + 1} numPostsToLoad={props.numPostsToLoad} setNumPostsToLoad={props.setNumPostsToLoad} setNumPostsLoaded={props.setNumPostsLoaded}
+                    childPostRefresh={childPostRefresh} setModalImage={props.setModalImage} setBackClicked={props.setBackClicked}
+                    setShowModal={setShowModal} setModalContent={setModalContent} reactions={props.reactions}
+                  />
+                  <br />
+                </div> : null}
             </div>
           );
         return null;
