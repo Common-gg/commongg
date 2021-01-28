@@ -71,10 +71,21 @@ function CreateCommentModal(props) {
         height: "150px",
     }
 
+    function checkCommentUrl(){
+        let url = window.location.href;
+        url = url.split('/');
+        if (url[url.length - 2] === "comment") {
+            url.splice(url.length-2, 1);
+            url = url.join("\/");
+            window.location.replace(url);
+        }
+    }
+
     function clearFields() {
         commentTextRef.current.value = "";
         setShow(false);
         setDisplayCommentTextLengthValidationMessage(false);
+        checkCommentUrl();
     }
 
     function handleCommentClick() {
@@ -115,6 +126,7 @@ function CreateCommentModal(props) {
     function handleYesClick() {
         setShowClickOutsideCommentModal(false);
         setShow(false);
+        checkCommentUrl();
     }
 
     return (

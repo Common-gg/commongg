@@ -22,7 +22,6 @@ function CreateProfile(props) {
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);
   const [displayInputValidationText, setDisplayInputValidationText] = useState(false);
   const [displayImageTypeValidationMessage, setDisplayImageTypeValidationMessage] = useState(false);
-  const [imageType, setImageType] = useState(null);
 
   useEffect(() => {
     clearValidationBools();
@@ -185,7 +184,7 @@ function CreateProfile(props) {
           id="createAvatar"
           currentImg={add}
           setImg={setImg}
-          changedInfo={() => { }} setImageType={setImageType} />
+          setDisplayImageTypeValidationMessage={setDisplayImageTypeValidationMessage} />
         <button
           type="submit"
           className="btn mx-auto"

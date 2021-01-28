@@ -194,8 +194,8 @@ function App() {
   const signUpUser = (email, password, callback) => {
     // Signs user up
     window.history.pushState(null, null, "/");
-    analytics.logEvent("signup")
     auth.createUserWithEmailAndPassword(email, password).then(() => {
+      analytics.logEvent("signup");
       sendVerifyEmail(() => { });
       return callback(ERROR_CODE_ENUM["success"]);
     }).catch(function (error) {
@@ -567,7 +567,14 @@ function App() {
     postRef.once("value", (snapshot) => {
 
       if (snapshot.val() !== null) {
-        return callback(snapshot.val());
+        let postData = {};
+
+        snapshot.forEach((child) => {
+          postData[child.val().timestamp] = {
+            ...child.val(), postId: child.key
+          }
+        });
+        return callback(postData);
       }
       else {
         return callback(defaultNoPostCallback);

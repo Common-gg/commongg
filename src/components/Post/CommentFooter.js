@@ -118,7 +118,7 @@ function CommentFooter(props) {
   const popover = (
     <Popover id={props.commentId + "popvoer"} style={popoverStyle}>
       <Popover.Content>
-        <div className="row">
+        <div className="row" style={{paddingBottom: "3vh", paddingRight: "2vw"}}>
           {popoverReactions.map(reaction => {
             let reactImg = reaction
             reactions.forEach(r => {
