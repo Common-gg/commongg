@@ -11,6 +11,7 @@ function PostFooter(props) {
   const [post, setPost] = useState(props.post)
   const [popoverReactions, setPopoverReactions] = useState([]);
   const [allowClick, setAllowClick] = useState(true);
+  const [reactionMap, setReactionMap] = useState({})
   const reactions = props.reactions;
 
   useEffect(() => {
@@ -26,7 +27,21 @@ function PostFooter(props) {
     } else {
       setPopoverReactions(reactions);
     }
-  }, [post])
+    //calculate mapping for post reactions
+    const curReactionMapping = {};
+    if (post.reacted != null) {
+      //build mapping for reaction with use list
+      for (const [key, value] of Object.entries(post.reacted)) {
+        //we use value because mapping is user: reaction ex. carrot: Pog
+        if (curReactionMapping[value] == null) {
+          curReactionMapping[value] = [key];
+        } else {
+          curReactionMapping[value].push(key);
+        }
+      }
+    }
+    setReactionMap(curReactionMapping);
+  }, [post, reactions])
 
   function convertNum(val) {
     let editedVal = val;
@@ -83,8 +98,7 @@ function PostFooter(props) {
   }
 
   const usersReacted = reaction => {
-    if (!post.reacted) return;
-    // return Object.keys(post.reacted).filter((user, i) => Object.values(post.reacted)[i] === reaction);
+    return reactionMap[reaction];
   }
 
   const checkReactions = () => {
