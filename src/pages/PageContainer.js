@@ -53,18 +53,18 @@ function PageContainer(props) {
     }
   }, [backClicked]);
 
-  const handleScroll = () =>{
+  const handleScroll = () => {
     if (window.pageYOffset < 2000) {
-      document.getElementById("topBtn").style.visibility="hidden";
+      document.getElementById("topBtn").style.visibility = "hidden";
     } else {
-      document.getElementById("topBtn").style.visibility="visible";
+      document.getElementById("topBtn").style.visibility = "visible";
     }
   }
 
   window.addEventListener('scroll', handleScroll);
 
   //useEffect(() => {
-    
+
   //}, [handleScroll]);
 
   return (
@@ -158,6 +158,7 @@ function PageContainer(props) {
                 left: "88%"
               }}>
                 <button className="btn btn-primary"
+                  id="topBtn"
                   onClick={() => window.scrollTo(0, 0)}
                   style={topOfPageButtonStyle}>
                   <img src={TopOfPageImage} style={topOfPageImageStyle} />

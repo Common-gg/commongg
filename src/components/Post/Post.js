@@ -13,6 +13,7 @@ import ArrowLeft from "../../images/icons/arrowleft 1.png";
 import check from "../../images/icons/followingcheck-1.png";
 import loading from '../../images/icons/loading.svg';
 import ProfilePicture from "../ProfilePicture.js";
+import * as Icon from 'react-bootstrap-icons';
 
 function Post(props) {
 
@@ -361,7 +362,7 @@ function Post(props) {
                     style={backButtonStyle}
                     onClick={handleBackClick}
                   >
-                    <img src={ArrowLeft} style={imageBackButtonStyle} />
+                    <Icon.ArrowLeft style={imageBackButtonStyle} />
                   </button> : null}
                   <Link to={"/profile/" + author.username} className="col-10 row"
                     style={{

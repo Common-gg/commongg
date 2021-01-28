@@ -46,7 +46,7 @@ function UserCard(props) {
           width="115px"
           height="115px"
           onclick="enlargeImg"
-          style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+          style={{ boxShadow: "1px 1px 1px 1px #060508" }}
           setProfilePictureImage={props.setProfilePictureImage} />
         <span style={{ paddingLeft: "10px", fontSize: "2rem" }}>
           {props.user.username + " "}

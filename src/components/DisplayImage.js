@@ -80,7 +80,7 @@ function DisplayImage(props) {
                 height: "150px",
                 borderRadius: "50%",
                 cursor: "pointer",
-                boxShadow: "3px 3px 25px #171421"
+                boxShadow: "3px 3px 25px #060508"
               }}
               alt="profile picture" />
           </label>

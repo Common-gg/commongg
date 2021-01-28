@@ -25,7 +25,7 @@ function CropProfilePictureModal(props) {
         marginLeft: "auto",
         marginRight: "40px",
         backgroundColor: "#BF9AFC",
-        color: "#292833",
+        color: "#2A2A2D",
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
@@ -34,7 +34,7 @@ function CropProfilePictureModal(props) {
 
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",

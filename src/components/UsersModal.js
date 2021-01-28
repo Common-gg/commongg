@@ -58,7 +58,7 @@ function UsersModal(props) {
     const modalContentStyle = {
         color: "#BF9AFC",
         margin: "3%" ,
-        backgroundColor: "#292833" ,
+        backgroundColor: "#2A2A2D" ,
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",

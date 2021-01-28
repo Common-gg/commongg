@@ -151,7 +151,7 @@ function ProfileContainer(props) {
                         width={115}
                         height={115}
                         onclick="enlargeImg"
-                        style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+                        style={{ boxShadow: "1px 1px 1px 1px #060508" }}
                         setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
                         <h2 className="row" style={{ marginTop: "5%", marginLeft: "0.5%" }}>

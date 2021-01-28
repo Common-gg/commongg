@@ -56,7 +56,7 @@ function NotificationContainer(props) {
     }
 
     const notificationPopoverStyle = {
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         borderRadius: "20px",
         width: "100%"
     }

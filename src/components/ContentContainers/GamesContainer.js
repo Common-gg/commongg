@@ -26,9 +26,9 @@ function GamesContainer(props) {
 
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         borderRadius: "10px",
-        boxShadow: "-1px 7px 25px 1px #171421",
+        boxShadow: "-1px 7px 25px 1px #060508",
     }
 
     const modalStyle = {
@@ -88,7 +88,7 @@ function GamesContainer(props) {
                                         index={i}
                                         selectedGames={selectedGames}
                                         setSelectedGames={setSelectedGames}
-                                        style={{ backgroundColor: "#292833" }}
+                                        style={{ backgroundColor: "#2A2A2D" }}
                                     />;
                                 })}</div>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>

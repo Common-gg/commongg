@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap%27');
+
 * {
   box-sizing: border-box;
 }
@@ -13,13 +15,13 @@
 }
 
 body {
-  background-color: #292833;
+  background-color: #2A2A2D;
   color: #f5f1f1;
-  font-family: 'Overpass';
+  font-family: 'Roboto', sans-serif;
 }
 
 .container{
-background-color: #292833;
+background-color: #2A2A2D;
 }
 
 .IconButton {
@@ -33,7 +35,7 @@ background-color: #292833;
   font-size: 20px ;
   cursor: pointer ;
   height: 48 ;
-  color: #292833 ;
+  color: #2A2A2D ;
 }
 
 .testimonial-group > .row {
@@ -96,7 +98,7 @@ background-color: #292833;
 }
 
 .rbt-menu {
-  background-color: #292833;
+  background-color: #2A2A2D;
   border: solid 2px #BF9AFC;
 }
 
@@ -114,7 +116,7 @@ background-color: #292833;
 }
 
 Input{
-  background-color: #292833;
+  background-color: #2A2A2D;
   color: #ffffff
 }
 
@@ -138,9 +140,9 @@ a:hover {
 .createProfileCard{
   margin: 10%;
   max-width: 25%;
-  background-color: #292833;
+  background-color: #2A2A2D;
   border-radius: 10px;
-  box-shadow: -1px 7px 25px 1px #171421;
+  box-shadow: -1px 7px 25px 1px #060508;
   color: #BF9AFC;
 }
 
@@ -165,35 +167,35 @@ a:hover {
 } }
 
 .modal-content{
-  background-color: #292833 ;
+  background-color: #2A2A2D ;
 }
 
 .close {
   color: #BF9AFC;
-  background-color: #292833;
+  background-color: #2A2A2D;
 }
 
 .close:not(:disabled):not(.disabled):hover {
   color: #BF9AFC;
-  background-color: #292833;
+  background-color: #2A2A2D;
 }
 
 .loginCard {
   margin: 200px;
   max-width: 20%;
-  background-color: #292833;
+  background-color: #2A2A2D;
   color: #BF9AFC;
   border-radius: 10px;
-  box-shadow: -1px 7px 25px 1px #171421;
+  box-shadow: -1px 7px 25px 1px #060508;
 } 
 
 .signUpCard {
   margin: 200px;
   max-width: 20%;
   max-height: 100%;
-  background-color: #292833;
+  background-color: #2A2A2D;
   border-radius: 10px;
-  box-shadow: -1px 7px 25px 1px #171421;
+  box-shadow: -1px 7px 25px 1px #060508;
 }
 
 .cardBtnStyle { 
@@ -290,7 +292,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* General sidebar styles */
 .bm-menu {
-  background: #292833;
+  background: #2A2A2D;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
   position: relative;
@@ -300,7 +302,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
-  fill: #292833;
+  fill: #2A2A2D;
   z-index: 9999999;
 }
 
