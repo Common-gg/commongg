@@ -33,7 +33,7 @@ function PageContainer(props) {
     borderColor: "transparent"
   };
   const topOfPageButtonStyle = {
-    visibility: "visible",
+    visibility: "hidden",
     backgroundColor: "transparent",
     borderRadius: "50%",
     position: "relative",
@@ -52,6 +52,20 @@ function PageContainer(props) {
       history.goBack();
     }
   }, [backClicked]);
+
+  const handleScroll = () =>{
+    if (window.pageYOffset < 2000) {
+      document.getElementById("topBtn").style.visibility="hidden";
+    } else {
+      document.getElementById("topBtn").style.visibility="visible";
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+
+  //useEffect(() => {
+    
+  //}, [handleScroll]);
 
   return (
     <div className="PageContainer">
