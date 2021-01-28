@@ -30,8 +30,8 @@ function CropProfilePictureModal(props) {
         borderRadius: "10px",
         borderColor: "#BF9AFC",
         borderWidth: "2px",
-    }; 
-    
+    };
+
     const modalContentStyle = {
         color: "#BF9AFC",
         backgroundColor: "#292833",
@@ -111,13 +111,21 @@ function CropProfilePictureModal(props) {
                 <div className="modal-content" style={modalContentStyle}>
                     <div className="modal-header" style={modalHeaderStyle}>
                         <h5 className="modal-title" id="cropProfilePictureModalLabel">Crop Profile Picture</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close"  style={{ color: "#BF9AFC" }} onClick={() => clearFields()}>
-                            <span aria-hidden="true"  style={{ color: "#BF9AFC" }}>&times;</span>
+                        <button type="button"
+                            className="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            style={{ color: "#BF9AFC" }}
+                            onClick={() => clearFields()}>
+                            <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
                         </button>
                     </div>
                     {modalBody(croppedImage)}
                     <div style={{ display: "flex", paddingBottom: "5%" }}>
-                        <button type="button" className="btn btn-primary" style={buttonStyle} onClick={() => handleCropClick()} data-dismiss="modal">Crop</button>
+                        <button type="button" 
+                        className="btn btn-primary" 
+                        style={buttonStyle} 
+                        onClick={() => handleCropClick()} data-dismiss="modal">Crop</button>
                     </div>
                 </div>
             </Modal>

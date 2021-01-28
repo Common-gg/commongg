@@ -6,8 +6,13 @@ function Input(props) {
 
   return (
     <div className="Input" style={props.style}>
-      <input className={props.bootstrap} type={props.type} id={props.type}
-        placeholder={props.placeholder} minLength={props.minLength} maxLength="60" ref={value}
+      <input className={props.bootstrap}
+        type={props.type}
+        id={props.type}
+        placeholder={props.placeholder}
+        minLength={props.minLength}
+        maxLength="60"
+        ref={value}
         onChange={() => (props.track(value))} required />
     </div>
   );

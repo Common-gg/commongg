@@ -153,14 +153,14 @@ function CreatePostModal(props) {
 
     function createPost(url) {
         props.firebaseTimeStamp(storePost);
-        
+
         function storePost(timestamp) {
             let postType = getPostType();
             //find the game id by game selected
             let gameId = props.allGames.findIndex((element) => {
                 return element.title === selectedOption;
             });
-    
+
             props.createPost({
                 text: postText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
                 author: props.currentUserId,
@@ -280,7 +280,7 @@ function CreatePostModal(props) {
                         <div>
                             <button type="button" style={{ color: "#BF9AFC" }} className="close"
                                 aria-label="Close" onClick={() => removeImage()}>
-                                <span aria-hidden="true" style={{color: "#BF9AFC"}}>&times;</span>
+                                <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
                             </button>
                             <img src={URL.createObjectURL(selectedFile)} alt="preview"
                                 style={{ maxHeight: "200px" }} />
@@ -323,8 +323,11 @@ function CreatePostModal(props) {
                                 style={titleInputStyle}
                             />
                             <p style={{ marginRight: "10px", marginTop: "7px" }}>{titleLength + "/150"}</p>
-                            <button type="button" style={{ marginRight: "5px", color: "#BF9AFC" }} className="close"
-                                aria-label="Close" onClick={() => clearFields()}>
+                            <button type="button"
+                                style={{ marginRight: "5px", color: "#BF9AFC" }}
+                                className="close"
+                                aria-label="Close"
+                                onClick={() => clearFields()}>
                                 <span id="createPostX" aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -353,8 +356,15 @@ function CreatePostModal(props) {
                     {imagePreview()}
                     <hr style={{ backgroundColor: '#5F5177', width: '90%' }} />
                     <div style={{ display: "flex" }}>
-                        <input id="fileInput" type="file" accept="image/*" style={{ display: "none" }} ref={fileInputRef} onChange={fileSelectedHandler} />
-                        <label htmlFor="fileInput"><img style={fileInputImageStyle} src={ImageIcon}></img></label>
+                        <input id="fileInput"
+                            type="file"
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            ref={fileInputRef}
+                            onChange={fileSelectedHandler} />
+                        <label htmlFor="fileInput">
+                            <img style={fileInputImageStyle} src={ImageIcon}></img>
+                        </label>
                         <div>
                             <Select theme={(theme) => ({
                                 ...theme,
@@ -370,7 +380,11 @@ function CreatePostModal(props) {
                                 defaultValue={getOptions()[0]}
                             />
                         </div>
-                        <button disabled={loading} type="button" className="btn btn-primary" onClick={() => handlePostClick()} style={postButtonStyle}>{btnText}</button>
+                        <button disabled={loading} 
+                        type="button" 
+                        className="btn btn-primary" 
+                        onClick={() => handlePostClick()} 
+                        style={postButtonStyle}>{btnText}</button>
                     </div>
                     <br />
                 </div>

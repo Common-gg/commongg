@@ -119,18 +119,20 @@ function Post(props) {
           aria-haspopup="true"
           aria-expanded="false"
           style={{ background: "transparent" }}>
-          <img src={optionsIcon} 
-          alt={"options"} 
-          style={{ 
-            backgroundColor: "transparent", 
-            marginTop: "-5.8rem", 
-            marginRight: "-1rem" }} />
+          <img src={optionsIcon}
+            alt={"options"}
+            style={{
+              backgroundColor: "transparent",
+              marginTop: "-5.8rem",
+              marginRight: "-1rem"
+            }} />
         </div>
-        <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" 
-        style={{ 
-          backgroundColor: "#BF9AFC", 
-          marginTop: "-3rem", 
-          marginRight: "-1rem" }}>
+        <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton"
+          style={{
+            backgroundColor: "#BF9AFC",
+            marginTop: "-3rem",
+            marginRight: "-1rem"
+          }}>
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
           <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
           {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> : null}
@@ -226,8 +228,8 @@ function Post(props) {
       let link = props.post.link;
       if (props.post.link.includes('firebasestorage')) {
         const start = link.indexOf('%2F') + 3;
-        const end = link.indexOf('?alt'); 
-        link =`https://${process.env.REACT_APP_imgixURL}/postImage/${(link.substring(start, end))}`;
+        const end = link.indexOf('?alt');
+        link = `https://${process.env.REACT_APP_imgixURL}/postImage/${(link.substring(start, end))}`;
       }
       return (
         <div>
@@ -251,10 +253,11 @@ function Post(props) {
               "data-target": "#enlargedImageModal",
               onClick: () => handleImageClick(link),
               style: {
-              maxWidth: "100%",
-              cursor: "pointer",
-              marginBottom: "1.5rem"
-            }}} />
+                maxWidth: "100%",
+                cursor: "pointer",
+                marginBottom: "1.5rem"
+              }
+            }} />
         </div>
       )
     }
@@ -369,7 +372,7 @@ function Post(props) {
                       left: "0.5rem",
                       textDecoration: 'none'
                     }}>
-                    <ProfilePicture user={{...author, id: props.post.author}} width={40} height={40} />
+                    <ProfilePicture user={{ ...author, id: props.post.author }} width={40} height={40} />
                     <div className="col-8">
                       <span className="row" style={{ marginLeft: 0 }}>
                         <Text text={author.username} />
@@ -396,7 +399,9 @@ function Post(props) {
               <div className="row">
                 <Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <div className="col-auto" style={{
-                    maxWidth: '100%', paddingRight: '0px', whiteSpace: "pre-wrap",
+                    maxWidth: '100%',
+                    paddingRight: '0px',
+                    whiteSpace: "pre-wrap",
                     overflowWrap: "break-word",
                   }}>
                     <Text text={props.post.title} style={{
@@ -429,14 +434,23 @@ function Post(props) {
                 </Link>
               </div>
               <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-                <a target="blank" href={decoratedHref} key={key} style={{ color: "#BF9AFC" }}>
+                <a target="blank"
+                  href={decoratedHref}
+                  key={key}
+                  style={{ color: "#BF9AFC" }}>
                   {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>, null)}
                 </a>
               )}>
                 {/*<Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
                   <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
               </Link>*/}
-                <p style={{ fontSize: '18px', whiteSpace: "pre-wrap", maxWidth: "35rem", wordWrap: "break-word" }}>{checkExpandText()}</p>
+                <p style={{
+                  fontSize: '18px',
+                  whiteSpace: "pre-wrap",
+                  maxWidth: "35rem",
+                  wordWrap: "break-word"
+                }}>
+                  {checkExpandText()}</p>
               </Linkify>
               {checkType()}
               {props.pageState === undefined ? (<Link to={"/post/" + props.postId}>

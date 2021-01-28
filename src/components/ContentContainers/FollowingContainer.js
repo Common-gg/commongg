@@ -11,15 +11,23 @@ function FeedContainer(props) {
 
   return (
     <div>
-      <CreatePostModal firebaseTimeStamp={props.firebaseTimeStamp} currentUserId={props.currentUserId} createPost={props.createPost}
-        storeImage={props.storeImage} currentUserInfo={props.currentUserInfo} updatePostRefresh={updatePostRefresh} allGames={props.allGames}
+      <CreatePostModal
+        firebaseTimeStamp={props.firebaseTimeStamp}
+        currentUserId={props.currentUserId}
+        createPost={props.createPost}
+        storeImage={props.storeImage}
+        currentUserInfo={props.currentUserInfo}
+        updatePostRefresh={updatePostRefresh}
+        allGames={props.allGames}
         setAllGames={props.setAllGames}
       />
       <br />
-      {props.currentUserInfo.following !== undefined ? 
-      <FeedType {...props} postRefresh={postRefresh} clientFilter="following"
-        setModalImage={props.setModalImage} />
-      : null}
+      {props.currentUserInfo.following !== undefined ?
+        <FeedType {...props}
+          postRefresh={postRefresh}
+          clientFilter="following"
+          setModalImage={props.setModalImage} />
+        : null}
     </div>
   );
 }

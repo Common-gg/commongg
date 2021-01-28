@@ -68,7 +68,9 @@ function ViewPost(props) {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-2">
-                        <NavigationBar currentUserId={props.currentUserId} currentUserInfo={props.currentUserInfo} signOut={props.signOut}/>
+                        <NavigationBar currentUserId={props.currentUserId} 
+                        currentUserInfo={props.currentUserInfo} 
+                        signOut={props.signOut}/>
                     </div>
                     <div className="col-lg-7">
                         <ViewPostContainer post={userPost}/>

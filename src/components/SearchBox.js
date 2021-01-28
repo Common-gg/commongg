@@ -108,7 +108,11 @@ function SearchBox(props) {
                     width: '1.8rem',
                   }}
                 />
-                <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{option.name}</span>
+                <span style={{ 
+                  color: "white", 
+                  position: "relative", 
+                  bottom: "-.2rem" }}
+                  >{option.name}</span>
               </div>
             </Link>}
             {option.type === "game" && <Link to={"/games/" + option.name.split(" ").join('').toLowerCase()}>
@@ -123,7 +127,10 @@ function SearchBox(props) {
                     width: '1.8rem',
                   }}
                 />
-                <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{option.name}</span>
+                <span style={{ 
+                  color: "white", 
+                  position: "relative", 
+                  bottom: "-.2rem" }}>{option.name}</span>
               </div>
             </Link>}
             {option.type === "label" &&

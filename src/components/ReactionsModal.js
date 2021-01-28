@@ -102,7 +102,10 @@ function ReactionsModal(props) {
                   width: '1.8rem',
                 }}
               />
-              <span style={{ color: "white", position: "relative", bottom: "-.2rem" }}>{user.username}</span>
+              <span style={{ color: "white", 
+              position: "relative", 
+              bottom: "-.2rem" }}
+              >{user.username}</span>
             </div></Link> : null)}
           </div>
         </>

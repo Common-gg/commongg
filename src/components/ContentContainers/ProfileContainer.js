@@ -113,8 +113,15 @@ function ProfileContainer(props) {
         }
         return (
             <div>
-                {props.currentUserId !== user.id || modLvl > 0 ? <div id="dropdownMenuButton" className="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{ background: "transparent" }}>
-                    <img src={optionsIcon} alt={"options"} style={{ backgroundColor: "transparent" }} />
+                {props.currentUserId !== user.id || modLvl > 0 ? <div id="dropdownMenuButton"
+                    className="btn"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style={{ background: "transparent" }}>
+                    <img src={optionsIcon}
+                        alt={"options"}
+                        style={{ backgroundColor: "transparent" }} />
                 </div> : null}
                 <div className="dropdown-menu-right dropdown-menu" aria-labelledby="dropdownMenuButton" style={{ color: "#BF9AFC", backgroundColor: "#BF9AFC" }}>
                     {modLvl > 1 ? <p className="dropdown-item mb-0" onClick={() => props.verifyUser(pageId, !verified)} style={{ cursor: "pointer" }}>Verify User/Revoke Verification</p> : null}
@@ -140,17 +147,18 @@ function ProfileContainer(props) {
                 <br />
                 <div className="row p-0">
                     <div className="col-1"></div>
-                    <ProfilePicture user={user} width={115} height={115} onclick="enlargeImg" style={{ boxShadow: "1px 1px 1px 1px #171421" }}
+                    <ProfilePicture user={user}
+                        width={115}
+                        height={115}
+                        onclick="enlargeImg"
+                        style={{ boxShadow: "1px 1px 1px 1px #171421" }}
                         setProfilePictureImage={props.setProfilePictureImage} />
                     <div className="col-8">
                         <h2 className="row" style={{ marginTop: "5%", marginLeft: "0.5%" }}>
                             {user.username + " "}
                             {verified ?
                                 <img src={check} alt={user.username + "verified"}
-                                    style={{
-                                        width: "1.8rem",
-                                        height: "1.8rem",
-                                    }} />
+                                    style={{ width: "1.8rem", height: "1.8rem", }} />
                                 : null}
                             <div className="ml-auto pr-3 dropdown" style={{ marginTop: "-1rem", marginRight: "-1rem" }}>
                                 {checkOptions()}

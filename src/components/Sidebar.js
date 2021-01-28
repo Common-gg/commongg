@@ -8,13 +8,13 @@
         Home
       </a>
       <a className="menu-item" href="/salads">
-        Salads
+        Profile
       </a>
       <a className="menu-item" href="/pizzas">
-        Pizzas
+        Following
       </a>
       <a className="menu-item" href="/desserts">
-        Desserts
+        Settings
       </a>
     </Menu>
   );

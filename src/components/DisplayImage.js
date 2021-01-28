@@ -92,7 +92,11 @@ function DisplayImage(props) {
             style={{ display: "none" }}
             onChange={onSelectFile}
           />
-          <CropProfilePictureModal show={showCropModal} setShowCropModal={setShowCropModal} croppedImage={croppedImage} setImage={setImage} setCropBlob={setCropBlob} />
+          <CropProfilePictureModal show={showCropModal} 
+          setShowCropModal={setShowCropModal} 
+          croppedImage={croppedImage} 
+          setImage={setImage} 
+          setCropBlob={setCropBlob} />
         </div>
       </div>
     </div>
