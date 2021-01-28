@@ -157,11 +157,13 @@ function PageContainer(props) {
                 bottom: "-2.5rem",
                 left: "88%"
               }}>
-                <button className="btn btn-primary"
+                <button 
+                  className="btn btn-primary"
                   id="topBtn"
                   onClick={() => window.scrollTo(0, 0)}
                   style={topOfPageButtonStyle}>
-                  <img src={TopOfPageImage} style={topOfPageImageStyle} />
+                  <img src={TopOfPageImage} 
+                  style={topOfPageImageStyle} />
                 </button>
               </div>
             </div>
