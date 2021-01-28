@@ -141,8 +141,15 @@ function CommentFooter(props) {
     }}>
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
-        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={popover}>
-          <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
+        <OverlayTrigger 
+        trigger="click" 
+        rootClose placement="bottom" 
+        overlay={popover}>
+          <div style={{ 
+            padding: ".8rem", 
+            position: "relative", 
+            left: "-1rem", 
+            bottom: "-1rem" }}>
             <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.commentId} />
           </div>
         </OverlayTrigger>

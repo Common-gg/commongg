@@ -235,6 +235,12 @@ a:hover {
   margin-right: 0.5rem;
 }
 
+.navContainer {
+  width: 33%;
+  height: 100%;
+  padding-left: 12%;
+}
+
 
 
 /* Position and sizing of burger button */
@@ -287,7 +293,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background: #292833;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
-  z-index: 9999999;
+  position: relative;
+  z-index: 9999;
+  margin-top: -10%;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -315,10 +323,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
   z-index: 9999999;
 }
 
-.NavigationBar{
-  margin-left: 25%
-}
-
 @media screen and (max-width: 1300px) 
 {
 .signUpCard {
@@ -344,6 +348,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* .NavigationBar {
   visibility: hidden;
+} */
+
+/* .navContainer {
+  padding-left: 0%;
+
 } */
 
 }
@@ -377,6 +386,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* .NavigationBar {
   visibility: hidden;
+
+} */
+
+/* .navContainer {
+  padding-left: 0%;
 
 } */
 

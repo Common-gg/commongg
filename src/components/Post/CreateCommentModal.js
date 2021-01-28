@@ -104,7 +104,7 @@ function CreateCommentModal(props) {
     const handleClose = () => setShow(false);
 
     function createComment() {
-        props.firebaseTimeStamp(storeComment);    
+        props.firebaseTimeStamp(storeComment);
 
         function storeComment(timestamp) {
             props.createComment({
@@ -158,15 +158,25 @@ function CreateCommentModal(props) {
                 </div>
             </Modal>
             <div onMouseDown={handleMouseDown} >
-                <Modal show={show} onHide={handleClose} backdrop={showClickOutsideCommentModal ? "static" : "dynamic"} style={{ zIndex: "99998" }} onEntered={() => commentTextRef.current.focus()}>
-                    <div className="modal-content" ref={modalRef} style={modalContentStyle}>
+                <Modal show={show}
+                    onHide={handleClose}
+                    backdrop={showClickOutsideCommentModal ? "static" : "dynamic"}
+                    style={{ zIndex: "99998" }}
+                    onEntered={() => commentTextRef.current.focus()}>
+                    <div className="modal-content"
+                        ref={modalRef}
+                        style={modalContentStyle}>
                         {displayCommentTextLengthValidationMessage ?
                             <p style={{ color: "#F34D4D" }}>
                                 The length of your comment cannot exceed 1000 characters
                         </p> : null}
                         <div className="modal-header" style={modalHeaderStyle}>
                             <h5 className="modal-title" id="createCommentModalLabel">create a comment</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => clearFields()}>
+                            <button type="button"
+                                className="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                                onClick={() => clearFields()}>
                                 <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
                             </button>
                         </div>
@@ -182,7 +192,11 @@ function CreateCommentModal(props) {
                         />
                         <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
                         <div style={{ display: "flex" }}>
-                            <button type="button" className="btn btn-primary" onClick={() => handleCommentClick()} data-dismiss="modal" style={modalButtonStyle}>Comment</button>
+                            <button type="button" 
+                            className="btn btn-primary" 
+                            onClick={() => handleCommentClick()} 
+                            data-dismiss="modal" 
+                            style={modalButtonStyle}>Comment</button>
                         </div>
                         <br />
                     </div>

@@ -11,8 +11,14 @@ function FeedContainer(props) {
 
   return (
     <div>
-      <CreatePostModal firebaseTimeStamp={props.firebaseTimeStamp} currentUserId={props.currentUserId} createPost={props.createPost}
-        storeImage={props.storeImage} currentUserInfo={props.currentUserInfo} updatePostRefresh={updatePostRefresh} allGames={props.allGames}
+      <CreatePostModal
+        firebaseTimeStamp={props.firebaseTimeStamp}
+        currentUserId={props.currentUserId}
+        createPost={props.createPost}
+        storeImage={props.storeImage}
+        currentUserInfo={props.currentUserInfo}
+        updatePostRefresh={updatePostRefresh}
+        allGames={props.allGames}
         setAllGames={props.setAllGames}
       />
       <br />
