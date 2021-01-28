@@ -24,7 +24,7 @@ function CreatePostModal(props) {
 
     const buttonStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         border: "2px solid #BF9AFC",
         width: "100%",
         textAlign: "left",
@@ -33,7 +33,7 @@ function CreatePostModal(props) {
     };
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",
@@ -44,7 +44,7 @@ function CreatePostModal(props) {
         marginLeft: "auto",
         marginRight: "40px",
         backgroundColor: "#BF9AFC",
-        color: "#292833",
+        color: "#2A2A2D",
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
@@ -62,7 +62,7 @@ function CreatePostModal(props) {
     };
     const titleInputStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         border: "none",
         marginTop: "none",
 
@@ -70,7 +70,7 @@ function CreatePostModal(props) {
     const textAreaStyle = {
         resize: "none",
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         border: "none",
         marginTop: 0,
         whiteSpace: "pre-wrap"
@@ -78,7 +78,7 @@ function CreatePostModal(props) {
     const dropdownStyle = {
         control: (base) => ({
             ...base,
-            backgroundColor: "#292833",
+            backgroundColor: "#2A2A2D",
             color: "#BF9AFC",
             fontSize: 16,
             border: "2px solid #BF9AFC",
@@ -94,7 +94,7 @@ function CreatePostModal(props) {
             ...provided,
             color: "#BF9AFC",
             fontSize: 16,
-            backgroundColor: "#292833",
+            backgroundColor: "#2A2A2D",
             textAlign: "left",
             cursor: "pointer",
             borderBottom: '1px solid #BF9AFC',
@@ -107,13 +107,13 @@ function CreatePostModal(props) {
         }),
         menuList: (base) => ({
             ...base,
-            backgroundColor: "#292833",
+            backgroundColor: "#2A2A2D",
             borderRadius: '8px !important',
             textAlign: "center"
         }),
         menu: (base) => ({
             ...base,
-            backgroundColor: "#292833",
+            backgroundColor: "#2A2A2D",
         })
     }
 
@@ -370,7 +370,7 @@ function CreatePostModal(props) {
                                 ...theme,
                                 colors: {
                                     ...theme.colors,
-                                    text: "#292833",
+                                    text: "#2A2A2D",
                                     primary: '#BF9AFC',
                                 },
                             })}

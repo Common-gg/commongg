@@ -19,13 +19,13 @@ function ReactionsModal(props) {
     textAlign: "center",
     marginBottom: "-30px", 
     marginTop: "-10px",
-    backgroundColor: "#292833",
+    backgroundColor: "#2A2A2D",
     color: "#BF9AFC",
   }
 
   const modalContentStyle = {
     color: "#BF9AFC",
-    backgroundColor: "#292833",
+    backgroundColor: "#2A2A2D",
     borderBottom: "",
     margin: "5%"
   }
@@ -33,7 +33,7 @@ function ReactionsModal(props) {
   const groupStyle = {
     minHeight: "60vh",
     listStyleType: "none",
-    backgroundColor: "#292833",
+    backgroundColor: "#2A2A2D",
     padding: "0",
 
   };

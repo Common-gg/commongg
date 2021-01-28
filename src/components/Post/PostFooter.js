@@ -6,6 +6,7 @@ import ReactionIcon from '../ReactionIcon';
 import commentIcon from '../../images/icons/addcomment.png';
 import shareIcon from '../../images/icons/share.png';
 import Text from '../Text.js';
+import * as Icon from 'react-bootstrap-icons';
 
 function PostFooter(props) {
   const [post, setPost] = useState(props.post)
@@ -80,12 +81,11 @@ function PostFooter(props) {
     if (props.isPostPage !== true) {
       return (
         <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
-          <img src={commentIcon} style={{
-            backgroundColor: "transparent",
+          <Icon.ChatText style={{
             position: "relative",
-            bottom: "-32%",
+            bottom: "-17%",
+            width: "37px",
             height: "auto",
-            width: "100%",
             paddingRight: "30%"
           }} />
         </Link>)
@@ -137,19 +137,18 @@ function PostFooter(props) {
   }
 
   const reactionsPopoverStyle = {
-    backgroundColor: "#292833",
-    boxShadow: "4px 4px 25px 0px #171421 ",
+    backgroundColor: "#2A2A2D",
+    boxShadow: "4px 4px 25px 0px #060508 ",
     borderRadius: "20px",
     padding: "10px 0px 10px 10px",
     marginTop: "1%",
   }
 
   const sharePopoverStyle = {
-    backgroundColor: "#292833",
-    boxShadow: "4px 4px 25px 0px #171421 ",
+    backgroundColor: "#2A2A2D",
+    boxShadow: "4px 4px 25px 0px #060508 ",
     borderRadius: "20px",
     padding: "10px 20px 0px 20px",
-    marginTop: "20px"
   }
 
   const react = emote => {
@@ -185,7 +184,7 @@ function PostFooter(props) {
   const reactionsPopover = (
     <Popover id={props.postId + "popvoer"} style={reactionsPopoverStyle}>
       <Popover.Content>
-        <div className="row" style={{paddingBottom: "3vh", paddingRight: "2vw"}}>
+        <div className="row" style={{ paddingBottom: "3vh", paddingRight: "2vw" }}>
           {popoverReactions.map(reaction => {
             let reactImg = reaction
             reactions.forEach(r => {
@@ -193,7 +192,11 @@ function PostFooter(props) {
             });
             return (
               <div style={{ padding: "1rem", marginRight: ".3vw" }} key={reaction} className="col-2">
-                <ReactionIcon reaction={reactImg} react={react} text="" id={props.postId + reaction} />
+                <ReactionIcon
+                  reaction={reactImg}
+                  react={react}
+                  text=""
+                  id={props.postId + reaction} />
               </div>
             )
           })}
@@ -251,13 +254,13 @@ function PostFooter(props) {
           </div>
           <div style={{ padding: "0px 0px" }}>
             <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={sharePopover}>
-              <img src={shareIcon} style={{
-                backgroundColor: "transparent",
+              <Icon.Share style={{
                 position: "relative",
                 bottom: "-16%",
-                width: "100%",
+                width: "25px",
                 height: "auto",
-                cursor: "pointer"
+                cursor: "pointer",
+                color: "#BF9AFC"
               }} />
             </OverlayTrigger>
           </div>

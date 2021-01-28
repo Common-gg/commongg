@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import addcommentIcon from '../../images/icons/addcomment.png';
 import { Modal } from "react-bootstrap";
+import * as Icon from 'react-bootstrap-icons';
 
 function CreateCommentModal(props) {
     const [show, setShow] = useState(false);
@@ -18,13 +19,16 @@ function CreateCommentModal(props) {
     }, [props.show])
 
     let buttonStyle = {
-        backgroundColor: "transparent",
+        width: "1.813rem",
+        height: "1.625rem",
+        color: "#BF9AFC",
         position: "relative",
-        left: "-.74rem"
+        left: "-50%",
+        paddingBottom: "0%"
     }
     const modalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",
@@ -54,7 +58,7 @@ function CreateCommentModal(props) {
         marginLeft: "auto",
         marginRight: "5%",
         backgroundColor: "#BF9AFC",
-        color: "#292833",
+        color: "#2A2A2D",
         border: "solid",
         borderRadius: "10px",
         borderColor: "#BF9AFC",
@@ -62,7 +66,7 @@ function CreateCommentModal(props) {
     }
     const clickOutsideModalContentStyle = {
         color: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         borderTop: "0",
         borderLeft: "0",
         borderRight: "0",
@@ -71,11 +75,11 @@ function CreateCommentModal(props) {
         height: "150px",
     }
 
-    function checkCommentUrl(){
+    function checkCommentUrl() {
         let url = window.location.href;
         url = url.split('/');
         if (url[url.length - 2] === "comment") {
-            url.splice(url.length-2, 1);
+            url.splice(url.length - 2, 1);
             url = url.join("\/");
             window.location.replace(url);
         }
@@ -132,12 +136,7 @@ function CreateCommentModal(props) {
     return (
         <div className="CreateCommentModal">
             <button type="button" style={{ background: "transparent" }} id="createCommentButton" className="btn btn-primary" data-target="#createCommentModal" onClick={() => { setShow(true) }}>
-                <img src={addcommentIcon}
-                    style={{
-                        ...buttonStyle,
-                        width: "1.813rem",
-                        height: "1.625rem"
-                    }} />
+                <Icon.ChatText style={buttonStyle} />
             </button>
             <Modal show={showClickOutsideCommentModal} backdrop="static" style={{ marginRight: "5rem", marginTop: "15rem", zIndex: "99999" }
             } onHide={() => { setShowClickOutsideCommentModal(false) }}>
@@ -192,11 +191,11 @@ function CreateCommentModal(props) {
                         />
                         <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
                         <div style={{ display: "flex" }}>
-                            <button type="button" 
-                            className="btn btn-primary" 
-                            onClick={() => handleCommentClick()} 
-                            data-dismiss="modal" 
-                            style={modalButtonStyle}>Comment</button>
+                            <button type="button"
+                                className="btn btn-primary"
+                                onClick={() => handleCommentClick()}
+                                data-dismiss="modal"
+                                style={modalButtonStyle}>Comment</button>
                         </div>
                         <br />
                     </div>

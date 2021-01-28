@@ -18,11 +18,11 @@ function ForgotPassword(props) {
     }
 
     const inputStyle = {
-        backgroundColor: "transparent #292833",
+        backgroundColor: "transparent #2A2A2D",
         color: "#BF9AFC",
         border: "solid",
         borderColor: "#BF9AFC",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         borderRadius: "2px",
         borderWidth: "0.1rem",
         padding: "0.3rem",

@@ -19,13 +19,13 @@ function ChangePassword(props) {
     }, [])
 
     const inputStyle = {
-        backgroundColor: "transparent #292833",
+        backgroundColor: "transparent #2A2A2D",
         color: "#BF9AFC",
         border: "solid",
         borderColor: "#BF9AFC",
         borderWidth: "1px",
         borderRadius: "2px",
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
         padding: "0.3rem",
         margin: "3%",
         width: "80%",
@@ -105,9 +105,9 @@ function ChangePassword(props) {
                 style={{
                     margin: "150px",
                     maxWidth: "410px",
-                    backgroundColor: "#292833",
+                    backgroundColor: "#2A2A2D",
                     borderRadius: "10px",
-                    boxShadow: "-1px 10px 250px 1px #171421"
+                    boxShadow: "-1px 10px 250px 1px #060508"
                 }}>
                 <div style={{ margin: "20px 20px 0px 20px" }}>
                     <div className="row">
@@ -120,7 +120,7 @@ function ChangePassword(props) {
                                 <Input type="password"
                                     bootstrap="border-0"
                                     placeholder="new password"
-                                    style={{ backgroundColor: "#292833", }}
+                                    style={{ backgroundColor: "#2A2A2D", }}
                                     track={setPassword}
                                     style={inputStyle}
                                 />
@@ -131,7 +131,7 @@ function ChangePassword(props) {
                                 <Input type="password"
                                     bootstrap="border-0"
                                     placeholder="confirm new password"
-                                    style={{ backgroundColor: "#292833" }}
+                                    style={{ backgroundColor: "#2A2A2D" }}
                                     track={setConfirmPassword}
                                     style={inputStyle}
                                 />

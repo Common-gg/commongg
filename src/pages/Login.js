@@ -38,13 +38,13 @@ function Login(props) {
   }
 
   const inputStyle = {
-    backgroundColor: "transparent #292833",
+    backgroundColor: "transparent #2A2A2D",
     color: "#BF9AFC",
     border: "solid",
     borderColor: "#BF9AFC",
     borderWidth: "1px",
     borderRadius: "2px",
-    backgroundColor: "#292833",
+    backgroundColor: "#2A2A2D",
     padding: "0.3rem",
     margin: "3%",
     width: "100%",

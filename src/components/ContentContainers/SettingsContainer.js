@@ -6,6 +6,7 @@ import Input from "../Input.js";
 import Label from "../Label.js";
 import ArrowLeft from "../../images/icons/arrowleft 1.png"
 import InputHelpers from "../../helpers/InputHelpers.js";
+import * as Icon from 'react-bootstrap-icons';
 
 function SettingsContainer(props) {
   const aboutMeRef = useRef();
@@ -68,7 +69,8 @@ function SettingsContainer(props) {
 
   const imageBackButtonStyle = {
     width: "35px",
-    height: "35px"
+    height: "35px",
+    marginLeft: "20%"
   };
   const linkStyle = {
     color: "#BF9AFC",
@@ -173,7 +175,7 @@ function SettingsContainer(props) {
             style={backButtonStyle}
             onClick={history.goBack}
           >
-            <img src={ArrowLeft} style={imageBackButtonStyle} />
+            <Icon.ArrowLeft style={imageBackButtonStyle} />
           </button>
         </div>
         <div className="col-sm-4">
@@ -184,7 +186,7 @@ function SettingsContainer(props) {
               currentImg={props.currentUserInfo.profile_picture}
               setImg={setSelectedFile}
               changedInfo={changedInfo}
-              setDisplayImageTypeValidationMessage={setDisplayImageTypeValidationMessage}/>
+              setDisplayImageTypeValidationMessage={setDisplayImageTypeValidationMessage} />
             <label htmlFor="fileInput"
               className="btn"
               style={{
@@ -258,7 +260,7 @@ function SettingsContainer(props) {
               <Label htmlFor="currentPassword" text="Current Password" />
               <Input type="password"
                 bootstrap="border border-secondary"
-                style={{ backgroundColor: "#292833", }}
+                style={{ backgroundColor: "#2A2A2D", }}
                 track={setCurrentPassword}
                 id="currentPassword"
               />
@@ -266,7 +268,7 @@ function SettingsContainer(props) {
               <Label htmlFor="newPassword" text="New Password" />
               <Input type="password"
                 bootstrap="border border-secondary"
-                style={{ backgroundColor: "#292833" }}
+                style={{ backgroundColor: "#2A2A2D" }}
                 track={setNewPassword}
                 id="newPassword"
               />
@@ -274,7 +276,7 @@ function SettingsContainer(props) {
               <Label htmlFor="confirmNewPassword" text="Confirm New Password" />
               <Input type="password"
                 bootstrap="border border-secondary"
-                style={{ backgroundColor: "#292833", }}
+                style={{ backgroundColor: "#2A2A2D", }}
                 track={setConfirmNewPassword}
                 id="confirmNewPassword"
               />

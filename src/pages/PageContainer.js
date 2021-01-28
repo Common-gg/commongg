@@ -53,18 +53,18 @@ function PageContainer(props) {
     }
   }, [backClicked]);
 
-  const handleScroll = () =>{
+  const handleScroll = () => {
     if (window.pageYOffset < 2000) {
-      document.getElementById("topBtn").style.visibility="hidden";
+      document.getElementById("topBtn").style.visibility = "hidden";
     } else {
-      document.getElementById("topBtn").style.visibility="visible";
+      document.getElementById("topBtn").style.visibility = "visible";
     }
   }
 
   window.addEventListener('scroll', handleScroll);
 
   //useEffect(() => {
-    
+
   //}, [handleScroll]);
 
   return (

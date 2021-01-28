@@ -7,14 +7,14 @@ function TermsOfService(props) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center", 
-        backgroundColor: "#292833",
+        backgroundColor: "#2A2A2D",
     }
 
     function largeHeaderStyle(text) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col" style={{ color: "white", fontSize: "40px", backgroundColor: "#292833", }}> {text}</p>
+                <p className="col" style={{ color: "white", fontSize: "40px", backgroundColor: "#2A2A2D", }}> {text}</p>
             </div>
         );
     }
@@ -23,7 +23,7 @@ function TermsOfService(props) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col" style={{ color: "white", fontSize: "20px", backgroundColor: "#292833", }}> {text}</p>
+                <p className="col" style={{ color: "white", fontSize: "20px", backgroundColor: "#2A2A2D", }}> {text}</p>
             </div>
         );
     }
@@ -32,7 +32,7 @@ function TermsOfService(props) {
         return (
             <div className="row">
                 <div className="col-sm-1"></div>
-                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px", backgroundColor: "#292833", }}>{text}</p>
+                <p className="col-8" style={{ color: "#BF9AFC", fontSize: "20px", backgroundColor: "#2A2A2D", }}>{text}</p>
             </div>
         );
     }
