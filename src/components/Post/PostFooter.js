@@ -121,8 +121,9 @@ function PostFooter(props) {
                 bottom: "-1rem",
                 left: "-.7rem"
               }} key={reaction}>
-                <ReactionIcon reaction={reactImg}
-                  usersReacted={usersReacted(reaction)}
+                <ReactionIcon 
+                  reaction={reactImg}
+                  usersReacted={usersReacted}
                   reacted={reacted(reaction)}
                   react={react}
                   text={convertNum(post.reactions[reaction])}
