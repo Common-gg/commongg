@@ -29,7 +29,7 @@ function TruncateText(props) {
             }
         } else {
             if (countNumNewLines(props.text) <= props.maxLines) {
-                setShownText(props.text.subString(0, props.maxChars) + "...");
+                setShownText(props.text.substring(0, props.maxChars) + "...");
             } else {
                 setShownText(firstLines(props.text.substring(0, props.maxChars)) + "...");
             }
