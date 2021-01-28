@@ -215,9 +215,9 @@ function Post(props) {
 
     // basic link
     return (
-      <div>
+      <p style={{display:"inline"}}>
         {link}
-      </div>
+      </p>
     )
   }
 
