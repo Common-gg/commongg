@@ -146,26 +146,6 @@ a:hover {
   color: #BF9AFC;
 }
 
-@media screen and (max-width: 1300px) 
-{
-.createProfileCard {
-  max-width: 30%;
-} }
-
-
-@media screen and (max-width: 850px) and (min-width: 500px) 
-{
-.createProfileCard {
-  max-width: 50%;
-} }
-
-
-@media screen and (max-width: 500px) 
-{
-.createProfileCard {
-  max-width: 60%;
-} }
-
 .modal-content{
   background-color: #2A2A2D ;
 }
@@ -325,28 +305,39 @@ Note: Beware of modifying this element as it can break the animations - you shou
   z-index: 9999999;
 }
 
-@media screen and (max-width: 1300px) 
+@media screen and (max-width: 1300px)
+ 
 {
-.signUpCard {
-  max-width: 30%;
-} 
 
-.loginCard {
-  max-width: 30%;
-}
+  .createProfileCard {
+    max-width: 30%;
+  }
+
+  .signUpCard {
+    max-width: 30%;
+  } 
+
+  .loginCard {
+    max-width: 30%;
+  }
 
 }
 
 
 @media screen and (max-width: 850px) and (min-width: 500px) 
 {
-.signUpCard {
-  max-width: 50%;
-} 
 
-.loginCard {
-  max-width: 50%;
-}
+  .createProfileCard {
+   max-width: 50%;
+  }
+
+  .signUpCard {
+    max-width: 50%;
+  } 
+
+  .loginCard {
+    max-width: 50%;
+  }
 
 /* .NavigationBar {
   visibility: hidden;
@@ -362,29 +353,34 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 @media screen and (max-width: 500px) 
 {
-.signUpCard {
-  max-width: 60%;
-} 
 
-.loginCard {
-  max-width: 60%;
-}
+  .createProfileCard {
+    max-width: 60%;
+  }
 
-.navLinkStyle{
-  font-size: 20px;
+  .signUpCard {
+    max-width: 60%;
+  } 
 
-}
+  .loginCard {
+   max-width: 60%;
+  }
 
-.navIconStyle{
-  width: 20px;
-  height: 20px;
+  .navLinkStyle{
+   font-size: 20px;
 
-}
+  }
 
-.navProfileIconStyle{
-  width: 20px;
-  height: 20px;
-}
+  .navIconStyle{
+    width: 20px;
+    height: 20px;
+
+  }
+
+  .navProfileIconStyle{
+    width: 20px;
+    height: 20px;
+  }
 
 /* .NavigationBar {
   visibility: hidden;

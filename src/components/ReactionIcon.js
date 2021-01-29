@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactToolTip from 'react-tooltip';
+import * as Icon from 'react-bootstrap-icons';
 
 function ReactionIcon(props) {
   const [image, setImage] = useState("");
@@ -50,9 +51,9 @@ function ReactionIcon(props) {
         }}>
         <label style={{
           cursor: "pointer",
-          backgroundColor: (props.reaction !== "reactionplus" ? (props.reacted ? "#5F5177" : "#373241") : null ),
+          backgroundColor: (props.reaction !== "reactionplus" ? (props.reacted ? "#515159" : "#36363b") : null ),
           borderRadius: "8px",
-          padding: "27%",
+          padding: "20%",
           margin: "25%"
         }} htmlFor={props.id}>
           <div style={{
@@ -62,8 +63,8 @@ function ReactionIcon(props) {
               data-tip={toolTipText}
               data-for={props.id + "tt"}
               style={{
-                width: "30px",
-                height: "30px",
+                width: "25px",
+                height: "25px",
               }} src={image} alt=" "
             />
           </div>

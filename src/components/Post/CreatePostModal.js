@@ -4,6 +4,7 @@ import Select from 'react-select';
 import ImageIcon from "../../images/icons/image22.png";
 import Compress from "compress.js";
 import { Modal } from "react-bootstrap";
+import * as Icon from 'react-bootstrap-icons';
 
 function CreatePostModal(props) {
     const [show, setShow] = useState(false);
@@ -298,14 +299,13 @@ function CreatePostModal(props) {
     return (
         <div className="CreatePostModal">
             <button type="button" style={buttonStyle} className="btn btn-primary" onClick={handleShow}>
-                <img
-                    src={excludeIcon}
-                    alt="post button"
+                <Icon.PlusCircle 
+                alt="post button"
                     style={{
                         width: "25px",
                         height: "25px",
                         marginRight: ".5rem"
-                    }} />
+                    }}/>
                     Make a Post
                 </button>
             <Modal show={show} onHide={handleClose} onEntered={() => postTitleRef.current.focus()}>
