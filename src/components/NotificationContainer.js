@@ -47,7 +47,8 @@ function NotificationContainer(props) {
     function handleNotificationClick() {
         props.readNotifications();
         setImageSource(NotificationRead);
-        setReadNotifications(allNotifications);
+        let sortAllNotifications = Object.values(allNotifications).sort((a, b) => (b.timestamp > a.timestamp) ? 1 : ((a.timestamp > b.timestamp) ? -1 : 0));
+        setReadNotifications(sortAllNotifications);
         setUnreadNotifications({});
         tempCounter = 0;
         setUnreadNotificationCounter(tempCounter);
