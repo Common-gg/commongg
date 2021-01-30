@@ -27,16 +27,11 @@ function NotificationContainer(props) {
 
 
     function notificationHandler(notifications, type) {
-        if (notifications === null) return;
-
-        let sortedNotificationArray = Object.values(notifications)
-            .sort((a, b) => (b.timestamp > a.timestamp) ? 1 : ((a.timestamp > b.timestamp) ? -1 : 0));
-
         if (type === "read") {
-            setReadNotifications(sortedNotificationArray);
+            setReadNotifications(notifications);
         }
         else {
-            setUnreadNotifications({ ...allNotifications, ...sortedNotificationArray });
+            setUnreadNotifications({ ...allNotifications, ...notifications });
             tempCounter++
             setUnreadNotificationCounter(tempCounter)
             setImageSource(NotificationUnread);
@@ -47,10 +42,9 @@ function NotificationContainer(props) {
     function handleNotificationClick() {
         props.readNotifications();
         setImageSource(NotificationRead);
-        let sortAllNotifications = Object.values(allNotifications).sort((a, b) => (b.timestamp > a.timestamp) ? 1 : ((a.timestamp > b.timestamp) ? -1 : 0));
-        setReadNotifications(sortAllNotifications);
+        setReadNotifications(allNotifications);
         setUnreadNotifications({});
-        tempCounter = 0;
+        tempCounter=0;
         setUnreadNotificationCounter(tempCounter);
     }
 
