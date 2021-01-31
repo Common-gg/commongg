@@ -1,6 +1,7 @@
 import React from 'react';
 import searchIcon from '../images/icons/search.png'
 import SearchBox from './SearchBox';
+import * as Icon from 'react-bootstrap-icons';
 
 function SearchBar(props) {
 
@@ -18,10 +19,11 @@ function SearchBar(props) {
     position: "relative",
     float: "right",
     top: "-px",
-    width: "30px",
-    height: "30px",
+    width: "25px",
+    height: "25px",
     cursor: "pointer",
     margin: "10px",
+    color: "#BF9AFC"
 
   }
 
@@ -32,9 +34,8 @@ function SearchBar(props) {
           search={props.search}
           allGames={props.allGames}
           setAllGames={props.setAllGames} />
-        <img src={searchIcon}
-          alt="search bar"
-          style={imgStyle} />
+          <Icon.Search alt="search bar"
+          style={imgStyle}/>
       </div>
     </div>
   );

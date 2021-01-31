@@ -83,10 +83,10 @@ function PostFooter(props) {
         <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
           <Icon.ChatText style={{
             position: "relative",
-            bottom: "-17%",
-            width: "37px",
+            top: "17%",
+            width: "25px",
             height: "auto",
-            paddingRight: "30%"
+            marginRight: "10px"
           }} />
         </Link>)
     } else {
@@ -115,13 +115,13 @@ function PostFooter(props) {
             });
             return (
               <div style={{
-                padding: ".8rem",
-                marginRight: "1rem",
+                padding: "5%",
+                marginRight: "8%",
                 position: "relative",
-                bottom: "-1rem",
-                left: "-.7rem"
+                top: "25%",
+                right: "5%"
               }} key={reaction}>
-                <ReactionIcon 
+                <ReactionIcon
                   reaction={reactImg}
                   usersReacted={usersReacted}
                   reacted={reacted(reaction)}
@@ -140,7 +140,7 @@ function PostFooter(props) {
     backgroundColor: "#2A2A2D",
     boxShadow: "4px 4px 25px 0px #060508 ",
     borderRadius: "20px",
-    padding: "10px 0px 10px 10px",
+    padding: "0.5% 0 0.5% 0.5%",
     marginTop: "1%",
   }
 
@@ -236,15 +236,23 @@ function PostFooter(props) {
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
         <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={reactionsPopover}>
-          <div style={{ padding: ".8rem", position: "relative", left: "-1rem", bottom: "-1rem" }}>
+          <div style={{
+            padding: ".8rem",
+            position: "relative",
+            left: "-1rem",
+            bottom: "-1rem"
+          }}>
             <ReactionIcon react={() => { }} reaction="reactionplus" text="" id={"reaction plus" + props.postId} />
           </div>
         </OverlayTrigger>
       </div>
-      <div className="col-4 text-right" style={{ position: 'relative', bottom: '-20px' }}>
-        <div className="row justify-content-end" style={{ padding: "6%" }}>
+      <div className="col-4 text-right"
+        style={{ position: 'relative', bottom: '-20px' }}>
+        <div className="row justify-content-end"
+          style={{ padding: "6%" }}>
           <div style={{ padding: "0px 0px" }}>
-            <Text text={convertNum(props.post.numComments)} style={{
+            <Text text={convertNum(props.post.numComments)} 
+            style={{
               position: "relative",
               bottom: "-35%"
             }} />
