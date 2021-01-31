@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import Text from "./Text.js";
 import Notification from "./Notification.js"
@@ -6,12 +6,20 @@ import NotificationUnread from "../images/icons/notificationfull-1.png";
 import NotificationRead from "../images/icons/notificationempty-1.png";
 
 function NotificationContainer(props) {
-    let tempCounter = 0;
     const [imageSource, setImageSource] = useState(NotificationRead);
     const [unreadNotificationCounter, setUnreadNotificationCounter] = useState(0);
     const [allNotifications, setAllNotifications] = useState({});
     const [readNotifications, setReadNotifications] = useState({});
     const [unreadNotifications, setUnreadNotifications] = useState({});
+
+    //only recalculate sorted notifications if allNotifications updates
+    const sortedNotifications = useMemo(() => {
+        //sort allNotifications by time stamp
+        const ret = Object.values(allNotifications).sort((a, b) => {
+            return a.timestamp - b.timestamp
+        })
+        return ret;
+    }, [allNotifications])
 
 
     useEffect(() => {
@@ -32,8 +40,7 @@ function NotificationContainer(props) {
         }
         else {
             setUnreadNotifications({ ...allNotifications, ...notifications });
-            tempCounter++
-            setUnreadNotificationCounter(tempCounter)
+            setUnreadNotificationCounter((counter) => counter + 1)
             setImageSource(NotificationUnread);
         }
     }
@@ -44,8 +51,7 @@ function NotificationContainer(props) {
         setImageSource(NotificationRead);
         setReadNotifications(allNotifications);
         setUnreadNotifications({});
-        tempCounter=0;
-        setUnreadNotificationCounter(tempCounter);
+        setUnreadNotificationCounter(0);
     }
 
     function deleteNotificationHandler(notificationID) {
@@ -73,8 +79,8 @@ function NotificationContainer(props) {
             <Popover.Content>
                 <div className="popover-body" style={popoverBodyStyle}>
                     <div className="row">
-                        {allNotifications ?
-                            Object.values(allNotifications).reverse().map((notification, i) => {
+                        {sortedNotifications ?
+                            sortedNotifications.map((notification, i) => {
                                 return (
                                     <div style={{ width: "100%" }} key={Object.keys(allNotifications).reverse()[i]} >
                                         {i !== 0 ? <hr style={{ backgroundColor: '#BF9AFC', width: "97%", padding: "0" }} /> : null}
@@ -86,10 +92,10 @@ function NotificationContainer(props) {
                                                     getPost={props.getPost}
                                                     notification={notification}
                                                     deleteNotificationHandler={deleteNotificationHandler}
-                                                    id={Object.keys(allNotifications).reverse()[i]}
+                                                    id={notification.timeStamp + notification.locationID}
                                                 />
                                             </div>
-                                            <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
+                                            <span onClick={() => deleteNotificationHandler(notification.timeStamp + notification.locationID)} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                         </div>
                                     </div>
                                 )

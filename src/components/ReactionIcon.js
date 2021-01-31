@@ -16,10 +16,9 @@ function ReactionIcon(props) {
         setImage(reactionImg.default);
       });
     }
-    if (props.usersReacted && props.usersReacted(props.reaction) != null) {
-      const curUsersReacted = props.usersReacted(props.reaction)
-      if (curUsersReacted.length === 1) {
-        const toolTipString = `${curUsersReacted[0]} reacted with ${props.reaction}`;
+    if (props.usersReacted) {
+      if (props.usersReacted.length === 1) {
+        const toolTipString = `${props.usersReacted[0]} reacted with ${props.reaction}`;
         setToolTipText(toolTipString);
       } else if (curUsersReacted.length === 2) {
         const toolTipString = `${curUsersReacted[0]} and ${curUsersReacted[1]} reacted with ${props.reaction}`;
