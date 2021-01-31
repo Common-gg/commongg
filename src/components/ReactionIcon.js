@@ -15,19 +15,19 @@ function ReactionIcon(props) {
         setImage(reactionImg.default);
       });
     }
-    if (props.usersReacted) {
-      console.log(props.usersReacted(props.reaction));
-      if (props.usersReacted.length === 1) {
-        const toolTipString = `${props.usersReacted[0]} reacted with ${props.reaction}`;
+    if (props.usersReacted && props.usersReacted(props.reaction) != null) {
+      const curUsersReacted = props.usersReacted(props.reaction)
+      if (curUsersReacted.length === 1) {
+        const toolTipString = `${curUsersReacted[0]} reacted with ${props.reaction}`;
         setToolTipText(toolTipString);
-      } else if (props.usersReacted.length === 2) {
-        const toolTipString = `${props.usersReacted[0]} and ${props.usersReacted[1]} reacted with ${props.reaction}`;
+      } else if (curUsersReacted.length === 2) {
+        const toolTipString = `${curUsersReacted[0]} and ${curUsersReacted[1]} reacted with ${props.reaction}`;
         setToolTipText(toolTipString);
-      } else if (props.usersReacted.length === 3) {
-        const toolTipString = `${props.usersReacted[0]}, ${props.usersReacted[1]}, and ${props.usersReacted[2]} reacted with ${props.reaction}`;
+      } else if (curUsersReacted.length === 3) {
+        const toolTipString = `${curUsersReacted[0]}, ${curUsersReacted[1]}, and ${curUsersReacted[2]} reacted with ${props.reaction}`;
         setToolTipText(toolTipString);
-      } else if (props.usersReacted.length > 3) {
-        const toolTipString = `${props.usersReacted[0]}, ${props.usersReacted[1]}, ${props.usersReacted[2]}, and ${props.usersReacted.length - 3} other users reacted with ${props.reaction}`;
+      } else if (curUsersReacted.length > 3) {
+        const toolTipString = `${curUsersReacted[0]}, ${curUsersReacted[1]}, ${curUsersReacted[2]}, and ${curUsersReacted.length - 3} other users reacted with ${props.reaction}`;
         setToolTipText(toolTipString);
       }
     }
