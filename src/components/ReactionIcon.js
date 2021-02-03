@@ -17,6 +17,7 @@ function ReactionIcon(props) {
       });
     }
     if (props.usersReacted) {
+      const curUsersReacted = props.usersReacted(props.reaction)
       if (props.usersReacted.length === 1) {
         const toolTipString = `${props.usersReacted[0]} reacted with ${props.reaction}`;
         setToolTipText(toolTipString);
