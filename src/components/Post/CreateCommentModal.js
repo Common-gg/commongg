@@ -81,7 +81,7 @@ function CreateCommentModal(props) {
         if (url[url.length - 2] === "comment") {
             url.splice(url.length - 2, 1);
             url = url.join("\/");
-            window.location.replace(url);
+            window.history.replaceState({}, "", url);
         }
     }
 
