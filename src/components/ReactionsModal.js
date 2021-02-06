@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ReactionImage from './ReactionImage'
+import ReactionImage from './ReactionImage';
+import ProfilePicture from './ProfilePicture';
 
 function ReactionsModal(props) {
 
@@ -92,17 +93,9 @@ function ReactionsModal(props) {
           </ul>
           <div className="col-8">
             {usersList.map((user) => user ? <Link to={"/profile/" + user.username} onClick={handleClose}><div className="row" style={{ width: "100%", padding: "6px" }}>
-              <img
-                alt={user.username}
-                src={user.profile_picture}
-                style={{
-                  borderRadius: '50%',
-                  height: '1.8rem',
-                  marginRight: '.8rem',
-                  width: '1.8rem',
-                }}
-              />
+              <ProfilePicture user={{ ...user, id:  user.id}} width={30} height={30} />
               <span style={{ color: "white", 
+              marginLeft: '.8rem',
               position: "relative", 
               bottom: "-.2rem" }}
               >{user.username}</span>
