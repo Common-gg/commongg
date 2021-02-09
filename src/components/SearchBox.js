@@ -2,10 +2,12 @@ import React, { useState, Fragment } from 'react';
 import { Typeahead, withAsync } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import { Link, Redirect } from "react-router-dom";
+import InputHelpers from "../helpers/InputHelpers.js";
 
 const AsyncTypeahead = withAsync(Typeahead);
 
 function SearchBox(props) {
+  let inputHelpers = new InputHelpers();
 
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState([]);
@@ -63,18 +65,22 @@ function SearchBox(props) {
 
   const handleSearch = (query) => {
     setIsLoading(true);
-    props.search(query, afterSearch, query);
+    let sanitizedString = inputHelpers.sanitizeSearch(query);
+
+    props.search(sanitizedString, afterSearch, sanitizedString);
+
   };
 
   const filterBy = () => true;
-  
+
   const [enteredValue, setEntered] = useState(null);
   const Arrowhead = (input) => {
-    if(input && input[0] && input[0]["name"] && input[0]["type"] === "game"){
+    console.log(input);
+    if (input && input[0] && input[0]["name"] && input[0]["type"] === "game") {
       let url = "/games/".concat(input[0]["name"]).split(" ").join('').toLowerCase();
       setEntered(url);
     }
-    if(input && input[0] && input[0]["name"] && input[0]["type"] === "user"){
+    if (input && input[0] && input[0]["name"] && input[0]["type"] === "user") {
       let url = "/profile/".concat(input[0]["name"]);
       setEntered(url);
     }
@@ -108,11 +114,12 @@ function SearchBox(props) {
                     width: '1.8rem',
                   }}
                 />
-                <span style={{ 
-                  color: "white", 
-                  position: "relative", 
-                  bottom: "-.2rem" }}
-                  >{option.name}</span>
+                <span style={{
+                  color: "white",
+                  position: "relative",
+                  bottom: "-.2rem"
+                }}
+                >{option.name}</span>
               </div>
             </Link>}
             {option.type === "game" && <Link to={"/games/" + option.name.split(" ").join('').toLowerCase()}>
@@ -127,10 +134,11 @@ function SearchBox(props) {
                     width: '1.8rem',
                   }}
                 />
-                <span style={{ 
-                  color: "white", 
-                  position: "relative", 
-                  bottom: "-.2rem" }}>{option.name}</span>
+                <span style={{
+                  color: "white",
+                  position: "relative",
+                  bottom: "-.2rem"
+                }}>{option.name}</span>
               </div>
             </Link>}
             {option.type === "label" &&
