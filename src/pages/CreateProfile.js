@@ -71,7 +71,7 @@ function CreateProfile(props) {
         setFailedExists(true);
       } else {
         if (img === blankPfp) {
-          props.storeUserProfile(displayName.current.value, blankPfp, "");
+          getBlankPfp(document.getElementById("blankPfpImageId"), "blank_pfp.png");
         }
         else {
           props.storeBlob(displayName.current.value, img, "");
@@ -80,6 +80,26 @@ function CreateProfile(props) {
     });
     displayValidationMessage();
   }
+
+  const getBlankPfp = (image, fileName) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(
+      image,
+      0,
+      0
+    );
+
+    canvas.toBlob(blob => {
+      if (blob === null) return;
+      blob.name = fileName;
+      props.storeBlob(displayName.current.value, blob, "");
+    }, 'image/png', 1);
+  }
+
   const buttonStyle = {
     marginBottom: "15%",
     marginTop: "10%",
@@ -165,6 +185,7 @@ function CreateProfile(props) {
 
   return (
     <div className="CreateProfile">
+      <img src={blankPfp} id="blankPfpImageId" style={{ display: "none" }} />
       <div className="mx-auto card text-center createProfileCard">
         <br />
         <h4 style={{ marginTop: "7%" }}>Create Your Profile</h4>
