@@ -72,7 +72,7 @@ function Post(props) {
       props.childPostRefresh();
     } else {
       //we deleted and redirect to home
-      history.goBack.pageYOffset= historyScrollPosition;
+      history.goBack.pageYOffset = historyScrollPosition;
       history.goBack();
     }
   }
@@ -216,7 +216,7 @@ function Post(props) {
 
     // basic link
     return (
-      <p style={{display:"inline"}}>
+      <p style={{ display: "inline" }}>
         {link}
       </p>
     )
@@ -321,7 +321,6 @@ function Post(props) {
   const checkPostNum = isVisible => {
     if (isVisible && !props.loading && props.postNum >= props.numPostsLoaded - 7) {
       props.setLoading(true);
-      console.log(true);
       props.setNumPostsToLoad(props.numPostsToLoad + 10);
     }
   }
@@ -455,7 +454,7 @@ function Post(props) {
               </Linkify>
               {checkType()}
               {props.pageState === undefined ? (<Link to={"/post/" + props.postId}>
-                <button onClick = {historyScrollPosition} style={expandButtonStyle}>
+                <button onClick={historyScrollPosition} style={expandButtonStyle}>
                   View Post
                 </button>
               </Link>) : null}
