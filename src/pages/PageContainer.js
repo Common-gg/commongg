@@ -23,6 +23,7 @@ function PageContainer(props) {
   const [profilePictureImage, setProfilePictureImage] = useState({
     link: ""
   });
+  const [topButton, setTopButton] = useState(0);
 
   const sticky = {
     position: "fixed"
@@ -62,10 +63,6 @@ function PageContainer(props) {
   }
 
   window.addEventListener('scroll', handleScroll);
-
-  //useEffect(() => {
-
-  //}, [handleScroll]);
 
   return (
     <div className="PageContainer">
@@ -147,6 +144,7 @@ function PageContainer(props) {
               numPostsToLoad={numPostsToLoad}
               setNumPostsLoaded={setNumPostsLoaded}
               numPostsLoaded={numPostsLoaded}
+              topButton={topButton}
             />
           </div>
           <div style={{ width: "33%" }}>
@@ -157,13 +155,16 @@ function PageContainer(props) {
                 bottom: "-2.5rem",
                 left: "88%"
               }}>
-                <button 
+                <button
                   className="btn btn-primary"
                   id="topBtn"
-                  onClick={() => window.scrollTo(0, 0)}
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    setTopButton(topButton + 1);
+                  }}
                   style={topOfPageButtonStyle}>
-                  <img src={TopOfPageImage} 
-                  style={topOfPageImageStyle} />
+                  <img src={TopOfPageImage}
+                    style={topOfPageImageStyle} />
                 </button>
               </div>
             </div>

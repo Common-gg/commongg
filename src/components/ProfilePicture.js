@@ -11,7 +11,6 @@ function ProfilePicture(props) {
   }, [profileImageRef])
 
   function handleClick(link) {
-    console.log("changing");
     props.setProfilePictureImage({
       link: link
     });
