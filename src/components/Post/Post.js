@@ -100,9 +100,9 @@ function Post(props) {
 
   function handleShowReactions() {
     //show the modal and then set the current reactions
-    props.setShowModal(true);
+    props.setShowReactionsModal(true);
     //calculate the reaction mapping and set it to modal content
-    props.setModalContent(reactionMap());
+    props.setReactionsModalContent(reactionMap());
   }
 
   function checkOptions() {

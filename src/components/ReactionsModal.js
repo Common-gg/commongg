@@ -11,14 +11,14 @@ function ReactionsModal(props) {
   const [usersList, setUsersList] = useState([]);
 
   const handleClose = () => {
-    props.setShowModal(false);
+    props.setShowReactionsModal(false);
   }
 
-  
+
   const modalHeaderStyle = {
     borderBottom: "0 none",
     textAlign: "center",
-    marginBottom: "-30px", 
+    marginBottom: "-30px",
     marginTop: "-10px",
     backgroundColor: "#2A2A2D",
     color: "#BF9AFC",
@@ -93,11 +93,13 @@ function ReactionsModal(props) {
           </ul>
           <div className="col-8">
             {usersList.map((user) => user ? <Link to={"/profile/" + user.username} onClick={handleClose}><div className="row" style={{ width: "100%", padding: "6px" }}>
-              <ProfilePicture user={{ ...user, id:  user.id}} width={30} height={30} />
-              <span style={{ color: "white", 
-              marginLeft: '.8rem',
-              position: "relative", 
-              bottom: "-.2rem" }}
+              <ProfilePicture user={{ ...user, id: user.id }} width={30} height={30} />
+              <span style={{
+                color: "white",
+                marginLeft: '.8rem',
+                position: "relative",
+                bottom: "-.2rem"
+              }}
               >{user.username}</span>
             </div></Link> : null)}
           </div>
@@ -117,10 +119,10 @@ function ReactionsModal(props) {
 
   return (
     <div className="CreateReactionModal" >
-      <Modal show={props.showModal} onHide={handleClose}>
+      <Modal show={props.showReactionsModal} onHide={handleClose}>
         <div style={modalContentStyle}>
           <Modal.Header closeButton style={modalHeaderStyle}>
-            <p style={{fontSize: "1.75rem"}}>Reactions</p>
+            <p style={{ fontSize: "1.75rem" }}>Reactions</p>
           </Modal.Header>
           <Modal.Body>
             <div className="container">

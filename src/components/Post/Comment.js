@@ -49,9 +49,9 @@ function Comment(props) {
 
     function handleShowReactions() {
         //show the modal and then set the current reactions
-        props.setShowModal(true);
+        props.setShowReactionsModal(true);
         //calculate the reaction mapping and set it to modal content
-        props.setModalContent(reactionMap());
+        props.setReactionsModalContent(reactionMap());
     }
 
     function checkOptions() {
@@ -77,12 +77,13 @@ function Comment(props) {
                             marginRight: "-18rem"
                         }} />
                 </div>
-                <div className="dropdown-menu-right dropdown-menu" 
-                aria-labelledby="dropdownMenuButton" 
-                style={{ 
-                    backgroundColor: "#BF9AFC", 
-                    marginTop: "-1rem", 
-                    marginRight: "-18rem" }}>
+                <div className="dropdown-menu-right dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                    style={{
+                        backgroundColor: "#BF9AFC",
+                        marginTop: "-1rem",
+                        marginRight: "-18rem"
+                    }}>
                     {props.currentUserId === comment.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => handleDeleteClicked(commentId, comment.postId)} style={{ cursor: "pointer" }}>Delete Comment</p> : null}
                     <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
                     {props.currentUserId !== comment.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/comments", commentId)} style={{ cursor: "pointer" }}>Report Comment</p> : null}
