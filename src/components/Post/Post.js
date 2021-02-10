@@ -217,7 +217,7 @@ function Post(props) {
     // basic link
     return (
       <p style={{ display: "inline" }}>
-        {link}
+        {text}
       </p>
     )
   }
@@ -438,7 +438,7 @@ function Post(props) {
                   href={decoratedHref}
                   key={key}
                   style={{ color: "#BF9AFC" }}>
-                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>, null)}
+                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', display: "inline" }}>{decoratedText}</p>, null)}
                 </a>
               )}>
                 {/*<Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>
