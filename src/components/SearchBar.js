@@ -29,14 +29,19 @@ function SearchBar(props) {
 
   return (
     <div>
-      <div className="Input" style={barStyle} >
-        <SearchBox
-          search={props.search}
-          allGames={props.allGames}
-          setAllGames={props.setAllGames} />
-          <Icon.Search alt="search bar"
-          style={imgStyle}/>
-      </div>
+      <nav className="navBar">
+        <div className="container-fluid">
+          <div className="Input" style={barStyle} >
+            <SearchBox
+              search={props.search}
+              allGames={props.allGames}
+              setAllGames={props.setAllGames} />
+            <Icon.Search alt="search bar"
+              style={imgStyle} />
+          </div>
+        </div>
+      </nav>
+      <hr style={{ backgroundColor: '#BF9AFC', width: '100%', left: "5px" }} />
     </div>
   );
 }

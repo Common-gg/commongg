@@ -45,13 +45,13 @@ function ReactionIcon(props) {
           backgroundColor: "transparent",
           padding: "0 0 0 0",
           position: "relative",
-          width: "30px",
-          height: "30px",
+          width: "20px",
+          height: "20px",
 
         }}>
         <label style={{
           cursor: "pointer",
-          backgroundColor: (props.reaction !== "reactionplus" ? (props.reacted ? "#515159" : "#36363b") : null ),
+          backgroundColor: (props.reaction !== "reactionplus" ? (props.reacted ? "#5F5177" : "#383241") : null ),
           borderRadius: "8px",
           padding: "20%",
           margin: "25%"

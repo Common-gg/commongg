@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../images/icons/logo1light.png";
 import arrow from "../images/icons/arrow-right.png";
 import Input from '../components/Input.js';
+import bg from '../images/background-element.png';
 
 function Login(props) {
 
@@ -59,6 +60,7 @@ function Login(props) {
   }
 
   return (
+    // <div  style={{backgroundImage: `url(${bg})`, backgroundRepeat: "no-repeat", backgroundSize: "auto", backgroundPosition: "center"}}>
     <div className="Login">
       <div className="mx-auto card text-center loginCard">
         <div style={{ margin: "20px 20px 0px 20px" }}>
@@ -135,6 +137,7 @@ function Login(props) {
         <div className="col-4"></div>
       </div>
     </div>
+    // </div>
   );
 }
 

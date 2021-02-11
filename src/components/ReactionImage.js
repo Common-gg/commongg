@@ -13,8 +13,8 @@ function ReactionImage(props) {
     <img
         style={{
         background: "transparent",
-        width: "30px",
-        height: "30px",
+        width: "20px",
+        height: "20px",
 
         }} src={image} alt={props.reaction}
     />
