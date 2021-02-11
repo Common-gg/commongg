@@ -116,7 +116,7 @@ function PostFooter(props) {
             return (
               <div style={{
                 padding: "5%",
-                marginRight: "8%",
+                marginRight: "4%",
                 position: "relative",
                 top: "25%",
                 right: "5%"
