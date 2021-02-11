@@ -55,10 +55,14 @@ function PageContainer(props) {
   }, [backClicked]);
 
   const handleScroll = () => {
-    if (window.pageYOffset < 2000) {
-      document.getElementById("topBtn").style.visibility = "hidden";
-    } else {
-      document.getElementById("topBtn").style.visibility = "visible";
+    let topButton = document.getElementById("topBtn");
+
+    if (topButton !== null) {
+      if (window.pageYOffset < 2000) {
+        topButton.style.visibility = "hidden";
+      } else {
+        topButton.style.visibility = "visible";
+      }
     }
   }
 
