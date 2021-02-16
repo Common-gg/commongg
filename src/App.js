@@ -134,17 +134,27 @@ function App() {
     return 9999999999999 - timestamp;
   }
 
-  const addNotification = (targetUserID, type, locationID = "") => {
+  const addNotification = (targetUserID, type, locationID = "", parentID) => {
 
     if (currentUser.uid === targetUserID) return;
     firebaseTimeStamp(storeNotification);
     function storeNotification(timestamp) {
-      database.ref(`/users/${targetUserID}/notifications/unread/${currentUser.uid + type + locationID}`).update({
-        userID: currentUser.uid,
-        type: type,
-        timestamp: timestamp,
-        locationID: locationID
-      });
+      if (parentID !== undefined) {
+        database.ref(`/users/${targetUserID}/notifications/unread/${currentUser.uid + type + locationID}`).update({
+          userID: currentUser.uid,
+          type: type,
+          timestamp: timestamp,
+          locationID: locationID,
+          parentID: parentID
+        });
+      } else {
+        database.ref(`/users/${targetUserID}/notifications/unread/${currentUser.uid + type + locationID}`).update({
+          userID: currentUser.uid,
+          type: type,
+          timestamp: timestamp,
+          locationID: locationID
+        });
+      }
     }
   }
 
@@ -606,7 +616,7 @@ function App() {
     })
 
     if (parentID !== undefined) {
-      addNotification(postAuthorID, `${postType}_reaction`, parentID);
+      addNotification(postAuthorID, `${postType}_reaction`, postId, parentID);
     } else {
       addNotification(postAuthorID, `${postType}_reaction`, postId);
     }
