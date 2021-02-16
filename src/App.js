@@ -320,12 +320,14 @@ function App() {
   const signInUser = (email, password, callback) => {
     // logs the user in
     auth.signInWithEmailAndPassword(email, password).then(() => {
-      analytics.logEvent("login_success")
+      analytics.logEvent("login_success");
+      console.log("reached");
       let url = window.location.href;
         url = url.split('/');
-        if (url[url.length - 1] === "comment") {
+        if (url[url.length - 1] === "login") {
             url.splice(url.length - 1, 1);
             url = url.join("\/");
+            console.log(url);
             window.history.replaceState({}, "", url);
         }
       return callback(true);
