@@ -55,6 +55,7 @@ function NotificationContainer(props) {
     }
 
     function deleteNotificationHandler(notificationID) {
+        if(notificationID.includes("undefined")) return;
         let tempObj = { ...readNotifications };
         delete tempObj[notificationID];
         setReadNotifications(tempObj);
@@ -92,10 +93,10 @@ function NotificationContainer(props) {
                                                     getPost={props.getPost}
                                                     notification={notification}
                                                     deleteNotificationHandler={deleteNotificationHandler}
-                                                    id={notification.timeStamp + notification.locationID}
+                                                    id={Object.keys(allNotifications).reverse()[i]}
                                                 />
                                             </div>
-                                            <span onClick={() => deleteNotificationHandler(notification.timeStamp + notification.locationID)} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
+                                            <span onClick={() => deleteNotificationHandler(Object.keys(allNotifications).reverse()[i])} style={{ color: '#BF9AFC', fontSize: "1.5rem", cursor: "pointer" }}>&times;</span>
                                         </div>
                                     </div>
                                 )
