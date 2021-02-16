@@ -157,7 +157,6 @@ function Post(props) {
       }
     }
     if (clip.length !== 0) {
-      console.log(clip[0]);
       return (<div>{text}<TwitchClipEmbed clip={clip[0]}></TwitchClipEmbed></div>)
     }
 
