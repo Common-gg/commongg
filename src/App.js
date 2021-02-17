@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
 import SignUp from "./pages/SignUp";
@@ -330,7 +330,16 @@ function App() {
   const signInUser = (email, password, callback) => {
     // logs the user in
     auth.signInWithEmailAndPassword(email, password).then(() => {
-      analytics.logEvent("login_success")
+      analytics.logEvent("login_success");
+      console.log("reached");
+      let url = window.location.href;
+        url = url.split('/');
+        if (url[url.length - 1] === "login") {
+            url.splice(url.length - 1, 1);
+            url = url.join("\/");
+            console.log(url);
+            window.history.replaceState({}, "", url);
+        }
       return callback(true);
     }).catch((error) => {
       analytics.logEvent("login_fail")
@@ -840,9 +849,9 @@ function App() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/SignUp" render={
+          <Route exact path="/login" render={
             (props) => (
-              <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
+              <Login signInUser={signInUser} />
             )} />
           <Route path="/actions/" render={
             (props) => (
@@ -859,7 +868,7 @@ function App() {
           />
           <Route path="/" render={
             (props) => (
-              <Login signInUser={signInUser} />
+              <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
         </Switch>
       </Router>
@@ -890,7 +899,7 @@ function App() {
             )} />
         </Switch>
       </Router>
-    )
+    ) 
   } else {
     return (
       <Router>

@@ -116,7 +116,7 @@ function Login(props) {
       <div className="row">
         <div className="col-4"></div>
         <div className="text-center col-4">
-          <Link to="/signup" style={{
+          <Link to="/" style={{
             position: "relative",
             padding: '.3rem',
             lineHeight: "0.5rem",
