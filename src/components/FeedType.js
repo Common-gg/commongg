@@ -31,8 +31,8 @@ function FeedType(props) {
   });
 
   //feedtype toggles both reaction modal state and content by passing callback to post
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(undefined);
+  const [showReactionsModal, setShowReactionsModal] = useState(false);
+  const [reactionsModalContent, setReactionsModalContent] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
   const [childRefresh, setChildRefresh] = useState(0);
@@ -130,7 +130,7 @@ function FeedType(props) {
 
   return (
     <div>
-      <ReactionsModal getUserWithUsername={props.getUserWithUsername} setShowModal={setShowModal} showModal={showModal} content={modalContent}></ReactionsModal>
+      <ReactionsModal getUserWithUsername={props.getUserWithUsername} setShowReactionsModal={setShowReactionsModal} showReactionsModal={showReactionsModal} content={reactionsModalContent} />
       {(props.clientFilter ? Object.values(posts).reverse() : Object.values(posts)).map((post, i) => {
         if (post.author !== "404" && i < props.numPostsToLoad)
           return (
@@ -149,8 +149,8 @@ function FeedType(props) {
                     childPostRefresh={childPostRefresh}
                     setModalImage={props.setModalImage}
                     setBackClicked={props.setBackClicked}
-                    setShowModal={setShowModal}
-                    setModalContent={setModalContent}
+                    setShowReactionsModal={setShowReactionsModal}
+                    setReactionsModalContent={setReactionsModalContent}
                     reactions={props.reactions}
                   />
                   <br />
