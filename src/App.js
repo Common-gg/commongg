@@ -718,11 +718,39 @@ function App() {
 
   const search = (value, callback, query) => {
     // search the db
-    const usersRef = database.ref('/users/').orderByChild('lower').startAt(value.toLowerCase()).endAt(value.toLowerCase() + "\uf8ff");
+    const usersRef = database.ref('/users/').orderByChild("lower");
+
     usersRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) {
-        analytics.logEvent("query_results_found")
-        return callback(snapshot.val(), query);
+
+        let searchResults = [];
+        let searchResultsStart = [];
+        let exactEqual = [];
+
+        snapshot.forEach(childSnapshot => {
+          let user = childSnapshot.val();
+
+          if ((user !== undefined) && (user !== null) && (user.hasOwnProperty("lower")) && (user.lower.includes(value.toLowerCase()))) {
+
+            if (user.lower === value.toLowerCase()) {
+              exactEqual.push(user);
+            }
+            else if (user.lower.indexOf(value.toLowerCase()) === 0) {
+              searchResultsStart.push(user);
+            }
+            else {
+              searchResults.push(user);
+            }
+          }
+        });
+        searchResults.sort((a, b) => a.lower.length - b.lower.length);
+        searchResultsStart.sort((a, b) => a.lower.length - b.lower.length);
+
+        let combinedResults = exactEqual.concat(searchResultsStart).concat(searchResults);
+
+        analytics.logEvent("query_results_found");
+
+        return callback(combinedResults, query);
       } else {
         //return empty object since no result
         analytics.logEvent("query_results_empty")
