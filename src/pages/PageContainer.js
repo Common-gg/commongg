@@ -97,20 +97,35 @@ function PageContainer(props) {
           background: "rgba(0, 0, 0, 0) !important"
         }}>
           <div className="modal-content" style={modalContentStyle}>
-            <Imgix
-              src={profilePictureImage.link}
-              sizes="90vw"
-              htmlAttributes={{
-                alt: "profile image",
-                style: {
+            {profilePictureImage.link.includes('firebasestorage') ?
+              <Imgix
+                src={profilePictureImage.link}
+                sizes="90vw"
+                htmlAttributes={{
+                  alt: "profile image",
+                  style: {
+                    position: "absolute",
+                    top: "45vh",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    borderRadius: "100%"
+                  }
+                }}
+              />
+              :
+              <img
+                src={profilePictureImage.link}
+                alt="profile image"
+                style={{
                   position: "absolute",
                   top: "45vh",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
                   borderRadius: "100%"
-                }
-              }}
-            />
+                }}
+              >
+              </img>
+            }
           </div>
         </div>
       </div>
