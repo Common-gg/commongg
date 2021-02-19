@@ -89,7 +89,7 @@ function ForgotPassword(props) {
             <div className="row">
                 <div className="col-4"></div>
                 <div className="text-center col-4">
-                    <Link to="/">
+                    <Link to="/login">
                         <p className="col" style={{
                             position: "relative",
                             padding: '.3rem',

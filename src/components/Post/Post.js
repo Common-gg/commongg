@@ -23,7 +23,7 @@ function Post(props) {
   const history = useHistory();
   const postImageRef = useRef();
   const linkRegex = /(([a-z]+:\/\/)?(([a-z0-9\-]+\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal))(:[0-9]{1,5})?(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@/?]*)?)(\s+|$)/gi;
-  const twitchClipRegexp = /(?:twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z]+))|(?:clips\.twitch\.tv\/([a-zA-Z]+))/g;
+  const twitchClipRegexp = /(?:twitch\.tv\/[a-zA-Z0-9][\w]{2,24}\/clip\/([a-zA-Z0-9-]+))|(?:clips\.twitch\.tv\/([a-zA-Z0-9-]+))/g;
   const twitchStreamRegexp = /twitch\.tv\/([a-zA-Z0-9_]{4,25})/g;
   const youtubeRegexp = /(?:youtube\.com\/watch\?v=([0-9a-zA-Z-_]{11}))|(?:youtu\.be\/([0-9a-zA-Z-_]{11}))|(?:youtube\.com\/embed\/([0-9a-zA-Z-_]{11}))/g;
   const imageRegexp = /\.((jpe?g)|(JPE?G)|(png)|(PNG)|(gif)|(gifv))/g;
@@ -100,9 +100,9 @@ function Post(props) {
 
   function handleShowReactions() {
     //show the modal and then set the current reactions
-    props.setShowModal(true);
+    props.setShowReactionsModal(true);
     //calculate the reaction mapping and set it to modal content
-    props.setModalContent(reactionMap());
+    props.setReactionsModalContent(reactionMap());
   }
 
   function checkOptions() {
@@ -217,7 +217,7 @@ function Post(props) {
     // basic link
     return (
       <p style={{ display: "inline" }}>
-        {link}
+        {text}
       </p>
     )
   }
@@ -438,7 +438,7 @@ function Post(props) {
                   href={decoratedHref}
                   key={key}
                   style={{ color: "#BF9AFC" }}>
-                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{decoratedText}</p>, null)}
+                  {checkEmbeded(decoratedHref, <p style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', display: "inherit"}}>{decoratedText}</p>, null)}
                 </a>
               )}>
                 {/*<Link to={"/post/" + props.postId} style={{ textDecoration: 'none' }}>

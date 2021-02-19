@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../Post/Post.js';
 import Comment from '../../components/Post/Comment.js';
+import ReactionsModal from '../ReactionsModal.js';
 
 function ViewPostContainer(props) {
 
@@ -24,6 +25,8 @@ function ViewPostContainer(props) {
     });
     const [offSet, setOffSet] = useState(null);
     const [showComment, setShowComment] = useState(false);
+    const [showReactionsModal, setShowReactionsModal] = useState(false);
+    const [reactionsModalContent, setReactionsModalContent] = useState(undefined);
     const [sortedComments, setSortedComments] = useState([]);
     const [commentRefresh, setCommentRefresh] = useState(0);
     const updateRefresh = function () {
@@ -70,14 +73,25 @@ function ViewPostContainer(props) {
 
     return (
         <div className="ViewPostContainer">
-            <Post {...props} post={post} postId={props.pageId}
-                updateRefresh={updateRefresh} show={showComment}
-                isPostPage={true} isBackButtonVisible={true} setBackClicked={props.setBackClicked}
+            <ReactionsModal getUserWithUsername={props.getUserWithUsername} setShowReactionsModal={setShowReactionsModal} showReactionsModal={showReactionsModal} content={reactionsModalContent} />
+            <Post
+                {...props}
+                post={post}
+                postId={props.pageId}
+                updateRefresh={updateRefresh}
+                show={showComment}
+                isPostPage={true}
+                isBackButtonVisible={true}
+                setBackClicked={props.setBackClicked}
                 style={{
                     paddingBottom: '0px',
                     paddingLeft: '20px',
                     paddingRight: '20px'
                 }}
+                setShowReactionsModal={setShowReactionsModal}
+                showReactionsModal={showReactionsModal}
+                setReactionsModalContent={setReactionsModalContent}
+                reactions={props.reactions}
             />
             <br />
             {sortedComments.map((comment) => {
@@ -85,7 +99,15 @@ function ViewPostContainer(props) {
                     return (
                         <div key={comment[0]}>
                             <hr style={{ backgroundColor: '#5F5177', width: '100%' }} />
-                            <Comment {...props} commentId={comment[0]} updateRefresh={updateRefresh} />
+                            <Comment
+                                {...props}
+                                commentId={comment[0]}
+                                updateRefresh={updateRefresh}
+                                setShowReactionsModal={setShowReactionsModal}
+                                showReactionsModal={showReactionsModal}
+                                setReactionsModalContent={setReactionsModalContent}
+                                reactions={props.reactions}
+                            />
                         </div>
                     )
                 }

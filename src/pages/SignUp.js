@@ -270,7 +270,7 @@ function SignUp(props) {
             color: "#BF9AFC",
           }}>
             Already Have an Account? </p>
-          <Link to="/">
+          <Link to="/login">
             <p className="col" style={{
               position: "relative",
               padding: '.3rem',

@@ -55,10 +55,14 @@ function PageContainer(props) {
   }, [backClicked]);
 
   const handleScroll = () => {
-    if (window.pageYOffset < 2000) {
-      document.getElementById("topBtn").style.visibility = "hidden";
-    } else {
-      document.getElementById("topBtn").style.visibility = "visible";
+    let topButton = document.getElementById("topBtn");
+
+    if (topButton !== null) {
+      if (window.pageYOffset < 2000) {
+        topButton.style.visibility = "hidden";
+      } else {
+        topButton.style.visibility = "visible";
+      }
     }
   }
 
@@ -93,20 +97,35 @@ function PageContainer(props) {
           background: "rgba(0, 0, 0, 0) !important"
         }}>
           <div className="modal-content" style={modalContentStyle}>
-            <Imgix
-              src={profilePictureImage.link}
-              sizes="90vw"
-              htmlAttributes={{
-                alt: "profile image",
-                style: {
+            {profilePictureImage.link.includes('firebasestorage') ?
+              <Imgix
+                src={profilePictureImage.link}
+                sizes="90vw"
+                htmlAttributes={{
+                  alt: "profile image",
+                  style: {
+                    position: "absolute",
+                    top: "45vh",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    borderRadius: "100%"
+                  }
+                }}
+              />
+              :
+              <img
+                src={profilePictureImage.link}
+                alt="profile image"
+                style={{
                   position: "absolute",
                   top: "45vh",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
                   borderRadius: "100%"
-                }
-              }}
-            />
+                }}
+              >
+              </img>
+            }
           </div>
         </div>
       </div>

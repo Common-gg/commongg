@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
 import SignUp from "./pages/SignUp";
@@ -134,17 +134,27 @@ function App() {
     return 9999999999999 - timestamp;
   }
 
-  const addNotification = (targetUserID, type, locationID = "") => {
+  const addNotification = (targetUserID, type, locationID = "", parentID) => {
 
     if (currentUser.uid === targetUserID) return;
     firebaseTimeStamp(storeNotification);
     function storeNotification(timestamp) {
-      database.ref(`/users/${targetUserID}/notifications/unread/${currentUser.uid + type + locationID}`).update({
-        userID: currentUser.uid,
-        type: type,
-        timestamp: timestamp,
-        locationID: locationID
-      });
+      if (parentID !== undefined) {
+        database.ref(`/users/${targetUserID}/notifications/unread/${currentUser.uid + type + locationID}`).update({
+          userID: currentUser.uid,
+          type: type,
+          timestamp: timestamp,
+          locationID: locationID,
+          parentID: parentID
+        });
+      } else {
+        database.ref(`/users/${targetUserID}/notifications/unread/${currentUser.uid + type + locationID}`).update({
+          userID: currentUser.uid,
+          type: type,
+          timestamp: timestamp,
+          locationID: locationID
+        });
+      }
     }
   }
 
@@ -320,7 +330,16 @@ function App() {
   const signInUser = (email, password, callback) => {
     // logs the user in
     auth.signInWithEmailAndPassword(email, password).then(() => {
-      analytics.logEvent("login_success")
+      analytics.logEvent("login_success");
+      console.log("reached");
+      let url = window.location.href;
+        url = url.split('/');
+        if (url[url.length - 1] === "login") {
+            url.splice(url.length - 1, 1);
+            url = url.join("\/");
+            console.log(url);
+            window.history.replaceState({}, "", url);
+        }
       return callback(true);
     }).catch((error) => {
       analytics.logEvent("login_fail")
@@ -606,7 +625,7 @@ function App() {
     })
 
     if (parentID !== undefined) {
-      addNotification(postAuthorID, `${postType}_reaction`, parentID);
+      addNotification(postAuthorID, `${postType}_reaction`, postId, parentID);
     } else {
       addNotification(postAuthorID, `${postType}_reaction`, postId);
     }
@@ -708,11 +727,39 @@ function App() {
 
   const search = (value, callback, query) => {
     // search the db
-    const usersRef = database.ref('/users/').orderByChild('lower').startAt(value.toLowerCase()).endAt(value.toLowerCase() + "\uf8ff");
+    const usersRef = database.ref('/users/').orderByChild("lower");
+
     usersRef.once('value', function (snapshot) {
       if (snapshot.val() !== null) {
-        analytics.logEvent("query_results_found")
-        return callback(snapshot.val(), query);
+
+        let searchResults = [];
+        let searchResultsStart = [];
+        let exactEqual = [];
+
+        snapshot.forEach(childSnapshot => {
+          let user = childSnapshot.val();
+
+          if ((user !== undefined) && (user !== null) && (user.hasOwnProperty("lower")) && (user.lower.includes(value.toLowerCase()))) {
+
+            if (user.lower === value.toLowerCase()) {
+              exactEqual.push(user);
+            }
+            else if (user.lower.indexOf(value.toLowerCase()) === 0) {
+              searchResultsStart.push(user);
+            }
+            else {
+              searchResults.push(user);
+            }
+          }
+        });
+        searchResults.sort((a, b) => a.lower.length - b.lower.length);
+        searchResultsStart.sort((a, b) => a.lower.length - b.lower.length);
+
+        let combinedResults = exactEqual.concat(searchResultsStart).concat(searchResults);
+
+        analytics.logEvent("query_results_found");
+
+        return callback(combinedResults, query);
       } else {
         //return empty object since no result
         analytics.logEvent("query_results_empty")
@@ -802,9 +849,9 @@ function App() {
     return (
       <Router>
         <Switch>
-          <Route exact path="/SignUp" render={
+          <Route exact path="/login" render={
             (props) => (
-              <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
+              <Login signInUser={signInUser} />
             )} />
           <Route path="/actions/" render={
             (props) => (
@@ -821,7 +868,7 @@ function App() {
           />
           <Route path="/" render={
             (props) => (
-              <Login signInUser={signInUser} />
+              <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
         </Switch>
       </Router>
@@ -852,7 +899,7 @@ function App() {
             )} />
         </Switch>
       </Router>
-    )
+    ) 
   } else {
     return (
       <Router>
