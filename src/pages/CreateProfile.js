@@ -198,7 +198,7 @@ function CreateProfile(props) {
           placeholder="username"
           track={setDisplayName} />
         {displayValidationMessage()}
-        <span style={{ marginTop: "9%", marginBottom: "5%" }}>Add a Profile Picture</span>
+        <span style={{ marginTop: "9%", marginBottom: "5%" }}>Add a Profile Picture (Optional)</span>
         <DisplayImage
           className="mx-auto"
           type="profileImage"

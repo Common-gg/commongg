@@ -6,6 +6,8 @@ import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
 import { Modal, Form } from "react-bootstrap";
 import InputHelpers from "../helpers/InputHelpers.js";
+import FeedImage from "../images/signup-static-feed.png";
+import Text from "../components/Text.js";
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };
@@ -185,103 +187,144 @@ function SignUp(props) {
   }
 
   return (
-    <div className="SignUp">
-      <Modal show={showTosModal} style={modalStyle} >
-        <Modal.Body style={modalBodyStyle}>
-          <div className="row">
-            <button type="button" style={{ marginLeft: "42rem", color: "#BF9AFC" }} className="close" aria-label="Close">
-              <span id="createPostX" aria-hidden="true" onClick={() => { setShowTosModal(false) }}>&times;</span>
-            </button>
-            <TermsOfService />
-            <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
-          </div>
-        </Modal.Body>
-      </Modal>
-      <div className="mx-auto card signUpCard">
+    <div className="container-fluid">
+      <div className="signUpBackground">
+        <div className="row">
+          <div className="col-xl-1 col-md-0">
 
-        <div style={{ margin: "20px 20px 0px 20px" }}>
-          <div className="row mx-auto">
-            <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
-              <img style={logoCSS} src={logo} />
-              <div style={{ pointerEvents: "none" }}></div>
-            </div>
-            <br />
-            <div className="form-group col-12">
-              <p style={{ 
-                position: "relative", 
-                color: "#BF9AFC", 
-                textAlign: "center", 
-                }}> Sign Up </p>
-              <div className="row mx-auto">
-                <Input type="email"
-                  bootstrap="border-0"
-                  placeholder="email"
-                  track={setEmail}
-                  style={inputStyle} />
+          </div>
+          <div className="col-6 d-none d-md-block" style={{marginTop: "50px"}}>
+            <div className="row">
+              <div className="col-2" style={{marginRight: "50px"}}>
+
+              </div>
+              <div className="col-2" style={{ marginRight: "-30px" }}>
+                <img style={logoCSS} src={logo} />
+              </div>
+              <div className="col-auto" style={{ marginLeft: "0px" }}>
+                <p style={{
+                  fontSize: "25px",
+                  position: "relative",
+                  color: "#BF9AFC",
+                  marginBottom: "0px"
+                }}> The best social network for</p>
+                <span style={{
+                  fontSize: "25px",
+                  position: "relative",
+                  color: "#FFFFFF",
+                }}>Teamfight Tactics</span>
+                <span style={{
+                  fontSize: "25px",
+                  position: "relative",
+                  color: "#BF9AFC",
+                  marginBottom: "0px"
+                }}> gamers</span>
               </div>
             </div>
-          </div>
-          <div className="form-group col-12">
-            <div className="row mx-auto">
-              <div style={inputStyle} onKeyDown={(e) => signUpForApp(e)}>
-                <Input type="password"
-                  bootstrap="border-0"
-                  placeholder="password"
-                  track={setPassword}
-                />
-              </div>
+            <div className="row">
+              <img src={FeedImage} alt="Common.gg Feed" className="mx-auto" style={{ width: '65%' }}></img>
             </div>
           </div>
-          <div className="form-group col-12">
-            <div className="row mx-auto">
-              <div style={inputStyle} onKeyDown={(e) => signUpForApp(e)}>
-                <Input type="password"
-                  bootstrap="border-0"
-                  placeholder="confirm password"
-                  track={setConfirmPassword}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="d-flex justify-content-center text-center">
-            <Form.Group controlId="tosCheckBox">
-              <Form.Check onChange={(e) => handleChecked(e)} type="checkbox" label="I accept the " />
-              <a href="#" onClick={showTosModalTrue} style={{ textDecoration: "underline" }}>
-                Terms Of Service
+          <div className="col">
+            <div className="SignUp">
+              <Modal show={showTosModal} style={modalStyle} >
+                <Modal.Body style={modalBodyStyle}>
+                  <div className="row">
+                    <button type="button" style={{ marginLeft: "42rem", color: "#BF9AFC" }} className="close" aria-label="Close">
+                      <span id="createPostX" aria-hidden="true" onClick={() => { setShowTosModal(false) }}>&times;</span>
+                    </button>
+                    <TermsOfService />
+                    <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
+                  </div>
+                </Modal.Body>
+              </Modal>
+              <div className="mx-auto card signUpCard">
+
+                <div style={{ margin: "20px 20px 0px 20px" }}>
+                  <div className="row mx-auto">
+                    <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
+                      <img style={logoCSS} src={logo} />
+                      <div style={{ pointerEvents: "none" }}></div>
+                    </div>
+                    <br />
+                    <div className="form-group col-12">
+                      <p style={{
+                        fontSize: "22px",
+                        position: "relative",
+                        color: "#FFFFFF",
+                        textAlign: "center",
+                      }}> Sign Up Now</p>
+                      <div className="row mx-auto">
+                        <Input type="email"
+                          bootstrap="border-0"
+                          placeholder="email"
+                          track={setEmail}
+                          style={inputStyle} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-group col-12">
+                    <div className="row mx-auto">
+                      <div style={inputStyle} onKeyDown={(e) => signUpForApp(e)}>
+                        <Input type="password"
+                          bootstrap="border-0"
+                          placeholder="password"
+                          track={setPassword}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-group col-12">
+                    <div className="row mx-auto">
+                      <div style={inputStyle} onKeyDown={(e) => signUpForApp(e)}>
+                        <Input type="password"
+                          bootstrap="border-0"
+                          placeholder="confirm password"
+                          track={setConfirmPassword}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-center text-center">
+                    <Form.Group controlId="tosCheckBox">
+                      <Form.Check onChange={(e) => handleChecked(e)} type="checkbox" label="I accept the " style={{color: "#BF9AFC"}}/>
+                      <a href="#" onClick={showTosModalTrue} style={{ textDecoration: "underline", color: "#BF9AFC"}}>
+                        Terms Of Service
               </a>
-            </Form.Group>
+                    </Form.Group>
 
+                  </div>
+                  <div className="d-flex justify-content-center text-center">
+                    {failedSignUp()}
+                  </div>
+                  <div className="form-group col-12" style={{ textAlign: "center", }}>
+                    <SignUpButton click={signUp} />
+                  </div>
+                </div>
+                <br />
+              </div>
+              
+            </div>
+            <div className="row">
+              <div className="col text-center" style={{marginTop: "45px"}}>
+                <Link to="/login">
+                    <p className="col" style={{
+                      position: "relative",
+                      padding: '.3rem',
+                      top: "-11rem",
+                      color: "#FFFFFF",
+                      textDecoration: "underline",
+                    }}>
+                      Login
+                </p>
+                  </Link>
+                </div>
+              </div>
           </div>
-          <div className="d-flex justify-content-center text-center">
-            {failedSignUp()}
-          </div>
-          <div className="form-group col-12" style={{ textAlign: "center", }}>
-            <SignUpButton click={signUp} />
-          </div>
+          
         </div>
-        <br />
       </div>
-      <div className="row">
-        <div className="col-4"></div>
-        <div className="text-center col-4">
-          <p className="col" style={{
-            position: "relative",
-            top: "-10rem",
-            color: "#BF9AFC",
-          }}>
-            Already Have an Account? </p>
-          <Link to="/login">
-            <p className="col" style={{
-              position: "relative",
-              padding: '.3rem',
-              top: "-11rem",
-              color: "#BF9AFC",
-              textDecoration: "underline",
-            }}>
-              Login Here!
-      </p>
-          </Link>
-        </div></div></div>
+    </div>
   )
 }
 
