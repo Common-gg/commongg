@@ -4,7 +4,7 @@ import arrow from "../../images/icons/arrow-right.png";
 function SignUpButton(props) {
   return (
     <div className="SignUpButton" >
-      <button className="btn btn-info" onClick={props.click} style={{
+      <button className="btn btn-info" onClick={props.click} disabled={props.disabled} style={{
           backgroundColor: "transparent",
           color: "#BF9AFC",
           border: "solid",
