@@ -180,6 +180,21 @@ function SignUp(props) {
     border: "none"
   }
 
+  async function checkPasswordStrength(value) {
+    await setPassword(value);
+    console.log(value);
+    let inputHelper = new InputHelpers();
+    let isPasswordTooWeak = inputHelper.verifyPasswordStrength(password.current.value);
+
+    console.log(isPasswordTooWeak);
+
+    if (isPasswordTooWeak) {
+      setFailedPassword(true);
+    } else {
+      setFailedPassword(false);
+    }
+  }
+  
   function signUpForApp(e) {
     if (e.key === "Enter") {
       signUp();
@@ -269,7 +284,7 @@ function SignUp(props) {
                         <Input type="password"
                           bootstrap="border-0"
                           placeholder="password"
-                          track={setPassword}
+                          track={checkPasswordStrength}
                         />
                       </div>
                     </div>
@@ -298,8 +313,8 @@ function SignUp(props) {
                     {failedSignUp()}
                   </div>
                   <div className="form-group col-12" style={{ textAlign: "center", }}>
-                    <SignUpButton click={signUp} />
-                  </div>
+                    <SignUpButton disabled={failedPassword || failedEmail || !agreeToTos || displayNonMatchingPasswordFieldsValidation} click={signUp} />
+                </div>
                 </div>
                 <br />
               </div>
