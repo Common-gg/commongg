@@ -19,13 +19,14 @@ function NavigationBar(props) {
     const [modLevel, setModLevel] = useState(0);
 
     useEffect(() => {
+        if (props.currentUserInfo === undefined) return;
         if (props.currentUserInfo.moderationLevel) {
             setModLevel(props.currentUserInfo.moderationLevel);
         }
     }, []);
 
     useEffect(() => {
-        if (props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
+        if (props.currentUserInfo !== undefined && (props.currentUserInfo.games === undefined || props.currentUserInfo.games === [])) {
             setPageState("editgames");
             return;
         }
@@ -48,10 +49,14 @@ function NavigationBar(props) {
     });
 
     useEffect(() => {
-        if (props.currentUserInfo.games === undefined) {
+        if (props.currentUserInfo === undefined) {
+            setGamesArr([0, 1]);
+            return;
+        }
+        else if (props.currentUserInfo.games === undefined) {
             document.getElementById("editGamesToggle").click();
         } else setGamesArr(props.currentUserInfo.games);
-    }, [props.currentUserInfo.games]);
+    }, [props.currentUserInfo]);
 
     useEffect(() => {
         if (gamesArr[0] >= 0) {
@@ -63,7 +68,18 @@ function NavigationBar(props) {
         }
     }, [gamesArr]);
 
-
+    const buttonStyle = {
+        height: 40,
+        width: 120,
+        marginLeft: "auto",
+        backgroundColor: "#BF9AFC",
+        color: "#2A2A2D",
+        border: "solid",
+        borderRadius: "10px",
+        borderColor: "#BF9AFC",
+        borderWidth: "2px",
+        cursor: "pointer"
+    }
 
     const selectedStyle = {
         color: "white",
@@ -79,22 +95,22 @@ function NavigationBar(props) {
                     <img className="navIconStyle" src={pageState === "" ? whitehome : home} alt="" /> Home</p>
             </Link>
 
-            <Link to={"/profile/" + props.currentUserInfo.username} className="navLinkStyle">
-                <p style={pageState === "profile" ? selectedStyle : null}>
-                    <img src={
-                        props.currentUserInfo.profile_picture ? (
-                            props.currentUserInfo.profile_picture.includes('firebasestorage') ?
-                                `https://${process.env.REACT_APP_imgixURL}/users/${props.currentUserId}?fit=fill&h=35&w=35&auto=format,enhance&q=75` : props.currentUserInfo.profile_picture) : null}
-                        alt={""}
-                        className="img navProfileIconStyle">
-                    </img> Profile</p>
-            </Link>
-
-            {<Link to="/following" className="navLinkStyle">
-                <p style={pageState === "following" ? selectedStyle : null}>
-                    <img className="navIconStyle" src={pageState === "following" ? whitefollow : follow} alt="" /> Following</p>
-            </Link>
-            }
+            {props.currentUserInfo ?
+                <Link to={"/profile/" + props.currentUserInfo.username} className="navLinkStyle">
+                    <p style={pageState === "profile" ? selectedStyle : null}>
+                        <img src={
+                            props.currentUserInfo.profile_picture ? (
+                                props.currentUserInfo.profile_picture.includes('firebasestorage') ?
+                                    `https://${process.env.REACT_APP_imgixURL}/users/${props.currentUserId}?fit=fill&h=35&w=35&auto=format,enhance&q=75` : props.currentUserInfo.profile_picture) : null}
+                            alt={""}
+                            className="img navProfileIconStyle">
+                        </img> Profile</p>
+                </Link> : null}
+            {props.currentUserInfo ?
+                <Link to="/following" className="navLinkStyle">
+                    <p style={pageState === "following" ? selectedStyle : null}>
+                        <img className="navIconStyle" src={pageState === "following" ? whitefollow : follow} alt="" /> Following</p>
+                </Link> : null}
             {gamesArr.map((game) => {
                 if (game.title === undefined) return;
                 return (
@@ -104,14 +120,16 @@ function NavigationBar(props) {
                     </Link>
                 )
             })}
-            <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
-                <p className="navLinkStyle">
-                    <img src={editGame} className="navIconStyle"></img> Edit Games</p>
-            </a>
-            <Link to="/settings" className="navLinkStyle">
-                <p style={pageState === "settings" ? selectedStyle : null}>
-                    <img src={pageState === "settings" ? whitesetting : setting} className="navIconStyle" alt="" /> Settings</p>
-            </Link>
+            {props.currentUserInfo ?
+                <a id="editGamesToggle" data-toggle="modal" data-target="#chooseGamesModal" style={{ cursor: "pointer" }} >
+                    <p className="navLinkStyle">
+                        <img src={editGame} className="navIconStyle"></img> Edit Games</p>
+                </a> : null}
+            {props.currentUserInfo ?
+                <Link to="/settings" className="navLinkStyle">
+                    <p style={pageState === "settings" ? selectedStyle : null}>
+                        <img src={pageState === "settings" ? whitesetting : setting} className="navIconStyle" alt="" /> Settings</p>
+                </Link> : null}
             {modLevel > 0 ?
                 <Link to="/moderateposts" className="navLinkStyle">
                     <p style={pageState === "moderateposts" ? selectedStyle : null}>
@@ -123,6 +141,23 @@ function NavigationBar(props) {
                     <p style={pageState === "moderateusers" ? selectedStyle : null}>
                         <img src={setting} className="navIconStyle" alt="" /> Moderate Users</p>
                 </Link>
+                : null}
+            {!props.currentUserInfo ?
+                <div className="text-center">
+                    <br/>
+                    <Link to="/signup" className="navLinkStyle">
+                        <button style={buttonStyle}>
+                            Sign Up
+                        </button>
+                    </Link>
+                    <br/>
+                    <br/>
+                    <Link to="/login" className="navLinkStyle">
+                        <button style={buttonStyle}>
+                            Login
+                        </button>
+                    </Link>
+                </div>
                 : null}
         </div>
     );

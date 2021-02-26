@@ -14,7 +14,7 @@ function ProfileContainer(props) {
     const [pageId, setPageId] = useState(null)
 
     const [followBtnState, setFollowBtnState] = useState({
-        text: "follow"
+        text: "Follow"
     })
     const [followBtnStyle, setFollowBtnStyle] = useState({
         visibility: "visible",
@@ -30,12 +30,16 @@ function ProfileContainer(props) {
     });
 
     function followHandler() {
-        if (followBtnState.text === "Follow") {
-            props.followUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "Following" });
+        if (props.currentUserId) {
+            if (followBtnState.text === "Follow") {
+                props.followUser(props.currentUserId, pageId);
+                setFollowBtnState({ ...followBtnState, text: "Following" });
+            } else {
+                props.unFollowUser(props.currentUserId, pageId);
+                setFollowBtnState({ ...followBtnState, text: "Follow" });
+            }
         } else {
-            props.unFollowUser(props.currentUserId, pageId);
-            setFollowBtnState({ ...followBtnState, text: "Follow" });
+            props.showSignUp();
         }
     }
 
@@ -49,24 +53,22 @@ function ProfileContainer(props) {
 
     //check if the current user is self
     useEffect(() => {
-        if (props.currentUserId && pageId) {
-            if (props.currentUserId === pageId) {
-                setFollowBtnStyle({ visibility: "hidden" });
-            } else {
-                setFollowBtnState({ text: "Follow" })
-                setFollowBtnStyle({
-                    visibility: "visible",
-                    height: 40,
-                    padding: "5px 8px 5px",
-                    backgroundColor: "transparent",
-                    color: "#BF9AFC",
-                    border: "solid",
-                    borderRadius: "10px",
-                    borderColor: "#BF9AFC",
-                    borderWidth: "2px",
-                    cursor: "pointer"
-                });
-            }
+        if (props.currentUserId && pageId && props.currentUserId === pageId) {
+            setFollowBtnStyle({ visibility: "hidden" });
+        } else {
+            setFollowBtnState({ text: "Follow" })
+            setFollowBtnStyle({
+                visibility: "visible",
+                height: 40,
+                padding: "5px 8px 5px",
+                backgroundColor: "transparent",
+                color: "#BF9AFC",
+                border: "solid",
+                borderRadius: "10px",
+                borderColor: "#BF9AFC",
+                borderWidth: "2px",
+                cursor: "pointer"
+            });
         }
     }, [pageId]);
 
@@ -106,14 +108,14 @@ function ProfileContainer(props) {
 
     function checkOptions() {
         let modLvl;
-        if (!props.currentUserInfo.moderationLevel) {
+        if (!props.currentUserInfo || !props.currentUserInfo.moderationLevel) {
             modLvl = 0;
         } else {
             modLvl = props.currentUserInfo.moderationLevel;
         }
         return (
             <div>
-                {props.currentUserId !== user.id || modLvl > 0 ? <div id="dropdownMenuButton"
+                {props.currentUserId && props.currentUserId !== user.id || modLvl > 0 ? <div id="dropdownMenuButton"
                     className="btn"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -185,7 +187,47 @@ function ProfileContainer(props) {
                 <div className="row mx-auto justify-content-center">
                     <div className="row mx-auto justify-content-center" style={{ width: "70%", paddingBottom: '20px' }}>
                         {user.games.map(index => {
-                            if (props.currentUserInfo.games.includes(index)) {
+                            if (props.currentUserInfo) {
+                                if (props.currentUserInfo.games.includes(index)) {
+                                    return (
+                                        <div key={index} className="col-4">
+                                            <Link to={"/games/" + (props.allGames[index].title.split(" ")).join('').toLowerCase()}>
+                                                <img
+                                                    src={props.allGames[index].gameCard}
+                                                    key={"game-image2" + index}
+                                                    alt={props.allGames[index].title}
+                                                    className="rounded"
+                                                    style={{
+                                                        width: '100%',
+                                                        height: 'auto',
+                                                        marginBottom: "10%",
+                                                        marginTop: "10%"
+                                                    }}
+                                                />
+                                            </Link>
+                                        </div>
+                                    )
+                                } else {
+                                    return (
+                                        <div key={index} className="col-4">
+                                            <img
+                                                src={props.allGames[index].gameCard}
+                                                key={"game-image2" + index}
+                                                alt={props.allGames[index].title}
+                                                className="rounded"
+                                                style={{
+                                                    width: '100%',
+                                                    height: 'auto',
+                                                    margin: '3%',
+                                                    padding: '.3rem',
+                                                    marginBottom: "10%",
+                                                    marginTop: "4%"
+                                                }}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            } else {
                                 return (
                                     <div key={index} className="col-4">
                                         <Link to={"/games/" + (props.allGames[index].title.split(" ")).join('').toLowerCase()}>
@@ -202,26 +244,6 @@ function ProfileContainer(props) {
                                                 }}
                                             />
                                         </Link>
-                                    </div>
-                                )
-                            } else {
-                                return (
-                                    <div key={index} className="col-4">
-                                        <img
-                                            src={props.allGames[index].gameCard}
-                                            key={"game-image2" + index}
-                                            alt={props.allGames[index].title}
-                                            className="rounded"
-                                            style={{
-                                                width: '100%',
-                                                height: 'auto',
-                                                margin: '3%',
-                                                padding: '.3rem',
-                                                marginBottom: "10%",
-                                                marginTop: "4%"
-                                            }}
-                                        />
-                                        {/* <p>{props.allGames[index].title}</p> */}
                                     </div>
                                 )
                             }

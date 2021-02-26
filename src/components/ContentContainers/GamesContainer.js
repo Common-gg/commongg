@@ -9,10 +9,11 @@ function GamesContainer(props) {
     //on mount load the games that are already in the user profile
     useEffect(() => {
         //if the user's games are not null or undefined preselect it
+        if(props.currentUserInfo === undefined) return;
         if (props.currentUserInfo.games != null) {
             setSelectedGames(props.currentUserInfo.games)
         }
-    }, [props.currentUserInfo.games])
+    }, [props.currentUserInfo])
 
     //this switches the state for whether modal can be closed based on number of games
     useEffect(() => {

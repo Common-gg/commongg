@@ -56,7 +56,7 @@ function Comment(props) {
 
     function checkOptions() {
         let modLvl;
-        if (!props.currentUserInfo.moderationLevel) {
+        if (!props.currentUserId || !props.currentUserInfo.moderationLevel) {
             modLvl = 0;
         } else {
             modLvl = props.currentUserInfo.moderationLevel;
@@ -86,7 +86,7 @@ function Comment(props) {
                     }}>
                     {props.currentUserId === comment.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => handleDeleteClicked(commentId, comment.postId)} style={{ cursor: "pointer" }}>Delete Comment</p> : null}
                     <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-                    {props.currentUserId !== comment.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/comments", commentId)} style={{ cursor: "pointer" }}>Report Comment</p> : null}
+                    {props.currentUserId && props.currentUserId !== comment.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/comments", commentId)} style={{ cursor: "pointer" }}>Report Comment</p> : null}
                     {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/comments", commentId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {comment.reports ? comment.reports : 0})</p> : null}
                 </div>
             </div>

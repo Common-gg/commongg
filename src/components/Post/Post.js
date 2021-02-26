@@ -107,7 +107,7 @@ function Post(props) {
 
   function checkOptions() {
     let modLvl;
-    if (!props.currentUserInfo.moderationLevel) {
+    if (!props.currentUserInfo || !props.currentUserInfo.moderationLevel) {
       modLvl = 0;
     } else {
       modLvl = props.currentUserInfo.moderationLevel;
@@ -136,7 +136,7 @@ function Post(props) {
           }}>
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
           <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
-          {props.currentUserId !== props.post.author ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> : null}
+          {(props.currentUserId && props.currentUserId !== props.post.author) ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> : null}
           {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}
         </div>
       </div>
