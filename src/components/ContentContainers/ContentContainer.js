@@ -96,7 +96,7 @@ function ContentContainer(props) {
         pageId={pageId}
         reactions={reactions} />;
     case "moderateposts":
-      return modLevel > 0 ? <ModPostsContainer {...props} /> : <PageNotFound />;
+      return modLevel > 0 ? <ModPostsContainer {...props} reactions={reactions}/> : <PageNotFound />;
     case "moderateusers":
       return modLevel > 0 ? <ModUsersContainer {...props} /> : <PageNotFound />;
     default:

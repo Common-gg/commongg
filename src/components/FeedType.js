@@ -81,6 +81,10 @@ function FeedType(props) {
         case props.pageId:
           filter = "game";
           break;
+        case "reported":
+          filter = "reported";
+          filterValue = true;
+          break;
         default:
           return;
       }

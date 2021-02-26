@@ -130,13 +130,13 @@ function NavigationBar(props) {
                     <p style={pageState === "settings" ? selectedStyle : null}>
                         <img src={pageState === "settings" ? whitesetting : setting} className="navIconStyle" alt="" /> Settings</p>
                 </Link> : null}
-            {modLevel > 0 ?
+            {props.currentUserInfo && modLevel > 0 ?
                 <Link to="/moderateposts" className="navLinkStyle">
                     <p style={pageState === "moderateposts" ? selectedStyle : null}>
                         <img src={setting} className="navIconStyle" alt="" /> Moderate Posts</p>
                 </Link>
                 : null}
-            {modLevel > 0 ?
+            {props.currentUserInfo && modLevel > 0 ?
                 <Link to="/moderateusers" className="navLinkStyle">
                     <p style={pageState === "moderateusers" ? selectedStyle : null}>
                         <img src={setting} className="navIconStyle" alt="" /> Moderate Users</p>

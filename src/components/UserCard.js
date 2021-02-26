@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProfilePicture from './ProfilePicture.js';
 import { Link } from "react-router-dom";
 import optionsIcon from '../images/icons/options.png';
@@ -42,7 +42,7 @@ function UserCard(props) {
     }}>
       <Link to={"/profile/" + props.user.username}>
         <ProfilePicture
-          currentUserInfo={props.user}
+          user={props.user}
           width="115px"
           height="115px"
           onclick="enlargeImg"
