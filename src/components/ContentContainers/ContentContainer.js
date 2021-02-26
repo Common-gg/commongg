@@ -45,13 +45,14 @@ function ContentContainer(props) {
   ];
 
   useEffect(() => {
+    if (props.currentUserInfo === undefined) return;
     if (props.currentUserInfo.moderationLevel) {
       setModLevel(props.currentUserInfo.moderationLevel);
     }
   }, []);
 
   useEffect(() => {
-    if (props.currentUserInfo.games === undefined || props.currentUserInfo.games === []) {
+    if (props.currentUserInfo !== undefined && (props.currentUserInfo.games === undefined || props.currentUserInfo.games === [])) {
       setPageState("editgames");
       return;
     }
@@ -77,11 +78,11 @@ function ContentContainer(props) {
     case "profile":
       return <ProfileContainer {...props} username={pageId} reactions={reactions} />;
     case "post":
-      return <ViewPostContainer {...props} 
-      pageId={pageId} 
-      setBackClicked={props.setBackClicked} 
-      pageState={pageState} 
-      reactions={reactions} />;
+      return <ViewPostContainer {...props}
+        pageId={pageId}
+        setBackClicked={props.setBackClicked}
+        pageState={pageState}
+        reactions={reactions} />;
     case "settings":
       return <SettingsContainer {...props} />;
     case "editgames":
@@ -91,9 +92,9 @@ function ContentContainer(props) {
     case "following":
       return <FollowingContainer {...props} reactions={reactions} />;
     case "games":
-      return <GameFeedContainer {...props} 
-      pageId={pageId} 
-      reactions={reactions} />;
+      return <GameFeedContainer {...props}
+        pageId={pageId}
+        reactions={reactions} />;
     case "moderateposts":
       return modLevel > 0 ? <ModPostsContainer {...props} /> : <PageNotFound />;
     case "moderateusers":

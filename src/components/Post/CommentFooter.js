@@ -42,6 +42,7 @@ function CommentFooter(props) {
   //check if current user reacted to post
   function reacted(reaction) {
     //not found in reated means it didn't react to emote
+    if(!props.currentUserInfo) return;
     if (comment.reacted === undefined || comment.reacted[props.currentUserInfo.username] === undefined) {
       return false;
     } else {
@@ -98,7 +99,8 @@ function CommentFooter(props) {
   }
 
   const react = emote => {
-    if (!allowClick) {
+    if (!allowClick || !props.currentUserInfo) {
+      props.showSignUp();
       return;
     }
     setAllowClick(false);

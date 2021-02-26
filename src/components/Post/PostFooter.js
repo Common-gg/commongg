@@ -63,6 +63,7 @@ function PostFooter(props) {
   //check if current user reacted to post
   function reacted(reaction) {
     //not found in reated means it didn't react to emote
+    if (!props.currentUserInfo) return;
     if (post.reacted === undefined || post.reacted[props.currentUserInfo.username] === undefined) {
       return false;
     } else {
@@ -78,7 +79,20 @@ function PostFooter(props) {
   */
   const checkCommentButton = () => {
     //if you are in some feed redirect
-    if (props.isPostPage !== true) {
+    if (!props.currentUserInfo) {
+      return(
+        <Icon.ChatText style={{
+          position: "relative",
+          top: "17%",
+          width: "25px",
+          height: "auto",
+          marginRight: "10px",
+          color: "#BF9AFC",
+          cursor: "pointer"
+        }} 
+        onClick={props.showSignUp}/>
+      )
+    } else if (props.isPostPage !== true) {
       return (
         <Link to={"/post/comment/" + props.postId} style={{ color: "#BF9AFC" }}>
           <Icon.ChatText style={{
@@ -152,7 +166,8 @@ function PostFooter(props) {
   }
 
   const react = emote => {
-    if (!allowClick) {
+    if (!allowClick || !props.currentUserInfo) {
+      props.showSignUp();
       return;
     }
     setAllowClick(false);
@@ -235,7 +250,7 @@ function PostFooter(props) {
     <div className="row justify-content-between" style={{ paddingBottom: "20px" }}>
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
-        <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={reactionsPopover}>
+        <OverlayTrigger trigger={props.currentUserInfo ? "click": null} rootClose placement="bottom" overlay={reactionsPopover}>
           <div style={{
             padding: ".8rem",
             position: "relative",
@@ -251,11 +266,11 @@ function PostFooter(props) {
         <div className="row justify-content-end"
           style={{ padding: "6%" }}>
           <div style={{ padding: "0px 0px" }}>
-            <Text text={convertNum(props.post.numComments)} 
-            style={{
-              position: "relative",
-              bottom: "-35%"
-            }} />
+            <Text text={convertNum(props.post.numComments)}
+              style={{
+                position: "relative",
+                bottom: "-35%"
+              }} />
           </div>
           <div style={{ padding: "0px 0px 0px 12px" }}>
             {checkCommentButton()}

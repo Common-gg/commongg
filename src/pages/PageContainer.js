@@ -5,8 +5,9 @@ import GamesContainer from '../components/ContentContainers/GamesContainer.js';
 import SearchBar from '../components/SearchBar.js';
 import NotificationContainer from "../components/NotificationContainer.js";
 import TopOfPageImage from "../images/icons/top 1.png";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import Imgix from 'react-imgix';
+import { Modal } from "react-bootstrap";
 import Sidebar from '../components/Sidebar';
 
 function PageContainer(props) {
@@ -24,6 +25,7 @@ function PageContainer(props) {
     link: ""
   });
   const [topButton, setTopButton] = useState(0);
+  const [signUpShow, setSignUpShow] = useState();
 
   const sticky = {
     position: "fixed"
@@ -44,6 +46,26 @@ function PageContainer(props) {
     width: "5rem",
     height: "auto",
     position: "relative"
+  }
+  const signUpModalContentStyle = {
+    color: "#BF9AFC",
+    backgroundColor: "#2A2A2D",
+    borderTop: "0",
+    borderLeft: "0",
+    borderRight: "0",
+    borderBottom: "0",
+  };
+  const buttonStyle = {
+    height: 40,
+    width: 120,
+    marginLeft: "auto",
+    backgroundColor: "#BF9AFC",
+    color: "#2A2A2D",
+    border: "solid",
+    borderRadius: "10px",
+    borderColor: "#BF9AFC",
+    borderWidth: "2px",
+    cursor: "pointer"
   }
 
   useEffect(() => {
@@ -66,11 +88,54 @@ function PageContainer(props) {
     }
   }
 
+  const showSignUp = () => {
+    setSignUpShow(true);
+  }
+  const hideSignUp = () => {
+    setSignUpShow(false);
+  }
+
   window.addEventListener('scroll', handleScroll);
 
   return (
     <div className="PageContainer">
       <GamesContainer {...props} />
+      <Modal show={signUpShow} onHide={hideSignUp} >
+        <div className="modal-content" style={signUpModalContentStyle}>
+          <div className="col-12">
+            <div className="row" style={{paddingTop: "20px", paddingLeft: "25px"}}>
+              <div className="col-10">
+                <h5 class="modal-title">Sign Up...</h5>
+              </div>
+              <div className="col-auto">
+                <button type="button"
+                  style={{ marginRight: "5px", color: "#BF9AFC" }}
+                  className="close"
+                  onClick={hideSignUp}>
+                  <span id="signUpModalX" aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            </div>
+            <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
+            <div className="row justify-content-md-center" style={{paddingBottom: "30px"}}>
+              <div className="col-4">
+                <Link to="/signup" className="navLinkStyle">
+                  <button style={buttonStyle} >
+                    Sign Up
+                    </button>
+                </Link>
+              </div>
+              <div className="col-4">
+                <Link to="/login" className="navLinkStyle">
+                  <button style={buttonStyle}>
+                    Login
+                    </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
       <div className="modal fade show" id="enlargedImageModal" tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document" style={{
           background: "rgba(0, 0, 0, 0) !important"
@@ -164,9 +229,11 @@ function PageContainer(props) {
               setNumPostsLoaded={setNumPostsLoaded}
               numPostsLoaded={numPostsLoaded}
               topButton={topButton}
+              showSignUp={showSignUp}
+              hideSignUp={hideSignUp}
             />
           </div>
-          <div style={{ width: "33%" }}>
+          {props.currentUserInfo !== undefined ? <div style={{ width: "33%" }}>
             <div style={sticky}>
               <NotificationContainer {...props} />
               <div style={{
@@ -187,10 +254,10 @@ function PageContainer(props) {
                 </button>
               </div>
             </div>
-          </div>
+          </div> : null}
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

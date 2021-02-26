@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './pages/Login.js';
 import CreateProfile from './pages/CreateProfile.js';
 import SignUp from "./pages/SignUp";
@@ -333,13 +333,13 @@ function App() {
       analytics.logEvent("login_success");
       console.log("reached");
       let url = window.location.href;
-        url = url.split('/');
-        if (url[url.length - 1] === "login") {
-            url.splice(url.length - 1, 1);
-            url = url.join("\/");
-            console.log(url);
-            window.history.replaceState({}, "", url);
-        }
+      url = url.split('/');
+      if (url[url.length - 1] === "login") {
+        url.splice(url.length - 1, 1);
+        url = url.join("\/");
+        console.log(url);
+        window.history.replaceState({}, "", url);
+      }
       return callback(true);
     }).catch((error) => {
       analytics.logEvent("login_fail")
@@ -866,9 +866,67 @@ function App() {
               <TermsOfService />
             )}
           />
-          <Route path="/" render={
+          <Route path="/signup" render={
             (props) => (
               <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
+            )} />
+          <Route path="/" render={
+            (props) => (
+              <div id="outer-container">
+                <PageContainer
+                  currentUserId={undefined}
+                  currentUserInfo={undefined}
+
+                  allGames={allGames}
+                  setAllGames={setAllGames}
+
+                  signOut={signOut}
+
+                  getPosts={getPosts}
+                  getAllPosts={getAllPosts}
+                  getPost={getPost}
+                  reactToPost={reactToPost}
+                  unreactToPost={unreactToPost}
+                  changeReaction={changeReaction}
+                  createPost={createPost}
+                  createComment={createComment}
+                  deleteComment={deleteComment}
+                  deletePost={deletePost}
+                  updateNumComments={updateNumComments}
+                  getComments={getComments}
+                  getComment={getComment}
+                  search={search}
+
+                  storeImage={storeImage}
+                  storeBlob={storeBlob}
+
+                  getUser={getUser}
+                  getUserWithId={getUserWithId}
+                  getUserWithUsername={getUserWithUsername}
+                  getUserWithLower={getUserWithLower}
+                  followUser={followUser}
+                  unFollowUser={unFollowUser}
+                  storeUserGames={storeUserGames}
+                  storeUserAboutMe={storeUserAboutMe}
+
+                  changePasswordFromSettingsPage={changePasswordFromSettingsPage}
+
+                  notificationListener={notificationListener}
+                  deleteNotification={deleteNotification}
+                  addNotification={addNotification}
+                  readNotifications={readNotifications}
+                  firebaseTimeStamp={firebaseTimeStamp}
+                  convertTimeStamp={convertTimeStamp}
+
+                  setModerationLevel={setModerationLevel}
+                  report={report}
+                  clearReports={clearReports}
+                  verifyUser={verifyUser}
+                  resetPfp={resetPfp}
+                  getReportedUsers={getReportedUsers}
+                  getFilteredPosts={getFilteredPosts}
+                />
+              </div>
             )} />
         </Switch>
       </Router>
@@ -899,7 +957,7 @@ function App() {
             )} />
         </Switch>
       </Router>
-    ) 
+    )
   } else {
     return (
       <Router>

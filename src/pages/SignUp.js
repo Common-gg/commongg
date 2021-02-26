@@ -237,7 +237,7 @@ function SignUp(props) {
               </div>
             </div>
             <div className="row">
-              <img src={FeedImage} alt="Common.gg Feed" className="mx-auto" style={{ width: '65%' }}></img>
+              <img src={FeedImage} alt="Common.gg Feed" className="mx-auto" style={{ width: '65%', boxShadow: "-1px 7px 25px 1px #060508" }}></img>
             </div>
           </div>
           <div className="col">
