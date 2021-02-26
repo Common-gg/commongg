@@ -313,7 +313,7 @@ function SignUp(props) {
                     {failedSignUp()}
                   </div>
                   <div className="form-group col-12" style={{ textAlign: "center", }}>
-                    <SignUpButton disabled={failedPassword || failedEmail || !agreeToTos || displayNonMatchingPasswordFieldsValidation} click={signUp} />
+                    <SignUpButton click={signUp} />
                 </div>
                 </div>
                 <br />
