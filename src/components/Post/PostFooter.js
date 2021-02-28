@@ -14,10 +14,15 @@ function PostFooter(props) {
   const [allowClick, setAllowClick] = useState(true);
   const [reactionMap, setReactionMap] = useState({})
   const reactions = props.reactions;
+  const [copyText, setCopyText] = useState("Copy Link to Clipboard");
 
   useEffect(() => {
     setPost(props.post);
   }, [props.post])
+
+  useEffect(() => {
+    
+  }, [copyText])
 
   useEffect(() => {
     setAllowClick(true);
@@ -80,7 +85,7 @@ function PostFooter(props) {
   const checkCommentButton = () => {
     //if you are in some feed redirect
     if (!props.currentUserInfo) {
-      return(
+      return (
         <Icon.ChatText style={{
           position: "relative",
           top: "17%",
@@ -89,8 +94,8 @@ function PostFooter(props) {
           marginRight: "10px",
           color: "#BF9AFC",
           cursor: "pointer"
-        }} 
-        onClick={props.showSignUp}/>
+        }}
+          onClick={props.showSignUp} />
       )
     } else if (props.isPostPage !== true) {
       return (
@@ -162,6 +167,7 @@ function PostFooter(props) {
     backgroundColor: "#2A2A2D",
     boxShadow: "4px 4px 25px 0px #060508 ",
     borderRadius: "20px",
+    width: "200px",
     padding: "10px 20px 0px 20px",
   }
 
@@ -227,30 +233,36 @@ function PostFooter(props) {
   }
 
   const sharePopover = (
-    <Popover id={props.postId + "SharePopover"} style={sharePopoverStyle}>
+    <Popover id={"SharePopover"} style={sharePopoverStyle}>
       <Popover.Content>
-        <div className="row">
-          <p onClick={() => handleShareClicked()} style={{ color: "#ffffff", cursor: "pointer" }}>Copy Link to Clipboard</p>
+        <div className="row justify-content-md-center">
+          <div className="col text-center" style={{padding: "0px"}}>
+            <p onClick={() => handleCopyClicked()} style={{ color: "#ffffff", cursor: "pointer", fontSize: "16px", marginBottom: "10px" }}>{copyText}</p>
+          </div>
         </div>
       </Popover.Content>
     </Popover>
   )
 
-  const handleShareClicked = () => {
+  const handleCopyClicked = () => {
     let tempInput = document.createElement("input");
     tempInput.value = getPostUrl();
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
-    document.body.click();
+    setCopyText("Copied Link!");
+  }
+
+  const handleShareClicked = () => {
+    setCopyText("Copy Link to Clipboard");
   }
 
   return (
     <div className="row justify-content-between" style={{ paddingBottom: "20px" }}>
       <div className="col-8 row justify-content-start" style={{ marginLeft: ".1rem" }}>
         {checkReactions()}
-        <OverlayTrigger trigger={props.currentUserInfo ? "click": null} rootClose placement="bottom" overlay={reactionsPopover}>
+        <OverlayTrigger trigger={props.currentUserInfo ? "click" : null} rootClose placement="bottom" overlay={reactionsPopover}>
           <div style={{
             padding: ".8rem",
             position: "relative",
@@ -277,14 +289,16 @@ function PostFooter(props) {
           </div>
           <div style={{ padding: "0px 0px" }}>
             <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={sharePopover}>
-              <Icon.Share style={{
-                position: "relative",
-                bottom: "-16%",
-                width: "25px",
-                height: "auto",
-                cursor: "pointer",
-                color: "#BF9AFC"
-              }} />
+              <Icon.Share
+                onClick={handleShareClicked}
+                style={{
+                  position: "relative",
+                  bottom: "-16%",
+                  width: "25px",
+                  height: "auto",
+                  cursor: "pointer",
+                  color: "#BF9AFC"
+                }} />
             </OverlayTrigger>
           </div>
         </div>

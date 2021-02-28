@@ -12,6 +12,7 @@ function ModUsersContainer(props) {
   return (
     <div>
       {Object.values(reportedUsers).map((user, i) => {
+        user.id = Object.keys(reportedUsers)[i];
         return <UserCard {...props} user={user} userId={Object.keys(reportedUsers)[i]} />
       })}
     </div>
