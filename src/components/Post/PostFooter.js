@@ -22,10 +22,6 @@ function PostFooter(props) {
   }, [props.post])
 
   useEffect(() => {
-
-  }, [copyText])
-
-  useEffect(() => {
     setAllowClick(true);
     if (post.reactions !== undefined) {
       setPopoverReactions(reactions.filter(reaction =>
