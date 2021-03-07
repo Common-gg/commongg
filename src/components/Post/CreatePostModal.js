@@ -172,7 +172,8 @@ function CreatePostModal(props) {
                 title: postTitleRef.current.value.trim(),
                 type: postType,
                 numComments: 0,
-                category: selectedOption
+                category: selectedOption,
+                reactions: {"Pog": [0], "KEKW": [0], "agontfHi": [0]}
             });
             clearFields();
             //get the feedcontainer to update posts from db
