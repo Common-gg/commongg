@@ -173,18 +173,23 @@ function CreatePostModal(props) {
             let gameId = props.allGames.findIndex((element) => {
                 return element.title === selectedOption;
             });
-            props.updatePost({
+            let post = {
                 text: postText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
                 author: props.currentUserId,
                 caption: "CAPTION_TEXT",
                 game: gameId.toString(),
                 link: url,
-                timestamp: timestamp,
                 title: postTitleRef.current.value.trim(),
                 type: postType,
                 numComments: 0,
                 category: selectedOption
-            }, props.postId);
+            }
+            if (props.postId) {
+                post.timeEdited = timestamp;
+            } else {
+                post.timestamp = timestamp;
+            }
+            props.updatePost(post, props.postId);
             clearFields();
             //get the feedcontainer to update posts from db
             if (props.updatePostRefresh) {
