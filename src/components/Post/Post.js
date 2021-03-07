@@ -14,6 +14,7 @@ import check from "../../images/icons/followingcheck-1.png";
 import loading from '../../images/icons/loading.svg';
 import ProfilePicture from "../ProfilePicture.js";
 import * as Icon from 'react-bootstrap-icons';
+import CreatePostModal from './CreatePostModal.js';
 
 function Post(props) {
 
@@ -135,6 +136,7 @@ function Post(props) {
             marginRight: "-1rem"
           }}>
           {props.currentUserId === props.post.author || modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => deletePost()} style={{ cursor: "pointer" }}>Delete Post</p> : null}
+          {props.currentUserId === props.post.author ? <CreatePostModal {...props} postId={props.postId} /> : null}
           <p className="dropdown-item mb-0" onClick={() => handleShowReactions()} style={{ cursor: "pointer" }}>Reactions</p>
           {(props.currentUserId && props.currentUserId !== props.post.author) ? <p className="dropdown-item mb-0" onClick={() => props.report("content/posts", props.postId)} style={{ cursor: "pointer" }}>Report Post</p> : null}
           {modLvl > 0 ? <p className="dropdown-item mb-0" onClick={() => props.clearReports("content/posts", props.postId)} style={{ cursor: "pointer" }}>Clear Reports (Current: {props.post.reports ? props.post.reports : 0})</p> : null}

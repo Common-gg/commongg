@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import excludeIcon from "../../images/icons/exclude-1.png";
 import Select from 'react-select';
 import ImageIcon from "../../images/icons/image22.png";
@@ -22,6 +22,16 @@ function CreatePostModal(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    useEffect(() => {
+        if (!show) return;
+        if (!props.postId) return;
+        setTitleLength(props.post.title.length);
+        setPostText({ current: { value: props.post.text } });
+        postTitleRef.current.value = props.post.title;
+        postTextRef.current.value = props.post.text;
+        if (props.post.link) setSelectedFile(props.post.link);
+    }, [show])
 
     const buttonStyle = {
         color: "#BF9AFC",
@@ -145,10 +155,12 @@ function CreatePostModal(props) {
 
         setLoading(true);
         setBtnText("Posting...")
-        if (selectedFile !== null) {
+        if (selectedFile !== null && typeof selectedFile !== 'string') {
             props.storeImage(selectedFile, createPost);
         } else {
-            createPost("");
+            let url = "";
+            if (selectedFile !== null) url = selectedFile;
+            createPost(url);
         }
     }
 
@@ -161,8 +173,7 @@ function CreatePostModal(props) {
             let gameId = props.allGames.findIndex((element) => {
                 return element.title === selectedOption;
             });
-
-            props.createPost({
+            props.updatePost({
                 text: postText.current.value.replace(/\n\s*\n\s*\n/g, '\n\n').trim(),
                 author: props.currentUserId,
                 caption: "CAPTION_TEXT",
@@ -173,10 +184,12 @@ function CreatePostModal(props) {
                 type: postType,
                 numComments: 0,
                 category: selectedOption
-            });
+            }, props.postId);
             clearFields();
             //get the feedcontainer to update posts from db
-            props.updatePostRefresh();
+            if (props.updatePostRefresh) {
+                props.updatePostRefresh();
+            }
         }
     }
 
@@ -185,7 +198,7 @@ function CreatePostModal(props) {
         let postTextCurrentValue = postText.current.value;
 
         if (selectedFile !== null) {
-            let sf = selectedFile.type.toLowerCase();
+            let sf = (typeof selectedFile !== 'string' ? selectedFile.type.toLowerCase() : "image/");
 
             if (sf.startsWith("video/")) {
                 return "video";
@@ -283,7 +296,7 @@ function CreatePostModal(props) {
                                 aria-label="Close" onClick={() => removeImage()}>
                                 <span aria-hidden="true" style={{ color: "#BF9AFC" }}>&times;</span>
                             </button>
-                            <img src={URL.createObjectURL(selectedFile)} alt="preview"
+                            <img src={(typeof selectedFile === 'string' ? selectedFile : URL.createObjectURL(selectedFile))} alt="preview"
                                 style={{ maxHeight: "200px" }} />
                         </div>
                     </div>
@@ -298,16 +311,18 @@ function CreatePostModal(props) {
 
     return (
         <div className="CreatePostModal">
-            <button type="button" style={buttonStyle} className="btn btn-primary" onClick={handleShow}>
-                <Icon.PlusCircle 
-                alt="post button"
-                    style={{
-                        width: "25px",
-                        height: "25px",
-                        marginRight: ".5rem"
-                    }}/>
+            {(!props.postId ?
+                <button type="button" style={buttonStyle} className="btn btn-primary" onClick={handleShow}>
+                    <Icon.PlusCircle
+                        alt="post button"
+                        style={{
+                            width: "25px",
+                            height: "25px",
+                            marginRight: ".5rem"
+                        }} />
                     Make a Post
-                </button>
+                </button> :
+                <p className="dropdown-item mb-0" onClick={handleShow} style={{ cursor: "pointer" }}>Edit Post</p>)}
             <Modal show={show} onHide={handleClose} onEntered={() => postTitleRef.current.focus()}>
                 <div className="modal-content" style={modalContentStyle}>
                     <br />
@@ -380,11 +395,11 @@ function CreatePostModal(props) {
                                 defaultValue={getOptions()[0]}
                             />
                         </div>
-                        <button disabled={loading} 
-                        type="button" 
-                        className="btn btn-primary" 
-                        onClick={() => handlePostClick()} 
-                        style={postButtonStyle}>{btnText}</button>
+                        <button disabled={loading}
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => handlePostClick()}
+                            style={postButtonStyle}>{btnText}</button>
                     </div>
                     <br />
                 </div>

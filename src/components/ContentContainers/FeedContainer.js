@@ -25,10 +25,10 @@ function FeedContainer(props) {
         <CreatePostModal
           firebaseTimeStamp={props.firebaseTimeStamp}
           currentUserId={props.currentUserId}
-          createPost={props.createPost}
           storeImage={props.storeImage}
           currentUserInfo={props.currentUserInfo}
           updatePostRefresh={updatePostRefresh}
+          updatePost={props.updatePost}
           allGames={props.allGames}
           setAllGames={props.setAllGames}
         /> :
