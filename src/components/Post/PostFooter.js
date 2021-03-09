@@ -15,14 +15,11 @@ function PostFooter(props) {
   const [reactionMap, setReactionMap] = useState({})
   const reactions = props.reactions;
   const [copyText, setCopyText] = useState("Copy Link to Clipboard");
+  const defaultReaction = ["Pog", "KEKW", "agontfHi"];
 
   useEffect(() => {
     setPost(props.post);
   }, [props.post])
-
-  useEffect(() => {
-    
-  }, [copyText])
 
   useEffect(() => {
     setAllowClick(true);
@@ -120,14 +117,25 @@ function PostFooter(props) {
     return reactionMap[reaction];
   }
 
+  const objectCount = (obj) => {
+    var sum = 0;
+    for (var el in obj) {
+      if (obj.hasOwnProperty(el)) {
+        sum += parseInt(obj[el]);
+      }
+    }
+    return sum;
+  }
+
   const checkReactions = () => {
     if (post.reactions !== undefined) {
       const sortable = Object.fromEntries(
         Object.entries(post.reactions).sort(([, a], [, b]) => a - b)
       );
+      const reactionsCount = objectCount(sortable);
       return (
         Object.keys(sortable).reverse().map(reaction => {
-          if (post.reactions[reaction] > 0) {
+          if (post.reactions[reaction] > 0 || (reactionsCount === 0 && defaultReaction.includes(reaction))) {
             let reactImg = reaction
             reactions.forEach(r => {
               if (reaction.toLowerCase() === r.toLowerCase()) reactImg = r;
@@ -236,7 +244,7 @@ function PostFooter(props) {
     <Popover id={"SharePopover"} style={sharePopoverStyle}>
       <Popover.Content>
         <div className="row justify-content-md-center">
-          <div className="col text-center" style={{padding: "0px"}}>
+          <div className="col text-center" style={{ padding: "0px" }}>
             <p onClick={() => handleCopyClicked()} style={{ color: "#ffffff", cursor: "pointer", fontSize: "16px", marginBottom: "10px" }}>{copyText}</p>
           </div>
         </div>

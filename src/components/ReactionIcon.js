@@ -47,11 +47,10 @@ function ReactionIcon(props) {
           position: "relative",
           width: "20px",
           height: "20px",
-
         }}>
         <label style={{
           cursor: "pointer",
-          backgroundColor: (props.reaction !== "reactionplus" ? (props.reacted ? "#5F5177" : "#383241") : null ),
+          backgroundColor: (props.reaction !== "reactionplus" && props.text !== 0 ? (props.reacted ? "#5F5177" : "#383241") : null),
           borderRadius: "8px",
           padding: "20%",
           margin: "25%"
@@ -68,7 +67,7 @@ function ReactionIcon(props) {
               }} src={image} alt=" "
             />
           </div>
-          <span style={{ color: "white" }}>{" " + props.text}</span>
+          <span style={{ color: "white" }}>{" " + (props.text !== 0 ? props.text : "")}</span>
         </label>
       </button>
       <ReactToolTip id={props.id + "tt"} className="tooltip" />

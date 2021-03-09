@@ -188,6 +188,7 @@ function CreatePostModal(props) {
                 post.timeEdited = timestamp;
             } else {
                 post.timestamp = timestamp;
+                post.reactions = {"Pog": [0], "KEKW": [0], "agontfHi": [0]};
             }
             props.updatePost(post, props.postId);
             clearFields();
