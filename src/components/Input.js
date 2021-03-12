@@ -12,6 +12,7 @@ function Input(props) {
         placeholder={props.placeholder}
         minLength={props.minLength}
         maxLength="60"
+        size={props.size ? props.size : 20}
         ref={value}
         onChange={() => (props.track(value))} required />
     </div>

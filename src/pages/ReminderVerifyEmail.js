@@ -8,8 +8,6 @@ function ReminderVerifyEmail(props) {
     const logoCSS = {
         width: "4.5rem",
         height: "auto",
-        marginBottom: "20px",
-        marginTop: "20px"
     }
     const buttonStyle = {
         backgroundColor: "transparent",
@@ -49,31 +47,36 @@ function ReminderVerifyEmail(props) {
         }
     }
 
+    function signOutClick() {
+        props.signOut();
+        props.hideSignUp();
+        props.setVerifyEmail(0);
+    }
+
     return (
         <div>
-            <div className="mx-auto card text-center loginCard" >
-                <div style={{ margin: "20px 20px 0px 20px" }} >
-                    <div className="d-flex justify-content-center text-center">
-                        {handleVerificationEmailFeedbackMessage()}
+            <div style={{ margin: "20px 20px 0px 20px" }} >
+                <div className="col">
+                    {handleVerificationEmailFeedbackMessage()}
+                </div>
+                <div className="col text-center">
+                    <div className="row justify-content-md-center col" style={{ margin: "0" }}>
+                        <img style={logoCSS} src={logo} />
                     </div>
-                    <div className="mx-auto">
-                        <img style={logoCSS} className="mx-auto" src={logo} />
-                        <br /><br />
-                        <p>Please check your email for a verification email</p>
-                        <div style={{ pointerEvents: "none" }}></div>
+                    <br />
+                    <div className="row justify-content-md-center col" style={{ margin: "0", padding: "0"}}>
+                        <p style={{ fontSize: "18px", margin: "0" }}>Please check your email for a verification email</p>
+                    </div>
+                    <br />
+                    <div className="row justify-content-md-center col" style={{ margin: "0", padding: "0" }}>
                         <button className="btn btn-info mx-auto" onClick={handleResendVerifyEmailClick} style={buttonStyle} >
                             Re-send Email
                         </button>
-                        <div className="form-group" >
-                        </div>
                     </div>
-                    <br />
+                    < Link to="/" style={linkStyle} >
+                        <br /><a onClick={signOutClick} style={{ fontSize: "18px", color: "#FFFFFF" }}>Sign Out</a> <br />
+                    </Link>
                 </div>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: "-10rem" }}>
-                < Link to="/" style={linkStyle} >
-                    <br /><a onClick={() => props.signOut()}>sign out</a> <br />
-                </Link>
             </div>
         </div>
     );
