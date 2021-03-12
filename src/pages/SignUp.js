@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
 import React, { useState } from "react";
 import SignUpButton from "../components/SignUp/SignUpButton.js";
 import TermsOfService from "./TermsOfService.js"
@@ -8,6 +10,8 @@ import { Modal, Form } from "react-bootstrap";
 import InputHelpers from "../helpers/InputHelpers.js";
 import FeedImage from "../images/signup-static-feed.png";
 import Text from "../components/Text.js";
+
+import { css, cx } from "@emotion/react";
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };
@@ -142,12 +146,12 @@ function SignUp(props) {
     setShowTosModal(true);
   }
 
-  const logoCSS = {
-    /* logo1light 1 */
-    width: "4.5rem",
-    height: "auto",
-    marginBottom: "20px"
-  }
+  const logoCSS = css`
+    width: 4.5rem;
+    height: auto;
+    margin-bottom: 20px;
+  `;
+
   const inputStyle = {
     backgroundColor: "transparent #2A2A2D",
     color: "#BF9AFC",
@@ -214,7 +218,7 @@ function SignUp(props) {
 
               </div>
               <div className="col-2" style={{ marginRight: "-30px" }}>
-                <img style={logoCSS} src={logo} />
+                <img css={logoCSS} src={logo} />
               </div>
               <div className="col-auto" style={{ marginLeft: "0px" }}>
                 <p style={{
@@ -258,7 +262,7 @@ function SignUp(props) {
                 <div style={{ margin: "20px 20px 0px 20px" }}>
                   <div className="row mx-auto">
                     <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
-                      <img style={logoCSS} src={logo} />
+                      <img css={logoCSS} src={logo} />
                       <div style={{ pointerEvents: "none" }}></div>
                     </div>
                     <br />
