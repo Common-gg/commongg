@@ -19,6 +19,10 @@ storage.rules
 database.rules.json
 .firebase/hosting.YnVpbGQ.cache
 
+# scripts
+
+/scripts
+
 # misc
 .env
 .env.local
