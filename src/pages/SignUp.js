@@ -190,19 +190,18 @@ function SignUp(props) {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 45em;
-    margin-top: 5em;
+    max-width: 25em;
     margin-left: 3em;
     margin-right: 3em;
     margin-bottom: 2em;
     ${mq[0]} {
-
+      margin-top: 5em;
     }
     ${mq[1]} {
-
+      margin-top: 5em;
     }
     ${mq[2]} {
-
+      margin-top: 5em;
     }
   `;
 
