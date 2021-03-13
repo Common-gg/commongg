@@ -3,12 +3,16 @@ import { jsx } from "@emotion/react";
 import React, { useState } from "react";
 import SignUpButton from "../components/SignUp/SignUpButton.js";
 import TermsOfService from "./TermsOfService.js"
-import logo from "../images/icons/logo1light.png";
 import Input from '../components/Input.js';
 import { Link } from "react-router-dom";
 import { Modal, Form } from "react-bootstrap";
 import InputHelpers from "../helpers/InputHelpers.js";
+
+// Images
+import background from "../images/signup-background.png";
+import logo from "../images/icons/logo1light.png";
 import FeedImage from "../images/signup-static-feed.png";
+
 import Text from "../components/Text.js";
 
 import { css, cx } from "@emotion/react";
@@ -146,10 +150,83 @@ function SignUp(props) {
     setShowTosModal(true);
   }
 
+  const breakpoints = [43, 62, 82];
+
+  const mq = breakpoints.map(
+    bp => `@media (min-width: ${bp}em)`
+  );
+
+  const containerCSS = css`
+    background-color: transparent;
+    background-image: url(${background});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: fill;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    ${mq[0]} {
+
+    }
+    ${mq[1]} {
+
+    }
+    ${mq[2]} {
+
+    }
+  `;
+
+  const verticalFlexCSS = css`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `;
+
+  const titleBlockCSS = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 45em;
+    margin-top: 5em;
+    margin-left: 3em;
+    margin-right: 3em;
+    margin-bottom: 2em;
+    ${mq[0]} {
+
+    }
+    ${mq[1]} {
+
+    }
+    ${mq[2]} {
+
+    }
+  `;
+
   const logoCSS = css`
     width: 4.5rem;
     height: auto;
-    margin-bottom: 20px;
+  `;
+
+  const titleCSS = css`
+    font-size: 25px;
+    color: #BF9AFC;
+    max-width: 25em;
+    margin-left: 1em;
+  `;
+
+  const titleFocusCSS = css`
+    font-size: 25px;
+    color: #FFFFFF;
+  `;
+
+  const titleFeedCSS = css`
+    width: 65%;
+    box-shadow: -1px 7px 25px 1px #060508;
+    border-radius: 10px;
   `;
 
   const inputStyle = {
@@ -206,10 +283,22 @@ function SignUp(props) {
   }
 
   return (
-    <div className="container-fluid">
-      <div className="signUpBackground">
-        <div className="row">
-          <div className="col-xl-1 col-md-0">
+    <div css={containerCSS}>
+      <div css={verticalFlexCSS}>
+        <div css={titleBlockCSS}>
+          <img css={logoCSS} alt="Common.gg Logo" src={logo} />
+          <div css={titleCSS}>
+            The best social network for <span css={titleFocusCSS}>Teamfight Tactics</span> gamers
+          </div>
+        </div>
+        <img css={titleFeedCSS} src={FeedImage} alt="Common.gg Feed"></img>
+      </div>
+      <div>
+
+      </div>
+    </div>
+
+          /* <div className="col-xl-1 col-md-0">
 
           </div>
           <div className="col-6 d-none d-md-block" style={{marginTop: "50px"}}>
@@ -342,9 +431,8 @@ function SignUp(props) {
           </div>
           
         </div>
-      </div>
-    </div>
+      </div> */
   )
-}
+};
 
 export default SignUp;

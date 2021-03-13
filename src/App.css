@@ -14,14 +14,6 @@
   text-align: center;
 }
 
-.signUpBackground {
-  background-color: transparent;
-  background-image: url(images/signup-background.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 body {
   background-color: #2A2A2D;
   color: #f5f1f1;
