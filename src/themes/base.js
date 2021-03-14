@@ -18,16 +18,14 @@ const theme = {
 	}
 }
 
-const verticalFlexCSS = css`
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-`;
+const cardModal = css `
+	width: 30em;
+	box-shadow: -1px 7px 25px 1px #060508;
+	border-radius: 10px;
+`
 
 export {
 	mq,
 	theme,
-	verticalFlexCSS,
+	cardModal,
 }
