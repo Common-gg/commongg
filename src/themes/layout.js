@@ -7,7 +7,7 @@ const mq = breakpoints.map(
 );
 
 const verticalFlex = css`
-	display: 'flex',
+	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;

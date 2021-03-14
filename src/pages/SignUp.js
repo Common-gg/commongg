@@ -16,8 +16,8 @@ import FeedImage from "../images/signup-static-feed.png";
 import Text from "../components/Text.js";
 
 import { css } from "@emotion/react";
-import { verticalFlex } from "../themes/layout";
-import { mq, theme, verticalFlexCSS } from "../themes/base.js";
+import { verticalFlex } from "../themes/Layout.js";
+import { mq, theme, verticalFlexCSS } from "../themes/Base.js";
 
 import SignUpModal from "../newComponents/SignUpModal.js";
 
@@ -272,7 +272,7 @@ function SignUp(props) {
 
   return (
     <div css={containerCSS}>
-      <div css={verticalFlexCSS}>
+      <div css={verticalFlex}>
         <div css={titleBlockCSS}>
           <img css={logoCSS} alt="Common.gg Logo" src={logo} />
           <div css={titleCSS}>

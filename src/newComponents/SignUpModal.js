@@ -3,17 +3,21 @@ import { jsx } from "@emotion/react";
 import React, { useState } from "react";
 
 import { css } from "@emotion/react";
-import { verticalFlex } from "../themes/layout.js";
+import { verticalFlex } from "../themes/Layout.js";
+
+import Logo from "../images/icons/logo1light.png";
 
 function SignUpModal (props) {
 	const containerCSS = css`
-		maxWidth: 30em;
+		width: 30em;
+		box-shadow: -1px 7px 25px 1px #060508;
+    border-radius: 10px;
 	`;
 
 	return (
 		<div css={containerCSS}>
 			<div css={verticalFlex}>
-				Log In Portal
+				<img src={Logo} />
 			</div>
 		</div>
 	);
