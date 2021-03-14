@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import logo from "../images/icons/logo1light.png";
-import arrow from "../images/icons/arrow-right.png";
 import Input from '../components/Input.js';
-import bg from '../images/background-element.png';
 
 function Login(props) {
 
@@ -19,9 +17,12 @@ function Login(props) {
   }
 
   const linkStyle = {
-    color: "#BF9AFC",
+    position: "relative",
+    padding: '.3rem',
+    color: "#FFFFFF",
     textDecoration: "underline",
-    top: "-12rem",
+    cursor: "pointer",
+    fontSize: "18px"
   }
 
   useEffect(() => {
@@ -50,7 +51,23 @@ function Login(props) {
     margin: "3%",
     width: "100%",
     height: "77%",
-    marginLeft: "0rem"
+    marginLeft: "0rem",
+    fontSize: "18px"
+  }
+
+  const loginButtonStyle = {
+      backgroundColor: "#BF9AFC",
+      color: "#2A2A2D",
+      border: "solid",
+      borderRadius: "10px",
+      borderColor: "#BF9AFC",
+      borderWidth: "2px",
+      padding: "1rem",
+      paddingTop: "0.5rem",
+      paddingBottom: "0.5rem",
+      position: "relative",
+      marginTop: "0.5rem",
+      marginRight: "0"
   }
 
   function handleSignIn(e) {
@@ -60,84 +77,80 @@ function Login(props) {
   }
 
   return (
-    // <div  style={{backgroundImage: `url(${bg})`, backgroundRepeat: "no-repeat", backgroundSize: "auto", backgroundPosition: "center"}}>
     <div className="Login">
-      <div className="mx-auto card text-center loginCard">
-        <div style={{ margin: "20px 20px 0px 20px" }}>
-          {handleMessagingForUnsuccessfulSignIn()}
-          <div className="row mx-auto">
-            <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
-              <img style={logoCSS} src={logo} />
-              <div style={{ pointerEvents: "none" }}></div>
-            </div>
-            <br />
-            <div className="form-group col-12" style={{ textAlign: "center", }}>
-              <p style={{ position: "relative", textAlign: "center" }}> The Best Social Network for TFT Content </p>
-              <div className="row mx-auto">
-                <div className="Input mx-auto" >
-                  <div onKeyPress={(e) => handleSignIn(e)}>
-                    <Input type="email"
-                      bootstrap="border-0"
-                      placeholder="email"
-                      track={setEmail}
-                      style={inputStyle}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div style={{ margin: "20px 20px 0px 20px" }}>
+        {handleMessagingForUnsuccessfulSignIn()}
+        <div className="row mx-auto">
+          <div className="col-12 mx-auto" style={{ textAlign: "center", }}>
+            <img style={logoCSS} src={logo} />
+            <div style={{ pointerEvents: "none" }}></div>
           </div>
-          <div className="form-group col-12" style={{ textAlign: "center", }} >
+          <br />
+          <div className="form-group col-12" style={{ textAlign: "center", }}>
+            <p style={{
+              fontSize: "22px",
+              position: "relative",
+              color: "#FFFFFF",
+              textAlign: "center",
+            }}> Login</p>
             <div className="row mx-auto">
               <div className="Input mx-auto" >
                 <div onKeyPress={(e) => handleSignIn(e)}>
-                  <Input type="password"
+                  <Input type="email"
                     bootstrap="border-0"
-                    placeholder="password"
-                    track={setPassword}
+                    placeholder="Email"
+                    track={setEmail}
                     style={inputStyle}
+                    size="27"
                   />
                 </div>
               </div>
             </div>
-
-          </div>
-          <div className="row col-12">
-            <div className="col-5" style={{ marginRight: "3%" }}></div>
-            <div className="form-group">
-              <button type="submit" className="btn cardBtnStyle"
-                onClick={() => { props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful) }} >
-                <img src={arrow} />
-              </button>
-            </div>
           </div>
         </div>
-      </div>
-      <div className="row">
-        <div className="col-4"></div>
-        <div className="text-center col-4">
-          <Link to="/signup" style={{
-            position: "relative",
-            padding: '.3rem',
-            lineHeight: "0.5rem",
-            top: "-11.25rem",
-            color: "#BF9AFC",
-            textDecoration: "underline",
-          }}>
-            <p className="col">
-              New? Sign Up
+        <div className="form-group col-12" style={{ textAlign: "center", }} >
+          <div className="row mx-auto">
+            <div className="Input mx-auto" >
+              <div onKeyPress={(e) => handleSignIn(e)}>
+                <Input type="password"
+                  bootstrap="border-0"
+                  placeholder="Password"
+                  track={setPassword}
+                  style={inputStyle}
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div className="row justify-content-md-center col" style={{ margin: "0" }}>
+          <button type="submit" className="btn cardBtnStyle"
+            style={loginButtonStyle}
+            onClick={() => { props.signInUser(email.current.value, password.current.value, setLoginIsSuccessful) }} >
+            Login
+          </button>
+        </div>
+        <div className="row justify-content-md-center col" style={{ margin: "0" }}>
+          {props.modal ?
+            <p className="col-auto" onClick={() => props.setModalState("SignUp")} style={linkStyle}>
+              Sign Up
+          </p> :
+            <Link to="/signup">
+              <p className="col-auto" style={linkStyle}>
+                Sign Up
               </p>
-          </Link>
+            </Link>}
+        </div>
+        <div className="row justify-content-md-center col" style={{ margin: "0" }}>
           <Link to="/forgotpassword">
             <p className="col" style={linkStyle}>
               Forgot Password?
               </p>
           </Link>
         </div>
-        <div className="col-4"></div>
       </div>
     </div>
-    // </div>
   );
 }
 
