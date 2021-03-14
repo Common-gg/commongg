@@ -8,7 +8,9 @@ import TopOfPageImage from "../images/icons/top 1.png";
 import { useHistory, Link } from "react-router-dom";
 import Imgix from 'react-imgix';
 import { Modal } from "react-bootstrap";
-import Sidebar from '../components/Sidebar';
+import SignUp from "./SignUp.js";
+import Login from "./Login.js";
+import ReminderVerifyEmail from "./ReminderVerifyEmail.js";
 
 function PageContainer(props) {
 
@@ -26,6 +28,8 @@ function PageContainer(props) {
   });
   const [topButton, setTopButton] = useState(0);
   const [signUpShow, setSignUpShow] = useState();
+  const [modalState, setModalState] = useState("");
+  const [modalContent, setModalContent] = useState();
 
   const sticky = {
     position: "fixed"
@@ -69,6 +73,30 @@ function PageContainer(props) {
   }
 
   useEffect(() => {
+    if (!props.verifyEmail) return;
+    if (props.verifyEmail === -1) {
+      setModalState("VerifyEmail");
+      setSignUpShow(true);
+    }
+  }, [props.verifyEmail])
+
+  useEffect(() => {
+    if (signUpShow === true && modalState === "") {
+      setModalState("SignUp");
+    }
+  }, [signUpShow])
+
+  useEffect(() => {
+    if (modalState === "SignUp") {
+      setModalContent(<div><br /><SignUp {...props} modal={true} setModalState={setModalState} /><br /></div>);
+    } else if (modalState === "Login") {
+      setModalContent(<div><br /><Login {...props} modal={true} setModalState={setModalState} /><br /></div>);
+    } else if (modalState === "VerifyEmail") {
+      setModalContent(<div><ReminderVerifyEmail {...props} hideSignUp={hideSignUp} /><br /></div>);
+    }
+  }, [modalState])
+
+  useEffect(() => {
     if (backClicked) {
       setLastPostRetrieved(0);
       setBackClicked(false);
@@ -100,39 +128,10 @@ function PageContainer(props) {
   return (
     <div className="PageContainer">
       <GamesContainer {...props} />
-      <Modal show={signUpShow} onHide={hideSignUp} >
+      <Modal show={signUpShow} onHide={hideSignUp} className="SignUpModal" >
         <div className="modal-content" style={signUpModalContentStyle}>
           <div className="col-12">
-            <div className="row" style={{paddingTop: "20px", paddingLeft: "25px"}}>
-              <div className="col-10">
-                <h5 class="modal-title">Sign Up...</h5>
-              </div>
-              <div className="col-auto">
-                <button type="button"
-                  style={{ marginRight: "5px", color: "#BF9AFC" }}
-                  className="close"
-                  onClick={hideSignUp}>
-                  <span id="signUpModalX" aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-            <hr style={{ padding: "0", backgroundColor: '#5F5177', width: '90%' }} />
-            <div className="row justify-content-md-center" style={{paddingBottom: "30px"}}>
-              <div className="col-4">
-                <Link to="/signup" className="navLinkStyle">
-                  <button style={buttonStyle} >
-                    Sign Up
-                    </button>
-                </Link>
-              </div>
-              <div className="col-4">
-                <Link to="/login" className="navLinkStyle">
-                  <button style={buttonStyle}>
-                    Login
-                    </button>
-                </Link>
-              </div>
-            </div>
+            {modalContent}
           </div>
         </div>
       </Modal>
@@ -204,6 +203,8 @@ function PageContainer(props) {
                 signOut={props.signOut}
                 allGames={props.allGames}
                 setAllGames={props.setAllGames}
+                setSignUpShow={setSignUpShow}
+                setModalState={setModalState}
               />
               {/* <Sidebar pageWrapId={'page-wrap'} outerContainerId={'outer-container'} /> */}
             </div>

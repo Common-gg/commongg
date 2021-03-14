@@ -1,9 +1,9 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from './pages/Login.js';
+import LoginPage from './pages/LoginPage.js';
 import CreateProfile from './pages/CreateProfile.js';
-import SignUp from "./pages/SignUp";
+import SignUpPage from "./pages/SignUpPage";
 import PageContainer from './pages/PageContainer';
 import MobileWarning from './pages/MobileWarning';
 import firebase from "firebase/app";
@@ -70,10 +70,14 @@ function App() {
       gameCard: TFTGameCard
     }
   ]);
+  const [verifyEmail, setVerifyEmail] = useState(0); // 0: signed out, 1: verified, -1: not verified
 
   useEffect(() => {
     // User authentication redirect
-    if (currentUser === undefined || currentUser === null) return;
+    if (currentUser === undefined || currentUser === null) {
+      setVerifyEmail(0);
+      return;
+    }
     const userId = currentUser.uid;
     if (userId) {
       database.ref('/users/' + userId).once('value').then(function (snapshot) {
@@ -90,6 +94,11 @@ function App() {
           }
         };
       });
+    }
+    if(!currentUser.emailVerified){
+      setVerifyEmail(-1);
+    }else{
+      setVerifyEmail(1);
     }
   }, [currentUser]);
 
@@ -331,13 +340,11 @@ function App() {
     // logs the user in
     auth.signInWithEmailAndPassword(email, password).then(() => {
       analytics.logEvent("login_success");
-      console.log("reached");
       let url = window.location.href;
       url = url.split('/');
       if (url[url.length - 1] === "login") {
         url.splice(url.length - 1, 1);
         url = url.join("\/");
-        console.log(url);
         window.history.replaceState({}, "", url);
       }
       return callback(true);
@@ -358,13 +365,18 @@ function App() {
     });
   }
 
-  const createPost = (post) => {
-    // Creates a post in the DB
+  const updatePost = (post, postId) => {
+    // Updates a post in the DB
     if (currentUser === undefined) return;
-    const postRef = database.ref('/content/posts/').push();
-    postRef.set(post);
+    const postRef = (postId ? database.ref('/content/posts/' + postId) : database.ref('/content/posts/').push());
     document.getElementById("createPostX").click();
-    analytics.logEvent("post_created")
+    if (postId) {
+      postRef.update(post);
+      analytics.logEvent("post_edited")
+    } else {
+      postRef.set(post);
+      analytics.logEvent("post_created")
+    }
   }
 
   const updateNumComments = (postId, numIncrement) => {
@@ -851,7 +863,7 @@ function App() {
         <Switch>
           <Route exact path="/login" render={
             (props) => (
-              <Login signInUser={signInUser} />
+              <LoginPage signInUser={signInUser} />
             )} />
           <Route path="/actions/" render={
             (props) => (
@@ -868,7 +880,7 @@ function App() {
           />
           <Route path="/signup" render={
             (props) => (
-              <SignUp signUpUser={signUpUser} existsEmail={existsEmail} />
+              <SignUpPage signUpUser={signUpUser} existsEmail={existsEmail} />
             )} />
           <Route path="/" render={
             (props) => (
@@ -881,6 +893,9 @@ function App() {
                   setAllGames={setAllGames}
 
                   signOut={signOut}
+                  existsEmail={existsEmail}
+                  signUpUser={signUpUser}
+                  signInUser={signInUser}
 
                   getPosts={getPosts}
                   getAllPosts={getAllPosts}
@@ -888,10 +903,10 @@ function App() {
                   reactToPost={reactToPost}
                   unreactToPost={unreactToPost}
                   changeReaction={changeReaction}
-                  createPost={createPost}
                   createComment={createComment}
                   deleteComment={deleteComment}
                   deletePost={deletePost}
+                  updatePost={updatePost}
                   updateNumComments={updateNumComments}
                   getComments={getComments}
                   getComment={getComment}
@@ -941,7 +956,69 @@ function App() {
             )} />
           <Route path="/" render={
             (props) => (
-              <ReminderVerifyEmail sendVerifyEmail={sendVerifyEmail} signOut={signOut} />
+              // <ReminderVerifyEmail sendVerifyEmail={sendVerifyEmail} signOut={signOut} />
+              <div id="outer-container">
+                <PageContainer
+                  currentUserId={undefined}
+                  currentUserInfo={undefined}
+
+                  verifyEmail={verifyEmail}
+                  setVerifyEmail={setVerifyEmail}
+                  sendVerifyEmail={sendVerifyEmail}
+
+                  allGames={allGames}
+                  setAllGames={setAllGames}
+
+                  signOut={signOut}
+                  existsEmail={existsEmail}
+                  signUpUser={signUpUser}
+                  signInUser={signInUser}
+
+                  getPosts={getPosts}
+                  getAllPosts={getAllPosts}
+                  getPost={getPost}
+                  reactToPost={reactToPost}
+                  unreactToPost={unreactToPost}
+                  changeReaction={changeReaction}
+                  createPost={createPost}
+                  createComment={createComment}
+                  deleteComment={deleteComment}
+                  deletePost={deletePost}
+                  updateNumComments={updateNumComments}
+                  getComments={getComments}
+                  getComment={getComment}
+                  search={search}
+
+                  storeImage={storeImage}
+                  storeBlob={storeBlob}
+
+                  getUser={getUser}
+                  getUserWithId={getUserWithId}
+                  getUserWithUsername={getUserWithUsername}
+                  getUserWithLower={getUserWithLower}
+                  followUser={followUser}
+                  unFollowUser={unFollowUser}
+                  storeUserGames={storeUserGames}
+                  storeUserAboutMe={storeUserAboutMe}
+
+                  changePasswordFromSettingsPage={changePasswordFromSettingsPage}
+
+                  notificationListener={notificationListener}
+                  deleteNotification={deleteNotification}
+                  addNotification={addNotification}
+                  readNotifications={readNotifications}
+                  firebaseTimeStamp={firebaseTimeStamp}
+                  convertTimeStamp={convertTimeStamp}
+
+                  setModerationLevel={setModerationLevel}
+                  report={report}
+                  clearReports={clearReports}
+                  verifyUser={verifyUser}
+                  resetPfp={resetPfp}
+                  getReportedUsers={getReportedUsers}
+                  getFilteredPosts={getFilteredPosts}
+                />
+              </div>
             )
           } />
         </Switch>
@@ -978,6 +1055,7 @@ function App() {
                   setAllGames={setAllGames}
 
                   signOut={signOut}
+                  existsEmail={existsEmail}
 
                   getPosts={getPosts}
                   getAllPosts={getAllPosts}
@@ -985,10 +1063,10 @@ function App() {
                   reactToPost={reactToPost}
                   unreactToPost={unreactToPost}
                   changeReaction={changeReaction}
-                  createPost={createPost}
                   createComment={createComment}
                   deleteComment={deleteComment}
                   deletePost={deletePost}
+                  updatePost={updatePost}
                   updateNumComments={updateNumComments}
                   getComments={getComments}
                   getComment={getComment}

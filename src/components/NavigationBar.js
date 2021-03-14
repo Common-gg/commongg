@@ -78,13 +78,24 @@ function NavigationBar(props) {
         borderRadius: "10px",
         borderColor: "#BF9AFC",
         borderWidth: "2px",
-        cursor: "pointer"
+        cursor: "pointer",
+        fontSize: "20px"
     }
 
     const selectedStyle = {
         color: "white",
         textDecoration: 'none',
 
+    }
+
+    const signUpClick = () => {
+        props.setSignUpShow(true);
+        props.setModalState("SignUp");
+    }
+
+    const loginClick = () => {
+        props.setSignUpShow(true);
+        props.setModalState("Login");
     }
 
     return (
@@ -144,19 +155,15 @@ function NavigationBar(props) {
                 : null}
             {!props.currentUserInfo ?
                 <div className="text-center">
-                    <br/>
-                    <Link to="/signup" className="navLinkStyle">
-                        <button style={buttonStyle}>
-                            Sign Up
-                        </button>
-                    </Link>
-                    <br/>
-                    <br/>
-                    <Link to="/login" className="navLinkStyle">
-                        <button style={buttonStyle}>
-                            Login
-                        </button>
-                    </Link>
+                    <br />
+                    <button style={buttonStyle} onClick={signUpClick}>
+                        Sign Up
+                    </button>
+                    <br />
+                    <br />
+                    <button style={buttonStyle} onClick={loginClick}>
+                        Login
+                    </button>
                 </div>
                 : null}
         </div>

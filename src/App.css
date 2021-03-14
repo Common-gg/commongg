@@ -156,6 +156,7 @@ a:hover {
 
 .modal-content{
   background-color: #2A2A2D ;
+  border-radius: .65rem;
 }
 
 .close {
@@ -169,12 +170,12 @@ a:hover {
 }
 
 .loginCard {
-  margin: 200px;
-  max-width: 20%;
+  margin: 10%;
+  max-width: 25%;
   background-color: #2A2A2D;
-  color: #BF9AFC;
   border-radius: 10px;
   box-shadow: -1px 7px 25px 1px #060508;
+  color: #BF9AFC;
 } 
 
 .signUpCard {
