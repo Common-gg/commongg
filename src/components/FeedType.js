@@ -156,6 +156,7 @@ function FeedType(props) {
                     setShowReactionsModal={setShowReactionsModal}
                     setReactionsModalContent={setReactionsModalContent}
                     reactions={props.reactions}
+                    updatePost={props.updatePost}
                   />
                   <br />
                 </div> : null}

@@ -16,7 +16,7 @@ function GameFeedContainer(props) {
           <CreatePostModal
             default={parseInt(props.pageId)}
             currentUserId={props.currentUserId}
-            createPost={props.createPost}
+            updatePost={props.updatePost}
             storeImage={props.storeImage}
             currentUserInfo={props.currentUserInfo}
             updatePostRefresh={updatePostRefresh}

@@ -365,13 +365,18 @@ function App() {
     });
   }
 
-  const createPost = (post) => {
-    // Creates a post in the DB
+  const updatePost = (post, postId) => {
+    // Updates a post in the DB
     if (currentUser === undefined) return;
-    const postRef = database.ref('/content/posts/').push();
-    postRef.set(post);
+    const postRef = (postId ? database.ref('/content/posts/' + postId) : database.ref('/content/posts/').push());
     document.getElementById("createPostX").click();
-    analytics.logEvent("post_created")
+    if (postId) {
+      postRef.update(post);
+      analytics.logEvent("post_edited")
+    } else {
+      postRef.set(post);
+      analytics.logEvent("post_created")
+    }
   }
 
   const updateNumComments = (postId, numIncrement) => {
@@ -898,10 +903,10 @@ function App() {
                   reactToPost={reactToPost}
                   unreactToPost={unreactToPost}
                   changeReaction={changeReaction}
-                  createPost={createPost}
                   createComment={createComment}
                   deleteComment={deleteComment}
                   deletePost={deletePost}
+                  updatePost={updatePost}
                   updateNumComments={updateNumComments}
                   getComments={getComments}
                   getComment={getComment}
@@ -1058,10 +1063,10 @@ function App() {
                   reactToPost={reactToPost}
                   unreactToPost={unreactToPost}
                   changeReaction={changeReaction}
-                  createPost={createPost}
                   createComment={createComment}
                   deleteComment={deleteComment}
                   deletePost={deletePost}
+                  updatePost={updatePost}
                   updateNumComments={updateNumComments}
                   getComments={getComments}
                   getComment={getComment}
