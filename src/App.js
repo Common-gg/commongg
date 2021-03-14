@@ -980,7 +980,6 @@ function App() {
                   reactToPost={reactToPost}
                   unreactToPost={unreactToPost}
                   changeReaction={changeReaction}
-                  createPost={createPost}
                   createComment={createComment}
                   deleteComment={deleteComment}
                   deletePost={deletePost}
