@@ -15,7 +15,11 @@ import FeedImage from "../images/signup-static-feed.png";
 
 import Text from "../components/Text.js";
 
-import { css, cx } from "@emotion/react";
+import { css } from "@emotion/react";
+import { verticalFlex } from "../themes/layout";
+import { mq, theme, verticalFlexCSS } from "../themes/base.js";
+
+import SignUpModal from "../newComponents/SignUpModal.js";
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };
@@ -150,23 +154,16 @@ function SignUp(props) {
     setShowTosModal(true);
   }
 
-  const breakpoints = [43, 62, 82];
-
-  const mq = breakpoints.map(
-    bp => `@media (min-width: ${bp}em)`
-  );
-
   const containerCSS = css`
     background-color: transparent;
     background-image: url(${background});
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: fill;
+    background-size: cover;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     ${mq[0]} {
 
     }
@@ -176,14 +173,6 @@ function SignUp(props) {
     ${mq[2]} {
 
     }
-  `;
-
-  const verticalFlexCSS = css`
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   `;
 
   const titleBlockCSS = css`
@@ -212,14 +201,14 @@ function SignUp(props) {
 
   const titleCSS = css`
     font-size: 25px;
-    color: #BF9AFC;
+    color: ${theme.colors.primary};
     max-width: 25em;
     margin-left: 1em;
   `;
 
   const titleFocusCSS = css`
     font-size: 25px;
-    color: #FFFFFF;
+    color: ${theme.colors.focus};
   `;
 
   const titleFeedCSS = css`
@@ -292,9 +281,7 @@ function SignUp(props) {
         </div>
         <img css={titleFeedCSS} src={FeedImage} alt="Common.gg Feed"></img>
       </div>
-      <div>
-
-      </div>
+      <SignUpModal />
     </div>
 
           /* <div className="col-xl-1 col-md-0">
