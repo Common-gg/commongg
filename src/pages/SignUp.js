@@ -15,9 +15,10 @@ import FeedImage from "../images/signup-static-feed.png";
 
 import Text from "../components/Text.js";
 
+import cx from "@emotion/css";
 import { css } from "@emotion/react";
 import { verticalFlex } from "../themes/Layout.js";
-import { mq, theme, verticalFlexCSS } from "../themes/Base.js";
+import { mq, theme } from "../themes/Base.js";
 
 import SignUpModal from "../newComponents/SignUpModal.js";
 
@@ -155,15 +156,19 @@ function SignUp(props) {
   }
 
   const containerCSS = css`
-    background-color: transparent;
     background-image: url(${background});
     background-position: center center;
     background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    margin: auto;
     ${mq[0]} {
 
     }
@@ -172,6 +177,19 @@ function SignUp(props) {
     }
     ${mq[2]} {
 
+    }
+  `;
+
+  const lead = css`
+    display: none;
+    ${mq[0]} {
+      display: flex;
+    }
+    ${mq[1]} {
+      display: flex;
+    }
+    ${mq[2]} {
+      display: flex;
     }
   `;
 
@@ -272,7 +290,7 @@ function SignUp(props) {
 
   return (
     <div css={containerCSS}>
-      <div css={verticalFlex}>
+      <div css={cx(verticalFlex, lead)}>
         <div css={titleBlockCSS}>
           <img css={logoCSS} alt="Common.gg Logo" src={logo} />
           <div css={titleCSS}>
