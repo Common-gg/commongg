@@ -184,6 +184,7 @@ function SignUp(props) {
     display: none;
     ${mq[0]} {
       display: flex;
+      height: 100vh;
     }
     ${mq[1]} {
       display: flex;
@@ -233,6 +234,15 @@ function SignUp(props) {
     width: 65%;
     box-shadow: -1px 7px 25px 1px #060508;
     border-radius: 10px;
+    ${mq[0]} {
+      width: 80%;
+    }
+    ${mq[1]} {
+      width: 80%;
+    }
+    ${mq[2]} {
+      width: 80%;
+    }
   `;
 
   const inputStyle = {

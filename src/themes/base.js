@@ -15,6 +15,7 @@ const theme = {
 		primary: '#BF9AFC',
 		secondary: '#2A2A2D',
 		focus: '#FFFFFF',
+		disabled: '',
 	}
 }
 
@@ -33,6 +34,10 @@ const card = css `
 	${mq[2]} {
 		width: 30em;
 	}
+`;
+
+const cardContent = css`
+	margin: 2em;
 `;
 
 const input = css`
@@ -56,6 +61,17 @@ const input = css`
 		}
 `;
 
+const checkbox = css`
+		line-height: 2.5em;
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+		border-radius: 10px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		margin-right: 0.5em;
+`;
+
+
 const button = css`
 		background-color: ${theme.colors.primary};
 		width: 100%;
@@ -66,15 +82,18 @@ const button = css`
 		margin-bottom: 0.5em;
 		border: none;
 		border-radius: 10px;
-		-webkit-transition: opacity 1s ease-in-out;
-		-moz-transition: opacity 1s ease-in-out;
-		-ms-transition: opacity 1s ease-in-out;
-		-o-transition: opacity 1s ease-in-out;
-		transition: opacity 1s ease-in-out;
 		&:hover {
 			zoom: 1;
 			filter: alpha(opacity=50);
 			opacity: 0.5;
+			-webkit-transition: opacity 1s ease-in-out;
+			-moz-transition: opacity 1s ease-in-out;
+			-ms-transition: opacity 1s ease-in-out;
+			-o-transition: opacity 1s ease-in-out;
+			transition: opacity 1s ease-in-out;
+		}
+		&:disabled {
+			opacity: 0.7;
 		}
 		${mq[0]} {
 			width: 70%;
@@ -91,6 +110,8 @@ export {
 	mq,
 	theme,
 	card,
+	cardContent,
 	input,
+	checkbox,
 	button,
 }

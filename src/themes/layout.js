@@ -6,9 +6,14 @@ const mq = breakpoints.map(
 	bp => `@media (min-width: ${bp}em)`
 );
 
+const horizontalFlex = css`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 const verticalFlex = css`
 	display: flex;
-	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -16,5 +21,6 @@ const verticalFlex = css`
 
 export {
 	mq,
+	horizontalFlex,
 	verticalFlex,
 }

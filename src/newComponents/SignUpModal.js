@@ -4,23 +4,21 @@ import React, { useState } from "react";
 
 import cx from "@emotion/css";
 import { css } from "@emotion/react";
-import { card, input, button } from "../themes/Base.js";
-import { verticalFlex } from "../themes/Layout.js";
+import { card, cardContent, input, checkbox, button } from "../themes/Base.js";
+import { horizontalFlex, verticalFlex } from "../themes/Layout.js";
 
 import Logo from "../images/icons/logo1light.png";
 
 function SignUpModal (props) {
-	const cardModalContent = css`
-		margin: 2em;
-	`
+	const [validForm, setValidForm] = useState(false);
 
 	const titleCSS = css`
 		font-size: 32px;
-	`
+	`;
 
 	return (
 		<div css={card}>
-			<div css={cardModalContent}>
+			<div css={cardContent}>
 				<div css={verticalFlex}>
 					<img src={Logo} />
 					<div css={titleCSS}>
@@ -38,7 +36,19 @@ function SignUpModal (props) {
 						type="password"
 						css={input}
 						placeholder="Confirm Password" />
-					<button type="submit" css={button}>
+					<div css={horizontalFlex}>
+						<input
+							type="checkbox"
+							css={checkbox}
+							name="Terms"
+							defaultChecked={validForm}
+							onClick={() => {
+								setValidForm(!validForm)
+							}}
+						/>
+						I agree to the terms of use
+					</div>
+					<button type="submit" css={button} disabled={!validForm}>
 						Register
 					</button>
 				</div>
