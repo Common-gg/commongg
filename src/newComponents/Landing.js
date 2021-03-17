@@ -17,14 +17,12 @@ function Landing (props) {
 		margin-left: 5em;
 		margin-right: 5em;
 		${mq[0]} {
-			display: flex;
-			align-self: flex-end;
 		}
 		${mq[1]} {
-			display: flex;
-			align-self: flex-end;
 		}
 		${mq[2]} {
+		}
+		${mq[3]} {
 			display: flex;
 			align-self: flex-end;
 		}

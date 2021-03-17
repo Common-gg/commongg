@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-const breakpoints = [43, 62, 82];
+const breakpoints = [32, 43, 62, 82];
 
 const mq = breakpoints.map(
 	bp => `@media (min-width: ${bp}em)`
@@ -34,6 +34,9 @@ const card = css `
 	${mq[2]} {
 		width: 30em;
 	}
+	${mq[3]} {
+		width: 30em;
+	}
 `;
 
 const cardContent = css`
@@ -60,6 +63,9 @@ const input = css`
 			width: 25em;
 		}
 		${mq[2]} {
+			width: 25em;
+		}
+		${mq[3]} {
 			width: 25em;
 		}
 `;
@@ -102,6 +108,9 @@ const button = css`
 		width: 15em;
 	}
 	${mq[2]} {
+		width: 15em;
+	}
+	${mq[3]} {
 		width: 15em;
 	}
 `;
