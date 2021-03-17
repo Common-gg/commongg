@@ -8,6 +8,7 @@ const mq = breakpoints.map(
 
 const horizontalFlex = css`
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 `;
@@ -19,8 +20,18 @@ const verticalFlex = css`
 	align-items: center;
 `;
 
+const flexStart = css`
+	align-self: flex-start;
+`;
+
+const flexEnd = css`
+	align-self: flex-end
+`;
+
 export {
 	mq,
 	horizontalFlex,
 	verticalFlex,
+	flexStart,
+	flexEnd,
 }

@@ -15,11 +15,9 @@ import FeedImage from "../images/signup-static-feed.png";
 
 import Text from "../components/Text.js";
 
-import cx from "@emotion/css";
 import { css } from "@emotion/react";
-import { verticalFlex } from "../themes/Layout.js";
-import { mq, theme } from "../themes/Base.js";
 
+import Landing from "../newComponents/Landing.js";
 import SignUpModal from "../newComponents/SignUpModal.js";
 
 function SignUp(props) {
@@ -164,85 +162,9 @@ function SignUp(props) {
     -o-background-size: cover;
     background-size: cover;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: auto;
-    ${mq[0]} {
-
-    }
-    ${mq[1]} {
-
-    }
-    ${mq[2]} {
-
-    }
-  `;
-
-  const lead = css`
-    display: none;
-    ${mq[0]} {
-      display: flex;
-      height: 100vh;
-    }
-    ${mq[1]} {
-      display: flex;
-    }
-    ${mq[2]} {
-      display: flex;
-    }
-  `;
-
-  const titleBlockCSS = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 25em;
-    margin-left: 3em;
-    margin-right: 3em;
-    margin-bottom: 2em;
-    ${mq[0]} {
-      margin-top: 5em;
-    }
-    ${mq[1]} {
-      margin-top: 5em;
-    }
-    ${mq[2]} {
-      margin-top: 5em;
-    }
-  `;
-
-  const logoCSS = css`
-    width: 4.5rem;
-    height: auto;
-  `;
-
-  const titleCSS = css`
-    font-size: 25px;
-    color: ${theme.colors.primary};
-    max-width: 25em;
-    margin-left: 1em;
-  `;
-
-  const titleFocusCSS = css`
-    font-size: 25px;
-    color: ${theme.colors.focus};
-  `;
-
-  const titleFeedCSS = css`
-    width: 65%;
-    box-shadow: -1px 7px 25px 1px #060508;
-    border-radius: 10px;
-    ${mq[0]} {
-      width: 80%;
-    }
-    ${mq[1]} {
-      width: 80%;
-    }
-    ${mq[2]} {
-      width: 80%;
-    }
   `;
 
   const inputStyle = {
@@ -300,15 +222,7 @@ function SignUp(props) {
 
   return (
     <div css={containerCSS}>
-      <div css={cx(verticalFlex, lead)}>
-        <div css={titleBlockCSS}>
-          <img css={logoCSS} alt="Common.gg Logo" src={logo} />
-          <div css={titleCSS}>
-            The best social network for <span css={titleFocusCSS}>Teamfight Tactics</span> gamers
-          </div>
-        </div>
-        <img css={titleFeedCSS} src={FeedImage} alt="Common.gg Feed"></img>
-      </div>
+      <Landing />
       <SignUpModal />
     </div>
 
