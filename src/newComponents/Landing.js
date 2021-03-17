@@ -29,7 +29,7 @@ function Landing (props) {
 	`;
 
 	const titleBlockCSS = css`
-		margin-bottom: 2em;
+		margin-bottom: 5em;
 	`;
 
 	const logoCSS = css`

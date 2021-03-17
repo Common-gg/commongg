@@ -4,23 +4,23 @@ import React, { useState } from "react";
 
 import cx from "@emotion/css";
 import { css, keyframes } from "@emotion/react";
-import { card, cardContent, formContent, input, checkbox, button } from "../themes/Base.js";
+
 import { horizontalFlex, verticalFlex, flexStart } from "../themes/Layout.js";
+import { card, cardContent, formContent, input, a, checkbox, button } from "../themes/Base.js";
+import Animation from "../themes/Animation.js";
 
 import Logo from "../images/icons/logo1light.png";
 
 function SignUpModal (props) {
 	const [validForm, setValidForm] = useState(false);
 
+	const Animations = new Animation();
+
 	const titleCSS = css`
 		font-size: 32px;
 	`;
 
 	const checkBoxGroupCSS = css`
-		margin-top: 2em;
-	`;
-
-	const checkboxGroup = css`
 		margin-top: 2em;
 	`;
 
@@ -38,27 +38,8 @@ function SignUpModal (props) {
 		margin-top: 3em;
 	`;
 
-	const slideUp = keyframes`
-		from {
-			opacity: 0;
-			margin-top: 15em;
-		}
-
-		to {
-			opacity: 1;
-			margin-top: 0em;
-		}
-	`;
-
-	const slideAnimation = css `
-		-web-kit-animation: ${slideUp} 2s forwards;
-		-moz-animation: ${slideUp} 2s forwards;
-		-o-animation: ${slideUp} 2s forwards;
-		animation: ${slideUp} 2s forwards;
-	`
-
 	return (
-		<div css={cx(card, slideAnimation)}>
+		<div css={cx(card, Animations.SlideUp())}>
 			<div css={cardContent}>
 				<div css={verticalFlex}>
 					<img src={Logo} />
@@ -101,7 +82,7 @@ function SignUpModal (props) {
 						Register
 					</button>
 					<span css={loginCSS}>
-						Already have an account? <a href="">Login</a>
+						Already have an account? <a css={a} href="">Login</a>
 					</span>
 				</div>
 			</div>

@@ -1,10 +1,24 @@
 import { css } from "@emotion/react";
+import { mq } from "./Layout.js";
 
-const breakpoints = [32, 43, 62, 82];
+class Base {
+	constructor () {}
 
-const mq = breakpoints.map(
-	bp => `@media (min-width: ${bp}em)`
-);
+	Theme() {
+		return {
+			background: {
+				primary: '',
+				secondary: ''
+			},
+			colors: {
+				primary: '#BF9AFC',
+				secondary: '#2A2A2D',
+				focus: '#FFFFFF',
+				disabled: '',
+			}
+		};
+	}
+}
 
 const theme = {
 	background: {
@@ -78,6 +92,14 @@ const checkbox = css`
 `;
 
 
+const a = css`
+	color: ${theme.colors.primary};
+	&:hover {
+		color: ${theme.colors.primary};
+		text-decoration: underline;
+	}
+`;
+
 const button = css`
 	background-color: ${theme.colors.primary};
 	width: 100%;
@@ -123,5 +145,6 @@ export {
 	formContent,
 	input,
 	checkbox,
+	a,
 	button,
 }

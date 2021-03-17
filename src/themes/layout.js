@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-const breakpoints = [32, 42, 62, 82];
+const breakpoints = [32, 43, 62, 82];
 
 const mq = breakpoints.map(
 	bp => `@media (min-width: ${bp}em)`
