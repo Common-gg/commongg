@@ -1,37 +1,35 @@
 import { css } from "@emotion/react";
 
-const breakpoints = [32, 43, 62, 82];
+class Layout {
+	constructor () {}
 
-const mq = breakpoints.map(
-	bp => `@media (min-width: ${bp}em)`
-);
+	breakpoints = [32, 43, 62, 82];
 
-const horizontalFlex = css`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-`;
+	MediaQuery = this.breakpoints.map(
+		bp => `@media (min-width: ${bp}em)`
+	);
 
-const verticalFlex = css`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-`;
+	HFlex = css`
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	`;
 
-const flexStart = css`
-	align-self: flex-start;
-`;
+	VFlex = css`
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	`;
 
-const flexEnd = css`
-	align-self: flex-end
-`;
+	FlexStart = css`
+		align-self: flex-start;
+	`;
 
-export {
-	mq,
-	horizontalFlex,
-	verticalFlex,
-	flexStart,
-	flexEnd,
+	FlexEnd = css`
+		align-self: flex-end
+	`;
 }
+
+export default Layout;

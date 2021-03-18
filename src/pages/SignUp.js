@@ -19,6 +19,7 @@ import { css } from "@emotion/react";
 
 import Landing from "../newComponents/Landing.js";
 import SignUpModal from "../newComponents/SignUpModal.js";
+import LoginModal from "../newComponents/LoginModal.js";
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };
@@ -37,6 +38,12 @@ function SignUp(props) {
   const [agreeToTos, setAgreeToTos] = useState(null);
   const [displayNonMatchingPasswordFieldsValidation, setDisplayNonMatchingPasswordFieldsValidation] = useState(false);
   const [displayDatabaseErrorMessage, setDisplayDatabaseErrorMessage] = useState(false);
+
+  const [newUser, setNewUser] = useState(true);
+
+  function swapModal() {
+    setNewUser(false);
+  }
 
   function resetValidationVariables() {
     setShowTosModal(false);
@@ -223,7 +230,12 @@ function SignUp(props) {
   return (
     <div css={containerCSS}>
       <Landing />
-      <SignUpModal />
+      { newUser
+        ?
+        <SignUpModal handler={swapModal} />
+        :
+        <LoginModal handler={swapModal} />
+      }
     </div>
 
           /* <div className="col-xl-1 col-md-0">

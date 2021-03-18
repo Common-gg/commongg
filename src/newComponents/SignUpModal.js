@@ -4,20 +4,18 @@ import React, { useState } from "react";
 
 import cx from "@emotion/css";
 import { css, keyframes } from "@emotion/react";
-
-import { horizontalFlex, verticalFlex, flexStart } from "../themes/Layout.js";
-import { card, cardContent, formContent, input, a, checkbox, button } from "../themes/Base.js";
-import Animation from "../themes/Animation.js";
-
+import Theme from "../themes/Theme.js";
 import Logo from "../images/icons/logo1light.png";
 
 function SignUpModal (props) {
 	const [validForm, setValidForm] = useState(false);
 
-	const Animations = new Animation();
+	const Themes = new Theme();
 
 	const titleCSS = css`
 		font-size: 32px;
+		margin-top: 1em;
+		margin-bottom: 1em;
 	`;
 
 	const checkBoxGroupCSS = css`
@@ -34,34 +32,34 @@ function SignUpModal (props) {
 		margin-top: 2em;
 	`;
 
-	const loginCSS = css`
-		margin-top: 3em;
+	const LinkCSS = css`
+		margin-top: 1em;
 	`;
 
 	return (
-		<div css={cx(card, Animations.SlideUp())}>
-			<div css={cardContent}>
-				<div css={verticalFlex}>
+		<div css={cx(Themes.Bases.Card, Themes.Animations.SlideUp())}>
+			<div css={Themes.Bases.CardContent}>
+				<div css={Themes.Layouts.VFlex}>
 					<img src={Logo} />
 					<div css={titleCSS}>
 						Sign Up
 					</div>
 					<input 
 						type="email"
-						css={cx(input, formContent)}
-						placeholder="Email address" />
+						css={cx(Themes.Bases.Input, Themes.Bases.FormContent)}
+						placeholder="Email" />
 					<input 
 						type="password"
-						css={cx(input, formContent)}
+						css={cx(Themes.Bases.Input, Themes.Bases.FormContent)}
 						placeholder="Password" />
 					<input 
 						type="password"
-						css={cx(input, formContent)}
+						css={cx(Themes.Bases.Input, Themes.Bases.FormContent)}
 						placeholder="Confirm Password" />						
-						<div css={cx(horizontalFlex, flexStart, checkBoxGroupCSS)}>
+						<div css={cx(Themes.Layouts.HFlex, Themes.Layouts.FlexStart, checkBoxGroupCSS)}>
 							<input
 								type="checkbox"
-								css={cx(checkbox, checkboxCSS)}
+								css={cx(Themes.Bases.Checkbox, checkboxCSS)}
 								name="Terms"
 								defaultChecked={validForm}
 								onClick={() => {
@@ -70,19 +68,19 @@ function SignUpModal (props) {
 							/>
 							I agree to the Terms of Use
 						</div>
-						<div css={cx(horizontalFlex, flexStart)}>
+						<div css={cx(Themes.Layouts.HFlex, Themes.Layouts.FlexStart)}>
 							<input
 								type="checkbox"
-								css={cx(checkbox, checkboxCSS)}
+								css={cx(Themes.Bases.Checkbox, checkboxCSS)}
 								name="Marketing"
 							/>
 							Sign me up for newsletters
 						</div>
-					<button type="submit" css={cx(button, buttonCSS)} disabled={!validForm}>
+					<button type="submit" css={cx(Themes.Bases.Button, buttonCSS)} disabled={!validForm}>
 						Register
 					</button>
-					<span css={loginCSS}>
-						Already have an account? <a css={a} href="">Login</a>
+					<span css={LinkCSS}>
+						Already have an account? <a css={Themes.Bases.Link} onClick={props.handler} href="#">Login</a>
 					</span>
 				</div>
 			</div>
