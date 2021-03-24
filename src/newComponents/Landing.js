@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
-import React, { useState } from "react";
 
 import cx from "@emotion/css";
 import { css } from "@emotion/react";
@@ -49,11 +48,10 @@ function Landing (props) {
 
 	const titleFocusCSS = css`
 		font-size: 30px;
-		color: ${Themes.Bases.Theme.focus};
+		color: ${Themes.Bases.Theme.colors.focus};
 	`;
 
 	const feedImageCSS = css`
-		height: auto;
 		width: 40em;
 		box-shadow: -1px 7px 25px 1px #060508;
 		border-radius: 10px 10px 0 0;
