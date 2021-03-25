@@ -60,7 +60,7 @@ function Landing (props) {
 	return (
 		<div css={cx(Themes.Layouts.VFlex, landingCSS)}>
 			<div css={cx(Themes.Layouts.HFlex, titleBlockCSS)}>
-				<img css={logoCSS} alt="Common.gg Logo" src={Logo} />
+				<img css={logoCSS} alt="Common.gg Logo" src={Themes.MainLogo} />
 				<div css={titleCSS}>
 					The best social network for <span css={titleFocusCSS}>Teamfight Tactics</span> gamers
 				</div>

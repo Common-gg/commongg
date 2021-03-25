@@ -3,9 +3,8 @@ import { jsx } from "@emotion/react";
 import React, { useState } from "react";
 
 import cx from "@emotion/css";
-import { css, keyframes } from "@emotion/react";
+import { css } from "@emotion/react";
 import Theme from "../themes/Theme.js";
-import Logo from "../images/icons/logo1light.png";
 
 function SignUpModal (props) {
 	const [validForm, setValidForm] = useState(false);
@@ -40,7 +39,7 @@ function SignUpModal (props) {
 		<div css={cx(Themes.Bases.Card, Themes.Animations.SlideUp())}>
 			<div css={Themes.Bases.CardContent}>
 				<div css={Themes.Layouts.VFlex}>
-					<img src={Logo} />
+					<img src={Themes.MainLogo} />
 					<div css={titleCSS}>
 						Sign Up
 					</div>
