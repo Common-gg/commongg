@@ -20,6 +20,7 @@ import { css } from "@emotion/react";
 import Landing from "../newComponents/Landing.js";
 import SignUpModal from "../newComponents/SignUpModal.js";
 import LoginModal from "../newComponents/LoginModal.js";
+import Sidebar from "../newComponents/Sidebar.js";
 
 function SignUp(props) {
   const initialCurrentValue = { current: { value: "" } };

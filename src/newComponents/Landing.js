@@ -34,7 +34,7 @@ function Landing (props) {
 	`;
 
 	const logoCSS = css`
-		width: 6rem;
+		width: 6em;
 		height: auto;
 		margin-left: 2em;
 		margin-right: 2em;

@@ -8,7 +8,7 @@ class Base {
 
 	Theme = {
 		background: {
-			primary: '',
+			primary: '#292834',
 			secondary: ''
 		},
 		colors: {
@@ -89,8 +89,6 @@ class Base {
 		background-color: ${this.Theme.colors.primary};
 		width: 100%;
 		line-height: 2.5em;
-		padding-left: 1em;
-		padding-right: 2em;
 		margin-top: 0.5em;
 		margin-bottom: 0.5em;
 		border: none;
