@@ -9,6 +9,9 @@ import CommonChatIconWhite from "../images/icons/chatwhite-1.png";
 import TeamfightTactics from "../images/games/Teamfight Tactics.jpg";
 import TeamfightTacticsIcon from "../images/icons/tft-1.png";
 import TeamfightTacticsIconWhite from "../images/icons/tftwhite-1.png";
+
+import Background from "../images/signup-background.png";
+
 import { Chat } from "react-bootstrap-icons";
 
 class Theme {
@@ -21,6 +24,9 @@ class Theme {
 			icon: Logo,
 			iconWhite: Logo,
 		},
+		background: {
+			main: Background,
+		}
 	}
 
 	Games = [

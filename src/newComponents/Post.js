@@ -1,17 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import cx from "@emotion/css";
 import { css } from "@emotion/react";
-import Theme from "../themes/Theme.js";
 
 function Post (props) {
-	const Themes = new Theme();
+	const reactionCSS = css`
+
+	`;
 
 	return (
-		<div css={cx(Themes.Bases.Card)}>
-			<div css={cx(Themes.Bases.CardContent)}>
+		<div css={cx(props.theme.Bases.Card)}>
+			<div css={cx(props.theme.Bases.CardContent)}>
 				
 			</div>
 		</div>
