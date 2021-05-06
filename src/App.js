@@ -21,6 +21,7 @@ import ActionHandler from "./pages/ActionHandler.js";
 import TermsOfService from './pages/TermsOfService.js';
 import ReminderVerifyEmail from './pages/ReminderVerifyEmail.js';
 import Sidebar from './components/Sidebar.js';
+import Whitepaper from './pages/Whitepaper.js';
 
 require("firebase/auth");
 require("firebase/database");
@@ -878,6 +879,11 @@ function App() {
               <TermsOfService />
             )}
           />
+          <Route path="/whitepaper" render={
+            (props) => (
+              <Whitepaper />
+            )}
+          />
           <Route path="/signup" render={
             (props) => (
               <SignUpPage signUpUser={signUpUser} existsEmail={existsEmail} />
@@ -1038,6 +1044,11 @@ function App() {
     return (
       <Router>
         <Switch>
+          <Route path="/termsofservice" render={
+            (props) => (
+              <TermsOfService />
+            )}
+          />
           <Route path="/termsofservice" render={
             (props) => (
               <TermsOfService />
