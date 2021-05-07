@@ -1,92 +1,146 @@
 import React from "react";
 import CommonLogoLarge from "../images/icons/logotextlarge 1.png";
+import SignUpButton from "../components/SignUp/SignUpButton.js";
+import ArrowRight from "../images/icons/arrowright white.png";
+import DiscordLogo from "../images/icons/discord logo.png";
+import TwitterLogo from "../images/icons/twitter logo.png";
+
 function Whitepaper(props) {
 
-    const styleCommonLogo = {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#2A2A2D",
-        margin: "2rem 0"
+    function navBarText(text) {
+        return (
+            <div className="row">
+                <p className="col" style={{ color: "white", fontSize: "1.4rem", backgroundColor: "transparent", marginTop: "1.4rem", marginBottom: "1.4rem" }}> {text}</p>
+            </div>
+        )
+    }
+
+    function navBarButton(link, src) {
+        return (
+            <a href={link}>
+                <img src={src} style={{ marginTop: "1.4rem" }} />
+            </a>
+        )
     }
 
     function header1(text) {
         return (
-            <div className="row">
-                <p className="col" style={{ color: "white", fontSize: "3rem", backgroundColor: "transparent", fontWeight: "bold", margin: "2rem 0" }}> {text}</p>
-            </div>
+            <p style={{ color: "white", fontSize: "80px", backgroundColor: "transparent", fontWeight: "bold", marginBottom: "0" }}> {text}</p>
         );
     }
 
-    function header2(text) {
-        return (
-            <div className="row">
-                <p className="col" style={{ color: "white", fontSize: "2rem", backgroundColor: "transparent", fontWeight: "bold", marginBottom: "1.4rem" }}> {text}</p>
-            </div>
-        );
+    const bodyText1Style = {
+        fontSize: "35px",
+        color: "#8B8B8B"
     }
 
-    function header3(text) {
-        return (
-            <div className="row">
-                <p className="col" style={{ color: "white", fontSize: "1.4rem", backgroundColor: "transparent", fontWeight: "bold", marginBottom: "1.4rem" }}> {text}</p>
-            </div>
-        );
+    const bodyText2Style = {
+        fontSize: "45px",
+        color: "#8B8B8B"
     }
 
-    function bodyText(text) {
+    function linkText(text) {
         return (
-            <div className="row">
-                <p className="col-9" style={{ color: "white", fontSize: "1rem", backgroundColor: "transparent", }}>{text}</p>
+            <div>
+                <span style={{ color: "white", fontSize: "55px", backgroundColor: "transparent", marginTop: "1.4rem", marginBottom: "1.4rem" }}>{text}</span>
+                <img src={ArrowRight} style={{ margin: "1.2rem 1rem", verticalAlign: "top" }} />
             </div>
-        );
-    }
-
-    function lineBreak() {
-        return (
-            <hr style={{ backgroundColor: '#BF9AFC', width: '90%', left: "5px" }} />
         )
     }
 
-    function introText(text) {
-        return(
-            <p style={{ color: "white", fontSize: "1rem", backgroundColor: "transparent"}}>{text}</p>
+    function commonToken() {
+        return (
+            <span style={{ color: "#BF9AFC" }}>Common Token</span>
         )
     }
 
     return (
         <div>
-            <div className="container-fluid">
-                <div>                                   {/* intro */}
-                    <div style={styleCommonLogo}>
-                        <img src={CommonLogoLarge} />
+            <div className="container-fluid" style={{ backgroundColor: "#202020" }}>
+                {/* Nav Bar */}
+                <div className="row" style={{ margin: "1rem 2rem" }}>
+                    <div className="col-auto" >
+                        <img src={CommonLogoLarge} width="200rem" style={{ margin: "1rem" }} />
                     </div>
-                    {lineBreak()}
-                    <div className="row" style={{padding: "2rem 20vw"}}>
-                        <div className="col-6">
-                            {header2("Introduction")}
-                            {introText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}
-                            {header3("[some bullet points]")}
-                            {/*bulletPoints(["bp1", "bp2", "bp3"])*/}
-                            <ul style={{lineHeight: "3rem"}}>
-                                <li>bp1</li>
-                                <li>bp2</li>
-                                <li>bp3</li>
-                            </ul>
-                        </div>
-                        <div className="col-6">
-                            {header3("[put some image or sign up for download on this half]")}
+                    <div className="col">
+                        <div className="row justify-content-end">
+                            <div className="col-auto">
+                                {navBarButton("https://twitter.com/commongg", TwitterLogo)}
+                            </div>
+                            <div className="col-auto">
+                                {navBarButton("https://www.google.com/", DiscordLogo)}
+                            </div>
+                            <div className="col-auto">
+                                {navBarText("Our Token")}
+                            </div>
+                            <div className="col-auto">
+                                {navBarText("Login")}
+                            </div>
+                            <div className="col-auto" style={{ marginTop: ".3rem" }}>
+                                <SignUpButton />
+                            </div>
                         </div>
                     </div>
                 </div>
-                {lineBreak()}
-                <div style={{padding: "0 5vw"}}>        {/* Whitepaper */}
-                    {header1("Common Whitepaper [Header 1]")}
-                    {header2("Header 2")}
-                    {header3("Header 3")}
-                    {bodyText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}
-                    {header3("Header 3")}
-                    {bodyText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")}
+                <div className="row" style={{ margin: "1rem 2rem" }}>
+                    <div className="col-6">
+                        {header1("Earn when you post")}
+                        <br />
+                        <p style={bodyText1Style}>With Common Token, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <div className="row justify-content-center">
+                            {linkText("Sign up now")}
+                        </div>
+                    </div>
+                    <div className="col-6" style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}> {/* put image here */}
+                        <div style={{
+                            backgroundColor: "#3F3F3F",
+                            borderRadius: "50%",
+                            width: "600px",
+                            height: "600px",
+                        }}></div>
+                    </div>
+                </div>
+                <div className="row" style={{ margin: "1rem 2rem" }}>
+
+                </div>
+            </div>
+            <div className="container-fluid" style={{ backgroundColor: "#2A2A2D" }}>
+                <div className="row" style={{ margin: "3rem 2rem" }}>
+                    <div className="col-6">
+                        {header1("Introducing")}
+                        {header1(commonToken())}
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center"
+                        }}>
+                            <div style={{
+                                backgroundColor: "#3F3F3F",
+                                borderRadius: "50%",
+                                width: "600px",
+                                height: "600px"
+                            }}></div>
+                        </div>
+                    </div>
+                    <div className="col-6">
+                        <p style={bodyText1Style} align="right">
+                            With Common Token, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        </p>
+                        <p style={bodyText2Style} align="right">
+                            consequatWith Common Token, Lorem inostrud
+                        </p>
+                        <p style={bodyText1Style} align="right">
+                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatWith Common Token, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        {linkText("Our whitepaper")}
+                    </div>
+                </div>
+                <div className="row" style={{ margin: "1rem 2rem" }}>
+
                 </div>
             </div>
         </div>
