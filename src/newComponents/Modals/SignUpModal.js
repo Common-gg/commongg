@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import cx from "@emotion/css";
 import { css } from "@emotion/react";
-import Theme from "../themes/Theme.js";
+import Theme from "../../themes/Theme.js";
 
 function SignUpModal (props) {
 	const [validForm, setValidForm] = useState(false);

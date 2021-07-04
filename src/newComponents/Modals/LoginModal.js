@@ -4,8 +4,8 @@ import React, { useState } from "react";
 
 import cx from "@emotion/css";
 import { css } from "@emotion/react";
-import Theme from "../themes/Theme.js";
-import Logo from "../images/icons/logo1light.png";
+import Theme from "../../themes/Theme.js";
+import Logo from "../../images/icons/logo1light.png";
 
 function LoginModal (props) {
 	const [validForm, setValidForm] = useState(false);

@@ -18,8 +18,8 @@ import Text from "../components/Text.js";
 import { css } from "@emotion/react";
 
 import Landing from "../newComponents/Landing.js";
-import SignUpModal from "../newComponents/SignUpModal.js";
-import LoginModal from "../newComponents/LoginModal.js";
+import SignUpModal from "../newComponents/Modals/SignUpModal.js";
+import LoginModal from "../newComponents/Modals/LoginModal.js";
 import Sidebar from "../newComponents/Sidebar.js";
 
 function SignUp(props) {
